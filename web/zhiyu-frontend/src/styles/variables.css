@@ -1,0 +1,90 @@
+/* ===== CSS 变量主题系统 ===== */
+
+:root {
+  /* 品牌主色系 */
+  --brand-400: #a5b4fc; --brand-500: #818cf8; --brand-600: #6366f1; --brand-700: #4f46e5;
+  /* 辅助色 */
+  --cyan-400: #22d3ee; --cyan-500: #06b6d4;
+  --space-800: #1e293b; --space-900: #0f172a;
+  /* 语义色 */
+  --mint-500: #10b981; --amber-500: #f59e0b; --rose-500: #f43f5e;
+  /* 兼容 */
+  --primary: #818cf8; --primary-light: #a5b4fc; --primary-dark: #6366f1;
+  --success: #10b981; --success-light: #34d399; --warning: #f59e0b; --danger: #ef4444;
+  --gray-50: #f8fafc; --gray-100: #f1f5f9; --gray-200: #e2e8f0; --gray-300: #cbd5e1;
+  --gray-400: #94a3b8; --gray-500: #64748b; --gray-600: #475569; --gray-700: #334155;
+  --gray-800: #1e293b; --gray-900: #0f172a;
+
+  /* ≡≡≡ 深空主题 (默认) ≡≡≡ */
+  --bg-primary: transparent;
+  --bg-secondary: rgba(15, 23, 42, 0.4);
+  --bg-card: rgba(15, 23, 42, 0.55);
+  --bg-card-hover: rgba(15, 23, 42, 0.75);
+  --text-primary: #e2e8f0;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --border-color: rgba(99, 102, 241, 0.15);
+  --sidebar-bg: rgba(10, 10, 26, 0.7);
+  --sidebar-border: rgba(99, 102, 241, 0.12);
+  --header-bg: rgba(10, 10, 26, 0.6);
+  --header-border: rgba(99, 102, 241, 0.1);
+  /* 深色下继续使用玻璃态，阴影不显现 */
+  --card-shadow: none;
+  --card-shadow-hover: none;
+  --card-shadow-interactive: none;
+}
+
+/* 浅色主题 — 阴影层次替代玻璃态 */
+[data-theme="light"] {
+  --brand-400: #818cf8; --brand-500: #6366f1; --brand-600: #4f46e5; --brand-700: #4338ca;
+  --primary: #6366f1; --primary-light: #818cf8; --primary-dark: #4f46e5;
+
+  /* 区域分层底色 */
+  --bg-primary: #f1f5f9;          /* 页面画布 — slate-100 建立第一层 */
+  --bg-secondary: #f8fafc;        /* 次级区 — slate-50 介于中间 */
+  --bg-card: #ffffff;             /* 卡片纯白 — 靠阴影浮起 */
+  --bg-card-hover: #fafbff;       /* 悬浮微蓝调 */
+  --text-primary: #1e293b;        /* slate-800 */
+  --text-secondary: #475569;      /* slate-600 (加深以提升可读性) */
+  --text-muted: #94a3b8;          /* slate-400 */
+  --border-color: #e2e8f0;        /* slate-200 清晰可见的分割线 */
+
+  /* 区域专属底色 */
+  --sidebar-bg: #f8fafc;          /* 侧栏微灰 — 与内容区区分 */
+  --sidebar-border: #e2e8f0;      /* 侧栏分割线 */
+  --header-bg: #ffffff;           /* 头部纯白 */
+  --header-border: #e2e8f0;
+
+  /* 阴影层次系统 (替代玻璃态) */
+  --card-shadow: 0 1px 2px rgba(0,0,0,0.04), 0 1px 3px rgba(0,0,0,0.06);
+  --card-shadow-hover: 0 4px 12px rgba(99,102,241,0.06), 0 2px 4px rgba(0,0,0,0.04);
+  --card-shadow-interactive: 0 0 0 1px rgba(99,102,241,0.12), 0 4px 16px rgba(99,102,241,0.10);
+}
+
+/* ===== 暖色主题·深色 (个人侧) ===== */
+[data-theme="warm"] {
+  --brand-400: #f48f9c; --brand-500: #e8536c; --brand-600: #d43d56; --brand-700: #be123c;
+  --primary: #e8536c; --primary-light: #f48f9c; --primary-dark: #d43d56;
+  --bg-primary: transparent; --bg-secondary: rgba(15,23,42,0.4);
+  --bg-card: rgba(15,23,42,0.55); --bg-card-hover: rgba(15,23,42,0.75);
+  --text-primary: #e2e8f0; --text-secondary: #94a3b8; --text-muted: #64748b;
+  --border-color: rgba(232,83,108,0.15);
+  --sidebar-bg: rgba(10,10,26,0.7); --sidebar-border: rgba(232,83,108,0.12);
+  --header-bg: rgba(10,10,26,0.6); --header-border: rgba(232,83,108,0.1);
+  --card-shadow: none; --card-shadow-hover: none; --card-shadow-interactive: none;
+}
+
+/* ===== 暖色主题·浅色 (个人侧) ===== */
+[data-theme="warm-light"] {
+  --brand-400: #f0738a; --brand-500: #e8536c; --brand-600: #d43d56; --brand-700: #be123c;
+  --primary: #e8536c; --primary-light: #f0738a; --primary-dark: #d43d56;
+  --bg-primary: #fdf2f4; --bg-secondary: #fef6f7;
+  --bg-card: #ffffff; --bg-card-hover: #fff5f6;
+  --text-primary: #1e293b; --text-secondary: #475569; --text-muted: #94a3b8;
+  --border-color: #f0d4d9;
+  --sidebar-bg: #fef6f7; --sidebar-border: #f0d4d9;
+  --header-bg: #ffffff; --header-border: #f0d4d9;
+  --card-shadow: 0 1px 2px rgba(232,83,108,0.04), 0 1px 3px rgba(0,0,0,0.06);
+  --card-shadow-hover: 0 4px 12px rgba(232,83,108,0.08), 0 2px 4px rgba(0,0,0,0.04);
+  --card-shadow-interactive: 0 0 0 1px rgba(232,83,108,0.15), 0 4px 16px rgba(232,83,108,0.12);
+}

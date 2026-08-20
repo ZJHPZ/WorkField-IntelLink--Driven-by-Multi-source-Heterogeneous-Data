@@ -1,0 +1,33 @@
+# ══ 密钥与敏感数据（绝不可入库）══
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# ══ Coze 导出包（含明文星火密钥 agent_llm_config.json）══
+project_20260819_100450/
+
+# ══ Python ══
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# ══ 前端 ══
+node_modules/
+dist/
+dist-ssr/
+*.local
+
+# ══ 日志 / 系统 ══
+*.log
+.DS_Store
+Thumbs.db
+
+# Claude 本地配置（含本机路径）
+settings.local.json

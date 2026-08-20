@@ -1,0 +1,1909 @@
+/* ═══════════════════════════════════════════════════════════════
+   企业侧 · 蓝皮书 权威纸面 (Enterprise Bluebook)
+   独立设计语言 — 只作用于 /enterprise/*
+   配色源自 web/微信图片_20260730114710_875_57-粉.png（深海蓝+珊瑚粉）
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── 蓝皮书色板（全局可见，供 .ent-shell 与组件类共用）── */
+:root {
+  --ent-navy: #00094C;
+  --ent-navy-900: #121A57;
+  --ent-navy-700: #1E2A5A;
+  --ent-coral: #C85C56;
+  --ent-coral-mid: #D68984;
+  --ent-coral-soft: #EAD2D0;
+  --ent-paper: #F5F6F8;
+  --ent-card: #FFFFFF;
+  --ent-ink: #16213E;
+  --ent-ink-muted: #5B6478;
+  --ent-rule: #D9DDE7;
+  --ent-dim: #9AA1B1;
+}
+
+/* ─────────────────────────────────────────────
+   外壳接管：data-side="enterprise" 时全局变纸面
+   ───────────────────────────────────────────── */
+[data-side="enterprise"] {
+  --bg-primary: var(--ent-paper);
+  --bg-card: var(--ent-card);
+  --bg-secondary: #EEF0F5;
+  --text-primary: var(--ent-ink);
+  --text-secondary: var(--ent-ink-muted);
+  --text-muted: var(--ent-ink-muted);
+  --border-color: var(--ent-rule);
+  --header-bg: var(--ent-card);
+  --header-border: var(--ent-rule);
+  --sidebar-bg: var(--ent-navy);
+  --sidebar-border: rgba(255,255,255,0.08);
+  --brand-400: var(--ent-coral-mid);
+  --brand-500: var(--ent-coral);
+  --brand-600: var(--ent-coral);
+  --brand-700: var(--ent-navy);
+}
+
+/* 侧栏内文字必须为白（深蓝底上） */
+[data-side="enterprise"] aside {
+  --text-primary: #FFFFFF;
+  --text-secondary: rgba(255,255,255,0.72);
+  --text-muted: rgba(255,255,255,0.55);
+}
+
+/* ── 侧栏：制度目录 TOC（覆盖深空芯片模块）── */
+[data-side="enterprise"] .sidebar-depth {
+  border-image: none;
+  border-right: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 4px 0 16px rgba(0,9,76,0.18);
+}
+[data-side="enterprise"] .nav-chip {
+  background: transparent;
+  border: none;
+  border-image: none;
+  clip-path: none;
+  box-shadow: none;
+  border-left: 2px solid transparent;
+  color: rgba(255,255,255,0.72);
+  border-radius: 2px;
+}
+[data-side="enterprise"] .nav-chip::before,
+[data-side="enterprise"] .nav-chip::after { display: none; }
+[data-side="enterprise"] .nav-chip:hover {
+  background: rgba(255,255,255,0.06);
+  color: #fff;
+  box-shadow: none;
+  border-image: none;
+}
+[data-side="enterprise"] .nav-chip-active {
+  background: rgba(255,255,255,0.08) !important;
+  border-left: 2px solid var(--ent-coral) !important;
+  color: #fff !important;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.04) !important;
+  border-image: none !important;
+}
+
+/* 主板自带网格隐藏（改用 .ent-shell 统一纸面网格，避免叠加） */
+[data-side="enterprise"] .main-board::before { display: none; }
+
+/* ── 企业侧外壳：浅纸面 + 细网格（替代 CosmicBackground，固定浅色）── */
+.ent-shell {
+  background-color: var(--ent-paper);
+}
+.ent-shell::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(130% 90% at 50% 0%, rgba(255, 255, 255, 0.65), transparent 60%),
+    linear-gradient(rgba(0, 9, 76, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 9, 76, 0.025) 1px, transparent 1px);
+  background-size: auto, 24px 24px, 24px 24px;
+}
+
+/* ─────────────────────────────────────────────
+   签名组件
+   ───────────────────────────────────────────── */
+
+/* 亮点 1a · 深蓝文件抬头 */
+.doc-masthead {
+  position: relative;
+  color: #fff;
+  background: linear-gradient(135deg, #00094C 0%, #121A57 55%, #1E2A5A 100%);
+  border-bottom: 2px solid var(--ent-coral);
+  overflow: hidden;
+}
+.doc-masthead::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+/* 亮点 1b · 珊瑚印章（方形墨印 + 微旋转 + 墨晕） */
+.seal-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 2px 9px;
+  font-family: 'Courier New', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ent-coral);
+  border: 1.5px solid var(--ent-coral);
+  background: rgba(200, 92, 86, 0.06);
+  transform: rotate(-1deg);
+  box-shadow: inset 0 0 0 1px rgba(200, 92, 86, 0.12), 0 0 10px rgba(200, 92, 86, 0.06);
+  white-space: nowrap;
+}
+.seal-chip--navy {
+  color: var(--ent-navy);
+  border-color: var(--ent-navy);
+  background: rgba(0, 9, 76, 0.04);
+  box-shadow: inset 0 0 0 1px rgba(0, 9, 76, 0.08);
+}
+.seal-chip--dim {
+  color: var(--ent-dim);
+  border-color: #C9CEDA;
+  background: transparent;
+  transform: none;
+  box-shadow: none;
+}
+.seal-chip--faded {
+  color: var(--ent-dim);
+  border-color: #C9CEDA;
+  background: transparent;
+  transform: none;
+  box-shadow: none;
+  text-decoration: line-through;
+  opacity: 0.7;
+}
+/* 深蓝页头上的白墨印章（消除 10 视图页头 inline 白色印章色重复） */
+.seal-chip--on-navy {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.18);
+}
+.seal-chip--on-navy--dim {
+  color: rgba(255, 255, 255, 0.62);
+  border-color: rgba(255, 255, 255, 0.32);
+  background: transparent;
+  transform: none;
+  box-shadow: none;
+}
+/* on-navy 印章 hover 用白辉光，不走珊瑚（基类 hover 的珊瑚光只留给纸面印章） */
+.seal-chip--on-navy:hover,
+.seal-chip--on-navy--dim:hover {
+  box-shadow: 0 0 14px rgba(255, 255, 255, 0.18);
+}
+
+/* 亮点 2 · 章节编号 + 双线分隔 */
+.section-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.section-num {
+  font-family: 'Courier New', monospace;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ent-coral);
+  letter-spacing: 0.05em;
+}
+.section-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ent-ink);
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+.section-rule {
+  position: relative;
+  flex: 1;
+  height: 2px;
+  background: var(--ent-navy);
+}
+.section-rule::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 1px;
+  background: var(--ent-coral);
+  opacity: 0.55;
+}
+
+/* 白纸面板 + 左上角珊瑚角标 */
+.panel-doc {
+  position: relative;
+  background: var(--ent-card);
+  border: 1px solid var(--ent-rule);
+  box-shadow: 0 1px 2px rgba(0, 9, 76, 0.03), 0 3px 12px rgba(0, 9, 76, 0.04);
+}
+.panel-doc::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  width: 14px;
+  height: 14px;
+  border-top: 2px solid var(--ent-coral);
+  border-left: 2px solid var(--ent-coral);
+}
+
+/* 亮点 3 · 引线点报表行 */
+.leader-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 7px 0;
+  border-bottom: 1px dashed var(--ent-rule);
+}
+.leader-row:last-child { border-bottom: none; }
+.leader-row .label {
+  flex: none;
+  max-width: 42%;
+  font-size: 12px;
+  color: var(--ent-ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.leader-row .dots {
+  flex: 1;
+  min-width: 20px;
+  overflow: hidden;
+  white-space: nowrap;
+  color: var(--ent-dim);
+  opacity: 0.55;
+  font-size: 11px;
+  letter-spacing: 2px;
+  user-select: none;
+}
+.leader-row .dots::before { content: '································'; }
+.leader-row .val {
+  flex: none;
+  font-family: 'Courier New', monospace;
+  font-weight: 700;
+  font-size: 12px;
+  color: var(--ent-navy);
+}
+.leader-row .val.coral { color: var(--ent-coral); }
+
+/* 亮点 4 · 珊瑚稀缺辉光（唯一发光色） */
+.coral-glow {
+  color: var(--ent-coral) !important;
+  text-shadow: 0 0 8px rgba(200, 92, 86, 0.35);
+}
+
+/* KPI 瓷砖 */
+.stat-tile {
+  position: relative;
+  padding: 12px 14px;
+  background: var(--ent-card);
+  border: 1px solid var(--ent-rule);
+}
+.stat-tile .stat-num {
+  font-family: 'Courier New', monospace;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 1;
+  color: var(--ent-navy);
+}
+.stat-tile .stat-num.coral { color: var(--ent-coral); }
+/* 非 CountUp 的静态读数（如"数据更新"日期），缩小字号对齐瓷片高度 */
+.stat-tile .stat-num--date {
+  font-size: 18px;
+  padding-top: 3px;
+  letter-spacing: 0.04em;
+}
+.stat-tile .stat-label {
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ent-ink-muted);
+  margin-top: 5px;
+}
+.stat-tile .stat-sub {
+  font-family: 'Courier New', monospace;
+  font-size: 9px;
+  color: var(--ent-dim);
+  margin-top: 3px;
+  letter-spacing: 0.04em;
+}
+
+/* 按钮：深蓝主按钮 / 珊瑚强调 / 幽灵 */
+.ent-btn {
+  padding: 6px 16px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: #fff;
+  background: var(--ent-navy);
+  border: 1px solid var(--ent-navy);
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+.ent-btn:hover {
+  background: var(--ent-navy-900);
+  box-shadow: 0 0 12px rgba(200, 92, 86, 0.25);
+}
+.ent-btn--coral { background: var(--ent-coral); border-color: var(--ent-coral); }
+.ent-btn--ghost {
+  background: transparent;
+  color: var(--ent-navy);
+}
+.ent-btn--ghost:hover { background: rgba(0, 9, 76, 0.04); box-shadow: none; }
+
+/* 褪色墨 + 删除线（衰退/驳回 = 修订稿划掉） */
+.faded-ink {
+  color: var(--ent-dim);
+  text-decoration: line-through;
+  opacity: 0.65;
+}
+
+/* 报表式链接 */
+.ent-link {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--ent-coral);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.ent-link:hover { text-shadow: 0 0 8px rgba(200, 92, 86, 0.35); }
+
+/* 衬线题头字（文件气质） */
+.ent-title-serif {
+  font-family: Georgia, 'Songti SC', 'SimSun', serif;
+  letter-spacing: 0.02em;
+}
+
+/* ═══════════════════════════════════════════
+   细节增强 · 报告文件质感
+   ═══════════════════════════════════════════ */
+
+/* 文件编号/密级（抬头内） */
+.doc-meta {
+  font-family: 'Courier New', monospace;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  color: rgba(255, 255, 255, 0.55);
+  border: 1px dashed rgba(255, 255, 255, 0.28);
+  padding: 2px 8px;
+}
+/* 纸面场景的暗色 doc-meta（操作栏等处），默认是深蓝页头上的白字 */
+.doc-meta--muted {
+  color: var(--ent-ink-muted);
+  border-color: var(--ent-rule);
+}
+
+/* 水印章节数字（衬线大号，报告分节感） */
+.watermark-num {
+  position: absolute;
+  top: 2px;
+  right: 12px;
+  z-index: 0;
+  font-family: Georgia, 'Songti SC', serif;
+  font-size: 88px;
+  line-height: 1;
+  font-weight: 700;
+  color: rgba(0, 9, 76, 0.045);
+  pointer-events: none;
+  user-select: none;
+}
+
+/* 白纸面板加纸张横纹（laid paper） */
+.panel-doc {
+  background:
+    repeating-linear-gradient(
+      180deg,
+      transparent 0,
+      transparent 23px,
+      rgba(0, 9, 76, 0.012) 23px,
+      rgba(0, 9, 76, 0.012) 24px
+    ),
+    var(--ent-card);
+}
+
+/* 报表表头（双线下划线） */
+.table-head {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 2px 0 6px;
+  border-bottom: 2px solid var(--ent-navy);
+  position: relative;
+}
+.table-head::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 1px;
+  background: var(--ent-coral);
+  opacity: 0.5;
+}
+.table-head span {
+  font-family: 'Courier New', monospace;
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ent-ink-muted);
+  white-space: nowrap;
+}
+/* 报表表头列宽（替代视图内重复的内联 style） */
+.table-head .col-name { flex: 0 0 auto; max-width: 42%; }
+.table-head .col-status { width: 72px; text-align: right; }
+
+/* 数据脚注 */
+.footnote {
+  margin-top: 10px;
+  font-family: 'Courier New', monospace;
+  font-size: 9px;
+  letter-spacing: 0.06em;
+  color: var(--ent-dim);
+}
+.footnote .src { color: var(--ent-ink-muted); }
+
+/* KPI 趋势箭头 */
+.stat-num .trend {
+  font-size: 11px;
+  font-weight: 700;
+  margin-left: 6px;
+  vertical-align: top;
+  color: var(--ent-coral);
+}
+.trend-arrow { color: var(--ent-coral); }
+
+/* 页脚（双线 + 签发栏 + 页码） */
+.report-footer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding-top: 10px;
+  border-top: 2px solid var(--ent-navy);
+}
+.report-footer::before {
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--ent-coral);
+  opacity: 0.55;
+}
+.report-footer .foot-label {
+  font-family: 'Courier New', monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--ent-ink-muted);
+}
+.report-footer .foot-label + .foot-label {
+  margin-top: 3px;
+}
+
+/* 装订缝线（侧栏与纸面交界 = 书脊） */
+[data-side="enterprise"] .sidebar-depth::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 10px;
+  background: repeating-linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.16) 0 1px,
+    transparent 1px 7px
+  );
+  pointer-events: none;
+}
+
+/* ═══════════════════════════════════════════
+   交互系统 · 审批/盖章式动效
+   隐喻：用户在企业侧的一切操作 = 审批一份文件
+   ═══════════════════════════════════════════ */
+
+/* 交互反馈：面板/印章/引线点微动（基态 hover） */
+.panel-doc {
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+.panel-doc:hover {
+  border-color: rgba(0, 9, 76, 0.28);
+  box-shadow: 0 2px 4px rgba(0, 9, 76, 0.05), 0 8px 20px rgba(0, 9, 76, 0.06);
+}
+.leader-row { transition: background 0.2s ease; }
+.leader-row:hover { background: rgba(0, 9, 76, 0.02); }
+.leader-row:hover .dots { color: var(--ent-coral); opacity: 0.7; }
+.seal-chip {
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+.seal-chip:hover {
+  box-shadow: inset 0 0 0 1px rgba(200, 92, 86, 0.22), 0 0 14px rgba(200, 92, 86, 0.2);
+  transform: rotate(0.5deg) scale(1.05);
+}
+
+/* ① 盖章落下：印章出现瞬间"印下"（stamp-in）
+   fill-mode=backwards → 动画结束后回落到基态，hover 位移可覆盖 */
+.seal-chip {
+  animation: stamp-in 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
+}
+@keyframes stamp-in {
+  0%   { opacity: 0; transform: rotate(-8deg) scale(0.4); }
+  60%  { opacity: 1; transform: rotate(2deg) scale(1.06); }
+  100% { opacity: 1; transform: rotate(-1deg) scale(1); }
+}
+
+/* ② 批示线：行 hover 珊瑚下划线从左扫到右（领导批注"画重点"） */
+.leader-row,
+.tbl-row {
+  position: relative;
+  overflow: hidden;
+}
+.leader-row::after,
+.tbl-row::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 1.5px;
+  width: 100%;
+  background: linear-gradient(90deg, var(--ent-coral), var(--ent-coral-mid));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s ease;
+}
+.leader-row:hover::after,
+.tbl-row:hover::after { transform: scaleX(1); }
+
+/* ③ 可跳转行：右箭头（常显暗色=可点击提示，hover 转珊瑚 + 前移） */
+.leader-row--link,
+.tbl-row { cursor: pointer; }
+/* 整行即链接（<a>）时重置浏览器默认链接样式，保持报表行观感 */
+a.leader-row--link {
+  text-decoration: none;
+  color: inherit;
+}
+.leader-row--link .arrow,
+.tbl-row .arrow {
+  flex: none;
+  font-family: 'Courier New', monospace;
+  font-weight: 700;
+  font-size: 12px;
+  color: var(--ent-dim);
+  opacity: 0.45;
+  transform: translateX(-3px);
+  transition: color 0.2s ease, opacity 0.2s ease, transform 0.2s ease;
+}
+.leader-row--link:hover .arrow,
+.tbl-row:hover .arrow {
+  color: var(--ent-coral);
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ④ 按钮按压力 + 墨晕扩散（盖章落印手感） */
+.ent-btn {
+  position: relative;
+  overflow: hidden;
+}
+.ent-btn:active { transform: translateY(1px) scale(0.98); }
+.ent-btn::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 140%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.18);
+  transform: translate(-50%, -50%) scale(0);
+  opacity: 0;
+  transition: transform 0.5s ease, opacity 0.9s ease;
+}
+.ent-btn:active::after {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+  transition: transform 0.4s ease, opacity 0.9s ease;
+}
+.ent-btn--ghost::after { background: rgba(0, 9, 76, 0.1); }
+
+/* ⑤ KPI 瓷砖 hover：边框加深 + 轻浮起 */
+.stat-tile { transition: border-color 0.25s ease, box-shadow 0.25s ease; }
+.stat-tile:hover {
+  border-color: rgba(0, 9, 76, 0.25);
+  box-shadow: 0 3px 10px rgba(0, 9, 76, 0.06);
+}
+
+/* ⑥ 空态：空白页（规则横线 + 占位说明），用于数据缺失章节 */
+.doc-empty {
+  padding: 22px 12px 18px;
+  text-align: center;
+  font-family: 'Courier New', monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--ent-dim);
+}
+.doc-empty .lines { max-width: 220px; margin: 0 auto 10px; }
+.doc-empty .lines i {
+  display: block;
+  height: 1px;
+  margin-bottom: 6px;
+  background: repeating-linear-gradient(90deg, var(--ent-rule) 0 8px, transparent 8px 14px);
+}
+
+/* ═══════════════════════════════════════════
+   目录控件 · 检索/筛选/目录表格
+   ═══════════════════════════════════════════ */
+
+/* 检索输入框 */
+.ent-input {
+  flex: none;
+  min-width: 0;
+  width: 200px;
+  padding: 5px 10px;
+  font-family: 'Courier New', monospace;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--ent-ink);
+  background: var(--ent-card);
+  border: 1px solid var(--ent-rule);
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+.ent-input::placeholder { color: var(--ent-dim); }
+.ent-input:focus { border-color: var(--ent-navy); }
+
+/* 状态筛选芯片 */
+.ent-chip {
+  padding: 4px 10px;
+  font-family: 'Courier New', monospace;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ent-ink-muted);
+  background: var(--ent-card);
+  border: 1px solid var(--ent-rule);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.ent-chip:hover { border-color: rgba(0, 9, 76, 0.3); color: var(--ent-ink); }
+.ent-chip--active {
+  color: #fff;
+  background: var(--ent-navy);
+  border-color: var(--ent-navy);
+}
+
+/* 目录表格：表头双线 */
+.tbl-head {
+  display: grid;
+  grid-template-columns: 2.2fr 0.9fr 0.7fr 1.1fr 1.1fr 0.9fr 24px;
+  gap: 8px;
+  align-items: baseline;
+  padding: 2px 4px 6px;
+  border-bottom: 2px solid var(--ent-navy);
+  position: relative;
+}
+.tbl-head::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 1px;
+  background: var(--ent-coral);
+  opacity: 0.5;
+}
+.tbl-head span {
+  font-family: 'Courier New', monospace;
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ent-ink-muted);
+  white-space: nowrap;
+}
+
+/* 目录表格：数据行（与批示线/箭头共用交互） */
+.tbl-row {
+  display: grid;
+  grid-template-columns: 2.2fr 0.9fr 0.7fr 1.1fr 1.1fr 0.9fr 24px;
+  gap: 8px;
+  align-items: center;
+  padding: 8px 4px;
+  border-bottom: 1px dashed var(--ent-rule);
+  transition: background 0.2s ease;
+}
+.tbl-row:last-child { border-bottom: none; }
+.tbl-row:hover { background: rgba(0, 9, 76, 0.02); }
+
+.tbl-row .cell-name {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ent-ink);
+  text-decoration: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.tbl-row .cell-name:hover { color: var(--ent-coral); }
+.tbl-row .cell-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 4px;
+}
+.tbl-row .cell-skills span {
+  font-family: 'Courier New', monospace;
+  font-size: 9px;
+  letter-spacing: 0.03em;
+  color: var(--ent-ink-muted);
+  background: rgba(0, 9, 76, 0.045);
+  padding: 0 5px;
+  line-height: 1.6;
+  white-space: nowrap;
+}
+.tbl-row .cell-dim {
+  font-family: 'Courier New', monospace;
+  font-size: 11px;
+  color: var(--ent-ink-muted);
+  white-space: nowrap;
+}
+.tbl-row .cell-num {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Courier New', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--ent-navy);
+}
+.tbl-row .cell-status { display: flex; justify-content: flex-end; }
+.tbl-row .cell-status .seal-chip { transform-origin: center; }
+
+/* 墨条（报告式迷你进度） */
+.ink-bar {
+  position: relative;
+  width: 58px;
+  height: 4px;
+  flex: none;
+  background: var(--ent-rule);
+  overflow: hidden;
+}
+.ink-bar i {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  background: var(--ent-navy);
+  transition: width 0.6s ease;
+}
+.ink-bar i.coral { background: var(--ent-coral); }
+
+/* ═══════════════════════════════════════════
+   岗位标准文档卡片（每张 = 一份完整标准）
+   ═══════════════════════════════════════════ */
+.std-card { display: flex; flex-direction: column; }
+
+.std-card .card-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ent-ink);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.std-card .card-title:hover { color: var(--ent-coral); }
+.std-card .card-meta {
+  font-family: 'Courier New', monospace;
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ent-dim);
+  margin-top: 5px;
+}
+
+/* 技能标准区（顶部细线分栏） */
+.std-card .skill-standard {
+  flex: 1;
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px solid var(--ent-rule);
+}
+.skill-row {
+  display: grid;
+  grid-template-columns: 1fr auto 64px 16px 36px;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 2px;
+  transition: background 0.2s ease;
+}
+.skill-row:hover { background: rgba(0, 9, 76, 0.02); }
+.skill-row .skill-name {
+  font-size: 11px;
+  color: var(--ent-ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.skill-row .skill-level {
+  font-family: 'Courier New', monospace;
+  font-size: 9px;
+  letter-spacing: 0.06em;
+  color: var(--ent-ink-muted);
+  background: rgba(0, 9, 76, 0.045);
+  padding: 1px 5px;
+}
+.skill-row .skill-trend { font-size: 11px; text-align: center; }
+.skill-row .skill-trend.t-rise { color: var(--ent-coral); }
+.skill-row .skill-trend.t-keep { color: var(--ent-dim); }
+.skill-row .skill-trend.t-fall { color: var(--ent-dim); opacity: 0.7; }
+.skill-row .skill-fresh {
+  font-family: 'Courier New', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  text-align: right;
+}
+.skill-row .skill-fresh.f-hi { color: var(--ent-navy); }
+.skill-row .skill-fresh.f-mid { color: var(--ent-ink-muted); }
+.skill-row .skill-fresh.f-low { color: var(--ent-dim); text-decoration: line-through; }
+
+/* 卡片底栏：市场/匹配指标 + 详情链接 */
+.std-card .card-foot {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px solid var(--ent-rule);
+}
+.std-card .card-foot .kpi {
+  font-family: 'Courier New', monospace;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  color: var(--ent-ink-muted);
+  white-space: nowrap;
+}
+.std-card .card-foot .kpi b {
+  font-size: 13px;
+  color: var(--ent-navy);
+  margin-left: 2px;
+}
+.std-card .card-foot .kpi b.coral { color: var(--ent-coral); }
+
+/* ═══════════════════════════════════════════
+   提案评审卡（新岗位发现 · 评审纪要）
+   ═══════════════════════════════════════════ */
+.prop-label {
+  font-family: 'Courier New', monospace;
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ent-ink-muted);
+}
+.prop-conf {
+  font-family: 'Courier New', monospace;
+  font-weight: 700;
+  font-size: 26px;
+  line-height: 1.1;
+  color: var(--ent-navy);
+}
+.prop-conf.coral {
+  color: var(--ent-coral);
+  text-shadow: 0 0 8px rgba(200, 92, 86, 0.25);
+}
+.prop-conf.faded {
+  color: var(--ent-dim);
+  text-decoration: line-through;
+  opacity: 0.7;
+}
+
+/* 评审意见栏（带评议编号） */
+.review-col { counter-reset: review; }
+.review-head {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding-bottom: 5px;
+  margin-bottom: 6px;
+  border-bottom: 1px solid var(--ent-rule);
+  font-family: 'Courier New', monospace;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.review-head.pro { color: var(--ent-coral); border-bottom-color: rgba(200, 92, 86, 0.35); }
+.review-head.con { color: var(--ent-ink-muted); }
+.review-count {
+  font-family: 'Courier New', monospace;
+  font-size: 9px;
+  color: var(--ent-dim);
+  letter-spacing: 0.04em;
+}
+.review-item {
+  display: flex;
+  gap: 7px;
+  align-items: flex-start;
+  counter-increment: review;
+  font-size: 11px;
+  line-height: 1.5;
+  color: var(--ent-ink-muted);
+  padding: 2px 0;
+}
+.review-item::before {
+  content: counter(review);
+  flex: none;
+  min-width: 14px;
+  height: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  font-family: 'Courier New', monospace;
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--ent-coral);
+  border: 1px solid rgba(200, 92, 86, 0.4);
+  background: rgba(200, 92, 86, 0.04);
+}
+.review-item--con::before {
+  color: var(--ent-dim);
+  border-color: #D9DDE7;
+  background: transparent;
+}
+
+/* 案卷号 */
+.prop-file-no {
+  font-family: 'Courier New', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--ent-coral);
+  border: 1px solid rgba(200, 92, 86, 0.45);
+  background: rgba(200, 92, 86, 0.05);
+  padding: 1px 6px;
+}
+
+/* 档案栏：指标行 */
+.archive {
+  margin-top: 10px;
+  border-top: 1px solid var(--ent-rule);
+  padding-top: 4px;
+}
+.archive-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+  font-family: 'Courier New', monospace;
+  font-size: 10px;
+  color: var(--ent-ink-muted);
+  padding: 3px 0;
+  border-bottom: 1px dashed var(--ent-rule);
+}
+.archive-row:last-child { border-bottom: none; }
+.archive-row b { color: var(--ent-navy); font-weight: 700; }
+.archive-row b.coral { color: var(--ent-coral); }
+
+/* 裁决区 */
+.prop-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid var(--ent-rule);
+}
+.prop-reject {
+  color: var(--ent-dim) !important;
+  border-color: #C9CEDA !important;
+}
+.prop-reject:hover { background: rgba(0, 9, 76, 0.04); box-shadow: none; }
+.prop-decided-note {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid var(--ent-rule);
+  font-family: 'Courier New', monospace;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: var(--ent-ink-muted);
+}
+
+/* 评审目录行（主从式 · 左侧索引） */
+.prop-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  text-align: left;
+  padding: 8px 10px;
+  margin-bottom: 6px;
+  background: var(--ent-card);
+  border: 1px solid var(--ent-rule);
+  border-left: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.prop-row:hover { border-color: rgba(0, 9, 76, 0.28); }
+.prop-row--active {
+  border-left: 2px solid var(--ent-coral);
+  border-color: rgba(0, 9, 76, 0.2);
+  background: rgba(0, 9, 76, 0.03);
+}
+.prop-row .prop-row-title {
+  flex: 1;
+  min-width: 0;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ent-ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.prop-row .prop-row-conf {
+  font-family: 'Courier New', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--ent-navy);
+}
+.prop-row .prop-row-conf.coral { color: var(--ent-coral); }
+.prop-row .prop-row-conf.faded { color: var(--ent-dim); }
+
+/* 详情面板切换淡入 */
+.fade-enter-active,
+.fade-leave-active { transition: opacity 0.15s ease; }
+.fade-enter-from,
+.fade-leave-to { opacity: 0; }
+
+/* ═══════════════════════════════════════════
+   JD 质量诊断 · 质检报告单
+   ═══════════════════════════════════════════ */
+.diag-tag {
+  display: inline-block;
+  font-family: 'Courier New', monospace;
+  font-size: 10px;
+  letter-spacing: 0.03em;
+  padding: 2px 7px;
+  line-height: 1.5;
+  border: 1px solid var(--ent-rule);
+}
+/* 缺失技能 = 需补充（珊瑚） */
+.diag-tag--miss {
+  color: var(--ent-coral);
+  border-color: rgba(200, 92, 86, 0.45);
+  background: rgba(200, 92, 86, 0.04);
+}
+/* 冗余技能 = 建议删除（褪色墨 + 删除线） */
+.diag-tag--redundant {
+  color: var(--ent-dim);
+  border-color: #C9CEDA;
+  text-decoration: line-through;
+  opacity: 0.75;
+}
+/* 通胀阈值刻度 */
+.gauge-scale {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 4px;
+  font-family: 'Courier New', monospace;
+  font-size: 9px;
+  letter-spacing: 0.04em;
+  color: var(--ent-dim);
+}
+/* 通胀条严重态：褪色墨填充 */
+.ink-bar i.faded { background: #C9CEDA; }
+
+/* ═══════════════════════════════════════════
+   批量审计 · 流水线批阅
+   ═══════════════════════════════════════════ */
+
+/* 流水线纵向轨道：S1→S5 站台 + 连接线 */
+.pipeline-rail { position: relative; padding-left: 16px; }
+.pipeline-rail::before {
+  content: '';
+  position: absolute;
+  left: 6px;
+  top: 10px;
+  bottom: 10px;
+  width: 1px;
+  background: var(--ent-rule);
+}
+.pipeline-stage { position: relative; padding: 9px 0; }
+.pipeline-dot {
+  position: absolute;
+  left: -16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 9px;
+  height: 9px;
+  border: 1px solid var(--ent-dim);
+  background: var(--ent-paper);
+}
+.pipeline-stage--active .pipeline-dot {
+  border-color: var(--ent-coral);
+  background: var(--ent-coral);
+  box-shadow: 0 0 0 3px rgba(200, 92, 86, 0.15);
+}
+.pipeline-stage--active .pipeline-name { color: var(--ent-coral); }
+.pipeline-name {
+  font-family: 'Courier New', monospace;
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  color: var(--ent-ink);
+}
+.pipeline-count {
+  font-family: 'Courier New', monospace;
+  font-size: 10px;
+  color: var(--ent-dim);
+}
+.pipeline-mark {
+  font-family: 'Courier New', monospace;
+  font-size: 9px;
+  letter-spacing: 0.04em;
+  color: var(--ent-coral);
+  white-space: nowrap;
+}
+
+/* 待复核队列行 */
+.review-qrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 4px;
+  border-bottom: 1px dashed var(--ent-rule);
+  transition: opacity 0.3s ease;
+}
+.review-qrow:last-child { border-bottom: none; }
+.review-qrow--done { opacity: 0.5; }
+.review-qname {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ent-ink);
+  white-space: nowrap;
+}
+.review-qwhy {
+  font-family: 'Courier New', monospace;
+  font-size: 10px;
+  letter-spacing: 0.02em;
+  color: var(--ent-dim);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.review-qbtn { flex: none; padding: 3px 10px; font-size: 10px; }
+.review-qok {
+  flex: none;
+  font-family: 'Courier New', monospace;
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  color: var(--ent-coral);
+}
+
+/* 流转中 / 复核标记 */
+.run-chip {
+  font-family: 'Courier New', monospace;
+  font-size: 9px;
+  letter-spacing: 0.06em;
+  color: var(--ent-coral);
+  border: 1px solid rgba(200, 92, 86, 0.4);
+  padding: 1px 6px;
+  white-space: nowrap;
+}
+.audit-flag { font-family: 'Courier New', monospace; font-size: 10px; color: var(--ent-coral); }
+.audit-flag--ok { color: var(--ent-dim); }
+
+/* 审计台账表（8 列：单号/岗位/通胀/缺失/冗余/评分/状态/复核） */
+.tbl-head--audit { grid-template-columns: 84px 1fr 58px 50px 50px 50px 78px 26px; }
+.tbl-row--audit { grid-template-columns: 84px 1fr 58px 50px 50px 50px 78px 26px; }
+.tbl-row--run { cursor: default; opacity: 0.55; }
+.tbl-row--run:hover { background: transparent; }
+.tbl-row--run:hover::after { transform: scaleX(0); }
+.tbl-row .cell-num.coral { color: var(--ent-coral); }
+.tbl-row .cell-num.faded { color: var(--ent-dim); }
+
+/* ═══════════════════════════════════════════
+   岗位档案 · 演化卷宗
+   ═══════════════════════════════════════════ */
+
+/* 技能定级行 */
+.doc-skill { padding: 8px 0; border-bottom: 1px dashed var(--ent-rule); }
+.doc-skill:last-child { border-bottom: none; }
+.doc-skill--removed { opacity: 0.55; }
+.doc-skill .sk-head { display: flex; align-items: baseline; gap: 8px; min-width: 0; }
+.doc-skill .sk-name {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ent-ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.doc-skill .sk-level {
+  font-family: 'Courier New', monospace;
+  font-size: 9px;
+  letter-spacing: 0.04em;
+  color: var(--ent-ink-muted);
+  border: 1px solid var(--ent-rule);
+  padding: 0 5px;
+  line-height: 1.7;
+  white-space: nowrap;
+}
+.doc-skill .sk-wt {
+  font-family: 'Courier New', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--ent-navy);
+  white-space: nowrap;
+}
+.doc-skill .sk-reason {
+  font-family: 'Courier New', monospace;
+  font-size: 9px;
+  letter-spacing: 0.02em;
+  color: var(--ent-dim);
+  margin-top: 3px;
+}
+
+/* ═══════════════════════════════════════════
+   市场对比报告 · 标准 vs 市场对账
+   ═══════════════════════════════════════════ */
+.diff-head,
+.diff-row {
+  display: grid;
+  grid-template-columns: 1.4fr 0.9fr 0.9fr 0.55fr 0.8fr;
+  gap: 10px;
+  align-items: center;
+}
+.diff-head {
+  padding: 2px 4px 6px;
+  border-bottom: 2px solid var(--ent-navy);
+  position: relative;
+}
+.diff-head::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 1px;
+  background: var(--ent-coral);
+  opacity: 0.5;
+}
+.diff-head span {
+  font-family: 'Courier New', monospace;
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ent-ink-muted);
+  white-space: nowrap;
+}
+.diff-row {
+  padding: 9px 4px;
+  border-bottom: 1px dashed var(--ent-rule);
+}
+.diff-row:last-child { border-bottom: none; }
+.diff-row--drop { opacity: 0.55; }
+.diff-name {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ent-ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.diff-cell {
+  font-family: 'Courier New', monospace;
+  font-size: 11px;
+  color: var(--ent-ink-muted);
+  white-space: nowrap;
+}
+.diff-gap {
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  font-weight: 700;
+}
+.diff-gap.coral { color: var(--ent-coral); }
+.diff-gap.faded { color: var(--ent-dim); text-decoration: line-through; }
+.diff-gap.dim { color: var(--ent-ink-muted); }
+.diff-row .sk-reason {
+  font-family: 'Courier New', monospace;
+  font-size: 9px;
+  letter-spacing: 0.02em;
+  color: var(--ent-dim);
+}
+
+/* 修订建议草稿：已套用淡出 */
+.draft-item--applied { opacity: 0.5; }
+
+/* 技能变更标记（蓝皮书语义：新增=珊瑚 / 升级=墨蓝 / 降级=灰 / 删除=褪色墨删除线） */
+.sk-change {
+  font-family: 'Courier New', monospace;
+  font-size: 9px;
+  letter-spacing: 0.04em;
+  padding: 0 5px;
+  line-height: 1.7;
+  white-space: nowrap;
+}
+.sk-change--added {
+  color: var(--ent-coral);
+  border: 1px solid rgba(200, 92, 86, 0.45);
+  background: rgba(200, 92, 86, 0.04);
+}
+.sk-change--upgraded { color: var(--ent-navy); border: 1px solid rgba(0, 9, 76, 0.3); }
+.sk-change--downgraded { color: var(--ent-ink-muted); border: 1px solid var(--ent-rule); }
+.sk-change--removed {
+  color: var(--ent-dim);
+  border: 1px solid #C9CEDA;
+  text-decoration: line-through;
+  opacity: 0.75;
+}
+
+/* 时间节点图章条（卷内目录） */
+.tl-strip { display: flex; flex-wrap: wrap; gap: 6px; }
+.tl-stamp {
+  font-family: 'Courier New', monospace;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  color: var(--ent-ink-muted);
+  background: var(--ent-card);
+  border: 1px solid var(--ent-rule);
+  padding: 3px 9px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.tl-stamp:hover { border-color: rgba(0, 9, 76, 0.35); color: var(--ent-ink); }
+.tl-stamp--active {
+  color: var(--ent-coral);
+  border-color: var(--ent-coral);
+  background: rgba(200, 92, 86, 0.05);
+}
+.tl-stamp .tl-dot {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  margin-right: 5px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+/* 档案节点读数 · 市场背景正文 */
+.dossier-body {
+  font-family: 'Courier New', monospace;
+  font-size: 11px;
+  line-height: 1.8;
+  letter-spacing: 0.02em;
+  color: var(--ent-ink-muted);
+  margin-top: 6px;
+}
+
+/* ═══════════════════════════════════════════
+   团队技能盘点 · 缺口对账台账
+   ═══════════════════════════════════════════ */
+.tbl-head--team,
+.tbl-row--team {
+  display: grid;
+  grid-template-columns: 1.2fr 0.7fr 1.5fr 0.6fr 1fr 0.7fr 0.9fr;
+  gap: 10px;
+  align-items: center;
+}
+.tbl-head--team {
+  padding: 2px 4px 6px;
+  border-bottom: 2px solid var(--ent-navy);
+  position: relative;
+}
+.tbl-head--team::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 1px;
+  background: var(--ent-coral);
+  opacity: 0.5;
+}
+.tbl-head--team span {
+  font-family: 'Courier New', monospace;
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ent-ink-muted);
+  white-space: nowrap;
+}
+.tbl-row--team {
+  padding: 10px 4px;
+  border-bottom: 1px dashed var(--ent-rule);
+  transition: background 0.2s ease;
+}
+.tbl-row--team:last-child { border-bottom: none; }
+.tbl-row--team:hover { background: rgba(0, 9, 76, 0.02); }
+.tbl-row--team .t-team-name {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ent-ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.tbl-row--team .t-team-level {
+  font-family: 'Courier New', monospace;
+  font-size: 9px;
+  letter-spacing: 0.04em;
+  color: var(--ent-ink-muted);
+  border: 1px solid var(--ent-rule);
+  padding: 0 5px;
+  line-height: 1.7;
+  white-space: nowrap;
+  width: fit-content;
+}
+
+/* 达标线量规：墨条 + 珊瑚 80% 达标刻线 */
+.team-gauge {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+.team-gauge .ink-bar { flex: 1; width: auto; min-width: 70px; max-width: 120px; }
+.team-gauge::after {
+  content: '';
+  position: absolute;
+  left: 80%;
+  top: -2px;
+  bottom: -2px;
+  width: 1px;
+  background: var(--ent-coral);
+  opacity: 0.7;
+}
+.team-gauge .gauge-val {
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ent-navy);
+  white-space: nowrap;
+}
+.team-gauge .gauge-val.coral { color: var(--ent-coral); }
+.team-gauge .gauge-val.faded { color: var(--ent-dim); }
+.team-gauge .gauge-miss {
+  font-family: 'Courier New', monospace;
+  font-size: 9px;
+  letter-spacing: 0.04em;
+  color: var(--ent-dim);
+  white-space: nowrap;
+}
+
+/* 差距读数 */
+.t-gap {
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+  font-weight: 700;
+  text-align: right;
+}
+.t-gap.coral { color: var(--ent-coral); }
+.t-gap.faded { color: var(--ent-dim); }
+.t-gap.dim { color: var(--ent-ink-muted); }
+
+/* 覆盖岗位标签 */
+.t-cover {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.t-cover span {
+  font-family: 'Courier New', monospace;
+  font-size: 9px;
+  letter-spacing: 0.03em;
+  color: var(--ent-ink-muted);
+  background: rgba(0, 9, 76, 0.045);
+  padding: 0 5px;
+  line-height: 1.6;
+  white-space: nowrap;
+}
+
+/* 优先级印章 */
+.prio-chip {
+  font-family: 'Courier New', monospace;
+  font-size: 9px;
+  letter-spacing: 0.06em;
+  padding: 0 6px;
+  line-height: 1.7;
+  border-width: 1px;
+  border-style: solid;
+  white-space: nowrap;
+  width: fit-content;
+}
+.prio-chip--high { color: #fff; background: var(--ent-coral); border-color: var(--ent-coral); }
+.prio-chip--medium { color: var(--ent-navy); background: rgba(0, 9, 76, 0.04); border-color: rgba(0, 9, 76, 0.35); }
+.prio-chip--low { color: var(--ent-dim); background: var(--ent-card); border-color: var(--ent-rule); }
+
+/* 处置动作链接（常显暗色 → hover 珊瑚前移） */
+.t-dispose {
+  font-family: 'Courier New', monospace;
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  color: var(--ent-ink-muted);
+  white-space: nowrap;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  justify-content: flex-end;
+  transition: color 0.2s ease;
+}
+.t-dispose:hover { color: var(--ent-coral); }
+.t-dispose .arrow {
+  font-weight: 700;
+  font-size: 12px;
+  transform: translateX(-3px);
+  opacity: 0.45;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.t-dispose:hover .arrow { opacity: 1; transform: translateX(0); }
+
+/* 派单登记：领办意见条 */
+.assign-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px dashed var(--ent-rule);
+}
+.assign-row:last-child { border-bottom: none; }
+.assign-row .assign-stamp {
+  flex: none;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Courier New', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--ent-coral);
+  border: 1px solid rgba(200, 92, 86, 0.45);
+  background: rgba(200, 92, 86, 0.04);
+}
+.assign-row .assign-title { font-size: 12px; font-weight: 700; color: var(--ent-ink); }
+.assign-row .assign-body {
+  font-family: 'Courier New', monospace;
+  font-size: 9.5px;
+  line-height: 1.7;
+  color: var(--ent-dim);
+  margin-top: 2px;
+}
+
+/* ═══════════════════════════════════════════
+   人才需求预测 · 趋势研判报告
+   ═══════════════════════════════════════════ */
+.trend-row,
+.trend-row--slim {
+  display: grid;
+  gap: 10px;
+  align-items: center;
+  padding: 8px 4px;
+  border-bottom: 1px dashed var(--ent-rule);
+  transition: background 0.2s ease;
+}
+.trend-row { grid-template-columns: 28px 1.2fr 0.9fr 0.62fr; }
+.trend-row--slim { grid-template-columns: 26px 1fr 0.6fr; }
+.trend-row:last-child,
+.trend-row--slim:last-child { border-bottom: none; }
+.trend-row:hover,
+.trend-row--slim:hover { background: rgba(0, 9, 76, 0.02); }
+
+/* 名次牌：前三=珊瑚印章，其余=墨蓝描边 */
+.rank-plate {
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Courier New', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--ent-navy);
+  border: 1px solid var(--ent-rule);
+  background: var(--ent-card);
+}
+.rank-plate--top {
+  color: var(--ent-coral);
+  border-color: rgba(200, 92, 86, 0.5);
+  background: rgba(200, 92, 86, 0.04);
+}
+
+.trend-name {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ent-ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.trend-heat {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+.trend-heat .ink-bar { flex: 1; width: auto; min-width: 50px; max-width: 110px; }
+.heat-val {
+  font-family: 'Courier New', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--ent-navy);
+  white-space: nowrap;
+  width: 38px;
+  text-align: right;
+}
+.heat-val.coral { color: var(--ent-coral); }
+.heat-val.faded { color: var(--ent-dim); }
+
+/* 相位判定标签 */
+.trend-tag {
+  font-family: 'Courier New', monospace;
+  font-size: 9px;
+  letter-spacing: 0.04em;
+  padding: 0 5px;
+  line-height: 1.7;
+  white-space: nowrap;
+  width: fit-content;
+}
+.trend-tag--hot { color: #fff; background: var(--ent-coral); border: 1px solid var(--ent-coral); }
+.trend-tag--rising { color: var(--ent-navy); background: rgba(0, 9, 76, 0.04); border: 1px solid rgba(0, 9, 76, 0.35); }
+.trend-tag--new { color: var(--ent-coral); background: rgba(200, 92, 86, 0.04); border: 1px solid rgba(200, 92, 86, 0.45); }
+.trend-tag--cooling { color: var(--ent-ink-muted); border: 1px solid var(--ent-rule); }
+.trend-tag--fading { color: var(--ent-dim); border: 1px solid var(--ent-rule); text-decoration: line-through; }
+
+/* 研判批示框：珊瑚左标线 + 批示印章 */
+.rec-box {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 14px;
+  background: rgba(0, 9, 76, 0.02);
+  border: 1px solid var(--ent-rule);
+  border-left: 2px solid var(--ent-coral);
+}
+.rec-stamp {
+  flex: none;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Courier New', monospace;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #fff;
+  background: var(--ent-coral);
+}
+.rec-meta {
+  font-family: 'Courier New', monospace;
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  color: var(--ent-dim);
+  margin-top: 4px;
+}
+
+/* ═══════════════════════════════════════════
+   图谱蓝图 · 全图谱可视化（GRAPH BLUEPRINT）
+   ═══════════════════════════════════════════ */
+.graph-shell {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(rgba(0, 9, 76, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 9, 76, 0.035) 1px, transparent 1px),
+    var(--ent-paper);
+  background-size: 28px 28px;
+  border: 1px solid var(--ent-rule);
+}
+
+/* 顶部 HUD（墨蓝指挥条） */
+.graph-hud {
+  flex: none;
+  background: var(--ent-navy);
+  padding: 9px 14px;
+  position: relative;
+  z-index: 5;
+}
+.graph-hud-title {
+  font-family: Georgia, 'Songti SC', serif;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #fff;
+  line-height: 1.3;
+}
+.graph-hud-sub {
+  font-family: 'Courier New', monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.55);
+  margin-top: 2px;
+}
+.graph-hud .doc-meta { color: rgba(255, 255, 255, 0.5); border-color: rgba(255, 255, 255, 0.22); }
+
+/* 画布角标覆盖层（边过滤 / 图例） */
+.graph-overlay {
+  position: absolute;
+  z-index: 4;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid var(--ent-rule);
+  padding: 8px 10px;
+}
+.graph-overlay-title {
+  font-family: 'Courier New', monospace;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ent-ink-muted);
+  margin-bottom: 6px;
+}
+.graph-chip {
+  font-family: 'Courier New', monospace;
+  font-size: 9px;
+  letter-spacing: 0.06em;
+  padding: 2px 8px;
+  line-height: 1.7;
+  color: var(--ent-ink-muted);
+  border: 1px solid var(--ent-rule);
+  background: var(--ent-card);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+.graph-chip:hover { border-color: rgba(0, 9, 76, 0.3); color: var(--ent-ink); }
+.graph-chip--on { color: #fff; background: var(--ent-navy); border-color: var(--ent-navy); }
+.graph-chip--coral { color: #fff; background: var(--ent-coral); border-color: var(--ent-coral); }
+
+/* 图例条目 */
+.graph-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Courier New', monospace;
+  font-size: 9px;
+  color: var(--ent-ink-muted);
+  white-space: nowrap;
+}
+.graph-swatch {
+  flex: none;
+  width: 14px;
+  height: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.graph-swatch--pos { background: var(--ent-navy); border-radius: 2px; }
+.graph-swatch--skill { background: var(--ent-card); border: 1.5px solid var(--ent-navy); border-radius: 50%; }
+.graph-swatch--stack { border: 1px dashed var(--ent-navy-700, #1E2A5A); border-radius: 2px; width: 16px; }
+.graph-swatch--ev { background: var(--ent-dim); border-radius: 50%; width: 6px; height: 6px; }
+.graph-line--req { height: 2px; background: var(--ent-navy); }
+.graph-line--co { height: 2px; background: repeating-linear-gradient(90deg, var(--ent-coral) 0 3px, transparent 3px 6px); opacity: 0.6; }
+.graph-line--bel { height: 1px; background: var(--ent-rule); }
+.graph-line--sup { height: 1px; background: repeating-linear-gradient(90deg, var(--ent-dim) 0 2px, transparent 2px 4px); }
+.graph-line--in { height: 1px; background: repeating-linear-gradient(90deg, var(--ent-rule) 0 3px, transparent 3px 6px); }
+
+/* 档案侧栏（右侧滑入） */
+.graph-inspect {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 340px;
+  max-width: 78%;
+  background: var(--ent-card);
+  border-left: 1px solid var(--ent-rule);
+  box-shadow: -6px 0 18px rgba(0, 9, 76, 0.08);
+  z-index: 6;
+  overflow-y: auto;
+  transform: translateX(100%);
+  transition: transform 0.3s cubic-bezier(0.33, 1, 0.68, 1);
+}
+.graph-inspect--open { transform: translateX(0); }
+.graph-inspect .inspect-head {
+  position: sticky;
+  top: 0;
+  background: var(--ent-card);
+  border-bottom: 1px solid var(--ent-rule);
+  padding: 12px 14px;
+  z-index: 2;
+}
+
+/* 证据链行（证词样式） */
+.ev-row {
+  padding: 8px 10px;
+  border: 1px solid var(--ent-rule);
+  border-left: 2px solid var(--ent-navy);
+  background: rgba(0, 9, 76, 0.015);
+  margin-top: 6px;
+}
+.ev-row .ev-text {
+  font-family: 'Courier New', monospace;
+  font-size: 10px;
+  line-height: 1.7;
+  color: var(--ent-ink-muted);
+}
+.ev-row .ev-src {
+  font-family: 'Courier New', monospace;
+  font-size: 9px;
+  letter-spacing: 0.03em;
+  color: var(--ent-dim);
+  margin-top: 3px;
+}
+.ev-row .ev-src b { color: var(--ent-coral); }
+
+/* 快照对比模态 */
+.graph-modal {
+  position: absolute;
+  inset: 0;
+  z-index: 8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 9, 76, 0.28);
+}
+.graph-modal .panel-doc {
+  width: 460px;
+  max-width: 92%;
+  max-height: 82%;
+  overflow-y: auto;
+}
+
+/* 底栏 */
+.graph-statusbar {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 6px 14px;
+  background: var(--ent-card);
+  border-top: 1px solid var(--ent-rule);
+  font-family: 'Courier New', monospace;
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  color: var(--ent-ink-muted);
+}
+.graph-statusbar .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex: none;
+}
+.graph-statusbar .dot--ok { background: var(--ent-navy); }
+.graph-statusbar .dot--live { background: var(--ent-coral); }
+
+/* 无障碍：用户偏好减弱动效时，关闭企业侧盖章/批示线/墨晕等动画 */
+@media (prefers-reduced-motion: reduce) {
+  .seal-chip,
+  .ent-btn::after,
+  .leader-row::after,
+  .tbl-row::after,
+  .ink-bar i,
+  .graph-inspect,
+  .tl-stamp,
+  .prop-row,
+  .graph-chip,
+  .skill-row {
+    animation: none !important;
+    transition: none !important;
+  }
+}

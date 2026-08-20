@@ -1,0 +1,595 @@
+{
+  "dedup_stats": {},
+  "cooccurrence_stats": {
+    "total_jds": 10,
+    "total_skills": 73,
+    "total_cooccurrences": 232,
+    "avg_skills_per_jd": 7.3
+  },
+  "skill_metrics": {
+    "PyTorch或TensorFlow框架": {
+      "emergence": 2.9605,
+      "decline": 0,
+      "volatility": 0.6553,
+      "half_life": null,
+      "half_life_method": "rising",
+      "inflation_index": 0.0
+    },
+    "有大模型微调（LoRA/QLoRA）实战经验": {
+      "emergence": 2.9605,
+      "decline": 0,
+      "volatility": 0.6553,
+      "half_life": null,
+      "half_life_method": "rising",
+      "inflation_index": 0.0
+    },
+    "Transformer架构原理": {
+      "emergence": 2.9605,
+      "decline": 0,
+      "volatility": 0.6553,
+      "half_life": null,
+      "half_life_method": "rising",
+      "inflation_index": 0.0
+    },
+    "RAG与向量数据库（Milvus/Pinecone）": {
+      "emergence": 2.9605,
+      "decline": 0,
+      "volatility": 0.6553,
+      "half_life": null,
+      "half_life_method": "rising",
+      "inflation_index": 0.0
+    },
+    "DeepSpeed或FSDP进行分布式训练": {
+      "emergence": 2.9605,
+      "decline": 0,
+      "volatility": 0.6553,
+      "half_life": null,
+      "half_life_method": "rising",
+      "inflation_index": 0.0
+    },
+    "有LangChain/LlamaIndex使用经验": {
+      "emergence": 2.9605,
+      "decline": 0,
+      "volatility": 0.6553,
+      "half_life": null,
+      "half_life_method": "rising",
+      "inflation_index": 0.3
+    },
+    "RLHF流程": {
+      "emergence": 2.9605,
+      "decline": 0,
+      "volatility": 0.6553,
+      "half_life": null,
+      "half_life_method": "rising",
+      "inflation_index": 0.3
+    },
+    "分词": {
+      "emergence": 2.9605,
+      "decline": 0,
+      "volatility": 0.6553,
+      "half_life": null,
+      "half_life_method": "rising",
+      "inflation_index": 0.0
+    },
+    "BERT/GPT系列预训练模型": {
+      "emergence": 2.9605,
+      "decline": 0,
+      "volatility": 0.6553,
+      "half_life": null,
+      "half_life_method": "rising",
+      "inflation_index": 0.0
+    },
+    "Hugging Face Transformers库": {
+      "emergence": 2.9605,
+      "decline": 0,
+      "volatility": 0.6553,
+      "half_life": null,
+      "half_life_method": "rising",
+      "inflation_index": 0.0
+    },
+    "Python和PyTorch": {
+      "emergence": 2.9605,
+      "decline": 0,
+      "volatility": 0.6553,
+      "half_life": null,
+      "half_life_method": "rising",
+      "inflation_index": 0.0
+    },
+    "大模型Prompt Engineering": {
+      "emergence": 2.9605,
+      "decline": 0,
+      "volatility": 0.6553,
+      "half_life": null,
+      "half_life_method": "rising",
+      "inflation_index": 0.3
+    },
+    "有信息检索或知识图谱经验": {
+      "emergence": 2.9605,
+      "decline": 0,
+      "volatility": 0.6553,
+      "half_life": null,
+      "half_life_method": "rising",
+      "inflation_index": 0.3
+    },
+    "目标检测（YOLO/Faster RCNN）": {
+      "emergence": 2.9605,
+      "decline": 0,
+      "volatility": 0.6553,
+      "half_life": null,
+      "half_life_method": "rising",
+      "inflation_index": 0.0
+    },
+    "OpenCV和PIL图像处理": {
+      "emergence": 2.9605,
+      "decline": 0,
+      "volatility": 0.6553,
+      "half_life": null,
+      "half_life_method": "rising",
+      "inflation_index": 0.0
+    },
+    "模型量化与部署（ONNX/TensorRT）": {
+      "emergence": 2.9605,
+      "decline": 0,
+      "volatility": 0.6553,
+      "half_life": null,
+      "half_life_method": "rising",
+      "inflation_index": 0.0
+    },
+    "有OCR或人脸识别项目经验": {
+      "emergence": 2.9605,
+      "decline": 0,
+      "volatility": 0.6553,
+      "half_life": null,
+      "half_life_method": "rising",
+      "inflation_index": 0.0
+    },
+    "3D视觉或多模态模型": {
+      "emergence": 2.9605,
+      "decline": 0,
+      "volatility": 0.6553,
+      "half_life": null,
+      "half_life_method": "rising",
+      "inflation_index": 0.3
+    },
+    "有边缘设备部署经验": {
+      "emergence": 2.9605,
+      "decline": 0,
+      "volatility": 0.6553,
+      "half_life": null,
+      "half_life_method": "rising",
+      "inflation_index": 0.3
+    },
+    "CUDA编程": {
+      "emergence": 2.9605,
+      "decline": 0,
+      "volatility": 0.6553,
+      "half_life": null,
+      "half_life_method": "rising",
+      "inflation_index": 0.3
+    },
+    "Scikit-learn/XGBoost/LightGBM": {
+      "emergence": 2.9605,
+      "decline": 0,
+      "volatility": 0.6553,
+      "half_life": null,
+      "half_life_method": "rising",
+      "inflation_index": 0.0
+    },
+    "特征工程和模型调优": {
+      "emergence": 2.9605,
+      "decline": 0,
+      "volatility": 0.6553,
+      "half_life": null,
+      "half_life_method": "rising",
+      "inflation_index": 0.0
+    },
+    "有推荐系统或风控模型经验": {
+      "emergence": 2.9605,
+      "decline": 0,
+      "volatility": 0.6553,
+      "half_life": null,
+      "half_life_method": "rising",
+      "inflation_index": 0.0
+    },
+    "SQL和Python进行数据分析": {
+      "emergence": 2.9605,
+      "decline": 0,
+      "volatility": 0.6553,
+      "half_life": null,
+      "half_life_method": "rising",
+      "inflation_index": 0.0
+    },
+    "深度学习框架": {
+      "emergence": 2.9605,
+      "decline": 0,
+      "volatility": 0.6553,
+      "half_life": null,
+      "half_life_method": "rising",
+      "inflation_index": 0.3
+    },
+    "有Spark MLlib大规模建模经验": {
+      "emergence": 2.9605,
+      "decline": 0,
+      "volatility": 0.6553,
+      "half_life": null,
+      "half_life_method": "rising",
+      "inflation_index": 0.3
+    },
+    "A/B实验设计": {
+      "emergence": 2.9605,
+      "decline": 0,
+      "volatility": 0.6553,
+      "half_life": null,
+      "half_life_method": "rising",
+      "inflation_index": 0.3
+    },
+    "Hadoop/Spark生态体系": {
+      "emergence": 2.9605,
+      "decline": 0,
+      "volatility": 0.6553,
+      "half_life": null,
+      "half_life_method": "rising",
+      "inflation_index": 0.0
+    },
+    "Flink实时计算引擎": {
+      "emergence": 2.9605,
+      "decline": 0,
+      "volatility": 0.6553,
+      "half_life": null,
+      "half_life_method": "rising",
+      "inflation_index": 0.0
+    },
+    "Kafka消息队列": {
+      "emergence": 2.9605,
+      "decline": 0,
+      "volatility": 0.6553,
+      "half_life": null,
+      "half_life_method": "rising",
+      "inflation_index": 0.0
+    },
+    "ClickHouse或Doris做OLAP分析": {
+      "emergence": 2.9605,
+      "decline": 0,
+      "volatility": 0.6553,
+      "half_life": null,
+      "half_life_method": "rising",
+      "inflation_index": 0.0
+    },
+    "有数据仓库建模经验（星型/雪花模型）": {
+      "emergence": 2.9605,
+      "decline": 0,
+      "volatility": 0.6553,
+      "half_life": null,
+      "half_life_method": "rising",
+      "inflation_index": 0.0
+    },
+    "数据湖技术（Iceberg/Hudi）": {
+      "emergence": 2.9605,
+      "decline": 0,
+      "volatility": 0.6553,
+      "half_life": null,
+      "half_life_method": "rising",
+      "inflation_index": 0.3
+    },
+    "有HBase使用经验": {
+      "emergence": 2.9605,
+      "decline": 0,
+      "volatility": 0.6553,
+      "half_life": null,
+      "half_life_method": "rising",
+      "inflation_index": 0.3
+    },
+    "数据治理方法论": {
+      "emergence": 2.9605,
+      "decline": 0,
+      "volatility": 0.6553,
+      "half_life": null,
+      "half_life_method": "rising",
+      "inflation_index": 0.3
+    },
+    "SQL进行复杂查询": {
+      "emergence": 2.9605,
+      "decline": 0,
+      "volatility": 0.6553,
+      "half_life": null,
+      "half_life_method": "rising",
+      "inflation_index": 0.0
+    },
+    "Python/R数据分析库（Pandas/NumPy）": {
+      "emergence": 2.9605,
+      "decline": 0,
+      "volatility": 0.6553,
+      "half_life": null,
+      "half_life_method": "rising",
+      "inflation_index": 0.0
+    },
+    "数据可视化工具（Tableau/PowerBI/Metabase）": {
+      "emergence": 2.9605,
+      "decline": 0,
+      "volatility": 0.6553,
+      "half_life": null,
+      "half_life_method": "rising",
+      "inflation_index": 0.0
+    },
+    "有用户行为分析或商业分析经验": {
+      "emergence": 2.9605,
+      "decline": 0,
+      "volatility": 0.6553,
+      "half_life": null,
+      "half_life_method": "rising",
+      "inflation_index": 0.0
+    },
+    "机器学习基础": {
+      "emergence": 2.9605,
+      "decline": 0,
+      "volatility": 0.6553,
+      "half_life": null,
+      "half_life_method": "rising",
+      "inflation_index": 0.3
+    },
+    "有A/B实验分析经验": {
+      "emergence": 2.9605,
+      "decline": 0,
+      "volatility": 0.6553,
+      "half_life": null,
+      "half_life_method": "rising",
+      "inflation_index": 0.3
+    },
+    "埋点设计": {
+      "emergence": 2.9605,
+      "decline": 0,
+      "volatility": 0.6553,
+      "half_life": null,
+      "half_life_method": "rising",
+      "inflation_index": 0.3
+    },
+    "Hive/Spark SQL数仓开发": {
+      "emergence": 2.9605,
+      "decline": 0,
+      "volatility": 0.6553,
+      "half_life": null,
+      "half_life_method": "rising",
+      "inflation_index": 0.0
+    },
+    "数仓分层架构（ODS/DWD/DWS/ADS）": {
+      "emergence": 2.9605,
+      "decline": 0,
+      "volatility": 0.6553,
+      "half_life": null,
+      "half_life_method": "rising",
+      "inflation_index": 0.0
+    },
+    "维度建模方法论": {
+      "emergence": 2.9605,
+      "decline": 0,
+      "volatility": 0.6553,
+      "half_life": null,
+      "half_life_method": "rising",
+      "inflation_index": 0.0
+    },
+    "有离线+实时一体数仓建设经验": {
+      "emergence": 2.9605,
+      "decline": 0,
+      "volatility": 0.6553,
+      "half_life": null,
+      "half_life_method": "rising",
+      "inflation_index": 0.0
+    },
+    "调度工具（Airflow/DolphinScheduler）": {
+      "emergence": 2.9605,
+      "decline": 0,
+      "volatility": 0.6553,
+      "half_life": null,
+      "half_life_method": "rising",
+      "inflation_index": 0.0
+    },
+    "数据湖技术": {
+      "emergence": 2.9605,
+      "decline": 0,
+      "volatility": 0.6553,
+      "half_life": null,
+      "half_life_method": "rising",
+      "inflation_index": 0.3
+    },
+    "有Flink CDC实时入湖经验": {
+      "emergence": 2.9605,
+      "decline": 0,
+      "volatility": 0.6553,
+      "half_life": null,
+      "half_life_method": "rising",
+      "inflation_index": 0.3
+    },
+    "数据血缘和元数据管理": {
+      "emergence": 2.9605,
+      "decline": 0,
+      "volatility": 0.6553,
+      "half_life": null,
+      "half_life_method": "rising",
+      "inflation_index": 0.3
+    },
+    "嵌入式Linux开发": {
+      "emergence": 2.9605,
+      "decline": 0,
+      "volatility": 0.6553,
+      "half_life": null,
+      "half_life_method": "rising",
+      "inflation_index": 0.0
+    },
+    "C/C++ 编程": {
+      "emergence": 2.9605,
+      "decline": 0,
+      "volatility": 0.6553,
+      "half_life": null,
+      "half_life_method": "rising",
+      "inflation_index": 0.0
+    },
+    "TensorFlow Lite或ONNX Runtime端侧推理": {
+      "emergence": 2.9605,
+      "decline": 0,
+      "volatility": 0.6553,
+      "half_life": null,
+      "half_life_method": "rising",
+      "inflation_index": 0.0
+    },
+    "有ARM平台开发经验": {
+      "emergence": 2.9605,
+      "decline": 0,
+      "volatility": 0.6553,
+      "half_life": null,
+      "half_life_method": "rising",
+      "inflation_index": 0.0
+    },
+    "模型量化和剪枝技术": {
+      "emergence": 2.9605,
+      "decline": 0,
+      "volatility": 0.6553,
+      "half_life": null,
+      "half_life_method": "rising",
+      "inflation_index": 0.0
+    },
+    "NPU/GPU加速芯片": {
+      "emergence": 2.9605,
+      "decline": 0,
+      "volatility": 0.6553,
+      "half_life": null,
+      "half_life_method": "rising",
+      "inflation_index": 0.3
+    },
+    "有RK3588或Jetson平台经验": {
+      "emergence": 2.9605,
+      "decline": 0,
+      "volatility": 0.6553,
+      "half_life": null,
+      "half_life_method": "rising",
+      "inflation_index": 0.3
+    },
+    "ROS机器人系统": {
+      "emergence": 2.9605,
+      "decline": 0,
+      "volatility": 0.6553,
+      "half_life": null,
+      "half_life_method": "rising",
+      "inflation_index": 0.3
+    },
+    "3D目标检测算法（PointPillars/CenterPoint）": {
+      "emergence": 2.9605,
+      "decline": 0,
+      "volatility": 0.6553,
+      "half_life": null,
+      "half_life_method": "rising",
+      "inflation_index": 0.0
+    },
+    "激光雷达点云处理": {
+      "emergence": 2.9605,
+      "decline": 0,
+      "volatility": 0.6553,
+      "half_life": null,
+      "half_life_method": "rising",
+      "inflation_index": 0.0
+    },
+    "多传感器融合技术": {
+      "emergence": 2.9605,
+      "decline": 0,
+      "volatility": 0.6553,
+      "half_life": null,
+      "half_life_method": "rising",
+      "inflation_index": 0.0
+    },
+    "有BEV感知或Occupancy Network经验": {
+      "emergence": 2.9605,
+      "decline": 0,
+      "volatility": 0.6553,
+      "half_life": null,
+      "half_life_method": "rising",
+      "inflation_index": 0.0
+    },
+    "端到端自动驾驶方案": {
+      "emergence": 2.9605,
+      "decline": 0,
+      "volatility": 0.6553,
+      "half_life": null,
+      "half_life_method": "rising",
+      "inflation_index": 0.3
+    },
+    "有量产项目经验": {
+      "emergence": 2.9605,
+      "decline": 0,
+      "volatility": 0.6553,
+      "half_life": null,
+      "half_life_method": "rising",
+      "inflation_index": 0.3
+    },
+    "ROS2": {
+      "emergence": 2.9605,
+      "decline": 0,
+      "volatility": 0.6553,
+      "half_life": null,
+      "half_life_method": "rising",
+      "inflation_index": 0.3
+    },
+    "物联网协议（MQTT/CoAP/HTTP）": {
+      "emergence": 2.9605,
+      "decline": 0,
+      "volatility": 0.6553,
+      "half_life": null,
+      "half_life_method": "rising",
+      "inflation_index": 0.0
+    },
+    "Java/Go后端开发": {
+      "emergence": 2.9605,
+      "decline": 0,
+      "volatility": 0.6553,
+      "half_life": null,
+      "half_life_method": "rising",
+      "inflation_index": 0.0
+    },
+    "时序数据库（InfluxDB/TDengine）": {
+      "emergence": 2.9605,
+      "decline": 0,
+      "volatility": 0.6553,
+      "half_life": null,
+      "half_life_method": "rising",
+      "inflation_index": 0.0
+    },
+    "有设备接入平台开发经验": {
+      "emergence": 2.9605,
+      "decline": 0,
+      "volatility": 0.6553,
+      "half_life": null,
+      "half_life_method": "rising",
+      "inflation_index": 0.0
+    },
+    "微服务架构和容器化部署": {
+      "emergence": 2.9605,
+      "decline": 0,
+      "volatility": 0.6553,
+      "half_life": null,
+      "half_life_method": "rising",
+      "inflation_index": 0.0
+    },
+    "边缘计算框架": {
+      "emergence": 2.9605,
+      "decline": 0,
+      "volatility": 0.6553,
+      "half_life": null,
+      "half_life_method": "rising",
+      "inflation_index": 0.3
+    },
+    "有百万级设备接入经验": {
+      "emergence": 2.9605,
+      "decline": 0,
+      "volatility": 0.6553,
+      "half_life": null,
+      "half_life_method": "rising",
+      "inflation_index": 0.3
+    },
+    "IoT安全方案": {
+      "emergence": 2.9605,
+      "decline": 0,
+      "volatility": 0.6553,
+      "half_life": null,
+      "half_life_method": "rising",
+      "inflation_index": 0.3
+    }
+  }
+}

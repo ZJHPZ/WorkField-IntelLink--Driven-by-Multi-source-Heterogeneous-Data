@@ -1,0 +1,6632 @@
+{
+  "nodes": [
+    {
+      "id": "stack::人工智能",
+      "data": {
+        "nodeType": "TechStack",
+        "label": "人工智能"
+      }
+    },
+    {
+      "id": "stack::物联网",
+      "data": {
+        "nodeType": "TechStack",
+        "label": "物联网"
+      }
+    },
+    {
+      "id": "stack::大数据",
+      "data": {
+        "nodeType": "TechStack",
+        "label": "大数据"
+      }
+    },
+    {
+      "id": "stack::智能系统",
+      "data": {
+        "nodeType": "TechStack",
+        "label": "智能系统"
+      }
+    },
+    {
+      "id": "skill::PyTorch或TensorFlow框架",
+      "data": {
+        "nodeType": "Skill",
+        "label": "PyTorch或TensorFlow框架",
+        "df": 1,
+        "confidence": 0.681,
+        "required_count": 1,
+        "bonus_count": 0,
+        "verification_status": "candidate",
+        "status": "candidate",
+        "emergence": 2.9605,
+        "decline": 0,
+        "half_life": null,
+        "volatility": 0.6553,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "skill::有大模型微调（LoRA/QLoRA）实战经验",
+      "data": {
+        "nodeType": "Skill",
+        "label": "有大模型微调（LoRA/QLoRA）实战经验",
+        "df": 1,
+        "confidence": 0.681,
+        "required_count": 1,
+        "bonus_count": 0,
+        "verification_status": "candidate",
+        "status": "candidate",
+        "emergence": 2.9605,
+        "decline": 0,
+        "half_life": null,
+        "volatility": 0.6553,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "skill::Transformer架构原理",
+      "data": {
+        "nodeType": "Skill",
+        "label": "Transformer架构原理",
+        "df": 1,
+        "confidence": 0.681,
+        "required_count": 1,
+        "bonus_count": 0,
+        "verification_status": "candidate",
+        "status": "candidate",
+        "emergence": 2.9605,
+        "decline": 0,
+        "half_life": null,
+        "volatility": 0.6553,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "skill::RAG与向量数据库（Milvus/Pinecone）",
+      "data": {
+        "nodeType": "Skill",
+        "label": "RAG与向量数据库（Milvus/Pinecone）",
+        "df": 1,
+        "confidence": 0.681,
+        "required_count": 1,
+        "bonus_count": 0,
+        "verification_status": "candidate",
+        "status": "candidate",
+        "emergence": 2.9605,
+        "decline": 0,
+        "half_life": null,
+        "volatility": 0.6553,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "skill::DeepSpeed或FSDP进行分布式训练",
+      "data": {
+        "nodeType": "Skill",
+        "label": "DeepSpeed或FSDP进行分布式训练",
+        "df": 1,
+        "confidence": 0.681,
+        "required_count": 1,
+        "bonus_count": 0,
+        "verification_status": "candidate",
+        "status": "candidate",
+        "emergence": 2.9605,
+        "decline": 0,
+        "half_life": null,
+        "volatility": 0.6553,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "skill::有LangChain/LlamaIndex使用经验",
+      "data": {
+        "nodeType": "Skill",
+        "label": "有LangChain/LlamaIndex使用经验",
+        "df": 1,
+        "confidence": 0.665,
+        "required_count": 0,
+        "bonus_count": 1,
+        "verification_status": "candidate",
+        "status": "candidate",
+        "emergence": 2.9605,
+        "decline": 0,
+        "half_life": null,
+        "volatility": 0.6553,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "skill::RLHF流程",
+      "data": {
+        "nodeType": "Skill",
+        "label": "RLHF流程",
+        "df": 1,
+        "confidence": 0.665,
+        "required_count": 0,
+        "bonus_count": 1,
+        "verification_status": "candidate",
+        "status": "candidate",
+        "emergence": 2.9605,
+        "decline": 0,
+        "half_life": null,
+        "volatility": 0.6553,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "skill::分词",
+      "data": {
+        "nodeType": "Skill",
+        "label": "分词",
+        "df": 1,
+        "confidence": 0.681,
+        "required_count": 1,
+        "bonus_count": 0,
+        "verification_status": "candidate",
+        "status": "candidate",
+        "emergence": 2.9605,
+        "decline": 0,
+        "half_life": null,
+        "volatility": 0.6553,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "skill::BERT/GPT系列预训练模型",
+      "data": {
+        "nodeType": "Skill",
+        "label": "BERT/GPT系列预训练模型",
+        "df": 1,
+        "confidence": 0.681,
+        "required_count": 1,
+        "bonus_count": 0,
+        "verification_status": "candidate",
+        "status": "candidate",
+        "emergence": 2.9605,
+        "decline": 0,
+        "half_life": null,
+        "volatility": 0.6553,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "skill::Hugging Face Transformers库",
+      "data": {
+        "nodeType": "Skill",
+        "label": "Hugging Face Transformers库",
+        "df": 1,
+        "confidence": 0.681,
+        "required_count": 1,
+        "bonus_count": 0,
+        "verification_status": "candidate",
+        "status": "candidate",
+        "emergence": 2.9605,
+        "decline": 0,
+        "half_life": null,
+        "volatility": 0.6553,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "skill::Python和PyTorch",
+      "data": {
+        "nodeType": "Skill",
+        "label": "Python和PyTorch",
+        "df": 1,
+        "confidence": 0.681,
+        "required_count": 1,
+        "bonus_count": 0,
+        "verification_status": "candidate",
+        "status": "candidate",
+        "emergence": 2.9605,
+        "decline": 0,
+        "half_life": null,
+        "volatility": 0.6553,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "skill::大模型Prompt Engineering",
+      "data": {
+        "nodeType": "Skill",
+        "label": "大模型Prompt Engineering",
+        "df": 1,
+        "confidence": 0.665,
+        "required_count": 0,
+        "bonus_count": 1,
+        "verification_status": "candidate",
+        "status": "candidate",
+        "emergence": 2.9605,
+        "decline": 0,
+        "half_life": null,
+        "volatility": 0.6553,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "skill::有信息检索或知识图谱经验",
+      "data": {
+        "nodeType": "Skill",
+        "label": "有信息检索或知识图谱经验",
+        "df": 1,
+        "confidence": 0.665,
+        "required_count": 0,
+        "bonus_count": 1,
+        "verification_status": "candidate",
+        "status": "candidate",
+        "emergence": 2.9605,
+        "decline": 0,
+        "half_life": null,
+        "volatility": 0.6553,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "skill::目标检测（YOLO/Faster RCNN）",
+      "data": {
+        "nodeType": "Skill",
+        "label": "目标检测（YOLO/Faster RCNN）",
+        "df": 1,
+        "confidence": 0.681,
+        "required_count": 1,
+        "bonus_count": 0,
+        "verification_status": "candidate",
+        "status": "candidate",
+        "emergence": 2.9605,
+        "decline": 0,
+        "half_life": null,
+        "volatility": 0.6553,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "skill::OpenCV和PIL图像处理",
+      "data": {
+        "nodeType": "Skill",
+        "label": "OpenCV和PIL图像处理",
+        "df": 1,
+        "confidence": 0.681,
+        "required_count": 1,
+        "bonus_count": 0,
+        "verification_status": "candidate",
+        "status": "candidate",
+        "emergence": 2.9605,
+        "decline": 0,
+        "half_life": null,
+        "volatility": 0.6553,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "skill::模型量化与部署（ONNX/TensorRT）",
+      "data": {
+        "nodeType": "Skill",
+        "label": "模型量化与部署（ONNX/TensorRT）",
+        "df": 1,
+        "confidence": 0.681,
+        "required_count": 1,
+        "bonus_count": 0,
+        "verification_status": "candidate",
+        "status": "candidate",
+        "emergence": 2.9605,
+        "decline": 0,
+        "half_life": null,
+        "volatility": 0.6553,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "skill::有OCR或人脸识别项目经验",
+      "data": {
+        "nodeType": "Skill",
+        "label": "有OCR或人脸识别项目经验",
+        "df": 1,
+        "confidence": 0.681,
+        "required_count": 1,
+        "bonus_count": 0,
+        "verification_status": "candidate",
+        "status": "candidate",
+        "emergence": 2.9605,
+        "decline": 0,
+        "half_life": null,
+        "volatility": 0.6553,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "skill::3D视觉或多模态模型",
+      "data": {
+        "nodeType": "Skill",
+        "label": "3D视觉或多模态模型",
+        "df": 1,
+        "confidence": 0.665,
+        "required_count": 0,
+        "bonus_count": 1,
+        "verification_status": "candidate",
+        "status": "candidate",
+        "emergence": 2.9605,
+        "decline": 0,
+        "half_life": null,
+        "volatility": 0.6553,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "skill::有边缘设备部署经验",
+      "data": {
+        "nodeType": "Skill",
+        "label": "有边缘设备部署经验",
+        "df": 1,
+        "confidence": 0.665,
+        "required_count": 0,
+        "bonus_count": 1,
+        "verification_status": "candidate",
+        "status": "candidate",
+        "emergence": 2.9605,
+        "decline": 0,
+        "half_life": null,
+        "volatility": 0.6553,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "skill::CUDA编程",
+      "data": {
+        "nodeType": "Skill",
+        "label": "CUDA编程",
+        "df": 1,
+        "confidence": 0.665,
+        "required_count": 0,
+        "bonus_count": 1,
+        "verification_status": "candidate",
+        "status": "candidate",
+        "emergence": 2.9605,
+        "decline": 0,
+        "half_life": null,
+        "volatility": 0.6553,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "skill::Scikit-learn/XGBoost/LightGBM",
+      "data": {
+        "nodeType": "Skill",
+        "label": "Scikit-learn/XGBoost/LightGBM",
+        "df": 1,
+        "confidence": 0.681,
+        "required_count": 1,
+        "bonus_count": 0,
+        "verification_status": "candidate",
+        "status": "candidate",
+        "emergence": 2.9605,
+        "decline": 0,
+        "half_life": null,
+        "volatility": 0.6553,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "skill::特征工程和模型调优",
+      "data": {
+        "nodeType": "Skill",
+        "label": "特征工程和模型调优",
+        "df": 1,
+        "confidence": 0.681,
+        "required_count": 1,
+        "bonus_count": 0,
+        "verification_status": "candidate",
+        "status": "candidate",
+        "emergence": 2.9605,
+        "decline": 0,
+        "half_life": null,
+        "volatility": 0.6553,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "skill::有推荐系统或风控模型经验",
+      "data": {
+        "nodeType": "Skill",
+        "label": "有推荐系统或风控模型经验",
+        "df": 1,
+        "confidence": 0.681,
+        "required_count": 1,
+        "bonus_count": 0,
+        "verification_status": "candidate",
+        "status": "candidate",
+        "emergence": 2.9605,
+        "decline": 0,
+        "half_life": null,
+        "volatility": 0.6553,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "skill::SQL和Python进行数据分析",
+      "data": {
+        "nodeType": "Skill",
+        "label": "SQL和Python进行数据分析",
+        "df": 1,
+        "confidence": 0.681,
+        "required_count": 1,
+        "bonus_count": 0,
+        "verification_status": "candidate",
+        "status": "candidate",
+        "emergence": 2.9605,
+        "decline": 0,
+        "half_life": null,
+        "volatility": 0.6553,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "skill::深度学习框架",
+      "data": {
+        "nodeType": "Skill",
+        "label": "深度学习框架",
+        "df": 1,
+        "confidence": 0.665,
+        "required_count": 0,
+        "bonus_count": 1,
+        "verification_status": "candidate",
+        "status": "candidate",
+        "emergence": 2.9605,
+        "decline": 0,
+        "half_life": null,
+        "volatility": 0.6553,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "skill::有Spark MLlib大规模建模经验",
+      "data": {
+        "nodeType": "Skill",
+        "label": "有Spark MLlib大规模建模经验",
+        "df": 1,
+        "confidence": 0.665,
+        "required_count": 0,
+        "bonus_count": 1,
+        "verification_status": "candidate",
+        "status": "candidate",
+        "emergence": 2.9605,
+        "decline": 0,
+        "half_life": null,
+        "volatility": 0.6553,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "skill::A/B实验设计",
+      "data": {
+        "nodeType": "Skill",
+        "label": "A/B实验设计",
+        "df": 1,
+        "confidence": 0.665,
+        "required_count": 0,
+        "bonus_count": 1,
+        "verification_status": "candidate",
+        "status": "candidate",
+        "emergence": 2.9605,
+        "decline": 0,
+        "half_life": null,
+        "volatility": 0.6553,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "skill::Hadoop/Spark生态体系",
+      "data": {
+        "nodeType": "Skill",
+        "label": "Hadoop/Spark生态体系",
+        "df": 1,
+        "confidence": 0.681,
+        "required_count": 1,
+        "bonus_count": 0,
+        "verification_status": "candidate",
+        "status": "candidate",
+        "emergence": 2.9605,
+        "decline": 0,
+        "half_life": null,
+        "volatility": 0.6553,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "skill::Flink实时计算引擎",
+      "data": {
+        "nodeType": "Skill",
+        "label": "Flink实时计算引擎",
+        "df": 1,
+        "confidence": 0.681,
+        "required_count": 1,
+        "bonus_count": 0,
+        "verification_status": "candidate",
+        "status": "candidate",
+        "emergence": 2.9605,
+        "decline": 0,
+        "half_life": null,
+        "volatility": 0.6553,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "skill::Kafka消息队列",
+      "data": {
+        "nodeType": "Skill",
+        "label": "Kafka消息队列",
+        "df": 1,
+        "confidence": 0.681,
+        "required_count": 1,
+        "bonus_count": 0,
+        "verification_status": "candidate",
+        "status": "candidate",
+        "emergence": 2.9605,
+        "decline": 0,
+        "half_life": null,
+        "volatility": 0.6553,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "skill::ClickHouse或Doris做OLAP分析",
+      "data": {
+        "nodeType": "Skill",
+        "label": "ClickHouse或Doris做OLAP分析",
+        "df": 1,
+        "confidence": 0.681,
+        "required_count": 1,
+        "bonus_count": 0,
+        "verification_status": "candidate",
+        "status": "candidate",
+        "emergence": 2.9605,
+        "decline": 0,
+        "half_life": null,
+        "volatility": 0.6553,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "skill::有数据仓库建模经验（星型/雪花模型）",
+      "data": {
+        "nodeType": "Skill",
+        "label": "有数据仓库建模经验（星型/雪花模型）",
+        "df": 1,
+        "confidence": 0.681,
+        "required_count": 1,
+        "bonus_count": 0,
+        "verification_status": "candidate",
+        "status": "candidate",
+        "emergence": 2.9605,
+        "decline": 0,
+        "half_life": null,
+        "volatility": 0.6553,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "skill::数据湖技术（Iceberg/Hudi）",
+      "data": {
+        "nodeType": "Skill",
+        "label": "数据湖技术（Iceberg/Hudi）",
+        "df": 1,
+        "confidence": 0.665,
+        "required_count": 0,
+        "bonus_count": 1,
+        "verification_status": "candidate",
+        "status": "candidate",
+        "emergence": 2.9605,
+        "decline": 0,
+        "half_life": null,
+        "volatility": 0.6553,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "skill::有HBase使用经验",
+      "data": {
+        "nodeType": "Skill",
+        "label": "有HBase使用经验",
+        "df": 1,
+        "confidence": 0.665,
+        "required_count": 0,
+        "bonus_count": 1,
+        "verification_status": "candidate",
+        "status": "candidate",
+        "emergence": 2.9605,
+        "decline": 0,
+        "half_life": null,
+        "volatility": 0.6553,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "skill::数据治理方法论",
+      "data": {
+        "nodeType": "Skill",
+        "label": "数据治理方法论",
+        "df": 1,
+        "confidence": 0.665,
+        "required_count": 0,
+        "bonus_count": 1,
+        "verification_status": "candidate",
+        "status": "candidate",
+        "emergence": 2.9605,
+        "decline": 0,
+        "half_life": null,
+        "volatility": 0.6553,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "skill::SQL进行复杂查询",
+      "data": {
+        "nodeType": "Skill",
+        "label": "SQL进行复杂查询",
+        "df": 1,
+        "confidence": 0.681,
+        "required_count": 1,
+        "bonus_count": 0,
+        "verification_status": "candidate",
+        "status": "candidate",
+        "emergence": 2.9605,
+        "decline": 0,
+        "half_life": null,
+        "volatility": 0.6553,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "skill::Python/R数据分析库（Pandas/NumPy）",
+      "data": {
+        "nodeType": "Skill",
+        "label": "Python/R数据分析库（Pandas/NumPy）",
+        "df": 1,
+        "confidence": 0.681,
+        "required_count": 1,
+        "bonus_count": 0,
+        "verification_status": "candidate",
+        "status": "candidate",
+        "emergence": 2.9605,
+        "decline": 0,
+        "half_life": null,
+        "volatility": 0.6553,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "skill::数据可视化工具（Tableau/PowerBI/Metabase）",
+      "data": {
+        "nodeType": "Skill",
+        "label": "数据可视化工具（Tableau/PowerBI/Metabase）",
+        "df": 1,
+        "confidence": 0.681,
+        "required_count": 1,
+        "bonus_count": 0,
+        "verification_status": "candidate",
+        "status": "candidate",
+        "emergence": 2.9605,
+        "decline": 0,
+        "half_life": null,
+        "volatility": 0.6553,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "skill::有用户行为分析或商业分析经验",
+      "data": {
+        "nodeType": "Skill",
+        "label": "有用户行为分析或商业分析经验",
+        "df": 1,
+        "confidence": 0.681,
+        "required_count": 1,
+        "bonus_count": 0,
+        "verification_status": "candidate",
+        "status": "candidate",
+        "emergence": 2.9605,
+        "decline": 0,
+        "half_life": null,
+        "volatility": 0.6553,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "skill::机器学习基础",
+      "data": {
+        "nodeType": "Skill",
+        "label": "机器学习基础",
+        "df": 1,
+        "confidence": 0.665,
+        "required_count": 0,
+        "bonus_count": 1,
+        "verification_status": "candidate",
+        "status": "candidate",
+        "emergence": 2.9605,
+        "decline": 0,
+        "half_life": null,
+        "volatility": 0.6553,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "skill::有A/B实验分析经验",
+      "data": {
+        "nodeType": "Skill",
+        "label": "有A/B实验分析经验",
+        "df": 1,
+        "confidence": 0.665,
+        "required_count": 0,
+        "bonus_count": 1,
+        "verification_status": "candidate",
+        "status": "candidate",
+        "emergence": 2.9605,
+        "decline": 0,
+        "half_life": null,
+        "volatility": 0.6553,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "skill::埋点设计",
+      "data": {
+        "nodeType": "Skill",
+        "label": "埋点设计",
+        "df": 1,
+        "confidence": 0.665,
+        "required_count": 0,
+        "bonus_count": 1,
+        "verification_status": "candidate",
+        "status": "candidate",
+        "emergence": 2.9605,
+        "decline": 0,
+        "half_life": null,
+        "volatility": 0.6553,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "skill::Hive/Spark SQL数仓开发",
+      "data": {
+        "nodeType": "Skill",
+        "label": "Hive/Spark SQL数仓开发",
+        "df": 1,
+        "confidence": 0.681,
+        "required_count": 1,
+        "bonus_count": 0,
+        "verification_status": "candidate",
+        "status": "candidate",
+        "emergence": 2.9605,
+        "decline": 0,
+        "half_life": null,
+        "volatility": 0.6553,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "skill::数仓分层架构（ODS/DWD/DWS/ADS）",
+      "data": {
+        "nodeType": "Skill",
+        "label": "数仓分层架构（ODS/DWD/DWS/ADS）",
+        "df": 1,
+        "confidence": 0.681,
+        "required_count": 1,
+        "bonus_count": 0,
+        "verification_status": "candidate",
+        "status": "candidate",
+        "emergence": 2.9605,
+        "decline": 0,
+        "half_life": null,
+        "volatility": 0.6553,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "skill::维度建模方法论",
+      "data": {
+        "nodeType": "Skill",
+        "label": "维度建模方法论",
+        "df": 1,
+        "confidence": 0.681,
+        "required_count": 1,
+        "bonus_count": 0,
+        "verification_status": "candidate",
+        "status": "candidate",
+        "emergence": 2.9605,
+        "decline": 0,
+        "half_life": null,
+        "volatility": 0.6553,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "skill::有离线+实时一体数仓建设经验",
+      "data": {
+        "nodeType": "Skill",
+        "label": "有离线+实时一体数仓建设经验",
+        "df": 1,
+        "confidence": 0.681,
+        "required_count": 1,
+        "bonus_count": 0,
+        "verification_status": "candidate",
+        "status": "candidate",
+        "emergence": 2.9605,
+        "decline": 0,
+        "half_life": null,
+        "volatility": 0.6553,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "skill::调度工具（Airflow/DolphinScheduler）",
+      "data": {
+        "nodeType": "Skill",
+        "label": "调度工具（Airflow/DolphinScheduler）",
+        "df": 1,
+        "confidence": 0.681,
+        "required_count": 1,
+        "bonus_count": 0,
+        "verification_status": "candidate",
+        "status": "candidate",
+        "emergence": 2.9605,
+        "decline": 0,
+        "half_life": null,
+        "volatility": 0.6553,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "skill::数据湖技术",
+      "data": {
+        "nodeType": "Skill",
+        "label": "数据湖技术",
+        "df": 1,
+        "confidence": 0.665,
+        "required_count": 0,
+        "bonus_count": 1,
+        "verification_status": "candidate",
+        "status": "candidate",
+        "emergence": 2.9605,
+        "decline": 0,
+        "half_life": null,
+        "volatility": 0.6553,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "skill::有Flink CDC实时入湖经验",
+      "data": {
+        "nodeType": "Skill",
+        "label": "有Flink CDC实时入湖经验",
+        "df": 1,
+        "confidence": 0.665,
+        "required_count": 0,
+        "bonus_count": 1,
+        "verification_status": "candidate",
+        "status": "candidate",
+        "emergence": 2.9605,
+        "decline": 0,
+        "half_life": null,
+        "volatility": 0.6553,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "skill::数据血缘和元数据管理",
+      "data": {
+        "nodeType": "Skill",
+        "label": "数据血缘和元数据管理",
+        "df": 1,
+        "confidence": 0.665,
+        "required_count": 0,
+        "bonus_count": 1,
+        "verification_status": "candidate",
+        "status": "candidate",
+        "emergence": 2.9605,
+        "decline": 0,
+        "half_life": null,
+        "volatility": 0.6553,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "skill::嵌入式Linux开发",
+      "data": {
+        "nodeType": "Skill",
+        "label": "嵌入式Linux开发",
+        "df": 1,
+        "confidence": 0.681,
+        "required_count": 1,
+        "bonus_count": 0,
+        "verification_status": "candidate",
+        "status": "candidate",
+        "emergence": 2.9605,
+        "decline": 0,
+        "half_life": null,
+        "volatility": 0.6553,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "skill::C/C++ 编程",
+      "data": {
+        "nodeType": "Skill",
+        "label": "C/C++ 编程",
+        "df": 1,
+        "confidence": 0.681,
+        "required_count": 1,
+        "bonus_count": 0,
+        "verification_status": "candidate",
+        "status": "candidate",
+        "emergence": 2.9605,
+        "decline": 0,
+        "half_life": null,
+        "volatility": 0.6553,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "skill::TensorFlow Lite或ONNX Runtime端侧推理",
+      "data": {
+        "nodeType": "Skill",
+        "label": "TensorFlow Lite或ONNX Runtime端侧推理",
+        "df": 1,
+        "confidence": 0.681,
+        "required_count": 1,
+        "bonus_count": 0,
+        "verification_status": "candidate",
+        "status": "candidate",
+        "emergence": 2.9605,
+        "decline": 0,
+        "half_life": null,
+        "volatility": 0.6553,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "skill::有ARM平台开发经验",
+      "data": {
+        "nodeType": "Skill",
+        "label": "有ARM平台开发经验",
+        "df": 1,
+        "confidence": 0.681,
+        "required_count": 1,
+        "bonus_count": 0,
+        "verification_status": "candidate",
+        "status": "candidate",
+        "emergence": 2.9605,
+        "decline": 0,
+        "half_life": null,
+        "volatility": 0.6553,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "skill::模型量化和剪枝技术",
+      "data": {
+        "nodeType": "Skill",
+        "label": "模型量化和剪枝技术",
+        "df": 1,
+        "confidence": 0.681,
+        "required_count": 1,
+        "bonus_count": 0,
+        "verification_status": "candidate",
+        "status": "candidate",
+        "emergence": 2.9605,
+        "decline": 0,
+        "half_life": null,
+        "volatility": 0.6553,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "skill::NPU/GPU加速芯片",
+      "data": {
+        "nodeType": "Skill",
+        "label": "NPU/GPU加速芯片",
+        "df": 1,
+        "confidence": 0.665,
+        "required_count": 0,
+        "bonus_count": 1,
+        "verification_status": "candidate",
+        "status": "candidate",
+        "emergence": 2.9605,
+        "decline": 0,
+        "half_life": null,
+        "volatility": 0.6553,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "skill::有RK3588或Jetson平台经验",
+      "data": {
+        "nodeType": "Skill",
+        "label": "有RK3588或Jetson平台经验",
+        "df": 1,
+        "confidence": 0.665,
+        "required_count": 0,
+        "bonus_count": 1,
+        "verification_status": "candidate",
+        "status": "candidate",
+        "emergence": 2.9605,
+        "decline": 0,
+        "half_life": null,
+        "volatility": 0.6553,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "skill::ROS机器人系统",
+      "data": {
+        "nodeType": "Skill",
+        "label": "ROS机器人系统",
+        "df": 1,
+        "confidence": 0.665,
+        "required_count": 0,
+        "bonus_count": 1,
+        "verification_status": "candidate",
+        "status": "candidate",
+        "emergence": 2.9605,
+        "decline": 0,
+        "half_life": null,
+        "volatility": 0.6553,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "skill::3D目标检测算法（PointPillars/CenterPoint）",
+      "data": {
+        "nodeType": "Skill",
+        "label": "3D目标检测算法（PointPillars/CenterPoint）",
+        "df": 1,
+        "confidence": 0.681,
+        "required_count": 1,
+        "bonus_count": 0,
+        "verification_status": "candidate",
+        "status": "candidate",
+        "emergence": 2.9605,
+        "decline": 0,
+        "half_life": null,
+        "volatility": 0.6553,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "skill::激光雷达点云处理",
+      "data": {
+        "nodeType": "Skill",
+        "label": "激光雷达点云处理",
+        "df": 1,
+        "confidence": 0.681,
+        "required_count": 1,
+        "bonus_count": 0,
+        "verification_status": "candidate",
+        "status": "candidate",
+        "emergence": 2.9605,
+        "decline": 0,
+        "half_life": null,
+        "volatility": 0.6553,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "skill::多传感器融合技术",
+      "data": {
+        "nodeType": "Skill",
+        "label": "多传感器融合技术",
+        "df": 1,
+        "confidence": 0.681,
+        "required_count": 1,
+        "bonus_count": 0,
+        "verification_status": "candidate",
+        "status": "candidate",
+        "emergence": 2.9605,
+        "decline": 0,
+        "half_life": null,
+        "volatility": 0.6553,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "skill::有BEV感知或Occupancy Network经验",
+      "data": {
+        "nodeType": "Skill",
+        "label": "有BEV感知或Occupancy Network经验",
+        "df": 1,
+        "confidence": 0.681,
+        "required_count": 1,
+        "bonus_count": 0,
+        "verification_status": "candidate",
+        "status": "candidate",
+        "emergence": 2.9605,
+        "decline": 0,
+        "half_life": null,
+        "volatility": 0.6553,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "skill::端到端自动驾驶方案",
+      "data": {
+        "nodeType": "Skill",
+        "label": "端到端自动驾驶方案",
+        "df": 1,
+        "confidence": 0.665,
+        "required_count": 0,
+        "bonus_count": 1,
+        "verification_status": "candidate",
+        "status": "candidate",
+        "emergence": 2.9605,
+        "decline": 0,
+        "half_life": null,
+        "volatility": 0.6553,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "skill::有量产项目经验",
+      "data": {
+        "nodeType": "Skill",
+        "label": "有量产项目经验",
+        "df": 1,
+        "confidence": 0.665,
+        "required_count": 0,
+        "bonus_count": 1,
+        "verification_status": "candidate",
+        "status": "candidate",
+        "emergence": 2.9605,
+        "decline": 0,
+        "half_life": null,
+        "volatility": 0.6553,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "skill::ROS2",
+      "data": {
+        "nodeType": "Skill",
+        "label": "ROS2",
+        "df": 1,
+        "confidence": 0.665,
+        "required_count": 0,
+        "bonus_count": 1,
+        "verification_status": "candidate",
+        "status": "candidate",
+        "emergence": 2.9605,
+        "decline": 0,
+        "half_life": null,
+        "volatility": 0.6553,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "skill::物联网协议（MQTT/CoAP/HTTP）",
+      "data": {
+        "nodeType": "Skill",
+        "label": "物联网协议（MQTT/CoAP/HTTP）",
+        "df": 1,
+        "confidence": 0.681,
+        "required_count": 1,
+        "bonus_count": 0,
+        "verification_status": "candidate",
+        "status": "candidate",
+        "emergence": 2.9605,
+        "decline": 0,
+        "half_life": null,
+        "volatility": 0.6553,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "skill::Java/Go后端开发",
+      "data": {
+        "nodeType": "Skill",
+        "label": "Java/Go后端开发",
+        "df": 1,
+        "confidence": 0.681,
+        "required_count": 1,
+        "bonus_count": 0,
+        "verification_status": "candidate",
+        "status": "candidate",
+        "emergence": 2.9605,
+        "decline": 0,
+        "half_life": null,
+        "volatility": 0.6553,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "skill::时序数据库（InfluxDB/TDengine）",
+      "data": {
+        "nodeType": "Skill",
+        "label": "时序数据库（InfluxDB/TDengine）",
+        "df": 1,
+        "confidence": 0.681,
+        "required_count": 1,
+        "bonus_count": 0,
+        "verification_status": "candidate",
+        "status": "candidate",
+        "emergence": 2.9605,
+        "decline": 0,
+        "half_life": null,
+        "volatility": 0.6553,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "skill::有设备接入平台开发经验",
+      "data": {
+        "nodeType": "Skill",
+        "label": "有设备接入平台开发经验",
+        "df": 1,
+        "confidence": 0.681,
+        "required_count": 1,
+        "bonus_count": 0,
+        "verification_status": "candidate",
+        "status": "candidate",
+        "emergence": 2.9605,
+        "decline": 0,
+        "half_life": null,
+        "volatility": 0.6553,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "skill::微服务架构和容器化部署",
+      "data": {
+        "nodeType": "Skill",
+        "label": "微服务架构和容器化部署",
+        "df": 1,
+        "confidence": 0.681,
+        "required_count": 1,
+        "bonus_count": 0,
+        "verification_status": "candidate",
+        "status": "candidate",
+        "emergence": 2.9605,
+        "decline": 0,
+        "half_life": null,
+        "volatility": 0.6553,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "skill::边缘计算框架",
+      "data": {
+        "nodeType": "Skill",
+        "label": "边缘计算框架",
+        "df": 1,
+        "confidence": 0.665,
+        "required_count": 0,
+        "bonus_count": 1,
+        "verification_status": "candidate",
+        "status": "candidate",
+        "emergence": 2.9605,
+        "decline": 0,
+        "half_life": null,
+        "volatility": 0.6553,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "skill::有百万级设备接入经验",
+      "data": {
+        "nodeType": "Skill",
+        "label": "有百万级设备接入经验",
+        "df": 1,
+        "confidence": 0.665,
+        "required_count": 0,
+        "bonus_count": 1,
+        "verification_status": "candidate",
+        "status": "candidate",
+        "emergence": 2.9605,
+        "decline": 0,
+        "half_life": null,
+        "volatility": 0.6553,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "skill::IoT安全方案",
+      "data": {
+        "nodeType": "Skill",
+        "label": "IoT安全方案",
+        "df": 1,
+        "confidence": 0.665,
+        "required_count": 0,
+        "bonus_count": 1,
+        "verification_status": "candidate",
+        "status": "candidate",
+        "emergence": 2.9605,
+        "decline": 0,
+        "half_life": null,
+        "volatility": 0.6553,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "ev::0",
+      "data": {
+        "nodeType": "Evidence",
+        "label": "熟悉 PyTorch 或 TensorFlow 框架",
+        "jd_id": "jd-ai-001",
+        "text": "熟悉 PyTorch 或 TensorFlow 框架",
+        "source": "jd",
+        "timestamp": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "ev::1",
+      "data": {
+        "nodeType": "Evidence",
+        "label": "有大模型微调（LoRA/QLoRA）实战经验",
+        "jd_id": "jd-ai-001",
+        "text": "有大模型微调（LoRA/QLoRA）实战经验",
+        "source": "jd",
+        "timestamp": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "ev::2",
+      "data": {
+        "nodeType": "Evidence",
+        "label": "精通 Transformer 架构原理",
+        "jd_id": "jd-ai-001",
+        "text": "精通 Transformer 架构原理",
+        "source": "jd",
+        "timestamp": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "ev::3",
+      "data": {
+        "nodeType": "Evidence",
+        "label": "掌握 RAG 与向量数据库（Milvus/Pinecone）",
+        "jd_id": "jd-ai-001",
+        "text": "掌握 RAG 与向量数据库（Milvus/Pinecone）",
+        "source": "jd",
+        "timestamp": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "ev::4",
+      "data": {
+        "nodeType": "Evidence",
+        "label": "熟练使用 DeepSpeed 或 FSDP 进行分布式训练",
+        "jd_id": "jd-ai-001",
+        "text": "熟练使用 DeepSpeed 或 FSDP 进行分布式训练",
+        "source": "jd",
+        "timestamp": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "ev::5",
+      "data": {
+        "nodeType": "Evidence",
+        "label": "有 LangChain/LlamaIndex 使用经验",
+        "jd_id": "jd-ai-001",
+        "text": "有 LangChain/LlamaIndex 使用经验",
+        "source": "jd",
+        "timestamp": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "ev::6",
+      "data": {
+        "nodeType": "Evidence",
+        "label": "熟悉 RLHF 流程",
+        "jd_id": "jd-ai-001",
+        "text": "熟悉 RLHF 流程",
+        "source": "jd",
+        "timestamp": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "ev::7",
+      "data": {
+        "nodeType": "Evidence",
+        "label": "精通 NLP 基础技术：分词",
+        "jd_id": "jd-ai-002",
+        "text": "精通 NLP 基础技术：分词",
+        "source": "jd",
+        "timestamp": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "ev::8",
+      "data": {
+        "nodeType": "Evidence",
+        "label": "熟悉 BERT/GPT 系列预训练模型",
+        "jd_id": "jd-ai-002",
+        "text": "熟悉 BERT/GPT 系列预训练模型",
+        "source": "jd",
+        "timestamp": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "ev::9",
+      "data": {
+        "nodeType": "Evidence",
+        "label": "掌握 Hugging Face Transformers 库",
+        "jd_id": "jd-ai-002",
+        "text": "掌握 Hugging Face Transformers 库",
+        "source": "jd",
+        "timestamp": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "ev::10",
+      "data": {
+        "nodeType": "Evidence",
+        "label": "熟练使用 Python 和 PyTorch",
+        "jd_id": "jd-ai-002",
+        "text": "熟练使用 Python 和 PyTorch",
+        "source": "jd",
+        "timestamp": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "ev::11",
+      "data": {
+        "nodeType": "Evidence",
+        "label": "了解大模型 Prompt Engineering",
+        "jd_id": "jd-ai-002",
+        "text": "了解大模型 Prompt Engineering",
+        "source": "jd",
+        "timestamp": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "ev::12",
+      "data": {
+        "nodeType": "Evidence",
+        "label": "有信息检索或知识图谱经验",
+        "jd_id": "jd-ai-002",
+        "text": "有信息检索或知识图谱经验",
+        "source": "jd",
+        "timestamp": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "ev::13",
+      "data": {
+        "nodeType": "Evidence",
+        "label": "精通目标检测（YOLO/Faster RCNN）",
+        "jd_id": "jd-ai-003",
+        "text": "精通目标检测（YOLO/Faster RCNN）",
+        "source": "jd",
+        "timestamp": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "ev::14",
+      "data": {
+        "nodeType": "Evidence",
+        "label": "熟悉 OpenCV 和 PIL 图像处理",
+        "jd_id": "jd-ai-003",
+        "text": "熟悉 OpenCV 和 PIL 图像处理",
+        "source": "jd",
+        "timestamp": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "ev::15",
+      "data": {
+        "nodeType": "Evidence",
+        "label": "掌握模型量化与部署（ONNX/TensorRT）",
+        "jd_id": "jd-ai-003",
+        "text": "掌握模型量化与部署（ONNX/TensorRT）",
+        "source": "jd",
+        "timestamp": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "ev::16",
+      "data": {
+        "nodeType": "Evidence",
+        "label": "有 OCR 或人脸识别项目经验",
+        "jd_id": "jd-ai-003",
+        "text": "有 OCR 或人脸识别项目经验",
+        "source": "jd",
+        "timestamp": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "ev::17",
+      "data": {
+        "nodeType": "Evidence",
+        "label": "了解 3D 视觉或多模态模型",
+        "jd_id": "jd-ai-003",
+        "text": "了解 3D 视觉或多模态模型",
+        "source": "jd",
+        "timestamp": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "ev::18",
+      "data": {
+        "nodeType": "Evidence",
+        "label": "有边缘设备部署经验",
+        "jd_id": "jd-ai-003",
+        "text": "有边缘设备部署经验",
+        "source": "jd",
+        "timestamp": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "ev::19",
+      "data": {
+        "nodeType": "Evidence",
+        "label": "熟悉 CUDA 编程",
+        "jd_id": "jd-ai-003",
+        "text": "熟悉 CUDA 编程",
+        "source": "jd",
+        "timestamp": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "ev::20",
+      "data": {
+        "nodeType": "Evidence",
+        "label": "熟悉 Scikit-learn/XGBoost/LightG",
+        "jd_id": "jd-ai-004",
+        "text": "熟悉 Scikit-learn/XGBoost/LightGBM",
+        "source": "jd",
+        "timestamp": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "ev::21",
+      "data": {
+        "nodeType": "Evidence",
+        "label": "掌握特征工程和模型调优",
+        "jd_id": "jd-ai-004",
+        "text": "掌握特征工程和模型调优",
+        "source": "jd",
+        "timestamp": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "ev::22",
+      "data": {
+        "nodeType": "Evidence",
+        "label": "有推荐系统或风控模型经验",
+        "jd_id": "jd-ai-004",
+        "text": "有推荐系统或风控模型经验",
+        "source": "jd",
+        "timestamp": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "ev::23",
+      "data": {
+        "nodeType": "Evidence",
+        "label": "熟练使用 SQL 和 Python 进行数据分析",
+        "jd_id": "jd-ai-004",
+        "text": "熟练使用 SQL 和 Python 进行数据分析",
+        "source": "jd",
+        "timestamp": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "ev::24",
+      "data": {
+        "nodeType": "Evidence",
+        "label": "了解深度学习框架",
+        "jd_id": "jd-ai-004",
+        "text": "了解深度学习框架",
+        "source": "jd",
+        "timestamp": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "ev::25",
+      "data": {
+        "nodeType": "Evidence",
+        "label": "有 Spark MLlib 大规模建模经验",
+        "jd_id": "jd-ai-004",
+        "text": "有 Spark MLlib 大规模建模经验",
+        "source": "jd",
+        "timestamp": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "ev::26",
+      "data": {
+        "nodeType": "Evidence",
+        "label": "熟悉 A/B 实验设计",
+        "jd_id": "jd-ai-004",
+        "text": "熟悉 A/B 实验设计",
+        "source": "jd",
+        "timestamp": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "ev::27",
+      "data": {
+        "nodeType": "Evidence",
+        "label": "精通 Hadoop/Spark 生态体系",
+        "jd_id": "jd-bigdata-001",
+        "text": "精通 Hadoop/Spark 生态体系",
+        "source": "jd",
+        "timestamp": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "ev::28",
+      "data": {
+        "nodeType": "Evidence",
+        "label": "熟悉 Flink 实时计算引擎",
+        "jd_id": "jd-bigdata-001",
+        "text": "熟悉 Flink 实时计算引擎",
+        "source": "jd",
+        "timestamp": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "ev::29",
+      "data": {
+        "nodeType": "Evidence",
+        "label": "掌握 Kafka 消息队列",
+        "jd_id": "jd-bigdata-001",
+        "text": "掌握 Kafka 消息队列",
+        "source": "jd",
+        "timestamp": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "ev::30",
+      "data": {
+        "nodeType": "Evidence",
+        "label": "熟练使用 ClickHouse 或 Doris 做 OLAP",
+        "jd_id": "jd-bigdata-001",
+        "text": "熟练使用 ClickHouse 或 Doris 做 OLAP 分析",
+        "source": "jd",
+        "timestamp": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "ev::31",
+      "data": {
+        "nodeType": "Evidence",
+        "label": "有数据仓库建模经验（星型/雪花模型）",
+        "jd_id": "jd-bigdata-001",
+        "text": "有数据仓库建模经验（星型/雪花模型）",
+        "source": "jd",
+        "timestamp": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "ev::32",
+      "data": {
+        "nodeType": "Evidence",
+        "label": "了解数据湖技术（Iceberg/Hudi）",
+        "jd_id": "jd-bigdata-001",
+        "text": "了解数据湖技术（Iceberg/Hudi）",
+        "source": "jd",
+        "timestamp": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "ev::33",
+      "data": {
+        "nodeType": "Evidence",
+        "label": "有 HBase 使用经验",
+        "jd_id": "jd-bigdata-001",
+        "text": "有 HBase 使用经验",
+        "source": "jd",
+        "timestamp": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "ev::34",
+      "data": {
+        "nodeType": "Evidence",
+        "label": "熟悉数据治理方法论",
+        "jd_id": "jd-bigdata-001",
+        "text": "熟悉数据治理方法论",
+        "source": "jd",
+        "timestamp": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "ev::35",
+      "data": {
+        "nodeType": "Evidence",
+        "label": "熟练使用 SQL 进行复杂查询",
+        "jd_id": "jd-bigdata-002",
+        "text": "熟练使用 SQL 进行复杂查询",
+        "source": "jd",
+        "timestamp": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "ev::36",
+      "data": {
+        "nodeType": "Evidence",
+        "label": "掌握 Python/R 数据分析库（Pandas/NumPy",
+        "jd_id": "jd-bigdata-002",
+        "text": "掌握 Python/R 数据分析库（Pandas/NumPy）",
+        "source": "jd",
+        "timestamp": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "ev::37",
+      "data": {
+        "nodeType": "Evidence",
+        "label": "熟悉数据可视化工具（Tableau/PowerBI/Meta",
+        "jd_id": "jd-bigdata-002",
+        "text": "熟悉数据可视化工具（Tableau/PowerBI/Metabase）",
+        "source": "jd",
+        "timestamp": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "ev::38",
+      "data": {
+        "nodeType": "Evidence",
+        "label": "有用户行为分析或商业分析经验",
+        "jd_id": "jd-bigdata-002",
+        "text": "有用户行为分析或商业分析经验",
+        "source": "jd",
+        "timestamp": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "ev::39",
+      "data": {
+        "nodeType": "Evidence",
+        "label": "了解机器学习基础",
+        "jd_id": "jd-bigdata-002",
+        "text": "了解机器学习基础",
+        "source": "jd",
+        "timestamp": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "ev::40",
+      "data": {
+        "nodeType": "Evidence",
+        "label": "有 A/B 实验分析经验",
+        "jd_id": "jd-bigdata-002",
+        "text": "有 A/B 实验分析经验",
+        "source": "jd",
+        "timestamp": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "ev::41",
+      "data": {
+        "nodeType": "Evidence",
+        "label": "熟悉埋点设计",
+        "jd_id": "jd-bigdata-002",
+        "text": "熟悉埋点设计",
+        "source": "jd",
+        "timestamp": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "ev::42",
+      "data": {
+        "nodeType": "Evidence",
+        "label": "精通 Hive/Spark SQL 数仓开发",
+        "jd_id": "jd-bigdata-003",
+        "text": "精通 Hive/Spark SQL 数仓开发",
+        "source": "jd",
+        "timestamp": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "ev::43",
+      "data": {
+        "nodeType": "Evidence",
+        "label": "熟悉数仓分层架构（ODS/DWD/DWS/ADS）",
+        "jd_id": "jd-bigdata-003",
+        "text": "熟悉数仓分层架构（ODS/DWD/DWS/ADS）",
+        "source": "jd",
+        "timestamp": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "ev::44",
+      "data": {
+        "nodeType": "Evidence",
+        "label": "掌握维度建模方法论",
+        "jd_id": "jd-bigdata-003",
+        "text": "掌握维度建模方法论",
+        "source": "jd",
+        "timestamp": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "ev::45",
+      "data": {
+        "nodeType": "Evidence",
+        "label": "有离线+实时一体数仓建设经验",
+        "jd_id": "jd-bigdata-003",
+        "text": "有离线+实时一体数仓建设经验",
+        "source": "jd",
+        "timestamp": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "ev::46",
+      "data": {
+        "nodeType": "Evidence",
+        "label": "熟练使用调度工具（Airflow/DolphinSchedu",
+        "jd_id": "jd-bigdata-003",
+        "text": "熟练使用调度工具（Airflow/DolphinScheduler）",
+        "source": "jd",
+        "timestamp": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "ev::47",
+      "data": {
+        "nodeType": "Evidence",
+        "label": "了解数据湖技术",
+        "jd_id": "jd-bigdata-003",
+        "text": "了解数据湖技术",
+        "source": "jd",
+        "timestamp": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "ev::48",
+      "data": {
+        "nodeType": "Evidence",
+        "label": "有 Flink CDC 实时入湖经验",
+        "jd_id": "jd-bigdata-003",
+        "text": "有 Flink CDC 实时入湖经验",
+        "source": "jd",
+        "timestamp": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "ev::49",
+      "data": {
+        "nodeType": "Evidence",
+        "label": "熟悉数据血缘和元数据管理",
+        "jd_id": "jd-bigdata-003",
+        "text": "熟悉数据血缘和元数据管理",
+        "source": "jd",
+        "timestamp": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "ev::50",
+      "data": {
+        "nodeType": "Evidence",
+        "label": "熟悉嵌入式 Linux 开发",
+        "jd_id": "jd-sys-001",
+        "text": "熟悉嵌入式 Linux 开发",
+        "source": "jd",
+        "timestamp": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "ev::51",
+      "data": {
+        "nodeType": "Evidence",
+        "label": "掌握 C/C++ 编程",
+        "jd_id": "jd-sys-001",
+        "text": "掌握 C/C++ 编程",
+        "source": "jd",
+        "timestamp": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "ev::52",
+      "data": {
+        "nodeType": "Evidence",
+        "label": "了解 TensorFlow Lite 或 ONNX Runt",
+        "jd_id": "jd-sys-001",
+        "text": "了解 TensorFlow Lite 或 ONNX Runtime 端侧推理",
+        "source": "jd",
+        "timestamp": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "ev::53",
+      "data": {
+        "nodeType": "Evidence",
+        "label": "有 ARM 平台开发经验",
+        "jd_id": "jd-sys-001",
+        "text": "有 ARM 平台开发经验",
+        "source": "jd",
+        "timestamp": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "ev::54",
+      "data": {
+        "nodeType": "Evidence",
+        "label": "熟悉模型量化和剪枝技术",
+        "jd_id": "jd-sys-001",
+        "text": "熟悉模型量化和剪枝技术",
+        "source": "jd",
+        "timestamp": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "ev::55",
+      "data": {
+        "nodeType": "Evidence",
+        "label": "了解 NPU/GPU 加速芯片",
+        "jd_id": "jd-sys-001",
+        "text": "了解 NPU/GPU 加速芯片",
+        "source": "jd",
+        "timestamp": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "ev::56",
+      "data": {
+        "nodeType": "Evidence",
+        "label": "有 RK3588 或 Jetson 平台经验",
+        "jd_id": "jd-sys-001",
+        "text": "有 RK3588 或 Jetson 平台经验",
+        "source": "jd",
+        "timestamp": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "ev::57",
+      "data": {
+        "nodeType": "Evidence",
+        "label": "熟悉 ROS 机器人系统",
+        "jd_id": "jd-sys-001",
+        "text": "熟悉 ROS 机器人系统",
+        "source": "jd",
+        "timestamp": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "ev::58",
+      "data": {
+        "nodeType": "Evidence",
+        "label": "精通 3D 目标检测算法（PointPillars/Cent",
+        "jd_id": "jd-sys-002",
+        "text": "精通 3D 目标检测算法（PointPillars/CenterPoint）",
+        "source": "jd",
+        "timestamp": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "ev::59",
+      "data": {
+        "nodeType": "Evidence",
+        "label": "熟悉激光雷达点云处理",
+        "jd_id": "jd-sys-002",
+        "text": "熟悉激光雷达点云处理",
+        "source": "jd",
+        "timestamp": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "ev::60",
+      "data": {
+        "nodeType": "Evidence",
+        "label": "掌握多传感器融合技术",
+        "jd_id": "jd-sys-002",
+        "text": "掌握多传感器融合技术",
+        "source": "jd",
+        "timestamp": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "ev::61",
+      "data": {
+        "nodeType": "Evidence",
+        "label": "有 BEV 感知或 Occupancy Network 经验",
+        "jd_id": "jd-sys-002",
+        "text": "有 BEV 感知或 Occupancy Network 经验",
+        "source": "jd",
+        "timestamp": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "ev::62",
+      "data": {
+        "nodeType": "Evidence",
+        "label": "了解端到端自动驾驶方案",
+        "jd_id": "jd-sys-002",
+        "text": "了解端到端自动驾驶方案",
+        "source": "jd",
+        "timestamp": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "ev::63",
+      "data": {
+        "nodeType": "Evidence",
+        "label": "有量产项目经验",
+        "jd_id": "jd-sys-002",
+        "text": "有量产项目经验",
+        "source": "jd",
+        "timestamp": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "ev::64",
+      "data": {
+        "nodeType": "Evidence",
+        "label": "熟悉 ROS2",
+        "jd_id": "jd-sys-002",
+        "text": "熟悉 ROS2",
+        "source": "jd",
+        "timestamp": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "ev::65",
+      "data": {
+        "nodeType": "Evidence",
+        "label": "熟悉物联网协议（MQTT/CoAP/HTTP）",
+        "jd_id": "jd-iot-001",
+        "text": "熟悉物联网协议（MQTT/CoAP/HTTP）",
+        "source": "jd",
+        "timestamp": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "ev::66",
+      "data": {
+        "nodeType": "Evidence",
+        "label": "掌握 Java/Go 后端开发",
+        "jd_id": "jd-iot-001",
+        "text": "掌握 Java/Go 后端开发",
+        "source": "jd",
+        "timestamp": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "ev::67",
+      "data": {
+        "nodeType": "Evidence",
+        "label": "了解时序数据库（InfluxDB/TDengine）",
+        "jd_id": "jd-iot-001",
+        "text": "了解时序数据库（InfluxDB/TDengine）",
+        "source": "jd",
+        "timestamp": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "ev::68",
+      "data": {
+        "nodeType": "Evidence",
+        "label": "有设备接入平台开发经验",
+        "jd_id": "jd-iot-001",
+        "text": "有设备接入平台开发经验",
+        "source": "jd",
+        "timestamp": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "ev::69",
+      "data": {
+        "nodeType": "Evidence",
+        "label": "熟悉微服务架构和容器化部署",
+        "jd_id": "jd-iot-001",
+        "text": "熟悉微服务架构和容器化部署",
+        "source": "jd",
+        "timestamp": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "ev::70",
+      "data": {
+        "nodeType": "Evidence",
+        "label": "了解边缘计算框架",
+        "jd_id": "jd-iot-001",
+        "text": "了解边缘计算框架",
+        "source": "jd",
+        "timestamp": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "ev::71",
+      "data": {
+        "nodeType": "Evidence",
+        "label": "有百万级设备接入经验",
+        "jd_id": "jd-iot-001",
+        "text": "有百万级设备接入经验",
+        "source": "jd",
+        "timestamp": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "ev::72",
+      "data": {
+        "nodeType": "Evidence",
+        "label": "熟悉 IoT 安全方案",
+        "jd_id": "jd-iot-001",
+        "text": "熟悉 IoT 安全方案",
+        "source": "jd",
+        "timestamp": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "pos::jd-ai-001",
+      "data": {
+        "nodeType": "Position",
+        "label": "大模型算法工程师",
+        "tech_stack": "人工智能",
+        "position_type": "新兴",
+        "confidence": 0.8,
+        "first_seen": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "pos::jd-ai-002",
+      "data": {
+        "nodeType": "Position",
+        "label": "NLP 算法工程师",
+        "tech_stack": "人工智能",
+        "position_type": "既有",
+        "confidence": 0.8,
+        "first_seen": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "pos::jd-ai-003",
+      "data": {
+        "nodeType": "Position",
+        "label": "计算机视觉工程师",
+        "tech_stack": "人工智能",
+        "position_type": "既有",
+        "confidence": 0.8,
+        "first_seen": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "pos::jd-ai-004",
+      "data": {
+        "nodeType": "Position",
+        "label": "机器学习工程师",
+        "tech_stack": "人工智能",
+        "position_type": "既有",
+        "confidence": 0.8,
+        "first_seen": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "pos::jd-bigdata-001",
+      "data": {
+        "nodeType": "Position",
+        "label": "大数据开发工程师",
+        "tech_stack": "大数据",
+        "position_type": "既有",
+        "confidence": 0.8,
+        "first_seen": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "pos::jd-bigdata-002",
+      "data": {
+        "nodeType": "Position",
+        "label": "数据分析师",
+        "tech_stack": "大数据",
+        "position_type": "既有",
+        "confidence": 0.8,
+        "first_seen": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "pos::jd-bigdata-003",
+      "data": {
+        "nodeType": "Position",
+        "label": "数据仓库工程师",
+        "tech_stack": "大数据",
+        "position_type": "既有",
+        "confidence": 0.8,
+        "first_seen": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "pos::jd-sys-001",
+      "data": {
+        "nodeType": "Position",
+        "label": "嵌入式 AI 工程师",
+        "tech_stack": "智能系统",
+        "position_type": "新兴",
+        "confidence": 0.8,
+        "first_seen": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "pos::jd-sys-002",
+      "data": {
+        "nodeType": "Position",
+        "label": "自动驾驶感知工程师",
+        "tech_stack": "智能系统",
+        "position_type": "既有",
+        "confidence": 0.8,
+        "first_seen": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "pos::jd-iot-001",
+      "data": {
+        "nodeType": "Position",
+        "label": "IoT 平台开发工程师",
+        "tech_stack": "物联网",
+        "position_type": "既有",
+        "confidence": 0.8,
+        "first_seen": "2026-08-04T11:27:19.049859"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "e0",
+      "source": "skill::PyTorch或TensorFlow框架",
+      "target": "stack::人工智能",
+      "data": {
+        "rel": "BELONGS_TO"
+      }
+    },
+    {
+      "id": "e1",
+      "source": "skill::有大模型微调（LoRA/QLoRA）实战经验",
+      "target": "stack::人工智能",
+      "data": {
+        "rel": "BELONGS_TO"
+      }
+    },
+    {
+      "id": "e2",
+      "source": "skill::Transformer架构原理",
+      "target": "stack::人工智能",
+      "data": {
+        "rel": "BELONGS_TO"
+      }
+    },
+    {
+      "id": "e3",
+      "source": "skill::RAG与向量数据库（Milvus/Pinecone）",
+      "target": "stack::人工智能",
+      "data": {
+        "rel": "BELONGS_TO"
+      }
+    },
+    {
+      "id": "e4",
+      "source": "skill::DeepSpeed或FSDP进行分布式训练",
+      "target": "stack::人工智能",
+      "data": {
+        "rel": "BELONGS_TO"
+      }
+    },
+    {
+      "id": "e5",
+      "source": "skill::有LangChain/LlamaIndex使用经验",
+      "target": "stack::人工智能",
+      "data": {
+        "rel": "BELONGS_TO"
+      }
+    },
+    {
+      "id": "e6",
+      "source": "skill::RLHF流程",
+      "target": "stack::人工智能",
+      "data": {
+        "rel": "BELONGS_TO"
+      }
+    },
+    {
+      "id": "e7",
+      "source": "skill::分词",
+      "target": "stack::人工智能",
+      "data": {
+        "rel": "BELONGS_TO"
+      }
+    },
+    {
+      "id": "e8",
+      "source": "skill::BERT/GPT系列预训练模型",
+      "target": "stack::人工智能",
+      "data": {
+        "rel": "BELONGS_TO"
+      }
+    },
+    {
+      "id": "e9",
+      "source": "skill::Hugging Face Transformers库",
+      "target": "stack::人工智能",
+      "data": {
+        "rel": "BELONGS_TO"
+      }
+    },
+    {
+      "id": "e10",
+      "source": "skill::Python和PyTorch",
+      "target": "stack::人工智能",
+      "data": {
+        "rel": "BELONGS_TO"
+      }
+    },
+    {
+      "id": "e11",
+      "source": "skill::大模型Prompt Engineering",
+      "target": "stack::人工智能",
+      "data": {
+        "rel": "BELONGS_TO"
+      }
+    },
+    {
+      "id": "e12",
+      "source": "skill::有信息检索或知识图谱经验",
+      "target": "stack::人工智能",
+      "data": {
+        "rel": "BELONGS_TO"
+      }
+    },
+    {
+      "id": "e13",
+      "source": "skill::目标检测（YOLO/Faster RCNN）",
+      "target": "stack::人工智能",
+      "data": {
+        "rel": "BELONGS_TO"
+      }
+    },
+    {
+      "id": "e14",
+      "source": "skill::OpenCV和PIL图像处理",
+      "target": "stack::人工智能",
+      "data": {
+        "rel": "BELONGS_TO"
+      }
+    },
+    {
+      "id": "e15",
+      "source": "skill::模型量化与部署（ONNX/TensorRT）",
+      "target": "stack::人工智能",
+      "data": {
+        "rel": "BELONGS_TO"
+      }
+    },
+    {
+      "id": "e16",
+      "source": "skill::有OCR或人脸识别项目经验",
+      "target": "stack::人工智能",
+      "data": {
+        "rel": "BELONGS_TO"
+      }
+    },
+    {
+      "id": "e17",
+      "source": "skill::3D视觉或多模态模型",
+      "target": "stack::人工智能",
+      "data": {
+        "rel": "BELONGS_TO"
+      }
+    },
+    {
+      "id": "e18",
+      "source": "skill::有边缘设备部署经验",
+      "target": "stack::人工智能",
+      "data": {
+        "rel": "BELONGS_TO"
+      }
+    },
+    {
+      "id": "e19",
+      "source": "skill::CUDA编程",
+      "target": "stack::人工智能",
+      "data": {
+        "rel": "BELONGS_TO"
+      }
+    },
+    {
+      "id": "e20",
+      "source": "skill::Scikit-learn/XGBoost/LightGBM",
+      "target": "stack::人工智能",
+      "data": {
+        "rel": "BELONGS_TO"
+      }
+    },
+    {
+      "id": "e21",
+      "source": "skill::特征工程和模型调优",
+      "target": "stack::人工智能",
+      "data": {
+        "rel": "BELONGS_TO"
+      }
+    },
+    {
+      "id": "e22",
+      "source": "skill::有推荐系统或风控模型经验",
+      "target": "stack::人工智能",
+      "data": {
+        "rel": "BELONGS_TO"
+      }
+    },
+    {
+      "id": "e23",
+      "source": "skill::SQL和Python进行数据分析",
+      "target": "stack::人工智能",
+      "data": {
+        "rel": "BELONGS_TO"
+      }
+    },
+    {
+      "id": "e24",
+      "source": "skill::深度学习框架",
+      "target": "stack::人工智能",
+      "data": {
+        "rel": "BELONGS_TO"
+      }
+    },
+    {
+      "id": "e25",
+      "source": "skill::有Spark MLlib大规模建模经验",
+      "target": "stack::人工智能",
+      "data": {
+        "rel": "BELONGS_TO"
+      }
+    },
+    {
+      "id": "e26",
+      "source": "skill::A/B实验设计",
+      "target": "stack::人工智能",
+      "data": {
+        "rel": "BELONGS_TO"
+      }
+    },
+    {
+      "id": "e27",
+      "source": "skill::Hadoop/Spark生态体系",
+      "target": "stack::大数据",
+      "data": {
+        "rel": "BELONGS_TO"
+      }
+    },
+    {
+      "id": "e28",
+      "source": "skill::Flink实时计算引擎",
+      "target": "stack::大数据",
+      "data": {
+        "rel": "BELONGS_TO"
+      }
+    },
+    {
+      "id": "e29",
+      "source": "skill::Kafka消息队列",
+      "target": "stack::大数据",
+      "data": {
+        "rel": "BELONGS_TO"
+      }
+    },
+    {
+      "id": "e30",
+      "source": "skill::ClickHouse或Doris做OLAP分析",
+      "target": "stack::大数据",
+      "data": {
+        "rel": "BELONGS_TO"
+      }
+    },
+    {
+      "id": "e31",
+      "source": "skill::有数据仓库建模经验（星型/雪花模型）",
+      "target": "stack::大数据",
+      "data": {
+        "rel": "BELONGS_TO"
+      }
+    },
+    {
+      "id": "e32",
+      "source": "skill::数据湖技术（Iceberg/Hudi）",
+      "target": "stack::大数据",
+      "data": {
+        "rel": "BELONGS_TO"
+      }
+    },
+    {
+      "id": "e33",
+      "source": "skill::有HBase使用经验",
+      "target": "stack::大数据",
+      "data": {
+        "rel": "BELONGS_TO"
+      }
+    },
+    {
+      "id": "e34",
+      "source": "skill::数据治理方法论",
+      "target": "stack::大数据",
+      "data": {
+        "rel": "BELONGS_TO"
+      }
+    },
+    {
+      "id": "e35",
+      "source": "skill::SQL进行复杂查询",
+      "target": "stack::大数据",
+      "data": {
+        "rel": "BELONGS_TO"
+      }
+    },
+    {
+      "id": "e36",
+      "source": "skill::Python/R数据分析库（Pandas/NumPy）",
+      "target": "stack::大数据",
+      "data": {
+        "rel": "BELONGS_TO"
+      }
+    },
+    {
+      "id": "e37",
+      "source": "skill::数据可视化工具（Tableau/PowerBI/Metabase）",
+      "target": "stack::大数据",
+      "data": {
+        "rel": "BELONGS_TO"
+      }
+    },
+    {
+      "id": "e38",
+      "source": "skill::有用户行为分析或商业分析经验",
+      "target": "stack::大数据",
+      "data": {
+        "rel": "BELONGS_TO"
+      }
+    },
+    {
+      "id": "e39",
+      "source": "skill::机器学习基础",
+      "target": "stack::大数据",
+      "data": {
+        "rel": "BELONGS_TO"
+      }
+    },
+    {
+      "id": "e40",
+      "source": "skill::有A/B实验分析经验",
+      "target": "stack::大数据",
+      "data": {
+        "rel": "BELONGS_TO"
+      }
+    },
+    {
+      "id": "e41",
+      "source": "skill::埋点设计",
+      "target": "stack::大数据",
+      "data": {
+        "rel": "BELONGS_TO"
+      }
+    },
+    {
+      "id": "e42",
+      "source": "skill::Hive/Spark SQL数仓开发",
+      "target": "stack::大数据",
+      "data": {
+        "rel": "BELONGS_TO"
+      }
+    },
+    {
+      "id": "e43",
+      "source": "skill::数仓分层架构（ODS/DWD/DWS/ADS）",
+      "target": "stack::大数据",
+      "data": {
+        "rel": "BELONGS_TO"
+      }
+    },
+    {
+      "id": "e44",
+      "source": "skill::维度建模方法论",
+      "target": "stack::大数据",
+      "data": {
+        "rel": "BELONGS_TO"
+      }
+    },
+    {
+      "id": "e45",
+      "source": "skill::有离线+实时一体数仓建设经验",
+      "target": "stack::大数据",
+      "data": {
+        "rel": "BELONGS_TO"
+      }
+    },
+    {
+      "id": "e46",
+      "source": "skill::调度工具（Airflow/DolphinScheduler）",
+      "target": "stack::大数据",
+      "data": {
+        "rel": "BELONGS_TO"
+      }
+    },
+    {
+      "id": "e47",
+      "source": "skill::数据湖技术",
+      "target": "stack::大数据",
+      "data": {
+        "rel": "BELONGS_TO"
+      }
+    },
+    {
+      "id": "e48",
+      "source": "skill::有Flink CDC实时入湖经验",
+      "target": "stack::大数据",
+      "data": {
+        "rel": "BELONGS_TO"
+      }
+    },
+    {
+      "id": "e49",
+      "source": "skill::数据血缘和元数据管理",
+      "target": "stack::大数据",
+      "data": {
+        "rel": "BELONGS_TO"
+      }
+    },
+    {
+      "id": "e50",
+      "source": "skill::嵌入式Linux开发",
+      "target": "stack::智能系统",
+      "data": {
+        "rel": "BELONGS_TO"
+      }
+    },
+    {
+      "id": "e51",
+      "source": "skill::C/C++ 编程",
+      "target": "stack::智能系统",
+      "data": {
+        "rel": "BELONGS_TO"
+      }
+    },
+    {
+      "id": "e52",
+      "source": "skill::TensorFlow Lite或ONNX Runtime端侧推理",
+      "target": "stack::智能系统",
+      "data": {
+        "rel": "BELONGS_TO"
+      }
+    },
+    {
+      "id": "e53",
+      "source": "skill::有ARM平台开发经验",
+      "target": "stack::智能系统",
+      "data": {
+        "rel": "BELONGS_TO"
+      }
+    },
+    {
+      "id": "e54",
+      "source": "skill::模型量化和剪枝技术",
+      "target": "stack::智能系统",
+      "data": {
+        "rel": "BELONGS_TO"
+      }
+    },
+    {
+      "id": "e55",
+      "source": "skill::NPU/GPU加速芯片",
+      "target": "stack::智能系统",
+      "data": {
+        "rel": "BELONGS_TO"
+      }
+    },
+    {
+      "id": "e56",
+      "source": "skill::有RK3588或Jetson平台经验",
+      "target": "stack::智能系统",
+      "data": {
+        "rel": "BELONGS_TO"
+      }
+    },
+    {
+      "id": "e57",
+      "source": "skill::ROS机器人系统",
+      "target": "stack::智能系统",
+      "data": {
+        "rel": "BELONGS_TO"
+      }
+    },
+    {
+      "id": "e58",
+      "source": "skill::3D目标检测算法（PointPillars/CenterPoint）",
+      "target": "stack::智能系统",
+      "data": {
+        "rel": "BELONGS_TO"
+      }
+    },
+    {
+      "id": "e59",
+      "source": "skill::激光雷达点云处理",
+      "target": "stack::智能系统",
+      "data": {
+        "rel": "BELONGS_TO"
+      }
+    },
+    {
+      "id": "e60",
+      "source": "skill::多传感器融合技术",
+      "target": "stack::智能系统",
+      "data": {
+        "rel": "BELONGS_TO"
+      }
+    },
+    {
+      "id": "e61",
+      "source": "skill::有BEV感知或Occupancy Network经验",
+      "target": "stack::智能系统",
+      "data": {
+        "rel": "BELONGS_TO"
+      }
+    },
+    {
+      "id": "e62",
+      "source": "skill::端到端自动驾驶方案",
+      "target": "stack::智能系统",
+      "data": {
+        "rel": "BELONGS_TO"
+      }
+    },
+    {
+      "id": "e63",
+      "source": "skill::有量产项目经验",
+      "target": "stack::智能系统",
+      "data": {
+        "rel": "BELONGS_TO"
+      }
+    },
+    {
+      "id": "e64",
+      "source": "skill::ROS2",
+      "target": "stack::智能系统",
+      "data": {
+        "rel": "BELONGS_TO"
+      }
+    },
+    {
+      "id": "e65",
+      "source": "skill::物联网协议（MQTT/CoAP/HTTP）",
+      "target": "stack::物联网",
+      "data": {
+        "rel": "BELONGS_TO"
+      }
+    },
+    {
+      "id": "e66",
+      "source": "skill::Java/Go后端开发",
+      "target": "stack::物联网",
+      "data": {
+        "rel": "BELONGS_TO"
+      }
+    },
+    {
+      "id": "e67",
+      "source": "skill::时序数据库（InfluxDB/TDengine）",
+      "target": "stack::物联网",
+      "data": {
+        "rel": "BELONGS_TO"
+      }
+    },
+    {
+      "id": "e68",
+      "source": "skill::有设备接入平台开发经验",
+      "target": "stack::物联网",
+      "data": {
+        "rel": "BELONGS_TO"
+      }
+    },
+    {
+      "id": "e69",
+      "source": "skill::微服务架构和容器化部署",
+      "target": "stack::物联网",
+      "data": {
+        "rel": "BELONGS_TO"
+      }
+    },
+    {
+      "id": "e70",
+      "source": "skill::边缘计算框架",
+      "target": "stack::物联网",
+      "data": {
+        "rel": "BELONGS_TO"
+      }
+    },
+    {
+      "id": "e71",
+      "source": "skill::有百万级设备接入经验",
+      "target": "stack::物联网",
+      "data": {
+        "rel": "BELONGS_TO"
+      }
+    },
+    {
+      "id": "e72",
+      "source": "skill::IoT安全方案",
+      "target": "stack::物联网",
+      "data": {
+        "rel": "BELONGS_TO"
+      }
+    },
+    {
+      "id": "e73",
+      "source": "skill::DeepSpeed或FSDP进行分布式训练",
+      "target": "skill::PyTorch或TensorFlow框架",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e74",
+      "source": "skill::DeepSpeed或FSDP进行分布式训练",
+      "target": "skill::RAG与向量数据库（Milvus/Pinecone）",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e75",
+      "source": "skill::DeepSpeed或FSDP进行分布式训练",
+      "target": "skill::RLHF流程",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e76",
+      "source": "skill::DeepSpeed或FSDP进行分布式训练",
+      "target": "skill::Transformer架构原理",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e77",
+      "source": "skill::DeepSpeed或FSDP进行分布式训练",
+      "target": "skill::有LangChain/LlamaIndex使用经验",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e78",
+      "source": "skill::DeepSpeed或FSDP进行分布式训练",
+      "target": "skill::有大模型微调（LoRA/QLoRA）实战经验",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e79",
+      "source": "skill::PyTorch或TensorFlow框架",
+      "target": "skill::RAG与向量数据库（Milvus/Pinecone）",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e80",
+      "source": "skill::PyTorch或TensorFlow框架",
+      "target": "skill::RLHF流程",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e81",
+      "source": "skill::PyTorch或TensorFlow框架",
+      "target": "skill::Transformer架构原理",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e82",
+      "source": "skill::PyTorch或TensorFlow框架",
+      "target": "skill::有LangChain/LlamaIndex使用经验",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e83",
+      "source": "skill::PyTorch或TensorFlow框架",
+      "target": "skill::有大模型微调（LoRA/QLoRA）实战经验",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e84",
+      "source": "skill::RAG与向量数据库（Milvus/Pinecone）",
+      "target": "skill::RLHF流程",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e85",
+      "source": "skill::RAG与向量数据库（Milvus/Pinecone）",
+      "target": "skill::Transformer架构原理",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e86",
+      "source": "skill::RAG与向量数据库（Milvus/Pinecone）",
+      "target": "skill::有LangChain/LlamaIndex使用经验",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e87",
+      "source": "skill::RAG与向量数据库（Milvus/Pinecone）",
+      "target": "skill::有大模型微调（LoRA/QLoRA）实战经验",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e88",
+      "source": "skill::RLHF流程",
+      "target": "skill::Transformer架构原理",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e89",
+      "source": "skill::RLHF流程",
+      "target": "skill::有LangChain/LlamaIndex使用经验",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e90",
+      "source": "skill::RLHF流程",
+      "target": "skill::有大模型微调（LoRA/QLoRA）实战经验",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e91",
+      "source": "skill::Transformer架构原理",
+      "target": "skill::有LangChain/LlamaIndex使用经验",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e92",
+      "source": "skill::Transformer架构原理",
+      "target": "skill::有大模型微调（LoRA/QLoRA）实战经验",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e93",
+      "source": "skill::有LangChain/LlamaIndex使用经验",
+      "target": "skill::有大模型微调（LoRA/QLoRA）实战经验",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e94",
+      "source": "skill::BERT/GPT系列预训练模型",
+      "target": "skill::Hugging Face Transformers库",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e95",
+      "source": "skill::BERT/GPT系列预训练模型",
+      "target": "skill::Python和PyTorch",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e96",
+      "source": "skill::BERT/GPT系列预训练模型",
+      "target": "skill::分词",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e97",
+      "source": "skill::BERT/GPT系列预训练模型",
+      "target": "skill::大模型Prompt Engineering",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e98",
+      "source": "skill::BERT/GPT系列预训练模型",
+      "target": "skill::有信息检索或知识图谱经验",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e99",
+      "source": "skill::Hugging Face Transformers库",
+      "target": "skill::Python和PyTorch",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e100",
+      "source": "skill::Hugging Face Transformers库",
+      "target": "skill::分词",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e101",
+      "source": "skill::Hugging Face Transformers库",
+      "target": "skill::大模型Prompt Engineering",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e102",
+      "source": "skill::Hugging Face Transformers库",
+      "target": "skill::有信息检索或知识图谱经验",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e103",
+      "source": "skill::Python和PyTorch",
+      "target": "skill::分词",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e104",
+      "source": "skill::Python和PyTorch",
+      "target": "skill::大模型Prompt Engineering",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e105",
+      "source": "skill::Python和PyTorch",
+      "target": "skill::有信息检索或知识图谱经验",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e106",
+      "source": "skill::分词",
+      "target": "skill::大模型Prompt Engineering",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e107",
+      "source": "skill::分词",
+      "target": "skill::有信息检索或知识图谱经验",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e108",
+      "source": "skill::大模型Prompt Engineering",
+      "target": "skill::有信息检索或知识图谱经验",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e109",
+      "source": "skill::3D视觉或多模态模型",
+      "target": "skill::CUDA编程",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e110",
+      "source": "skill::3D视觉或多模态模型",
+      "target": "skill::OpenCV和PIL图像处理",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e111",
+      "source": "skill::3D视觉或多模态模型",
+      "target": "skill::有OCR或人脸识别项目经验",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e112",
+      "source": "skill::3D视觉或多模态模型",
+      "target": "skill::有边缘设备部署经验",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e113",
+      "source": "skill::3D视觉或多模态模型",
+      "target": "skill::模型量化与部署（ONNX/TensorRT）",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e114",
+      "source": "skill::3D视觉或多模态模型",
+      "target": "skill::目标检测（YOLO/Faster RCNN）",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e115",
+      "source": "skill::CUDA编程",
+      "target": "skill::OpenCV和PIL图像处理",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e116",
+      "source": "skill::CUDA编程",
+      "target": "skill::有OCR或人脸识别项目经验",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e117",
+      "source": "skill::CUDA编程",
+      "target": "skill::有边缘设备部署经验",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e118",
+      "source": "skill::CUDA编程",
+      "target": "skill::模型量化与部署（ONNX/TensorRT）",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e119",
+      "source": "skill::CUDA编程",
+      "target": "skill::目标检测（YOLO/Faster RCNN）",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e120",
+      "source": "skill::OpenCV和PIL图像处理",
+      "target": "skill::有OCR或人脸识别项目经验",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e121",
+      "source": "skill::OpenCV和PIL图像处理",
+      "target": "skill::有边缘设备部署经验",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e122",
+      "source": "skill::OpenCV和PIL图像处理",
+      "target": "skill::模型量化与部署（ONNX/TensorRT）",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e123",
+      "source": "skill::OpenCV和PIL图像处理",
+      "target": "skill::目标检测（YOLO/Faster RCNN）",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e124",
+      "source": "skill::有OCR或人脸识别项目经验",
+      "target": "skill::有边缘设备部署经验",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e125",
+      "source": "skill::有OCR或人脸识别项目经验",
+      "target": "skill::模型量化与部署（ONNX/TensorRT）",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e126",
+      "source": "skill::有OCR或人脸识别项目经验",
+      "target": "skill::目标检测（YOLO/Faster RCNN）",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e127",
+      "source": "skill::有边缘设备部署经验",
+      "target": "skill::模型量化与部署（ONNX/TensorRT）",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e128",
+      "source": "skill::有边缘设备部署经验",
+      "target": "skill::目标检测（YOLO/Faster RCNN）",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e129",
+      "source": "skill::模型量化与部署（ONNX/TensorRT）",
+      "target": "skill::目标检测（YOLO/Faster RCNN）",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e130",
+      "source": "skill::A/B实验设计",
+      "target": "skill::SQL和Python进行数据分析",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e131",
+      "source": "skill::A/B实验设计",
+      "target": "skill::Scikit-learn/XGBoost/LightGBM",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e132",
+      "source": "skill::A/B实验设计",
+      "target": "skill::有Spark MLlib大规模建模经验",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e133",
+      "source": "skill::A/B实验设计",
+      "target": "skill::有推荐系统或风控模型经验",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e134",
+      "source": "skill::A/B实验设计",
+      "target": "skill::深度学习框架",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e135",
+      "source": "skill::A/B实验设计",
+      "target": "skill::特征工程和模型调优",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e136",
+      "source": "skill::SQL和Python进行数据分析",
+      "target": "skill::Scikit-learn/XGBoost/LightGBM",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e137",
+      "source": "skill::SQL和Python进行数据分析",
+      "target": "skill::有Spark MLlib大规模建模经验",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e138",
+      "source": "skill::SQL和Python进行数据分析",
+      "target": "skill::有推荐系统或风控模型经验",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e139",
+      "source": "skill::SQL和Python进行数据分析",
+      "target": "skill::深度学习框架",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e140",
+      "source": "skill::SQL和Python进行数据分析",
+      "target": "skill::特征工程和模型调优",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e141",
+      "source": "skill::Scikit-learn/XGBoost/LightGBM",
+      "target": "skill::有Spark MLlib大规模建模经验",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e142",
+      "source": "skill::Scikit-learn/XGBoost/LightGBM",
+      "target": "skill::有推荐系统或风控模型经验",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e143",
+      "source": "skill::Scikit-learn/XGBoost/LightGBM",
+      "target": "skill::深度学习框架",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e144",
+      "source": "skill::Scikit-learn/XGBoost/LightGBM",
+      "target": "skill::特征工程和模型调优",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e145",
+      "source": "skill::有Spark MLlib大规模建模经验",
+      "target": "skill::有推荐系统或风控模型经验",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e146",
+      "source": "skill::有Spark MLlib大规模建模经验",
+      "target": "skill::深度学习框架",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e147",
+      "source": "skill::有Spark MLlib大规模建模经验",
+      "target": "skill::特征工程和模型调优",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e148",
+      "source": "skill::有推荐系统或风控模型经验",
+      "target": "skill::深度学习框架",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e149",
+      "source": "skill::有推荐系统或风控模型经验",
+      "target": "skill::特征工程和模型调优",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e150",
+      "source": "skill::深度学习框架",
+      "target": "skill::特征工程和模型调优",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e151",
+      "source": "skill::ClickHouse或Doris做OLAP分析",
+      "target": "skill::Flink实时计算引擎",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e152",
+      "source": "skill::ClickHouse或Doris做OLAP分析",
+      "target": "skill::Hadoop/Spark生态体系",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e153",
+      "source": "skill::ClickHouse或Doris做OLAP分析",
+      "target": "skill::Kafka消息队列",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e154",
+      "source": "skill::ClickHouse或Doris做OLAP分析",
+      "target": "skill::数据治理方法论",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e155",
+      "source": "skill::ClickHouse或Doris做OLAP分析",
+      "target": "skill::数据湖技术（Iceberg/Hudi）",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e156",
+      "source": "skill::ClickHouse或Doris做OLAP分析",
+      "target": "skill::有HBase使用经验",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e157",
+      "source": "skill::ClickHouse或Doris做OLAP分析",
+      "target": "skill::有数据仓库建模经验（星型/雪花模型）",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e158",
+      "source": "skill::Flink实时计算引擎",
+      "target": "skill::Hadoop/Spark生态体系",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e159",
+      "source": "skill::Flink实时计算引擎",
+      "target": "skill::Kafka消息队列",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e160",
+      "source": "skill::Flink实时计算引擎",
+      "target": "skill::数据治理方法论",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e161",
+      "source": "skill::Flink实时计算引擎",
+      "target": "skill::数据湖技术（Iceberg/Hudi）",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e162",
+      "source": "skill::Flink实时计算引擎",
+      "target": "skill::有HBase使用经验",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e163",
+      "source": "skill::Flink实时计算引擎",
+      "target": "skill::有数据仓库建模经验（星型/雪花模型）",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e164",
+      "source": "skill::Hadoop/Spark生态体系",
+      "target": "skill::Kafka消息队列",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e165",
+      "source": "skill::Hadoop/Spark生态体系",
+      "target": "skill::数据治理方法论",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e166",
+      "source": "skill::Hadoop/Spark生态体系",
+      "target": "skill::数据湖技术（Iceberg/Hudi）",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e167",
+      "source": "skill::Hadoop/Spark生态体系",
+      "target": "skill::有HBase使用经验",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e168",
+      "source": "skill::Hadoop/Spark生态体系",
+      "target": "skill::有数据仓库建模经验（星型/雪花模型）",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e169",
+      "source": "skill::Kafka消息队列",
+      "target": "skill::数据治理方法论",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e170",
+      "source": "skill::Kafka消息队列",
+      "target": "skill::数据湖技术（Iceberg/Hudi）",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e171",
+      "source": "skill::Kafka消息队列",
+      "target": "skill::有HBase使用经验",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e172",
+      "source": "skill::Kafka消息队列",
+      "target": "skill::有数据仓库建模经验（星型/雪花模型）",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e173",
+      "source": "skill::数据治理方法论",
+      "target": "skill::数据湖技术（Iceberg/Hudi）",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e174",
+      "source": "skill::数据治理方法论",
+      "target": "skill::有HBase使用经验",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e175",
+      "source": "skill::数据治理方法论",
+      "target": "skill::有数据仓库建模经验（星型/雪花模型）",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e176",
+      "source": "skill::数据湖技术（Iceberg/Hudi）",
+      "target": "skill::有HBase使用经验",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e177",
+      "source": "skill::数据湖技术（Iceberg/Hudi）",
+      "target": "skill::有数据仓库建模经验（星型/雪花模型）",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e178",
+      "source": "skill::有HBase使用经验",
+      "target": "skill::有数据仓库建模经验（星型/雪花模型）",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e179",
+      "source": "skill::Python/R数据分析库（Pandas/NumPy）",
+      "target": "skill::SQL进行复杂查询",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e180",
+      "source": "skill::Python/R数据分析库（Pandas/NumPy）",
+      "target": "skill::埋点设计",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e181",
+      "source": "skill::Python/R数据分析库（Pandas/NumPy）",
+      "target": "skill::数据可视化工具（Tableau/PowerBI/Metabase）",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e182",
+      "source": "skill::Python/R数据分析库（Pandas/NumPy）",
+      "target": "skill::有A/B实验分析经验",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e183",
+      "source": "skill::Python/R数据分析库（Pandas/NumPy）",
+      "target": "skill::有用户行为分析或商业分析经验",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e184",
+      "source": "skill::Python/R数据分析库（Pandas/NumPy）",
+      "target": "skill::机器学习基础",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e185",
+      "source": "skill::SQL进行复杂查询",
+      "target": "skill::埋点设计",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e186",
+      "source": "skill::SQL进行复杂查询",
+      "target": "skill::数据可视化工具（Tableau/PowerBI/Metabase）",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e187",
+      "source": "skill::SQL进行复杂查询",
+      "target": "skill::有A/B实验分析经验",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e188",
+      "source": "skill::SQL进行复杂查询",
+      "target": "skill::有用户行为分析或商业分析经验",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e189",
+      "source": "skill::SQL进行复杂查询",
+      "target": "skill::机器学习基础",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e190",
+      "source": "skill::埋点设计",
+      "target": "skill::数据可视化工具（Tableau/PowerBI/Metabase）",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e191",
+      "source": "skill::埋点设计",
+      "target": "skill::有A/B实验分析经验",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e192",
+      "source": "skill::埋点设计",
+      "target": "skill::有用户行为分析或商业分析经验",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e193",
+      "source": "skill::埋点设计",
+      "target": "skill::机器学习基础",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e194",
+      "source": "skill::数据可视化工具（Tableau/PowerBI/Metabase）",
+      "target": "skill::有A/B实验分析经验",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e195",
+      "source": "skill::数据可视化工具（Tableau/PowerBI/Metabase）",
+      "target": "skill::有用户行为分析或商业分析经验",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e196",
+      "source": "skill::数据可视化工具（Tableau/PowerBI/Metabase）",
+      "target": "skill::机器学习基础",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e197",
+      "source": "skill::有A/B实验分析经验",
+      "target": "skill::有用户行为分析或商业分析经验",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e198",
+      "source": "skill::有A/B实验分析经验",
+      "target": "skill::机器学习基础",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e199",
+      "source": "skill::有用户行为分析或商业分析经验",
+      "target": "skill::机器学习基础",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e200",
+      "source": "skill::Hive/Spark SQL数仓开发",
+      "target": "skill::数仓分层架构（ODS/DWD/DWS/ADS）",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e201",
+      "source": "skill::Hive/Spark SQL数仓开发",
+      "target": "skill::数据湖技术",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e202",
+      "source": "skill::Hive/Spark SQL数仓开发",
+      "target": "skill::数据血缘和元数据管理",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e203",
+      "source": "skill::Hive/Spark SQL数仓开发",
+      "target": "skill::有Flink CDC实时入湖经验",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e204",
+      "source": "skill::Hive/Spark SQL数仓开发",
+      "target": "skill::有离线+实时一体数仓建设经验",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e205",
+      "source": "skill::Hive/Spark SQL数仓开发",
+      "target": "skill::维度建模方法论",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e206",
+      "source": "skill::Hive/Spark SQL数仓开发",
+      "target": "skill::调度工具（Airflow/DolphinScheduler）",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e207",
+      "source": "skill::数仓分层架构（ODS/DWD/DWS/ADS）",
+      "target": "skill::数据湖技术",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e208",
+      "source": "skill::数仓分层架构（ODS/DWD/DWS/ADS）",
+      "target": "skill::数据血缘和元数据管理",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e209",
+      "source": "skill::数仓分层架构（ODS/DWD/DWS/ADS）",
+      "target": "skill::有Flink CDC实时入湖经验",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e210",
+      "source": "skill::数仓分层架构（ODS/DWD/DWS/ADS）",
+      "target": "skill::有离线+实时一体数仓建设经验",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e211",
+      "source": "skill::数仓分层架构（ODS/DWD/DWS/ADS）",
+      "target": "skill::维度建模方法论",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e212",
+      "source": "skill::数仓分层架构（ODS/DWD/DWS/ADS）",
+      "target": "skill::调度工具（Airflow/DolphinScheduler）",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e213",
+      "source": "skill::数据湖技术",
+      "target": "skill::数据血缘和元数据管理",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e214",
+      "source": "skill::数据湖技术",
+      "target": "skill::有Flink CDC实时入湖经验",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e215",
+      "source": "skill::数据湖技术",
+      "target": "skill::有离线+实时一体数仓建设经验",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e216",
+      "source": "skill::数据湖技术",
+      "target": "skill::维度建模方法论",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e217",
+      "source": "skill::数据湖技术",
+      "target": "skill::调度工具（Airflow/DolphinScheduler）",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e218",
+      "source": "skill::数据血缘和元数据管理",
+      "target": "skill::有Flink CDC实时入湖经验",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e219",
+      "source": "skill::数据血缘和元数据管理",
+      "target": "skill::有离线+实时一体数仓建设经验",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e220",
+      "source": "skill::数据血缘和元数据管理",
+      "target": "skill::维度建模方法论",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e221",
+      "source": "skill::数据血缘和元数据管理",
+      "target": "skill::调度工具（Airflow/DolphinScheduler）",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e222",
+      "source": "skill::有Flink CDC实时入湖经验",
+      "target": "skill::有离线+实时一体数仓建设经验",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e223",
+      "source": "skill::有Flink CDC实时入湖经验",
+      "target": "skill::维度建模方法论",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e224",
+      "source": "skill::有Flink CDC实时入湖经验",
+      "target": "skill::调度工具（Airflow/DolphinScheduler）",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e225",
+      "source": "skill::有离线+实时一体数仓建设经验",
+      "target": "skill::维度建模方法论",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e226",
+      "source": "skill::有离线+实时一体数仓建设经验",
+      "target": "skill::调度工具（Airflow/DolphinScheduler）",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e227",
+      "source": "skill::维度建模方法论",
+      "target": "skill::调度工具（Airflow/DolphinScheduler）",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e228",
+      "source": "skill::C/C++ 编程",
+      "target": "skill::NPU/GPU加速芯片",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e229",
+      "source": "skill::C/C++ 编程",
+      "target": "skill::ROS机器人系统",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e230",
+      "source": "skill::C/C++ 编程",
+      "target": "skill::TensorFlow Lite或ONNX Runtime端侧推理",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e231",
+      "source": "skill::C/C++ 编程",
+      "target": "skill::嵌入式Linux开发",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e232",
+      "source": "skill::C/C++ 编程",
+      "target": "skill::有ARM平台开发经验",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e233",
+      "source": "skill::C/C++ 编程",
+      "target": "skill::有RK3588或Jetson平台经验",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e234",
+      "source": "skill::C/C++ 编程",
+      "target": "skill::模型量化和剪枝技术",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e235",
+      "source": "skill::NPU/GPU加速芯片",
+      "target": "skill::ROS机器人系统",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e236",
+      "source": "skill::NPU/GPU加速芯片",
+      "target": "skill::TensorFlow Lite或ONNX Runtime端侧推理",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e237",
+      "source": "skill::NPU/GPU加速芯片",
+      "target": "skill::嵌入式Linux开发",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e238",
+      "source": "skill::NPU/GPU加速芯片",
+      "target": "skill::有ARM平台开发经验",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e239",
+      "source": "skill::NPU/GPU加速芯片",
+      "target": "skill::有RK3588或Jetson平台经验",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e240",
+      "source": "skill::NPU/GPU加速芯片",
+      "target": "skill::模型量化和剪枝技术",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e241",
+      "source": "skill::ROS机器人系统",
+      "target": "skill::TensorFlow Lite或ONNX Runtime端侧推理",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e242",
+      "source": "skill::ROS机器人系统",
+      "target": "skill::嵌入式Linux开发",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e243",
+      "source": "skill::ROS机器人系统",
+      "target": "skill::有ARM平台开发经验",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e244",
+      "source": "skill::ROS机器人系统",
+      "target": "skill::有RK3588或Jetson平台经验",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e245",
+      "source": "skill::ROS机器人系统",
+      "target": "skill::模型量化和剪枝技术",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e246",
+      "source": "skill::TensorFlow Lite或ONNX Runtime端侧推理",
+      "target": "skill::嵌入式Linux开发",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e247",
+      "source": "skill::TensorFlow Lite或ONNX Runtime端侧推理",
+      "target": "skill::有ARM平台开发经验",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e248",
+      "source": "skill::TensorFlow Lite或ONNX Runtime端侧推理",
+      "target": "skill::有RK3588或Jetson平台经验",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e249",
+      "source": "skill::TensorFlow Lite或ONNX Runtime端侧推理",
+      "target": "skill::模型量化和剪枝技术",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e250",
+      "source": "skill::嵌入式Linux开发",
+      "target": "skill::有ARM平台开发经验",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e251",
+      "source": "skill::嵌入式Linux开发",
+      "target": "skill::有RK3588或Jetson平台经验",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e252",
+      "source": "skill::嵌入式Linux开发",
+      "target": "skill::模型量化和剪枝技术",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e253",
+      "source": "skill::有ARM平台开发经验",
+      "target": "skill::有RK3588或Jetson平台经验",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e254",
+      "source": "skill::有ARM平台开发经验",
+      "target": "skill::模型量化和剪枝技术",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e255",
+      "source": "skill::有RK3588或Jetson平台经验",
+      "target": "skill::模型量化和剪枝技术",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e256",
+      "source": "skill::3D目标检测算法（PointPillars/CenterPoint）",
+      "target": "skill::ROS2",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e257",
+      "source": "skill::3D目标检测算法（PointPillars/CenterPoint）",
+      "target": "skill::多传感器融合技术",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e258",
+      "source": "skill::3D目标检测算法（PointPillars/CenterPoint）",
+      "target": "skill::有BEV感知或Occupancy Network经验",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e259",
+      "source": "skill::3D目标检测算法（PointPillars/CenterPoint）",
+      "target": "skill::有量产项目经验",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e260",
+      "source": "skill::3D目标检测算法（PointPillars/CenterPoint）",
+      "target": "skill::激光雷达点云处理",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e261",
+      "source": "skill::3D目标检测算法（PointPillars/CenterPoint）",
+      "target": "skill::端到端自动驾驶方案",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e262",
+      "source": "skill::ROS2",
+      "target": "skill::多传感器融合技术",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e263",
+      "source": "skill::ROS2",
+      "target": "skill::有BEV感知或Occupancy Network经验",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e264",
+      "source": "skill::ROS2",
+      "target": "skill::有量产项目经验",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e265",
+      "source": "skill::ROS2",
+      "target": "skill::激光雷达点云处理",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e266",
+      "source": "skill::ROS2",
+      "target": "skill::端到端自动驾驶方案",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e267",
+      "source": "skill::多传感器融合技术",
+      "target": "skill::有BEV感知或Occupancy Network经验",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e268",
+      "source": "skill::多传感器融合技术",
+      "target": "skill::有量产项目经验",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e269",
+      "source": "skill::多传感器融合技术",
+      "target": "skill::激光雷达点云处理",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e270",
+      "source": "skill::多传感器融合技术",
+      "target": "skill::端到端自动驾驶方案",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e271",
+      "source": "skill::有BEV感知或Occupancy Network经验",
+      "target": "skill::有量产项目经验",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e272",
+      "source": "skill::有BEV感知或Occupancy Network经验",
+      "target": "skill::激光雷达点云处理",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e273",
+      "source": "skill::有BEV感知或Occupancy Network经验",
+      "target": "skill::端到端自动驾驶方案",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e274",
+      "source": "skill::有量产项目经验",
+      "target": "skill::激光雷达点云处理",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e275",
+      "source": "skill::有量产项目经验",
+      "target": "skill::端到端自动驾驶方案",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e276",
+      "source": "skill::激光雷达点云处理",
+      "target": "skill::端到端自动驾驶方案",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e277",
+      "source": "skill::IoT安全方案",
+      "target": "skill::Java/Go后端开发",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e278",
+      "source": "skill::IoT安全方案",
+      "target": "skill::微服务架构和容器化部署",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e279",
+      "source": "skill::IoT安全方案",
+      "target": "skill::时序数据库（InfluxDB/TDengine）",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e280",
+      "source": "skill::IoT安全方案",
+      "target": "skill::有百万级设备接入经验",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e281",
+      "source": "skill::IoT安全方案",
+      "target": "skill::有设备接入平台开发经验",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e282",
+      "source": "skill::IoT安全方案",
+      "target": "skill::物联网协议（MQTT/CoAP/HTTP）",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e283",
+      "source": "skill::IoT安全方案",
+      "target": "skill::边缘计算框架",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e284",
+      "source": "skill::Java/Go后端开发",
+      "target": "skill::微服务架构和容器化部署",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e285",
+      "source": "skill::Java/Go后端开发",
+      "target": "skill::时序数据库（InfluxDB/TDengine）",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e286",
+      "source": "skill::Java/Go后端开发",
+      "target": "skill::有百万级设备接入经验",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e287",
+      "source": "skill::Java/Go后端开发",
+      "target": "skill::有设备接入平台开发经验",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e288",
+      "source": "skill::Java/Go后端开发",
+      "target": "skill::物联网协议（MQTT/CoAP/HTTP）",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e289",
+      "source": "skill::Java/Go后端开发",
+      "target": "skill::边缘计算框架",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e290",
+      "source": "skill::微服务架构和容器化部署",
+      "target": "skill::时序数据库（InfluxDB/TDengine）",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e291",
+      "source": "skill::微服务架构和容器化部署",
+      "target": "skill::有百万级设备接入经验",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e292",
+      "source": "skill::微服务架构和容器化部署",
+      "target": "skill::有设备接入平台开发经验",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e293",
+      "source": "skill::微服务架构和容器化部署",
+      "target": "skill::物联网协议（MQTT/CoAP/HTTP）",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e294",
+      "source": "skill::微服务架构和容器化部署",
+      "target": "skill::边缘计算框架",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e295",
+      "source": "skill::时序数据库（InfluxDB/TDengine）",
+      "target": "skill::有百万级设备接入经验",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e296",
+      "source": "skill::时序数据库（InfluxDB/TDengine）",
+      "target": "skill::有设备接入平台开发经验",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e297",
+      "source": "skill::时序数据库（InfluxDB/TDengine）",
+      "target": "skill::物联网协议（MQTT/CoAP/HTTP）",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e298",
+      "source": "skill::时序数据库（InfluxDB/TDengine）",
+      "target": "skill::边缘计算框架",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e299",
+      "source": "skill::有百万级设备接入经验",
+      "target": "skill::有设备接入平台开发经验",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e300",
+      "source": "skill::有百万级设备接入经验",
+      "target": "skill::物联网协议（MQTT/CoAP/HTTP）",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e301",
+      "source": "skill::有百万级设备接入经验",
+      "target": "skill::边缘计算框架",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e302",
+      "source": "skill::有设备接入平台开发经验",
+      "target": "skill::物联网协议（MQTT/CoAP/HTTP）",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e303",
+      "source": "skill::有设备接入平台开发经验",
+      "target": "skill::边缘计算框架",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e304",
+      "source": "skill::物联网协议（MQTT/CoAP/HTTP）",
+      "target": "skill::边缘计算框架",
+      "data": {
+        "rel": "CO_OCCURS",
+        "strength": 1,
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e305",
+      "source": "skill::PyTorch 或 TensorFlow 框架",
+      "target": "ev::0",
+      "data": {
+        "rel": "SUPPORTED_BY",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e306",
+      "source": "skill::有大模型微调（LoRA/QLoRA）实战经验",
+      "target": "ev::1",
+      "data": {
+        "rel": "SUPPORTED_BY",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e307",
+      "source": "skill::Transformer 架构原理",
+      "target": "ev::2",
+      "data": {
+        "rel": "SUPPORTED_BY",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e308",
+      "source": "skill::RAG 与向量数据库（Milvus/Pinecone）",
+      "target": "ev::3",
+      "data": {
+        "rel": "SUPPORTED_BY",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e309",
+      "source": "skill::使用 DeepSpeed 或 FSDP 进行分布式训练",
+      "target": "ev::4",
+      "data": {
+        "rel": "SUPPORTED_BY",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e310",
+      "source": "skill::有 LangChain/LlamaIndex 使用经验",
+      "target": "ev::5",
+      "data": {
+        "rel": "SUPPORTED_BY",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e311",
+      "source": "skill::RLHF 流程",
+      "target": "ev::6",
+      "data": {
+        "rel": "SUPPORTED_BY",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e312",
+      "source": "skill::分词",
+      "target": "ev::7",
+      "data": {
+        "rel": "SUPPORTED_BY",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e313",
+      "source": "skill::BERT/GPT 系列预训练模型",
+      "target": "ev::8",
+      "data": {
+        "rel": "SUPPORTED_BY",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e314",
+      "source": "skill::Hugging Face Transformers 库",
+      "target": "ev::9",
+      "data": {
+        "rel": "SUPPORTED_BY",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e315",
+      "source": "skill::使用 Python 和 PyTorch",
+      "target": "ev::10",
+      "data": {
+        "rel": "SUPPORTED_BY",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e316",
+      "source": "skill::大模型 Prompt Engineering",
+      "target": "ev::11",
+      "data": {
+        "rel": "SUPPORTED_BY",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e317",
+      "source": "skill::有信息检索或知识图谱经验",
+      "target": "ev::12",
+      "data": {
+        "rel": "SUPPORTED_BY",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e318",
+      "source": "skill::目标检测（YOLO/Faster RCNN）",
+      "target": "ev::13",
+      "data": {
+        "rel": "SUPPORTED_BY",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e319",
+      "source": "skill::OpenCV 和 PIL 图像处理",
+      "target": "ev::14",
+      "data": {
+        "rel": "SUPPORTED_BY",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e320",
+      "source": "skill::模型量化与部署（ONNX/TensorRT）",
+      "target": "ev::15",
+      "data": {
+        "rel": "SUPPORTED_BY",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e321",
+      "source": "skill::有 OCR 或人脸识别项目经验",
+      "target": "ev::16",
+      "data": {
+        "rel": "SUPPORTED_BY",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e322",
+      "source": "skill::3D 视觉或多模态模型",
+      "target": "ev::17",
+      "data": {
+        "rel": "SUPPORTED_BY",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e323",
+      "source": "skill::有边缘设备部署经验",
+      "target": "ev::18",
+      "data": {
+        "rel": "SUPPORTED_BY",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e324",
+      "source": "skill::CUDA 编程",
+      "target": "ev::19",
+      "data": {
+        "rel": "SUPPORTED_BY",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e325",
+      "source": "skill::Scikit-learn/XGBoost/LightGBM",
+      "target": "ev::20",
+      "data": {
+        "rel": "SUPPORTED_BY",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e326",
+      "source": "skill::特征工程和模型调优",
+      "target": "ev::21",
+      "data": {
+        "rel": "SUPPORTED_BY",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e327",
+      "source": "skill::有推荐系统或风控模型经验",
+      "target": "ev::22",
+      "data": {
+        "rel": "SUPPORTED_BY",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e328",
+      "source": "skill::使用 SQL 和 Python 进行数据分析",
+      "target": "ev::23",
+      "data": {
+        "rel": "SUPPORTED_BY",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e329",
+      "source": "skill::深度学习框架",
+      "target": "ev::24",
+      "data": {
+        "rel": "SUPPORTED_BY",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e330",
+      "source": "skill::有 Spark MLlib 大规模建模经验",
+      "target": "ev::25",
+      "data": {
+        "rel": "SUPPORTED_BY",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e331",
+      "source": "skill::A/B 实验设计",
+      "target": "ev::26",
+      "data": {
+        "rel": "SUPPORTED_BY",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e332",
+      "source": "skill::Hadoop/Spark 生态体系",
+      "target": "ev::27",
+      "data": {
+        "rel": "SUPPORTED_BY",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e333",
+      "source": "skill::Flink 实时计算引擎",
+      "target": "ev::28",
+      "data": {
+        "rel": "SUPPORTED_BY",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e334",
+      "source": "skill::Kafka 消息队列",
+      "target": "ev::29",
+      "data": {
+        "rel": "SUPPORTED_BY",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e335",
+      "source": "skill::使用 ClickHouse 或 Doris 做 OLAP 分析",
+      "target": "ev::30",
+      "data": {
+        "rel": "SUPPORTED_BY",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e336",
+      "source": "skill::有数据仓库建模经验（星型/雪花模型）",
+      "target": "ev::31",
+      "data": {
+        "rel": "SUPPORTED_BY",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e337",
+      "source": "skill::数据湖技术（Iceberg/Hudi）",
+      "target": "ev::32",
+      "data": {
+        "rel": "SUPPORTED_BY",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e338",
+      "source": "skill::有 HBase 使用经验",
+      "target": "ev::33",
+      "data": {
+        "rel": "SUPPORTED_BY",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e339",
+      "source": "skill::数据治理方法论",
+      "target": "ev::34",
+      "data": {
+        "rel": "SUPPORTED_BY",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e340",
+      "source": "skill::使用 SQL 进行复杂查询",
+      "target": "ev::35",
+      "data": {
+        "rel": "SUPPORTED_BY",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e341",
+      "source": "skill::Python/R 数据分析库（Pandas/NumPy）",
+      "target": "ev::36",
+      "data": {
+        "rel": "SUPPORTED_BY",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e342",
+      "source": "skill::数据可视化工具（Tableau/PowerBI/Metabase）",
+      "target": "ev::37",
+      "data": {
+        "rel": "SUPPORTED_BY",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e343",
+      "source": "skill::有用户行为分析或商业分析经验",
+      "target": "ev::38",
+      "data": {
+        "rel": "SUPPORTED_BY",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e344",
+      "source": "skill::机器学习基础",
+      "target": "ev::39",
+      "data": {
+        "rel": "SUPPORTED_BY",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e345",
+      "source": "skill::有 A/B 实验分析经验",
+      "target": "ev::40",
+      "data": {
+        "rel": "SUPPORTED_BY",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e346",
+      "source": "skill::埋点设计",
+      "target": "ev::41",
+      "data": {
+        "rel": "SUPPORTED_BY",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e347",
+      "source": "skill::Hive/Spark SQL 数仓开发",
+      "target": "ev::42",
+      "data": {
+        "rel": "SUPPORTED_BY",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e348",
+      "source": "skill::数仓分层架构（ODS/DWD/DWS/ADS）",
+      "target": "ev::43",
+      "data": {
+        "rel": "SUPPORTED_BY",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e349",
+      "source": "skill::维度建模方法论",
+      "target": "ev::44",
+      "data": {
+        "rel": "SUPPORTED_BY",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e350",
+      "source": "skill::有离线+实时一体数仓建设经验",
+      "target": "ev::45",
+      "data": {
+        "rel": "SUPPORTED_BY",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e351",
+      "source": "skill::使用调度工具（Airflow/DolphinScheduler）",
+      "target": "ev::46",
+      "data": {
+        "rel": "SUPPORTED_BY",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e352",
+      "source": "skill::数据湖技术",
+      "target": "ev::47",
+      "data": {
+        "rel": "SUPPORTED_BY",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e353",
+      "source": "skill::有 Flink CDC 实时入湖经验",
+      "target": "ev::48",
+      "data": {
+        "rel": "SUPPORTED_BY",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e354",
+      "source": "skill::数据血缘和元数据管理",
+      "target": "ev::49",
+      "data": {
+        "rel": "SUPPORTED_BY",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e355",
+      "source": "skill::嵌入式 Linux 开发",
+      "target": "ev::50",
+      "data": {
+        "rel": "SUPPORTED_BY",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e356",
+      "source": "skill::C/C++ 编程",
+      "target": "ev::51",
+      "data": {
+        "rel": "SUPPORTED_BY",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e357",
+      "source": "skill::TensorFlow Lite 或 ONNX Runtime 端侧推理",
+      "target": "ev::52",
+      "data": {
+        "rel": "SUPPORTED_BY",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e358",
+      "source": "skill::有 ARM 平台开发经验",
+      "target": "ev::53",
+      "data": {
+        "rel": "SUPPORTED_BY",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e359",
+      "source": "skill::模型量化和剪枝技术",
+      "target": "ev::54",
+      "data": {
+        "rel": "SUPPORTED_BY",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e360",
+      "source": "skill::NPU/GPU 加速芯片",
+      "target": "ev::55",
+      "data": {
+        "rel": "SUPPORTED_BY",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e361",
+      "source": "skill::有 RK3588 或 Jetson 平台经验",
+      "target": "ev::56",
+      "data": {
+        "rel": "SUPPORTED_BY",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e362",
+      "source": "skill::ROS 机器人系统",
+      "target": "ev::57",
+      "data": {
+        "rel": "SUPPORTED_BY",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e363",
+      "source": "skill::3D 目标检测算法（PointPillars/CenterPoint）",
+      "target": "ev::58",
+      "data": {
+        "rel": "SUPPORTED_BY",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e364",
+      "source": "skill::激光雷达点云处理",
+      "target": "ev::59",
+      "data": {
+        "rel": "SUPPORTED_BY",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e365",
+      "source": "skill::多传感器融合技术",
+      "target": "ev::60",
+      "data": {
+        "rel": "SUPPORTED_BY",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e366",
+      "source": "skill::有 BEV 感知或 Occupancy Network 经验",
+      "target": "ev::61",
+      "data": {
+        "rel": "SUPPORTED_BY",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e367",
+      "source": "skill::端到端自动驾驶方案",
+      "target": "ev::62",
+      "data": {
+        "rel": "SUPPORTED_BY",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e368",
+      "source": "skill::有量产项目经验",
+      "target": "ev::63",
+      "data": {
+        "rel": "SUPPORTED_BY",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e369",
+      "source": "skill::ROS2",
+      "target": "ev::64",
+      "data": {
+        "rel": "SUPPORTED_BY",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e370",
+      "source": "skill::物联网协议（MQTT/CoAP/HTTP）",
+      "target": "ev::65",
+      "data": {
+        "rel": "SUPPORTED_BY",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e371",
+      "source": "skill::Java/Go 后端开发",
+      "target": "ev::66",
+      "data": {
+        "rel": "SUPPORTED_BY",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e372",
+      "source": "skill::时序数据库（InfluxDB/TDengine）",
+      "target": "ev::67",
+      "data": {
+        "rel": "SUPPORTED_BY",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e373",
+      "source": "skill::有设备接入平台开发经验",
+      "target": "ev::68",
+      "data": {
+        "rel": "SUPPORTED_BY",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e374",
+      "source": "skill::微服务架构和容器化部署",
+      "target": "ev::69",
+      "data": {
+        "rel": "SUPPORTED_BY",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e375",
+      "source": "skill::边缘计算框架",
+      "target": "ev::70",
+      "data": {
+        "rel": "SUPPORTED_BY",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e376",
+      "source": "skill::有百万级设备接入经验",
+      "target": "ev::71",
+      "data": {
+        "rel": "SUPPORTED_BY",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e377",
+      "source": "skill::IoT 安全方案",
+      "target": "ev::72",
+      "data": {
+        "rel": "SUPPORTED_BY",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e378",
+      "source": "pos::jd-ai-001",
+      "target": "stack::人工智能",
+      "data": {
+        "rel": "IN_STACK"
+      }
+    },
+    {
+      "id": "e379",
+      "source": "pos::jd-ai-001",
+      "target": "skill::PyTorch 或 TensorFlow 框架",
+      "data": {
+        "rel": "REQUIRES",
+        "required_type": "必备",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e380",
+      "source": "pos::jd-ai-001",
+      "target": "skill::有大模型微调（LoRA/QLoRA）实战经验",
+      "data": {
+        "rel": "REQUIRES",
+        "required_type": "必备",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e381",
+      "source": "pos::jd-ai-001",
+      "target": "skill::Transformer 架构原理",
+      "data": {
+        "rel": "REQUIRES",
+        "required_type": "必备",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e382",
+      "source": "pos::jd-ai-001",
+      "target": "skill::RAG 与向量数据库（Milvus/Pinecone）",
+      "data": {
+        "rel": "REQUIRES",
+        "required_type": "必备",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e383",
+      "source": "pos::jd-ai-001",
+      "target": "skill::使用 DeepSpeed 或 FSDP 进行分布式训练",
+      "data": {
+        "rel": "REQUIRES",
+        "required_type": "必备",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e384",
+      "source": "pos::jd-ai-001",
+      "target": "skill::有 LangChain/LlamaIndex 使用经验",
+      "data": {
+        "rel": "REQUIRES",
+        "required_type": "加分",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e385",
+      "source": "pos::jd-ai-001",
+      "target": "skill::RLHF 流程",
+      "data": {
+        "rel": "REQUIRES",
+        "required_type": "加分",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e386",
+      "source": "pos::jd-ai-002",
+      "target": "stack::人工智能",
+      "data": {
+        "rel": "IN_STACK"
+      }
+    },
+    {
+      "id": "e387",
+      "source": "pos::jd-ai-002",
+      "target": "skill::分词",
+      "data": {
+        "rel": "REQUIRES",
+        "required_type": "必备",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e388",
+      "source": "pos::jd-ai-002",
+      "target": "skill::BERT/GPT 系列预训练模型",
+      "data": {
+        "rel": "REQUIRES",
+        "required_type": "必备",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e389",
+      "source": "pos::jd-ai-002",
+      "target": "skill::Hugging Face Transformers 库",
+      "data": {
+        "rel": "REQUIRES",
+        "required_type": "必备",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e390",
+      "source": "pos::jd-ai-002",
+      "target": "skill::使用 Python 和 PyTorch",
+      "data": {
+        "rel": "REQUIRES",
+        "required_type": "必备",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e391",
+      "source": "pos::jd-ai-002",
+      "target": "skill::大模型 Prompt Engineering",
+      "data": {
+        "rel": "REQUIRES",
+        "required_type": "加分",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e392",
+      "source": "pos::jd-ai-002",
+      "target": "skill::有信息检索或知识图谱经验",
+      "data": {
+        "rel": "REQUIRES",
+        "required_type": "加分",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e393",
+      "source": "pos::jd-ai-003",
+      "target": "stack::人工智能",
+      "data": {
+        "rel": "IN_STACK"
+      }
+    },
+    {
+      "id": "e394",
+      "source": "pos::jd-ai-003",
+      "target": "skill::目标检测（YOLO/Faster RCNN）",
+      "data": {
+        "rel": "REQUIRES",
+        "required_type": "必备",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e395",
+      "source": "pos::jd-ai-003",
+      "target": "skill::OpenCV 和 PIL 图像处理",
+      "data": {
+        "rel": "REQUIRES",
+        "required_type": "必备",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e396",
+      "source": "pos::jd-ai-003",
+      "target": "skill::模型量化与部署（ONNX/TensorRT）",
+      "data": {
+        "rel": "REQUIRES",
+        "required_type": "必备",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e397",
+      "source": "pos::jd-ai-003",
+      "target": "skill::有 OCR 或人脸识别项目经验",
+      "data": {
+        "rel": "REQUIRES",
+        "required_type": "必备",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e398",
+      "source": "pos::jd-ai-003",
+      "target": "skill::3D 视觉或多模态模型",
+      "data": {
+        "rel": "REQUIRES",
+        "required_type": "加分",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e399",
+      "source": "pos::jd-ai-003",
+      "target": "skill::有边缘设备部署经验",
+      "data": {
+        "rel": "REQUIRES",
+        "required_type": "加分",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e400",
+      "source": "pos::jd-ai-003",
+      "target": "skill::CUDA 编程",
+      "data": {
+        "rel": "REQUIRES",
+        "required_type": "加分",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e401",
+      "source": "pos::jd-ai-004",
+      "target": "stack::人工智能",
+      "data": {
+        "rel": "IN_STACK"
+      }
+    },
+    {
+      "id": "e402",
+      "source": "pos::jd-ai-004",
+      "target": "skill::Scikit-learn/XGBoost/LightGBM",
+      "data": {
+        "rel": "REQUIRES",
+        "required_type": "必备",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e403",
+      "source": "pos::jd-ai-004",
+      "target": "skill::特征工程和模型调优",
+      "data": {
+        "rel": "REQUIRES",
+        "required_type": "必备",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e404",
+      "source": "pos::jd-ai-004",
+      "target": "skill::有推荐系统或风控模型经验",
+      "data": {
+        "rel": "REQUIRES",
+        "required_type": "必备",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e405",
+      "source": "pos::jd-ai-004",
+      "target": "skill::使用 SQL 和 Python 进行数据分析",
+      "data": {
+        "rel": "REQUIRES",
+        "required_type": "必备",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e406",
+      "source": "pos::jd-ai-004",
+      "target": "skill::深度学习框架",
+      "data": {
+        "rel": "REQUIRES",
+        "required_type": "加分",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e407",
+      "source": "pos::jd-ai-004",
+      "target": "skill::有 Spark MLlib 大规模建模经验",
+      "data": {
+        "rel": "REQUIRES",
+        "required_type": "加分",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e408",
+      "source": "pos::jd-ai-004",
+      "target": "skill::A/B 实验设计",
+      "data": {
+        "rel": "REQUIRES",
+        "required_type": "加分",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e409",
+      "source": "pos::jd-bigdata-001",
+      "target": "stack::大数据",
+      "data": {
+        "rel": "IN_STACK"
+      }
+    },
+    {
+      "id": "e410",
+      "source": "pos::jd-bigdata-001",
+      "target": "skill::Hadoop/Spark 生态体系",
+      "data": {
+        "rel": "REQUIRES",
+        "required_type": "必备",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e411",
+      "source": "pos::jd-bigdata-001",
+      "target": "skill::Flink 实时计算引擎",
+      "data": {
+        "rel": "REQUIRES",
+        "required_type": "必备",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e412",
+      "source": "pos::jd-bigdata-001",
+      "target": "skill::Kafka 消息队列",
+      "data": {
+        "rel": "REQUIRES",
+        "required_type": "必备",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e413",
+      "source": "pos::jd-bigdata-001",
+      "target": "skill::使用 ClickHouse 或 Doris 做 OLAP 分析",
+      "data": {
+        "rel": "REQUIRES",
+        "required_type": "必备",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e414",
+      "source": "pos::jd-bigdata-001",
+      "target": "skill::有数据仓库建模经验（星型/雪花模型）",
+      "data": {
+        "rel": "REQUIRES",
+        "required_type": "必备",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e415",
+      "source": "pos::jd-bigdata-001",
+      "target": "skill::数据湖技术（Iceberg/Hudi）",
+      "data": {
+        "rel": "REQUIRES",
+        "required_type": "加分",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e416",
+      "source": "pos::jd-bigdata-001",
+      "target": "skill::有 HBase 使用经验",
+      "data": {
+        "rel": "REQUIRES",
+        "required_type": "加分",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e417",
+      "source": "pos::jd-bigdata-001",
+      "target": "skill::数据治理方法论",
+      "data": {
+        "rel": "REQUIRES",
+        "required_type": "加分",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e418",
+      "source": "pos::jd-bigdata-002",
+      "target": "stack::大数据",
+      "data": {
+        "rel": "IN_STACK"
+      }
+    },
+    {
+      "id": "e419",
+      "source": "pos::jd-bigdata-002",
+      "target": "skill::使用 SQL 进行复杂查询",
+      "data": {
+        "rel": "REQUIRES",
+        "required_type": "必备",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e420",
+      "source": "pos::jd-bigdata-002",
+      "target": "skill::Python/R 数据分析库（Pandas/NumPy）",
+      "data": {
+        "rel": "REQUIRES",
+        "required_type": "必备",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e421",
+      "source": "pos::jd-bigdata-002",
+      "target": "skill::数据可视化工具（Tableau/PowerBI/Metabase）",
+      "data": {
+        "rel": "REQUIRES",
+        "required_type": "必备",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e422",
+      "source": "pos::jd-bigdata-002",
+      "target": "skill::有用户行为分析或商业分析经验",
+      "data": {
+        "rel": "REQUIRES",
+        "required_type": "必备",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e423",
+      "source": "pos::jd-bigdata-002",
+      "target": "skill::机器学习基础",
+      "data": {
+        "rel": "REQUIRES",
+        "required_type": "加分",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e424",
+      "source": "pos::jd-bigdata-002",
+      "target": "skill::有 A/B 实验分析经验",
+      "data": {
+        "rel": "REQUIRES",
+        "required_type": "加分",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e425",
+      "source": "pos::jd-bigdata-002",
+      "target": "skill::埋点设计",
+      "data": {
+        "rel": "REQUIRES",
+        "required_type": "加分",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e426",
+      "source": "pos::jd-bigdata-003",
+      "target": "stack::大数据",
+      "data": {
+        "rel": "IN_STACK"
+      }
+    },
+    {
+      "id": "e427",
+      "source": "pos::jd-bigdata-003",
+      "target": "skill::Hive/Spark SQL 数仓开发",
+      "data": {
+        "rel": "REQUIRES",
+        "required_type": "必备",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e428",
+      "source": "pos::jd-bigdata-003",
+      "target": "skill::数仓分层架构（ODS/DWD/DWS/ADS）",
+      "data": {
+        "rel": "REQUIRES",
+        "required_type": "必备",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e429",
+      "source": "pos::jd-bigdata-003",
+      "target": "skill::维度建模方法论",
+      "data": {
+        "rel": "REQUIRES",
+        "required_type": "必备",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e430",
+      "source": "pos::jd-bigdata-003",
+      "target": "skill::有离线+实时一体数仓建设经验",
+      "data": {
+        "rel": "REQUIRES",
+        "required_type": "必备",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e431",
+      "source": "pos::jd-bigdata-003",
+      "target": "skill::使用调度工具（Airflow/DolphinScheduler）",
+      "data": {
+        "rel": "REQUIRES",
+        "required_type": "必备",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e432",
+      "source": "pos::jd-bigdata-003",
+      "target": "skill::数据湖技术",
+      "data": {
+        "rel": "REQUIRES",
+        "required_type": "加分",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e433",
+      "source": "pos::jd-bigdata-003",
+      "target": "skill::有 Flink CDC 实时入湖经验",
+      "data": {
+        "rel": "REQUIRES",
+        "required_type": "加分",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e434",
+      "source": "pos::jd-bigdata-003",
+      "target": "skill::数据血缘和元数据管理",
+      "data": {
+        "rel": "REQUIRES",
+        "required_type": "加分",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e435",
+      "source": "pos::jd-sys-001",
+      "target": "stack::智能系统",
+      "data": {
+        "rel": "IN_STACK"
+      }
+    },
+    {
+      "id": "e436",
+      "source": "pos::jd-sys-001",
+      "target": "skill::嵌入式 Linux 开发",
+      "data": {
+        "rel": "REQUIRES",
+        "required_type": "必备",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e437",
+      "source": "pos::jd-sys-001",
+      "target": "skill::C/C++ 编程",
+      "data": {
+        "rel": "REQUIRES",
+        "required_type": "必备",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e438",
+      "source": "pos::jd-sys-001",
+      "target": "skill::TensorFlow Lite 或 ONNX Runtime 端侧推理",
+      "data": {
+        "rel": "REQUIRES",
+        "required_type": "必备",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e439",
+      "source": "pos::jd-sys-001",
+      "target": "skill::有 ARM 平台开发经验",
+      "data": {
+        "rel": "REQUIRES",
+        "required_type": "必备",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e440",
+      "source": "pos::jd-sys-001",
+      "target": "skill::模型量化和剪枝技术",
+      "data": {
+        "rel": "REQUIRES",
+        "required_type": "必备",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e441",
+      "source": "pos::jd-sys-001",
+      "target": "skill::NPU/GPU 加速芯片",
+      "data": {
+        "rel": "REQUIRES",
+        "required_type": "加分",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e442",
+      "source": "pos::jd-sys-001",
+      "target": "skill::有 RK3588 或 Jetson 平台经验",
+      "data": {
+        "rel": "REQUIRES",
+        "required_type": "加分",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e443",
+      "source": "pos::jd-sys-001",
+      "target": "skill::ROS 机器人系统",
+      "data": {
+        "rel": "REQUIRES",
+        "required_type": "加分",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e444",
+      "source": "pos::jd-sys-002",
+      "target": "stack::智能系统",
+      "data": {
+        "rel": "IN_STACK"
+      }
+    },
+    {
+      "id": "e445",
+      "source": "pos::jd-sys-002",
+      "target": "skill::3D 目标检测算法（PointPillars/CenterPoint）",
+      "data": {
+        "rel": "REQUIRES",
+        "required_type": "必备",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e446",
+      "source": "pos::jd-sys-002",
+      "target": "skill::激光雷达点云处理",
+      "data": {
+        "rel": "REQUIRES",
+        "required_type": "必备",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e447",
+      "source": "pos::jd-sys-002",
+      "target": "skill::多传感器融合技术",
+      "data": {
+        "rel": "REQUIRES",
+        "required_type": "必备",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e448",
+      "source": "pos::jd-sys-002",
+      "target": "skill::有 BEV 感知或 Occupancy Network 经验",
+      "data": {
+        "rel": "REQUIRES",
+        "required_type": "必备",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e449",
+      "source": "pos::jd-sys-002",
+      "target": "skill::端到端自动驾驶方案",
+      "data": {
+        "rel": "REQUIRES",
+        "required_type": "加分",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e450",
+      "source": "pos::jd-sys-002",
+      "target": "skill::有量产项目经验",
+      "data": {
+        "rel": "REQUIRES",
+        "required_type": "加分",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e451",
+      "source": "pos::jd-sys-002",
+      "target": "skill::ROS2",
+      "data": {
+        "rel": "REQUIRES",
+        "required_type": "加分",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e452",
+      "source": "pos::jd-iot-001",
+      "target": "stack::物联网",
+      "data": {
+        "rel": "IN_STACK"
+      }
+    },
+    {
+      "id": "e453",
+      "source": "pos::jd-iot-001",
+      "target": "skill::物联网协议（MQTT/CoAP/HTTP）",
+      "data": {
+        "rel": "REQUIRES",
+        "required_type": "必备",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e454",
+      "source": "pos::jd-iot-001",
+      "target": "skill::Java/Go 后端开发",
+      "data": {
+        "rel": "REQUIRES",
+        "required_type": "必备",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e455",
+      "source": "pos::jd-iot-001",
+      "target": "skill::时序数据库（InfluxDB/TDengine）",
+      "data": {
+        "rel": "REQUIRES",
+        "required_type": "必备",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e456",
+      "source": "pos::jd-iot-001",
+      "target": "skill::有设备接入平台开发经验",
+      "data": {
+        "rel": "REQUIRES",
+        "required_type": "必备",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e457",
+      "source": "pos::jd-iot-001",
+      "target": "skill::微服务架构和容器化部署",
+      "data": {
+        "rel": "REQUIRES",
+        "required_type": "必备",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e458",
+      "source": "pos::jd-iot-001",
+      "target": "skill::边缘计算框架",
+      "data": {
+        "rel": "REQUIRES",
+        "required_type": "加分",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e459",
+      "source": "pos::jd-iot-001",
+      "target": "skill::有百万级设备接入经验",
+      "data": {
+        "rel": "REQUIRES",
+        "required_type": "加分",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    },
+    {
+      "id": "e460",
+      "source": "pos::jd-iot-001",
+      "target": "skill::IoT 安全方案",
+      "data": {
+        "rel": "REQUIRES",
+        "required_type": "加分",
+        "valid_from": "2026-08-04T11:27:19.049859"
+      }
+    }
+  ]
+}

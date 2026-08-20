@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"><title>SSE Test</title></head>
+<body>
+<h2>SSE Stream Test</h2>
+<textarea id="msg" rows="2" cols="50">你好</textarea><br>
+<button onclick="test()">Send</button>
+<pre id="log" style="background:#f0f0f0;padding:10px;max-height:500px;overflow-y:auto"></pre>
+
+<script>
+const log = document.getElementById('log')
+function append(text) {
+  log.textContent += text + '\n'
+  log.scrollTop = log.scrollHeight
+}
+
+async function test() {
+  log.textContent = ''
+  const msg = document.getElementById('msg').value
+  append('>>> Sending: ' + msg)
+
+  try {
+    const response = await fetch('/api/v1/chat/stream', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-User-Id': 'test_user',
+      },
+      body: JSON.stringify({
+        message: msg,
+        session_id: 'test_' + Date.now(),
+      }),
+    })
+
+    append('Status: ' + response.status)
+    append('Content-Type: ' + response.headers.get('content-type'))
+
+    if (!response.ok) {
+      append('ERROR: ' + await response.text())
+      return
+    }
+
+    const reader = response.body.getReader()
+    const decoder = new TextDecoder()
+    let buffer = ''
+    let answerContent = ''
+
+    while (true) {
+      const { done, value } = await reader.read()
+      if (done) { append('>>> Stream ended'); break }
+      buffer += decoder.decode(value, { stream: true })
+      const lines = buffer.split('\n')
+      buffer = lines.pop() || ''
+      for (const line of lines) {
+        if (!line.startsWith('data: ')) continue
+        try {
+          const data = JSON.parse(line.slice(6))
+          if (data.status === 'done') {
+            append('>>> DONE event')
+          } else if (data.type === 'message_start') {
+            append('>>> MESSAGE_START reply_id=' + data.reply_id)
+          } else if (data.type === 'message_end') {
+            append('>>> MESSAGE_END')
+          } else if (data.content) {
+            answerContent += data.content
+            append('CONTENT: ' + JSON.stringify(data.content))
+          } else {
+            append('OTHER: ' + JSON.stringify(data).slice(0, 120))
+          }
+        } catch(e) {
+          append('PARSE ERROR: ' + e.message + ' | line: ' + line.slice(0, 80))
+        }
+      }
+    }
+    append('\n=== FULL ANSWER ===')
+    append(answerContent)
+    append('=== ANSWER LENGTH: ' + answerContent.length + ' ===')
+  } catch(e) {
+    append('FETCH ERROR: ' + e.message)
+    console.error(e)
+  }
+}
+</script>
+</body>
+</html>

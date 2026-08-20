@@ -1,0 +1,51 @@
+/* ===== Markdown 内容样式 (个人侧学习内容渲染) ===== */
+/* 源文件: shuzhi-frontend/src/styles/global.css 第 154-170, 325-354 行 */
+
+.markdown-body h1 { @apply text-2xl font-bold mb-3 mt-4; }
+.markdown-body h2 { @apply text-xl font-bold mb-2 mt-3; }
+.markdown-body h3 { @apply text-lg font-semibold mb-2 mt-3; }
+.markdown-body p { @apply mb-2 leading-relaxed; }
+.markdown-body ul, .markdown-body ol { @apply mb-2 pl-5; }
+.markdown-body li { @apply mb-1; }
+.markdown-body code { @apply bg-brand-50 text-brand-700 px-1.5 py-0.5 rounded text-sm font-mono; }
+.markdown-body pre { @apply bg-space-800 text-gray-100 p-4 rounded-lg mb-3 overflow-x-auto; }
+.markdown-body pre code { @apply bg-transparent text-gray-100 p-0; }
+.markdown-body blockquote { @apply border-l-4 border-brand-400 bg-brand-50 px-4 py-2 mb-2 italic; }
+.markdown-body table { @apply w-full mb-3 border-collapse; }
+.markdown-body th, .markdown-body td { @apply border border-gray-300 px-3 py-2 text-left; }
+.markdown-body th { @apply bg-gray-100 font-semibold; }
+.markdown-body a { @apply text-brand-600 underline; }
+.markdown-body strong { @apply font-bold; }
+.markdown-body img { @apply max-w-full h-auto rounded-lg my-2 shadow-md; }
+
+/* Markdown 深色适配 */
+[data-theme="dark"] .markdown-body code {
+  background: rgba(99, 102, 241, 0.15);
+  color: #a5b4fc;
+}
+[data-theme="dark"] .markdown-body pre {
+  background: rgba(15, 23, 42, 0.9);
+  border: 1px solid rgba(99, 102, 241, 0.12);
+}
+[data-theme="dark"] .markdown-body pre code {
+  background: transparent;
+  color: #e2e8f0;
+}
+[data-theme="dark"] .markdown-body blockquote {
+  background: rgba(99, 102, 241, 0.06);
+  border-left-color: var(--brand-500);
+  color: var(--text-secondary);
+}
+[data-theme="dark"] .markdown-body th,
+[data-theme="dark"] .markdown-body td {
+  border-color: rgba(99, 102, 241, 0.12);
+}
+[data-theme="dark"] .markdown-body th {
+  background: rgba(99, 102, 241, 0.1);
+}
+[data-theme="dark"] .markdown-body a {
+  color: #a5b4fc;
+}
+[data-theme="dark"] .markdown-body img {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}

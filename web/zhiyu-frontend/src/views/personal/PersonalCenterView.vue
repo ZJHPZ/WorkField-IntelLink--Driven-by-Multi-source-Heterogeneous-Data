@@ -123,7 +123,14 @@
           </div>
           <!-- 技能标签 -->
           <div class="panel-asymmetric p-4" style="border-color:rgba(232,83,108,0.15)">
-            <div class="flex items-center justify-between mb-2"><span class="text-xs font-bold tracking-wide" :style="{color:'var(--text-muted)'}">SKILL TAGS</span><button @click="addSkillTag" class="text-xs px-2 py-0.5 border font-mono transition-all hover:border-brand-400" :style="{color:'var(--text-muted)',borderColor:'var(--border-color)'}">+ ADD</button></div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-bold tracking-wide" :style="{color:'var(--text-muted)'}">SKILL TAGS</span>
+              <div class="flex items-center gap-1.5">
+                <input v-if="tagInputVisible" v-model="newTag" @keyup.enter="addSkillTag" @blur="cancelTag"
+                  class="w-28 px-2 py-1 text-xs border font-mono" :style="{background:'var(--bg-card)',color:'var(--text-primary)',borderColor:'var(--border-color)'}" placeholder="技能名" />
+                <button @click="tagInputVisible ? addSkillTag() : tagInputVisible = true" class="text-xs px-2 py-0.5 border font-mono transition-all hover:border-brand-400" :style="{color:'var(--text-muted)',borderColor:'var(--border-color)'}">{{ tagInputVisible ? 'OK' : '+ ADD' }}</button>
+              </div>
+            </div>
             <div class="flex flex-wrap gap-1.5">
               <span v-for="(tag,i) in skillTags" :key="tag" class="tag-tilted" :style="{background:i<3?'rgba(232,83,108,0.08)':'var(--bg-secondary)',color:i<3?'var(--brand-500)':'var(--text-secondary)',borderColor:i<3?'rgba(232,83,108,0.25)':'var(--border-color)'}">{{ tag }}</span>
             </div>
@@ -253,7 +260,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { usePersonalStore } from '@/stores/personal'
 import { useNotify } from '@/composables/useNotify'
 import { useScrollReveal } from '@/composables/useScrollReveal'
@@ -319,16 +326,36 @@ const skillCategories = computed(() => {
 })
 
 interface Milestone { id:number;name:string;desc:string;icon:string;rarity:string;rarityBg:string;rarityColor:string;color:string;unlocked:boolean;progress:number;target:number }
-const careerMilestones: Milestone[] = [
-  { id:1,name:'首次匹配',desc:'完成第一次人岗匹配',icon:'🎯',rarity:'COMMON',rarityBg:'rgba(107,114,128,0.1)',rarityColor:'#6b7280',color:'#6b7280',unlocked:true,progress:1,target:1},
-  { id:2,name:'技能图谱',desc:'掌握8项以上可识别技能',icon:'⭐',rarity:'RARE',rarityBg:'rgba(99,102,241,0.1)',rarityColor:'#6366f1',color:'#6366f1',unlocked:true,progress:12,target:8},
-  { id:3,name:'保鲜达人',desc:'连续3个月保鲜度>80%',icon:'🛡️',rarity:'RARE',rarityBg:'rgba(99,102,241,0.1)',rarityColor:'#6366f1',color:'#6366f1',unlocked:true,progress:3,target:3},
-  { id:4,name:'跨界突破',desc:'完成一次转行分析',icon:'🚀',rarity:'EPIC',rarityBg:'rgba(168,85,247,0.1)',rarityColor:'#a855f7',color:'#a855f7',unlocked:false,progress:0,target:1},
-  { id:5,name:'顶尖匹配',desc:'匹配度达到85%',icon:'🏆',rarity:'EPIC',rarityBg:'rgba(168,85,247,0.1)',rarityColor:'#a855f7',color:'#a855f7',unlocked:false,progress:72,target:85},
-  { id:6,name:'学习路径',desc:'完成一条学习路径',icon:'🗺️',rarity:'RARE',rarityBg:'rgba(99,102,241,0.1)',rarityColor:'#6366f1',color:'#6366f1',unlocked:false,progress:2,target:5},
-  { id:7,name:'薪资跃升',desc:'匹配薪资达期望',icon:'💰',rarity:'EPIC',rarityBg:'rgba(168,85,247,0.1)',rarityColor:'#a855f7',color:'#a855f7',unlocked:false,progress:0,target:1},
-  { id:8,name:'全栈专家',desc:'掌握5个领域技能',icon:'👑',rarity:'LEGENDARY',rarityBg:'rgba(245,158,11,0.1)',rarityColor:'#d4a574',color:'#f59e0b',unlocked:false,progress:4,target:5},
+const demoMilestones: Milestone[] = [
+  { id:1,name:'首次匹配',desc:'完成第一次人岗匹配',icon:'◆',rarity:'COMMON',rarityBg:'rgba(107,114,128,0.1)',rarityColor:'#6b7280',color:'#6b7280',unlocked:true,progress:1,target:1},
+  { id:2,name:'技能图谱',desc:'掌握8项以上可识别技能',icon:'◈',rarity:'RARE',rarityBg:'rgba(99,102,241,0.1)',rarityColor:'#6366f1',color:'#6366f1',unlocked:true,progress:12,target:8},
+  { id:3,name:'保鲜达人',desc:'连续3个月保鲜度>80%',icon:'▲',rarity:'RARE',rarityBg:'rgba(99,102,241,0.1)',rarityColor:'#6366f1',color:'#6366f1',unlocked:true,progress:3,target:3},
+  { id:4,name:'跨界突破',desc:'完成一次转行分析',icon:'⬢',rarity:'EPIC',rarityBg:'rgba(168,85,247,0.1)',rarityColor:'#a855f7',color:'#a855f7',unlocked:false,progress:0,target:1},
+  { id:5,name:'顶尖匹配',desc:'匹配度达到85%',icon:'★',rarity:'EPIC',rarityBg:'rgba(168,85,247,0.1)',rarityColor:'#a855f7',color:'#a855f7',unlocked:false,progress:72,target:85},
+  { id:6,name:'学习路径',desc:'完成一条学习路径',icon:'⌖',rarity:'RARE',rarityBg:'rgba(99,102,241,0.1)',rarityColor:'#6366f1',color:'#6366f1',unlocked:false,progress:2,target:5},
+  { id:7,name:'薪资跃升',desc:'匹配薪资达期望',icon:'◉',rarity:'EPIC',rarityBg:'rgba(168,85,247,0.1)',rarityColor:'#a855f7',color:'#a855f7',unlocked:false,progress:0,target:1},
+  { id:8,name:'全栈专家',desc:'掌握5个领域技能',icon:'❖',rarity:'LEGENDARY',rarityBg:'rgba(245,158,11,0.1)',rarityColor:'#d4a574',color:'#f59e0b',unlocked:false,progress:4,target:5},
 ]
+// 真实 /api/personal/milestones 覆盖 demo（Silent Fallback）
+const careerMilestones = computed<Milestone[]>(() => {
+  if (!store.milestones.length) return demoMilestones
+  const rarityMeta: Record<string, { bg: string; color: string }> = {
+    common: { bg: 'rgba(107,114,128,0.1)', color: '#6b7280' },
+    rare: { bg: 'rgba(99,102,241,0.1)', color: '#6366f1' },
+    epic: { bg: 'rgba(168,85,247,0.1)', color: '#a855f7' },
+    legendary: { bg: 'rgba(245,158,11,0.1)', color: '#d4a574' },
+  }
+  const colors = ['#6b7280', '#6366f1', '#06b6d4', '#10b981', '#f59e0b', '#a855f7', '#f43f5e', '#d4a574']
+  return store.milestones.map((m, i) => {
+    const meta = rarityMeta[(m.rarity || 'common').toLowerCase()] || rarityMeta.common
+    return {
+      id: m.id, name: m.name, desc: m.description, icon: m.icon || '◆',
+      rarity: (m.rarity || 'COMMON').toUpperCase(),
+      rarityBg: meta.bg, rarityColor: meta.color, color: colors[i % colors.length],
+      unlocked: m.unlocked, progress: m.progress, target: m.target,
+    }
+  })
+})
 
 const targetRoles = ['AI工程师','全栈开发','大数据工程师','AI产品经理','ML Engineer','数据架构师']
 const selectedRoles = ref(['AI工程师','全栈开发'])
@@ -339,5 +366,44 @@ function triggerUpload(){ resumeName.value = resumeName.value || '简历.pdf' }
 function saveProfile(){notify('✅ 档案已保存',`${editName.value} 的职业档案已更新`,'success')}
 function savePreferences(){notify('✅ 偏好已保存','求职偏好设置已更新','success')}
 const skillTags = ref(['Python','TypeScript','React','深度学习','NLP','SQL','Docker','系统设计'])
-function addSkillTag(){const tag=prompt('输入技能名称');if(tag&&tag.trim()){skillTags.value.push(tag.trim());notify('🏷️ 已添加',`技能标签 "${tag.trim()}" 已添加`,'info')}}
+const tagInputVisible = ref(false)
+const newTag = ref('')
+function addSkillTag() {
+  const tag = newTag.value.trim()
+  if (tag) { skillTags.value.push(tag); notify('TAG 已添加', `技能标签 "${tag}" 已添加`, 'info') }
+  newTag.value = ''
+  tagInputVisible.value = false
+}
+function cancelTag() { newTag.value = ''; tagInputVisible.value = false }
+
+function applyProfile() {
+  const p = store.profile
+  if (!p) return
+  if (p.name) editName.value = p.name
+  if (p.title) editTitle.value = p.title
+  if (p.phone) editPhone.value = p.phone
+  if (p.email) editEmail.value = p.email
+  if (p.birthYear) editBirthYear.value = p.birthYear
+  if (p.status) editStatus.value = p.status
+  if (p.industry) editIndustry.value = p.industry
+  if (p.education) editEducation.value = p.education
+  if (p.major) editMajor.value = p.major
+  if (p.englishLevel) editEnglish.value = p.englishLevel
+  if (p.experienceYears) editExperience.value = `${p.experienceYears}年`
+  if (p.city) editCity.value = p.city
+  if (p.targetRole) editTargetRole.value = p.targetRole
+  if (p.targetCity) editTargetCity.value = p.targetCity
+  if (p.targetIndustry) editTargetIndustry.value = p.targetIndustry
+  if (p.salaryMin) editSalaryMin.value = p.salaryMin
+  if (p.salaryMax) editSalaryMax.value = p.salaryMax
+  if (p.priority) editPriority.value = p.priority
+  if (p.travelOk != null) editTravel.value = p.travelOk
+  if (p.relocateOk != null) editRelocate.value = p.relocateOk
+  if (p.workMode) editWorkMode.value = p.workMode
+}
+
+onMounted(async () => {
+  await Promise.all([store.fetchSkills(), store.fetchMatches(), store.fetchFreshness(), store.fetchProfile(), store.fetchMilestones()])
+  applyProfile()
+})
 </script>

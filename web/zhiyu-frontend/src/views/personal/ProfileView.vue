@@ -190,7 +190,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { usePersonalStore } from '@/stores/personal'
 import type { SkillItem } from '@/stores/personal'
 import { useScrollReveal } from '@/composables/useScrollReveal'
@@ -300,4 +300,6 @@ function getStatusLabel(s:string){const m:Record<string,string>={healthy:'HEALTH
 function getLevelPct(l:string){const m:Record<string,number>={expert:95,advanced:78,intermediate:50,basic:25};return m[l]||30}
 function getLevelDot(l:string){const m:Record<string,number>={expert:10,advanced:8,intermediate:6,basic:4};return m[l]||5}
 function getRelatedPositions(skill:SkillItem):string[]{const posMap:Record<string,string[]>={'编程语言':['全栈开发','后端工程师','AI工程师'],'AI/ML':['AI工程师','ML Engineer','算法工程师'],'前端':['前端开发','全栈开发'],'数据':['数据分析师','大数据工程师'],'DevOps':['DevOps工程师','SRE'],'架构':['技术总监','架构师']};return posMap[skill.category]||['相关岗位']}
+
+onMounted(() => { store.fetchSkills() })
 </script>

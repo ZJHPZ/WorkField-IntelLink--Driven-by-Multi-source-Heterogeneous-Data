@@ -311,7 +311,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { usePersonalStore } from '@/stores/personal'
 
 const store = usePersonalStore()
@@ -397,6 +397,8 @@ const discoveredRoles = [
 // ── 人才需求数据 ──
 const emergingSkills = [{ name:'RAG', emergence:'2.96' },{ name:'DeepSpeed', emergence:'2.41' },{ name:'LoRA', emergence:'2.15' },{ name:'Transformer', emergence:'1.89' },{ name:'LangChain', emergence:'1.72' },{ name:'FSDP', emergence:'1.55' }]
 const decliningSkills = [{ name:'jQuery', decline:'0.82' },{ name:'Theano', decline:'0.95' },{ name:'Hadoop MR', decline:'0.68' },{ name:'SVN', decline:'0.71' },{ name:'Flash', decline:'0.98' },{ name:'Perl', decline:'0.65' }]
+
+onMounted(() => { store.fetchSkills(); store.fetchMatches() })
 </script>
 
 <style scoped>

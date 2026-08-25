@@ -52,7 +52,7 @@
       </div>
 
       <div class="panel-bridge p-5 shadow-deep">
-        <PanelHeader label="NEXT" title="下一等级要求" color="purple" />
+        <PanelHeader label="NEXT" :title="nextLevelTitle" color="purple" />
         <div v-if="nextLevel" class="space-y-4">
           <div class="flex items-center gap-3 p-4 panel-asymmetric" :style="{border:'1px solid '+nextLevel.color+'40',background:'linear-gradient(135deg,'+nextLevel.color+'15,'+nextLevel.color+'05)'}">
             <div class="text-3xl">{{ nextLevel.icon }}</div>
@@ -75,24 +75,25 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { usePersonalStore } from '@/stores/personal'
+import { PALETTE } from '@/utils/color'
 import { useScrollReveal } from '@/composables/useScrollReveal'
 import EvolutionChain from '@/components/personal/EvolutionChain.vue'
 import PanelHeader from '@/components/common/PanelHeader.vue'
 import HolographicBackdrop from '@/components/common/HolographicBackdrop.vue'
 useScrollReveal()
 const store = usePersonalStore()
-const userLevel = ref(24)
+const userLevel = computed(() => store.growth?.currentLevel ?? 24)
 
 interface LevelDef { key:string;label:string;icon:string;color:string;glowColor:string;skillRequirement:string;progress:number;status:'achieved'|'current'|'upcoming'|'locked' }
 const levels = computed<LevelDef[]>(()=>{
   const total=store.skillCount; const expert=store.skills.filter(s=>s.level==='expert'||s.level==='advanced').length
   const defs:LevelDef[]=[
-    {key:'junior',label:'初级',icon:'🌱',color:'#6b7280',glowColor:'#9ca3af',skillRequirement:'5 SKILLS',progress:100,status:'achieved'},
-    {key:'mid',label:'中级',icon:'🌿',color:'#6366f1',glowColor:'#818cf8',skillRequirement:'8 SKILLS',progress:Math.min(100,Math.round((total/8)*100)),status:'current'},
-    {key:'senior',label:'高级',icon:'🌳',color:'#06b6d4',glowColor:'#22d3ee',skillRequirement:'10 SKILLS + 3 EXPERT',progress:Math.min(100,Math.round((expert/3)*100)),status:'upcoming'},
-    {key:'expert',label:'专家',icon:'🏆',color:'#10b981',glowColor:'#34d399',skillRequirement:'12 SKILLS + 5 EXPERT',progress:Math.min(100,Math.round((expert/5)*100)),status:'locked'},
+    {key:'junior',label:'初级',icon:'◆',color:'#6b7280',glowColor:'#9ca3af',skillRequirement:'5 SKILLS',progress:100,status:'achieved'},
+    {key:'mid',label:'中级',icon:'◈',color:'#6366f1',glowColor:'#818cf8',skillRequirement:'8 SKILLS',progress:Math.min(100,Math.round((total/8)*100)),status:'current'},
+    {key:'senior',label:'高级',icon:'▲',color:'#06b6d4',glowColor:'#22d3ee',skillRequirement:'10 SKILLS + 3 EXPERT',progress:Math.min(100,Math.round((expert/3)*100)),status:'upcoming'},
+    {key:'expert',label:'专家',icon:'★',color:'#10b981',glowColor:'#34d399',skillRequirement:'12 SKILLS + 5 EXPERT',progress:Math.min(100,Math.round((expert/5)*100)),status:'locked'},
   ]
   if(expert>=5&&total>=12){defs[3].status='current';defs[2].status='achieved';defs[1].status='achieved'}
   else if(expert>=3&&total>=10){defs[2].status='current';defs[1].status='achieved'}
@@ -100,7 +101,16 @@ const levels = computed<LevelDef[]>(()=>{
 })
 const currentLevelIdx = computed(()=>levels.value.findIndex(l=>l.status==='current'))
 const currentLevel = computed(()=>levels.value[currentLevelIdx.value]||levels.value[0])
-const nextLevel = computed(()=>levels.value[currentLevelIdx.value+1]||levels.value[levels.value.length-1])
+// 点选链条节点可聚焦对应等级要求（默认指向下一等级）
+const focusedLevelIdx = ref<number | null>(null)
+const nextLevel = computed(()=>{
+  const i = focusedLevelIdx.value ?? currentLevelIdx.value + 1
+  return levels.value[i] || levels.value[levels.value.length - 1]
+})
+const nextLevelTitle = computed(()=>{
+  const l = focusedLevelIdx.value != null ? levels.value[focusedLevelIdx.value] : null
+  return l && l.status === 'current' ? `${l.label} · 当前等级要求` : '下一等级要求'
+})
 
 // 进化链数据
 const chainLevels = computed(() => levels.value.map(l => ({
@@ -112,7 +122,10 @@ const chainLevels = computed(() => levels.value.map(l => ({
   skillCount: store.skillCount,
   requiredCount: parseInt(l.skillRequirement) || 5,
 })))
-function onLevelClick(node: any) { /* 可扩展：展开等级详情 */ }
+function onLevelClick(node: any) {
+  const idx = levels.value.findIndex(l => l.key === node?.key)
+  focusedLevelIdx.value = idx >= 0 ? idx : null
+}
 
 interface Requirement { skill:string;currentLevel:string;requiredLevel:string;progress:number }
 const unmetRequirements = computed<Requirement[]>(()=>[
@@ -122,11 +135,30 @@ const unmetRequirements = computed<Requirement[]>(()=>[
 ])
 const estMonthsToNext = computed(()=>{const u=unmetRequirements.value.length;return u<=1?'3 MONTHS':u<=2?'6 MONTHS':(u*3)+' MONTHS'})
 
-const skillTimeline = [
+const demoSkillTimeline = [
   {date:'2022.03',color:'#6b7280',badgeBg:'rgba(107,114,128,0.1)',badgeColor:'#6b7280',skillsGained:3,skills:['Python','SQL','Git'],cumulativeCount:3,description:'毕业后入职，Java后端开发起步'},
   {date:'2023.06',color:'#6366f1',badgeBg:'rgba(99,102,241,0.1)',badgeColor:'#6366f1',skillsGained:2,skills:['Docker/K8s','React'],cumulativeCount:5,description:'转向全栈开发，接触前端和容器化'},
   {date:'2024.03',color:'#06b6d4',badgeBg:'rgba(6,182,212,0.1)',badgeColor:'#06b6d4',skillsGained:2,skills:['深度学习','NLP'],cumulativeCount:7,description:'AI浪潮下转投机器学习方向'},
   {date:'2024.09',color:'#a855f7',badgeBg:'rgba(168,85,247,0.1)',badgeColor:'#a855f7',skillsGained:3,skills:['TypeScript','系统设计','数据分析'],cumulativeCount:10,description:'系统性提升架构能力和工程化思维'},
   {date:'2025.06',color:'#10b981',badgeBg:'rgba(16,185,129,0.1)',badgeColor:'#10b981',skillsGained:2,skills:['MLOps','Go'],cumulativeCount:12,description:'ML工程化实践，Go语言入门'},
 ]
+const timelineColors = [PALETTE.mint, PALETTE.cyan, PALETTE.purple, PALETTE.amber, PALETTE.rose]
+// 真实 /api/personal/growth.timeline 覆盖 demo（Silent Fallback）
+const skillTimeline = computed(() => {
+  const real = store.growth?.timeline
+  if (real?.length) {
+    return real.map((ev, i) => {
+      const c = timelineColors[i % timelineColors.length]
+      return {
+        date: String(ev.date).slice(0, 10),
+        color: c, badgeBg: c + '1a', badgeColor: c,
+        skillsGained: ev.skillsGained, skills: ev.skills,
+        cumulativeCount: ev.cumulativeCount, description: ev.description,
+      }
+    })
+  }
+  return demoSkillTimeline
+})
+
+onMounted(() => { store.fetchSkills(); store.fetchGrowth() })
 </script>

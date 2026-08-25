@@ -132,7 +132,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, onMounted } from 'vue'
 import { usePersonalStore } from '@/stores/personal'
 import { useNotify } from '@/composables/useNotify'
 import { useScrollReveal } from '@/composables/useScrollReveal'
@@ -164,6 +164,8 @@ const timelineEvents = computed(()=>{
   e.push({month:'PLAN',color:'#6366f1',badge:'TODO',badgeBg:'rgba(99,102,241,0.1)',badgeColor:'#6366f1',description:'每季度进行一次技能保鲜度全面审查，建立持续学习机制'})
   return e
 })
+
+onMounted(() => { store.fetchSkills(); store.fetchFreshness() })
 
 const topSuggestion = computed(()=>{
   const h=alertSkills.value.filter(a=>a.urgency==='high')

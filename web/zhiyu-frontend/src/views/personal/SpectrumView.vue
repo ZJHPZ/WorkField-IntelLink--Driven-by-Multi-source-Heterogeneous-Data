@@ -194,7 +194,7 @@ function goDetail(s: SignalDetail) {
   router.push('/personal/spectrum/' + encodeURIComponent(s.skillName))
 }
 
-onMounted(() => { store.fetchSignalDetails() })
+// 信号数据无独立端点，诚实保留 demo 数据（Silent Fallback）
 </script>
 
 <style scoped>

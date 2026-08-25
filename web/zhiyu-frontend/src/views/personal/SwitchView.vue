@@ -102,7 +102,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { usePersonalStore } from '@/stores/personal'
 import { useNotify } from '@/composables/useNotify'
 import { useScrollReveal } from '@/composables/useScrollReveal'
@@ -148,4 +148,6 @@ const transitionPhases = computed(()=>{
   phases.push({color:'#06b6d4',title:'实战验证与求职',duration:`${Math.ceil(estimatedMonths.value*0.1)||1}M`,description:'完成2-3个项目，更新简历并开始投递',tags:['项目实战','简历优化','面试准备']})
   return phases
 })
+
+onMounted(() => { store.fetchSwitchOptions() })
 </script>

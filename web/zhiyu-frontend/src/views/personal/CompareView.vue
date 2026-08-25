@@ -282,7 +282,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { usePersonalStore } from '@/stores/personal'
 import MatchRadar from '@/components/personal/MatchRadar.vue'
 import type { RadarDimension } from '@/components/personal/MatchRadar.vue'
@@ -373,4 +373,6 @@ const uniqueSkillsB = computed(()=>{
   const as=new Set(a.skills.map(s=>s.toLowerCase()))
   return b.skills.filter(s=>!as.has(s.toLowerCase()))
 })
+
+onMounted(() => { store.fetchMatches() })
 </script>

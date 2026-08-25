@@ -74,6 +74,69 @@ export interface SignalDetail {
   verificationStatus: 'confirmed' | 'candidate' | 'unverified'
 }
 
+// ── 用户档案 / 成长 / 里程碑（来自 /api/personal/*） ──
+
+export interface ProfileData {
+  userId?: string
+  name?: string
+  title?: string
+  phone?: string
+  email?: string
+  birthYear?: number
+  status?: string
+  industry?: string
+  education?: string
+  major?: string
+  englishLevel?: string
+  experienceYears?: number
+  city?: string
+  targetRole?: string
+  targetCity?: string
+  targetIndustry?: string
+  salaryMin?: number
+  salaryMax?: number
+  priority?: string
+  travelOk?: boolean
+  relocateOk?: boolean
+  workMode?: string
+  resumeUrl?: string
+  resumeParsedAt?: string | null
+  avatarEmoji?: string
+  level?: string
+  createdAt?: string
+  updatedAt?: string
+}
+
+export interface GrowthEvent {
+  date: string
+  skillsGained: number
+  skills: string[]
+  cumulativeCount: number
+  description: string
+}
+
+export interface CareerMilestone {
+  id: number
+  name: string
+  description: string
+  icon?: string
+  rarity?: string
+  unlocked: boolean
+  unlockedAt?: string | null
+  progress: number
+  target: number
+}
+
+// ── 岗位列表（来自 /api/positions，演化/探索复用） ──
+
+export interface PositionItem {
+  position_id: string
+  name: string
+  tech_stack: string
+  position_type: string
+  skill_count: number
+}
+
 // ── 岗位演化 ──
 
 export interface EvolutionChange {
@@ -213,6 +276,10 @@ export const usePersonalStore = defineStore('personal', () => {
   const switchOptions = ref<CareerSwitchOption[]>([...demoSwitchOptions])
   const signalDetails = ref<SignalDetail[]>([...demoSignalDetails])
   const evolutionSnapshots = ref<EvolutionSnapshot[]>([...demoEvolutionSnapshots])
+  const positions = ref<PositionItem[]>([])
+  const profile = ref<ProfileData | null>(null)
+  const growth = ref<{ currentLevel: number; levels: { level: number; name: string; minSkills: number }[]; timeline: GrowthEvent[] } | null>(null)
+  const milestones = ref<CareerMilestone[]>([])
   const loading = ref(false)
 
   const skillCount = computed(() => skills.value.length)
@@ -267,24 +334,70 @@ export const usePersonalStore = defineStore('personal', () => {
     } catch {}
   }
 
-  async function fetchSignalDetails() {
+  async function fetchProfile() {
     try {
-      const res = await client.get('/api/personal/skills/signals') as any
-      if (res?.signals?.length) signalDetails.value = res.signals
+      const res = await client.get('/api/personal/profile') as any
+      if (res?.name) profile.value = res
     } catch {}
   }
 
-  async function fetchEvolution(positionId?: string) {
+  async function fetchGrowth() {
     try {
-      const url = positionId ? `/api/positions/${positionId}/evolution` : '/api/personal/evolution'
-      const res = await client.get(url) as any
-      if (res?.snapshots?.length) evolutionSnapshots.value = res.snapshots
+      const res = await client.get('/api/personal/growth') as any
+      if (res?.timeline) growth.value = res
+    } catch {}
+  }
+
+  async function fetchMilestones() {
+    try {
+      const res = await client.get('/api/personal/milestones') as any
+      if (res?.milestones?.length) milestones.value = res.milestones
+    } catch {}
+  }
+
+  async function fetchPositions() {
+    try {
+      const res = await client.get('/api/positions') as any
+      if (res?.positions?.length) positions.value = res.positions
+    } catch {}
+  }
+
+  /**
+   * 岗位演化 —— 前端适配真实端点 GET /api/positions/{id}/evolution。
+   * 后端返回 { position_id, snapshot_count, timeline:[{from,to,added_skills,removed_skills,modified_skills,summary}] }。
+   * timeline 映射为 EvolutionSnapshot[]；timeline 为空（快照 <2）时保留 demo 兜底。
+   */
+  async function fetchEvolution(positionId: string, positionName?: string) {
+    try {
+      const res = await client.get(`/api/positions/${positionId}/evolution`) as any
+      const timeline = res?.timeline
+      if (!timeline?.length) return
+      evolutionSnapshots.value = timeline.map((t: any, i: number) => {
+        const added: EvolutionChange[] = (t.added_skills || []).map((s: string) =>
+          ({ type: 'added', skillName: s, evidence: t.summary || '新增技能', source: '快照对比' }))
+        const removed: EvolutionChange[] = (t.removed_skills || []).map((s: string) =>
+          ({ type: 'removed', skillName: s, evidence: t.summary || '移除技能', source: '快照对比' }))
+        const modified: EvolutionChange[] = (t.modified_skills || []).map((m: any) =>
+          ({ type: m.old_confidence < m.new_confidence ? 'upgraded' : 'downgraded',
+             skillName: m.name, oldLevel: m.old_confidence.toFixed(2), newLevel: m.new_confidence.toFixed(2),
+             evidence: `置信度 ${m.old_confidence} → ${m.new_confidence}`, source: '快照对比' }))
+        return {
+          snapshotId: `evol-${i}`,
+          positionName: positionName || positionId,
+          timestamp: t.to || t.from || '',
+          description: t.summary || `演化阶段 ${i + 1}`,
+          skillCount: added.length + removed.length + modified.length,
+          changes: [...added, ...removed, ...modified],
+          dataSources: [],
+        } as EvolutionSnapshot
+      })
     } catch {}
   }
 
   return {
-    skills, matches, learningPath, alerts, switchOptions, signalDetails, evolutionSnapshots, loading,
+    skills, matches, learningPath, alerts, switchOptions, signalDetails, evolutionSnapshots, positions, profile, growth, milestones, loading,
     skillCount, healthySkillCount, alertSkillCount, bestMatch, topSkillCategory, signalByName,
-    fetchSkills, fetchMatches, fetchLearningPath, fetchFreshness, fetchSwitchOptions, fetchSignalDetails, fetchEvolution,
+    fetchSkills, fetchMatches, fetchLearningPath, fetchFreshness, fetchSwitchOptions, fetchPositions, fetchEvolution,
+    fetchProfile, fetchGrowth, fetchMilestones,
   }
 })

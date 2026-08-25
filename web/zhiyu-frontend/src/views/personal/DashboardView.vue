@@ -231,5 +231,5 @@ const radarDimensions = computed(() =>
 const completedSteps = computed(() => store.learningPath.filter(s=>s.status==='completed').length)
 const overallProgress = computed(() => store.learningPath.length ? Math.round(store.learningPath.reduce((s,x)=>s+x.progress,0)/store.learningPath.length) : 0)
 
-onMounted(() => { store.fetchSkills(); store.fetchMatches(); store.fetchLearningPath() })
+onMounted(() => { store.fetchSkills(); store.fetchMatches(); store.fetchLearningPath(); store.fetchFreshness() })
 </script>

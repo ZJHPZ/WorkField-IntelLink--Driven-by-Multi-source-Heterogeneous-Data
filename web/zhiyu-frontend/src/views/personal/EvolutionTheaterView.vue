@@ -210,7 +210,8 @@
       <!-- 数据源覆盖 -->
       <div class="panel-asymmetric p-4 shadow-deep">
         <div class="text-xs font-bold tracking-wide mb-3" style="color:var(--text-muted)">DATA SOURCES</div>
-        <div class="space-y-2">
+        <div v-if="!dataSourceStats.length" class="text-xs font-mono p-3 panel-dark-zone" style="color:var(--text-muted)">— 端点未返回数据源明细，保留快照差异展示 —</div>
+        <div v-else class="space-y-2">
           <div v-for="src in dataSourceStats" :key="src.name" class="flex items-center gap-2">
             <span class="text-xs font-mono w-16" :style="{color:'var(--text-secondary)'}">{{ src.name }}</span>
             <div class="flex-1 h-2 progress-track-dark" style="background:var(--bg-secondary)">
@@ -225,9 +226,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, watch, onMounted } from 'vue'
 import { usePersonalStore } from '@/stores/personal'
 import type { EvolutionSnapshot } from '@/stores/personal'
+import { PALETTE } from '@/utils/color'
 import { useScrollReveal } from '@/composables/useScrollReveal'
 
 const store = usePersonalStore()
@@ -259,16 +261,19 @@ function changeCount(type: string): number {
 
 const dataSourceStats = computed(() => {
   const src = currentSnapshot.value?.dataSources || []
-  const colors = ['#818cf8', '#06b6d4', '#a855f7', '#10b981']
-  return src.map((s, i) => {
+  const colors = [PALETTE.brand, PALETTE.cyan, PALETTE.purple, PALETTE.mint]
+  const rows = src.map((s, i) => {
     const match = s.match(/(\d+)/)
     const count = match ? parseInt(match[1]) : 0
-    return { name: s.split('×')[0], count, percent: Math.min(count / 3, 100), color: colors[i] || '#6b7280' }
+    return { name: s.split('×')[0], count, color: colors[i] || '#6b7280' }
   })
+  // 百分比相对最大值归一化（不再恒 100%）
+  const max = Math.max(...rows.map(r => r.count), 1)
+  return rows.map(r => ({ ...r, percent: Math.min(100, Math.round((r.count / max) * 100)) }))
 })
 
 function getChangeColor(type: string): string {
-  const m: Record<string, string> = { added: '#10b981', removed: '#f43f5e', upgraded: '#06b6d4', downgraded: '#f59e0b' }
+  const m: Record<string, string> = { added: PALETTE.mint, removed: PALETTE.rose, upgraded: PALETTE.cyan, downgraded: PALETTE.amber }
   return m[type] || '#6b7280'
 }
 function getChangeBg(type: string): string {
@@ -286,5 +291,19 @@ function getChangeIcon(type: string): string {
   return m[type] || '•'
 }
 
-onMounted(() => { store.fetchEvolution() })
+// 岗位/快照切换时 clamp 索引，防止越界
+watch([positions, positionIndex], () => {
+  if (positionIndex.value >= positions.value.length) positionIndex.value = Math.max(0, positions.value.length - 1)
+})
+watch(filteredSnapshots, () => {
+  if (selectedSnapshotIdx.value >= filteredSnapshots.value.length)
+    selectedSnapshotIdx.value = Math.max(0, filteredSnapshots.value.length - 1)
+})
+
+onMounted(async () => {
+  // 先取岗位列表拿 position_id，再取该岗位演化时间轴（适配真实端点）；失败保留 demo 兜底
+  await store.fetchPositions()
+  const first = store.positions[0]
+  if (first) await store.fetchEvolution(first.position_id, first.name)
+})
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <div class="constellation-wrap relative" :style="{ height: height + 'px' }">
+  <div class="constellation-wrap relative" :style="{ height: height + 'px' }" ref="containerRef">
     <!-- 星轨环 — 工业坐标环 -->
     <svg class="absolute inset-0 w-full h-full pointer-events-none" :viewBox="`0 0 ${w} ${h}`">
       <!-- 同心轨道环 -->
@@ -66,6 +66,7 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { PALETTE, getBrandColor } from '@/utils/color'
 
 interface Skill {
   id: string
@@ -95,7 +96,8 @@ const props = withDefaults(defineProps<{
 
 defineEmits<{ 'skill-click': [skill: Skill] }>()
 
-const w = computed(() => 600)
+const containerRef = ref<HTMLDivElement | null>(null)
+const w = ref(600)
 const h = computed(() => props.height)
 const cx = computed(() => w.value / 2)
 const cy = computed(() => h.value / 2)
@@ -103,15 +105,24 @@ const maxR = computed(() => Math.min(w.value, h.value) / 2 - 40)
 
 const ringColor = 'var(--border-color)'
 
-// 类别颜色映射
+// 类别颜色映射（主类别跟随主题 brand，其余语义色）
 const categoryColors: Record<string, string> = {
-  'hard': '#818cf8',
-  'tool': '#06b6d4',
-  'framework': '#a855f7',
-  'soft': '#10b981',
-  'language': '#f59e0b',
-  'default': '#6366f1',
+  'hard': getBrandColor(),
+  'tool': PALETTE.cyan,
+  'framework': PALETTE.purple,
+  'soft': PALETTE.mint,
+  'language': PALETTE.amber,
+  'default': PALETTE.brandStrong,
 }
+
+function measure() {
+  if (containerRef.value) w.value = containerRef.value.offsetWidth || 600
+}
+onMounted(() => {
+  measure()
+  window.addEventListener('resize', measure)
+})
+onUnmounted(() => window.removeEventListener('resize', measure))
 
 // 按类别分组
 const categories = computed(() => {

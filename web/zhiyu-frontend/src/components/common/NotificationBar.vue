@@ -34,7 +34,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, onUnmounted } from 'vue'
 
 const props = withDefaults(defineProps<{
   visible: boolean
@@ -48,7 +48,15 @@ const props = withDefaults(defineProps<{
 defineEmits<{ (e: 'close'): void }>()
 
 // 按外壳身份分支：App.vue 已在 <html> 上设 data-side="enterprise|personal"
+// 用 MutationObserver 保持响应（侧边切换外壳时不需重建组件）
 const isEnt = ref(typeof document !== 'undefined' && document.documentElement.dataset.side === 'enterprise')
+if (typeof document !== 'undefined') {
+  const observer = new MutationObserver(() => {
+    isEnt.value = document.documentElement.dataset.side === 'enterprise'
+  })
+  observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-side'] })
+  onUnmounted(() => observer.disconnect())
+}
 
 const icon = computed(() =>
   props.type === 'warning' ? '⚠️' : props.type === 'success' ? '✅' : '🔔'

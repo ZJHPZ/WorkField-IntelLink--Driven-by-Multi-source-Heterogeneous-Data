@@ -32,7 +32,7 @@
     <!-- 时间轴 -->
     <div class="panel-industrial p-5 relative shadow-deep view-section">
       <div class="rivet" style="top:8px;left:8px"></div><div class="rivet" style="top:8px;right:8px"></div>
-      <div class="flex items-center gap-2 mb-4"><span class="tag-plate" style="color:var(--cyan-400);border-color:var(--cyan-500)">TIMELINE</span><h3 class="text-sm font-bold tracking-wide uppercase" :style="{color:'var(--text-primary)'}">学习步骤</h3></div>
+      <PanelHeader label="TIMELINE" title="学习步骤" color="cyan" />
       <div class="relative">
         <div class="absolute left-6 top-0 bottom-0 w-0.5" style="background:linear-gradient(180deg,var(--brand-500),var(--cyan-500),var(--mint-500))"></div>
         <div class="space-y-3 spring-list">
@@ -79,6 +79,7 @@ import { ref, computed, onMounted } from 'vue'
 import { usePersonalStore } from '@/stores/personal'
 import { useNotify } from '@/composables/useNotify'
 import { useScrollReveal } from '@/composables/useScrollReveal'
+import PanelHeader from '@/components/common/PanelHeader.vue'
 const store = usePersonalStore()
 const { show: notify } = useNotify()
 useScrollReveal()

@@ -4,7 +4,7 @@
       <span class="text-sm">{{ icon }}</span>
       <span class="text-base font-bold tabular-nums transition-all duration-700" :class="valueClass">
         <span v-if="valueText">{{ valueText }}</span>
-        <span v-else class="count-up">{{ animatedValue }}</span
+        <span v-else>{{ animatedValue }}</span
         ><span v-if="suffix" class="text-xs">{{ suffix }}</span>
       </span>
       <span v-if="trend !== 0 && !valueText" class="text-xs font-bold" :class="trend>0?'text-mint-500':'text-rose-500'">{{ trend>0?'↑':'↓' }}{{ Math.abs(trend) }}</span>

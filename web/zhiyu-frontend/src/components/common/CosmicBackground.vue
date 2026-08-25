@@ -3,13 +3,13 @@
     <!-- 深空底色渐变 -->
     <div class="absolute inset-0" style="background: radial-gradient(ellipse at 30% 20%, #1a1040 0%, #0a0a18 40%, #050510 70%, #020208 100%);" />
 
-    <!-- 星云光晕 -->
+    <!-- 星云光晕（color-mix 跟随主题品牌色） -->
     <div class="absolute inset-0 opacity-30"
       style="background:
-        radial-gradient(ellipse 400px 300px at 20% 30%, rgba(99,102,241,0.12) 0%, transparent 60%),
-        radial-gradient(ellipse 350px 280px at 70% 50%, rgba(6,182,212,0.10) 0%, transparent 60%),
-        radial-gradient(ellipse 300px 250px at 45% 75%, rgba(168,85,247,0.08) 0%, transparent 60%),
-        radial-gradient(ellipse 250px 200px at 80% 20%, rgba(16,185,129,0.06) 0%, transparent 50%);
+        radial-gradient(ellipse 400px 300px at 20% 30%, color-mix(in srgb, var(--brand-500) 12%, transparent) 0%, transparent 60%),
+        radial-gradient(ellipse 350px 280px at 70% 50%, color-mix(in srgb, var(--cyan-500) 10%, transparent) 0%, transparent 60%),
+        radial-gradient(ellipse 300px 250px at 45% 75%, color-mix(in srgb, var(--purple-500) 8%, transparent) 0%, transparent 60%),
+        radial-gradient(ellipse 250px 200px at 80% 20%, color-mix(in srgb, var(--mint-500) 6%, transparent) 0%, transparent 50%);
       " />
 
     <!-- 星空粒子层 -->
@@ -32,18 +32,18 @@
 
     <!-- 流动数据光线 -->
     <div class="absolute inset-0 opacity-[0.06]">
-      <div class="absolute h-px w-full" style="top: 25%; background: linear-gradient(90deg, transparent, #6366f1, #06b6d4, #6366f1, transparent); background-size: 200% 100%; animation: dataFlowH 8s linear infinite;" />
-      <div class="absolute h-px w-full" style="top: 55%; background: linear-gradient(90deg, transparent, #a855f7, #6366f1, #a855f7, transparent); background-size: 200% 100%; animation: dataFlowH 10s linear infinite reverse;" />
-      <div class="absolute h-px w-full" style="top: 75%; background: linear-gradient(90deg, transparent, #06b6d4, #10b981, #06b6d4, transparent); background-size: 200% 100%; animation: dataFlowH 12s linear infinite; animation-delay: -4s;" />
-      <div class="absolute w-px h-full" style="left: 30%; background: linear-gradient(180deg, transparent, rgba(99,102,241,0.5), transparent); background-size: 100% 200%; animation: dataFlowV 9s linear infinite;" />
-      <div class="absolute w-px h-full" style="left: 65%; background: linear-gradient(180deg, transparent, rgba(6,182,212,0.4), transparent); background-size: 100% 200%; animation: dataFlowV 11s linear infinite reverse;" />
+      <div class="absolute h-px w-full" style="top: 25%; background: linear-gradient(90deg, transparent, var(--brand-500), var(--cyan-500), var(--brand-500), transparent); background-size: 200% 100%; animation: dataFlowH 8s linear infinite;" />
+      <div class="absolute h-px w-full" style="top: 55%; background: linear-gradient(90deg, transparent, var(--purple-500), var(--brand-500), var(--purple-500), transparent); background-size: 200% 100%; animation: dataFlowH 10s linear infinite reverse;" />
+      <div class="absolute h-px w-full" style="top: 75%; background: linear-gradient(90deg, transparent, var(--cyan-500), var(--mint-500), var(--cyan-500), transparent); background-size: 200% 100%; animation: dataFlowH 12s linear infinite; animation-delay: -4s;" />
+      <div class="absolute w-px h-full" style="left: 30%; background: linear-gradient(180deg, transparent, color-mix(in srgb, var(--brand-500) 50%, transparent), transparent); background-size: 100% 200%; animation: dataFlowV 9s linear infinite;" />
+      <div class="absolute w-px h-full" style="left: 65%; background: linear-gradient(180deg, transparent, color-mix(in srgb, var(--cyan-500) 40%, transparent), transparent); background-size: 100% 200%; animation: dataFlowV 11s linear infinite reverse;" />
     </div>
 
     <!-- 大型光点: 缓慢漂移 -->
     <div class="absolute w-96 h-96 rounded-full blur-3xl opacity-[0.04]"
-      style="top: 15%; left: 60%; background: #6366f1; animation: driftPlanet 20s ease-in-out infinite;" />
+      style="top: 15%; left: 60%; background: var(--brand-500); animation: driftPlanet 20s ease-in-out infinite;" />
     <div class="absolute w-64 h-64 rounded-full blur-3xl opacity-[0.03]"
-      style="top: 60%; left: 25%; background: #06b6d4; animation: driftPlanet 25s ease-in-out infinite reverse;" />
+      style="top: 60%; left: 25%; background: var(--cyan-500); animation: driftPlanet 25s ease-in-out infinite reverse;" />
   </div>
 </template>
 
@@ -59,9 +59,9 @@ const stars = computed(() =>
       size: (i % 5 === 0) ? 1.8 : (i % 7 === 0) ? 1.2 : 0.6,
       top: (seed % 100),
       left: ((seed * 31 + (i % 13) * 7) % 100),
-      color: i % 8 === 0 ? 'rgba(99,102,241,0.7)' :
-             i % 9 === 0 ? 'rgba(6,182,212,0.6)' :
-             i % 11 === 0 ? 'rgba(168,85,247,0.5)' :
+      color: i % 8 === 0 ? 'color-mix(in srgb, var(--brand-500) 70%, transparent)' :
+             i % 9 === 0 ? 'color-mix(in srgb, var(--cyan-500) 60%, transparent)' :
+             i % 11 === 0 ? 'color-mix(in srgb, var(--purple-500) 50%, transparent)' :
              'rgba(255,255,255,0.55)',
       opacity: 0.3 + (i % 10) * 0.06,
       twinkle: i % 4 !== 0,

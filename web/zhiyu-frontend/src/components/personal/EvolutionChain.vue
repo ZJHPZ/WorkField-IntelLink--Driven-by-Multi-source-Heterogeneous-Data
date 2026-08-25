@@ -4,19 +4,19 @@
     <svg class="w-full" :height="svgH" :viewBox="`0 0 ${svgW} ${svgH}`">
       <defs>
         <!-- 金属链条渐变 -->
-        <linearGradient id="chainMetal" x1="0" y1="0" x2="0" y2="1">
+        <linearGradient :id="chainMetalId" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" stop-color="#9ca3af" />
           <stop offset="50%" stop-color="#6b7280" />
           <stop offset="100%" stop-color="#9ca3af" />
         </linearGradient>
         <!-- 光流渐变 -->
-        <linearGradient id="flowGrad" x1="0" y1="0" x2="1" y2="0">
+        <linearGradient :id="flowGradId" x1="0" y1="0" x2="1" y2="0">
           <stop offset="0%" stop-color="var(--brand-500)" stop-opacity="0" />
           <stop offset="50%" stop-color="var(--brand-400)" stop-opacity="1" />
           <stop offset="100%" stop-color="var(--brand-500)" stop-opacity="0" />
         </linearGradient>
         <!-- 霓虹发光滤镜 -->
-        <filter id="neonGlow" x="-50%" y="-50%" width="200%" height="200%">
+        <filter :id="neonGlowId" x="-50%" y="-50%" width="200%" height="200%">
           <feGaussianBlur stdDeviation="3" result="blur" />
           <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
         </filter>
@@ -26,17 +26,17 @@
       <g v-for="(link, i) in chainLinks" :key="i">
         <!-- 链节背景 -->
         <rect :x="link.x" :y="link.y - 2" :width="link.w" height="4" rx="2"
-          fill="url(#chainMetal)" opacity="0.4" />
+          :fill="'url(#' + chainMetalId + ')'" opacity="0.4" />
         <!-- 链节高亮（已完成） -->
         <rect v-if="link.active" :x="link.x" :y="link.y - 2" :width="link.w" height="4" rx="2"
           fill="var(--brand-500)" opacity="0.6" />
         <!-- 光流动画 -->
         <rect v-if="link.active" :x="link.x" :y="link.y - 2" :width="link.w" height="4" rx="2"
-          fill="url(#flowGrad)" class="animate-chain-flow" />
+          :fill="'url(#' + flowGradId + ')'" class="animate-chain-flow" />
         <!-- 链节铆钉 -->
-        <circle :cx="link.x" :cy="link.y" r="4" fill="url(#chainMetal)"
+        <circle :cx="link.x" :cy="link.y" r="4" :fill="'url(#' + chainMetalId + ')'"
           :stroke="link.active ? 'var(--brand-500)' : '#4a5568'" stroke-width="1" />
-        <circle :cx="link.x + link.w" :cy="link.y" r="4" fill="url(#chainMetal)"
+        <circle :cx="link.x + link.w" :cy="link.y" r="4" :fill="'url(#' + chainMetalId + ')'"
           :stroke="link.active ? 'var(--brand-500)' : '#4a5568'" stroke-width="1" />
       </g>
 
@@ -47,7 +47,7 @@
         <polygon :points="hexPoints(node.x, node.y, node.size)"
           :fill="node.fill" :stroke="node.stroke" stroke-width="1.5"
           :opacity="node.locked ? 0.4 : 1"
-          :filter="!node.locked ? 'url(#neonGlow)' : ''" />
+          :filter="!node.locked ? 'url(#' + neonGlowId + ')' : ''" />
         <!-- 内部发光 -->
         <polygon v-if="!node.locked" :points="hexPoints(node.x, node.y, node.size - 4)"
           fill="none" :stroke="node.stroke" stroke-width="0.5" opacity="0.4" />
@@ -84,7 +84,8 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, useId } from 'vue'
+import { PALETTE } from '@/utils/color'
 
 interface Level {
   level: number
@@ -103,6 +104,10 @@ const props = withDefaults(defineProps<{
 
 defineEmits<{ 'level-click': [level: Level] }>()
 
+const chainMetalId = useId()
+const flowGradId = useId()
+const neonGlowId = useId()
+
 const svgW = 600
 const svgH = 120
 const nodeSpacing = svgW / (props.levels.length + 1)
@@ -111,12 +116,12 @@ const nodeSize = 28
 
 // 等级节点
 const levelNodes = computed(() => {
-  const colors = ['#10b981', '#06b6d4', '#f59e0b', '#f43f5e']
+  const colors = [PALETTE.mint, PALETTE.cyan, PALETTE.amber, PALETTE.rose]
   const labels = ['JUNIOR', 'MID', 'SENIOR', 'EXPERT']
   return props.levels.map((level, i) => {
     const x = nodeSpacing * (i + 1)
     const active = level.unlocked
-    const color = colors[i] || '#6366f1'
+    const color = colors[i] || PALETTE.brandStrong
     return {
       ...level,
       x,

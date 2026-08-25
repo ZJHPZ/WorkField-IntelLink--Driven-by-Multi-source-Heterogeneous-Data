@@ -3,20 +3,20 @@
     <svg :viewBox="`0 0 ${svgW} ${svgH}`" class="w-full h-full" style="max-width:320px">
       <defs>
         <!-- 灯塔光束渐变 -->
-        <radialGradient id="beamGrad" cx="50%" cy="100%" r="100%">
+        <radialGradient :id="beamGradId" cx="50%" cy="100%" r="100%">
           <stop offset="0%" :stop-color="beamColor" stop-opacity="0.6" />
           <stop offset="60%" :stop-color="beamColor" stop-opacity="0.15" />
           <stop offset="100%" :stop-color="beamColor" stop-opacity="0" />
         </radialGradient>
         <!-- 塔身渐变 -->
-        <linearGradient id="towerGrad" x1="0" y1="0" x2="1" y2="0">
+        <linearGradient :id="towerGradId" x1="0" y1="0" x2="1" y2="0">
           <stop offset="0%" stop-color="#4a5568" />
           <stop offset="30%" stop-color="#718096" />
           <stop offset="70%" stop-color="#718096" />
           <stop offset="100%" stop-color="#4a5568" />
         </linearGradient>
         <!-- 光晕 -->
-        <filter id="glow">
+        <filter :id="glowFilterId">
           <feGaussianBlur stdDeviation="4" result="blur" />
           <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
         </filter>
@@ -42,7 +42,7 @@
         </g>
         <!-- 仪表盘填充弧 -->
         <path :d="gaugeArc" fill="none" :stroke="gaugeFillColor" stroke-width="5" stroke-linecap="round"
-          filter="url(#glow)" class="transition-all duration-1000" />
+          :filter="'url(#' + glowFilterId + ')'" class="transition-all duration-1000" />
         <!-- 指针 -->
         <g :transform="`rotate(${gaugeAngle})`" class="transition-transform duration-1000" style="transform-origin: 0 0">
           <line x1="0" y1="0" x2="0" y2="-85" stroke="var(--brand-400)" stroke-width="2" stroke-linecap="round" />
@@ -50,7 +50,7 @@
         </g>
         <!-- 中心数值 — 七段数码管 -->
         <text x="0" y="30" text-anchor="middle" font-size="28" font-family="Courier New, monospace"
-          font-weight="700" :fill="valueColor" filter="url(#glow)">
+          font-weight="700" :fill="valueColor" :filter="'url(#' + glowFilterId + ')'">
           {{ percentage }}%
         </text>
         <text x="0" y="46" text-anchor="middle" font-size="8" font-family="Courier New, monospace"
@@ -62,7 +62,7 @@
       <!-- 塔身 -->
       <g transform="translate(160, 340)">
         <!-- 塔身主体 — 梯形 -->
-        <polygon points="-18,0 -14,-160 14,-160 18,0" fill="url(#towerGrad)" stroke="#4a5568" stroke-width="0.5" />
+        <polygon points="-18,0 -14,-160 14,-160 18,0" :fill="'url(#' + towerGradId + ')'" stroke="#4a5568" stroke-width="0.5" />
         <!-- 条纹装饰 -->
         <g v-for="i in 6" :key="i">
           <rect :x="-16" :y="-i * 24 - 4" width="32" height="3" rx="1"
@@ -71,7 +71,7 @@
         <!-- 铆钉 -->
         <circle v-for="rivet in towerRivets" :key="rivet.id"
           :cx="rivet.x" :cy="rivet.y" r="2"
-          fill="url(#towerGrad)" stroke="#4a5568" stroke-width="0.5" />
+          :fill="'url(#' + towerGradId + ')'" stroke="#4a5568" stroke-width="0.5" />
       </g>
 
       <!-- 灯室 -->
@@ -80,7 +80,7 @@
         <rect x="-16" y="-20" width="32" height="28" rx="3"
           :fill="beamColor" fill-opacity="0.15" :stroke="beamColor" stroke-width="1" />
         <!-- 灯泡 -->
-        <circle cx="0" cy="-6" r="6" :fill="beamColor" filter="url(#glow)" :opacity="beamOpacity" />
+        <circle cx="0" cy="-6" r="6" :fill="beamColor" :filter="'url(#' + glowFilterId + ')'" :opacity="beamOpacity" />
         <!-- 灯室顶盖 -->
         <polygon points="-20,-20 0,-30 20,-20" fill="#4a5568" stroke="#4a5568" stroke-width="0.5" />
         <!-- 旋转光束 -->
@@ -95,7 +95,8 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, useId } from 'vue'
+import { PALETTE } from '@/utils/color'
 
 const props = withDefaults(defineProps<{
   percentage: number
@@ -104,12 +105,16 @@ const props = withDefaults(defineProps<{
 
 const svgW = 320
 const svgH = 380
+const beamGradId = useId()
+const towerGradId = useId()
+const glowFilterId = useId()
 
-// 颜色映射
-const beamColor = computed(() => props.percentage >= 80 ? '#10b981' : props.percentage >= 50 ? '#f59e0b' : '#f43f5e')
-const valueColor = computed(() => props.percentage >= 80 ? '#10b981' : props.percentage >= 50 ? '#f59e0b' : '#f43f5e')
+// 颜色映射（语义色：健康 mint / 中危 amber / 高危 rose）
+const healthColor = computed(() => props.percentage >= 80 ? PALETTE.mint : props.percentage >= 50 ? PALETTE.amber : PALETTE.rose)
+const beamColor = healthColor
+const valueColor = healthColor
 const gaugeTrackColor = 'var(--border-color)'
-const gaugeFillColor = computed(() => props.percentage >= 80 ? '#10b981' : props.percentage >= 50 ? '#f59e0b' : '#f43f5e')
+const gaugeFillColor = healthColor
 
 // 光束速度（健康度越低越快/闪烁）
 const beamSpeed = computed(() => props.percentage >= 80 ? 6 : props.percentage >= 50 ? 4 : 2)
@@ -138,7 +143,7 @@ const gaugeTicks = computed(() => {
   for (let v = 0; v <= 100; v += 10) {
     const angle = (-180 + (v / 100) * 180) * (Math.PI / 180)
     const major = v % 25 === 0
-    const color = v >= 80 ? '#10b981' : v >= 50 ? '#f59e0b' : '#f43f5e'
+    const color = v >= 80 ? PALETTE.mint : v >= 50 ? PALETTE.amber : PALETTE.rose
     ticks.push({ angle, major, label: v.toString(), color })
   }
   return ticks

@@ -21,7 +21,7 @@ The frontend is effectively **two separate projects** in one repo — they do **
 Vue 3.5 + TypeScript 6.0 + Vite 8.2 + Pinia 4.0 + Vue Router 5.2
 Tailwind CSS 3.4 (custom color system)
 ECharts 6.1 + vue-echarts 8.0
-Three.js 0.185 + @tresjs/core  (HolographicBackdrop.vue, PrismScene.vue)
+Three.js 0.185 + @tresjs/core  (HolographicBackdrop.vue)
 Axios 1.19
 markdown-it 15 + markdown-it-katex
 ```
@@ -44,33 +44,31 @@ No test runner, linter, or formatter is configured. Proxy target is **8001** —
 
 | File | Why it matters |
 |---|---|
-| `src/styles/variables.css` | CSS variable definitions for 4 theme modes (dark, light, warm-light, industrial) |
+| `src/styles/variables.css` | CSS variable definitions for 4 theme modes (dark, light, warm, warm-light) |
 | `src/styles/utilities.css` | 6 panel types, 13 decoration classes — all industrial design utilities (个人侧) |
 | `src/styles/animations.css` | Keyframe animations: glow, heartbeat-pulse, confetti, scan-line |
-| `src/styles/advanced-animations.css` | `@property` registered CSS vars + ripple/magnetic effects |
 | `src/styles/dark-override.css` | `[data-theme="dark"]` overrides for Tailwind utility classes |
 | `src/components/common/CosmicBackground.vue` | 3-layer radial-gradient + 80 CSS star particles + data flow lines |
-| `src/components/common/StatusCard.vue` | Generic 4-state card — `statusConfig` prop drives visual per domain |
+| `src/components/common/ProgressRing.vue` | SVG orbital progress ring — gradient stroke |
 | `src/components/common/HolographicBackdrop.vue` | Three.js holographic canvas layer |
 | `src/stores/personal.ts` | Silent Fallback pattern: demo data → API override → silent catch |
-| `src/router/index.ts` | All routes (10 enterprise + 14 personal) with `meta.title` and `meta.role` for nav filtering |
+| `src/router/index.ts` | All routes (10 enterprise + 15 personal) with `meta.title` and `meta.role` for nav filtering |
 | `src/api/client.ts` | Axios instance; response interceptor returns `response.data` directly |
 | `DESIGN_SYSTEM.md` | 深空舰桥工业风格完整规范 (v2.0) — applies to **个人侧 only** |
 | `DESIGN_SYSTEM_企业侧.md` | 蓝皮书·权威纸面完整规范 (v1.0) — applies to **企业侧 only** |
 
 ### CSS Architecture
 
-9 style files, imported **in order by `src/main.ts`** (not `tailwind.css`, which only holds Tailwind directives):
+8 style files, imported **in order by `src/main.ts`** (not `tailwind.css`, which only holds Tailwind directives):
 
-1. `variables.css` — CSS custom properties for 4 theme modes: `:root` (deep space dark), `[data-theme="light"]`, `[data-theme="warm-light"]`, `[data-theme="industrial"]`
+1. `variables.css` — CSS custom properties for 4 theme modes: `:root` (deep space dark), `[data-theme="light"]`, `[data-theme="warm"]`, `[data-theme="warm-light"]`. Also the semantic tokens (`--mint-*`, `--amber-*`, `--rose-*`, `--font-mono`, …)
 2. `base.css` — Reset + global element styles
 3. `utilities.css` — Industrial design system (个人侧): `.panel-industrial`, `.panel-bridge`, `.panel-asymmetric`, `.panel-neon`, `.panel-circuit`, `.panel-hazard`, `.rivet`, `.tag-plate`, `.data-segment`, `.holo-overlay`, `.scan-line-fast`, `.beam-divider`, `.nav-chip`, `.sidebar-depth`, `.main-board`, etc.
-4. `animations.css` — Keyframes: `glowBrand`, `heartbeat-pulse`, `confetti-burst`, `scaleIn`, `fadeInUp`, `shimmer`, `twinkle`
-5. `advanced-animations.css` — `@property`-registered animatable CSS variables, ripple / magnetic / scroll effects
-6. `dark-override.css` — Maps Tailwind `.bg-white` etc. under `[data-theme="dark"]`
-7. `enterprise.css` — Enterprise 蓝皮书 design system (`.ent-shell`, `.panel-doc`, `.doc-masthead`, `.seal-chip`, `.leader-row`, `.stat-tile`, `.coral-glow`, …). Scoped via `.ent-shell` / `[data-side="enterprise"]`; keeps enterprise on fixed light paper even in dark mode
-8. `markdown.css` — Styles for markdown-it rendered content
-9. `tailwind.css` — `@tailwind base/components/utilities`
+4. `animations.css` — Keyframes: `glowBrand`, `heartbeat-pulse`, `confetti-burst`, `scaleIn`, `fadeInUp`, `shimmer`, `twinkle`, `glow-pulse` (+ 语义色变体 `animate-glow-pulse-mint/amber/rose`), `fadeOut`
+5. `dark-override.css` — Maps Tailwind `.bg-white` etc. under `[data-theme="dark"]`
+6. `enterprise.css` — Enterprise 蓝皮书 design system (`.ent-shell`, `.panel-doc`, `.doc-masthead`, `.seal-chip`, `.leader-row`, `.stat-tile`, `.coral-glow`, …). Scoped via `.ent-shell` / `[data-side="enterprise"]`; keeps enterprise on fixed light paper even in dark mode
+7. `markdown.css` — Styles for markdown-it rendered content
+8. `tailwind.css` — `@tailwind base/components/utilities`
 
 Theme switching: set `data-theme` attribute on `<html>`. The `stores/theme.ts` store manages this.
 
@@ -111,7 +109,7 @@ async function fetchItems() {
 ```
 
 ### CSS Variable Theming (NOT Tailwind `dark:`)
-Theme switched via `data-theme="dark"|"light"|"warm-light"|"industrial"` on `<html>`. Tailwind `dark:` is NOT used — all overrides go through `variables.css` and `dark-override.css`.
+Theme switched via `data-theme="dark"|"light"|"warm"|"warm-light"` on `<html>`. Tailwind `dark:` is NOT used — all overrides go through `variables.css` and `dark-override.css`.
 
 ### Color System — Semantic Mapping
 | Token | Tailwind class | Enterprise meaning | Personal meaning |

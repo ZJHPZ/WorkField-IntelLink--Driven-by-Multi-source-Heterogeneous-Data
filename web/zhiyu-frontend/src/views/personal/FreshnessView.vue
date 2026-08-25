@@ -18,7 +18,7 @@
         <div class="rivet" style="top:10px;left:10px"></div><div class="rivet" style="top:10px;right:10px"></div>
         <div class="relative z-[1]">
           <div class="flex items-center justify-between mb-4">
-            <div class="flex items-center gap-2"><span class="tag-plate" style="color:#f87171;border-color:#f87171">LIGHTHOUSE</span><h3 class="text-sm font-bold tracking-wide uppercase" :style="{color:'var(--text-primary)'}">技能保鲜灯塔</h3></div>
+            <PanelHeader label="LIGHTHOUSE" title="技能保鲜灯塔" color="rose" margin="none" />
             <div class="text-right"><div class="data-segment text-2xl font-bold" :class="healthPercent>=80?'text-mint-500':healthPercent>=50?'text-amber-500':'text-rose-500'">{{ healthPercent }}%</div><div class="text-xs font-mono" :style="{color:'var(--text-muted)'}">{{ healthyCount }}/{{ totalCount }} HEALTHY</div></div>
           </div>
           <div class="flex items-end justify-center gap-8 px-4" style="height:240px">
@@ -75,7 +75,7 @@
     <div class="panel-industrial p-5 shadow-deep view-section" :class="highUrgencyCount>0?'panel-hazard':''">
       <div class="rivet" style="top:8px;left:8px"></div><div class="rivet" style="top:8px;right:8px"></div>
       <div class="flex items-center justify-between mb-4">
-        <div class="flex items-center gap-2"><span class="tag-plate" style="color:#f87171;border-color:#f87171">ALERTS</span><h3 class="text-sm font-bold tracking-wide uppercase" :style="{color:'var(--text-primary)'}">预警技能</h3></div>
+        <PanelHeader label="ALERTS" title="预警技能" color="rose" margin="none" />
         <span class="text-xs font-mono px-2.5 py-1 font-bold rounded-sm" :class="highUrgencyCount>0?'bg-rose-500':'bg-amber-500'" style="color:white">{{ alertSkills.length }} ALERTS · {{ highUrgencyCount }} HIGH</span>
       </div>
       <div v-if="alertSkills.length===0" class="text-center py-8"><div class="text-4xl mb-2">✨</div><p class="text-sm font-mono" :style="{color:'var(--text-secondary)'}">ALL SKILLS HEALTHY</p></div>
@@ -137,6 +137,7 @@ import { usePersonalStore } from '@/stores/personal'
 import { useNotify } from '@/composables/useNotify'
 import { useScrollReveal } from '@/composables/useScrollReveal'
 import LighthouseBeacon from '@/components/personal/LighthouseBeacon.vue'
+import PanelHeader from '@/components/common/PanelHeader.vue'
 import HolographicBackdrop from '@/components/common/HolographicBackdrop.vue'
 const store = usePersonalStore()
 const { show: notify } = useNotify()

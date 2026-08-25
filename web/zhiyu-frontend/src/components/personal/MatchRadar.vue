@@ -5,7 +5,6 @@
       class="w-full h-full"
       :option="option"
       :autoresize="true"
-      theme="dark"
       @click="onChartClick"
     />
     <div v-else class="flex items-center justify-center h-full" :style="{ color: 'var(--text-muted)' }">
@@ -24,7 +23,7 @@ import { CanvasRenderer } from 'echarts/renderers'
 import { useEChartsTheme } from '@/composables/useEChartsTheme'
 
 use([RadarChart, TooltipComponent, LegendComponent, CanvasRenderer])
-const { brand, brandLight, cyan, tooltipConfig, axisLabel, axisLine, splitLine } = useEChartsTheme()
+const { brand, cyan, tooltipConfig, axisLabel, axisLine, splitLine } = useEChartsTheme()
 
 export interface RadarDimension {
   name: string
@@ -152,14 +151,14 @@ const option = computed(() => {
         symbol: 'circle',
         symbolSize: 5,
         lineStyle: {
-          color: '#06b6d4',
+          color: cyan.value,
           width: 2,
         },
         areaStyle: {
-          color: 'rgba(6,182,212,0.15)',
+          color: cyan.value + '26',
         },
         itemStyle: {
-          color: '#06b6d4',
+          color: cyan.value,
         },
       },
     ],

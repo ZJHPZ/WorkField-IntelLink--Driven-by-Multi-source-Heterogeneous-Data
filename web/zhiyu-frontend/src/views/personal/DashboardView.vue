@@ -7,13 +7,7 @@
         <div class="flex-1 p-6">
           <div class="flex items-center gap-4 mb-4">
             <!-- 头像 — 六角形切割 -->
-            <div class="relative shrink-0" style="width:56px;height:56px">
-              <svg viewBox="0 0 56 56" class="w-full h-full">
-                <polygon points="28,2 52,16 52,40 28,54 4,40 4,16" fill="url(#hexGrad)" stroke="var(--brand-400)" stroke-width="1.5" />
-                <defs><linearGradient id="hexGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="var(--brand-600)"/><stop offset="100%" stop-color="var(--brand-400)"/></linearGradient></defs>
-              </svg>
-              <span class="absolute inset-0 flex items-center justify-center text-white font-bold text-lg">{{ userName.charAt(0) }}</span>
-            </div>
+            <HexAvatar :letter="userName.charAt(0)" :size="56" />
             <div>
               <div class="flex items-center gap-2 mb-1">
                 <span class="tag-plate">ACTIVE</span>
@@ -61,13 +55,10 @@
         <div class="rivet" style="bottom:8px;right:8px"></div>
 
         <div class="flex items-center justify-between mb-3">
-          <div class="flex items-center gap-2">
-            <span class="tag-plate">RADAR</span>
-            <h3 class="text-sm font-bold tracking-wide uppercase" :style="{color:'var(--text-primary)'}">技能能力图谱</h3>
-          </div>
+          <PanelHeader label="RADAR" title="技能能力图谱" margin="none" />
           <span class="text-xs flex items-center gap-2" :style="{color:'var(--text-muted)'}">
-            <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full" style="background:#818cf8"></span> 你</span>
-            <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full" style="background:#06b6d4"></span> {{ store.bestMatch?.positionName || '目标' }}</span>
+            <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full" style="background:var(--brand-500)"></span> 你</span>
+            <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full" style="background:var(--cyan-500)"></span> {{ store.bestMatch?.positionName || '目标' }}</span>
           </span>
         </div>
         <MatchRadar v-if="radarDimensions.length" :dimensions="radarDimensions" user-name="你的画像" :target-name="store.bestMatch?.positionName || '目标岗位'" />
@@ -122,10 +113,7 @@
         <div class="rivet" style="top:8px;left:8px"></div>
         <div class="rivet" style="top:8px;right:8px"></div>
         <div class="flex items-center justify-between mb-2">
-          <div class="flex items-center gap-2">
-            <span class="tag-plate">ORBIT</span>
-            <h3 class="text-sm font-bold tracking-wide uppercase" :style="{color:'var(--text-primary)'}">岗位匹配轨道</h3>
-          </div>
+          <PanelHeader label="ORBIT" title="岗位匹配轨道" margin="none" />
           <router-link to="/personal/match" class="text-xs font-mono tracking-wider" style="color:var(--brand-400)">[ VIEW ALL ]</router-link>
         </div>
         <MatchOrbit
@@ -143,10 +131,7 @@
         <div class="panel-asymmetric p-4 relative overflow-hidden"
           style="border-color:rgba(244,63,94,0.2)">
           <div class="flex items-center justify-between mb-3">
-            <div class="flex items-center gap-2">
-              <span class="tag-plate" style="color:#f87171;border-color:#f87171">ALERT</span>
-              <h3 class="text-sm font-bold tracking-wide uppercase" :style="{color:'var(--text-primary)'}">技能保鲜</h3>
-            </div>
+            <PanelHeader label="ALERT" title="技能保鲜" color="rose" margin="none" />
             <span class="text-xs font-mono font-bold px-2 py-0.5" style="background:rgba(244,63,94,0.1); color:#f87171"
               :style="store.alertSkillCount>0?{animation:'heartbeat-pulse 2s ease-in-out infinite'}:{}">
               {{ store.alertSkillCount }} ITEM{{ store.alertSkillCount!==1?'S':'' }}
@@ -173,10 +158,7 @@
         <!-- 学习路径迷你卡 — 更小巧 -->
         <div class="panel-bridge p-4" style="border-color:rgba(99,102,241,0.2)">
           <div class="flex items-center justify-between mb-3">
-            <div class="flex items-center gap-2">
-              <span class="tag-plate" style="color:var(--brand-400);border-color:var(--brand-500)">PATH</span>
-              <h3 class="text-sm font-bold tracking-wide uppercase" :style="{color:'var(--text-primary)'}">学习路径</h3>
-            </div>
+            <PanelHeader label="PATH" title="学习路径" color="brand" margin="none" />
             <span class="text-xs font-mono" :style="{color:'var(--text-muted)'}">{{ completedSteps }}/{{ store.learningPath.length }}</span>
           </div>
           <!-- 流动进度条 -->
@@ -207,9 +189,11 @@ import { ref, computed, onMounted } from 'vue'
 import { usePersonalStore } from '@/stores/personal'
 import ProgressRing from '@/components/common/ProgressRing.vue'
 import HudCell from '@/components/common/HudCell.vue'
+import HexAvatar from '@/components/common/HexAvatar.vue'
+import PanelHeader from '@/components/common/PanelHeader.vue'
 import MatchRadar from '@/components/personal/MatchRadar.vue'
 import MatchOrbit from '@/components/personal/MatchOrbit.vue'
-import type { RadarDimension } from '@/components/personal/MatchRadar.vue'
+import { buildMatchRadarDimensions, RADAR_DEMO } from '@/utils/matches'
 import { useScrollReveal } from '@/composables/useScrollReveal'
 useScrollReveal()
 
@@ -233,30 +217,16 @@ const aiSummary = computed(() => {
 const aiInsights = computed(() => {
   const m = store.bestMatch
   return [
-    { dotColor:'#10b981', label:'优势方向: ', text:`${store.topSkillCategory} 领域积累深厚` },
-    { dotColor:'#f59e0b', label:'待提升: ', text:`${m?.missingSkills.slice(0,2).join('、') || '—'} 需补充` },
-    { dotColor:'#f43f5e', label:'保鲜预警: ', text:`${store.alerts.length} 项技能保鲜度偏低` },
-    { dotColor:'#6366f1', label:'建议: ', text:`优先学习 ${store.learningPath.find(s=>s.status==='available')?.skill || '—'}` },
+    { dotColor:'var(--mint-500)', label:'优势方向: ', text:`${store.topSkillCategory} 领域积累深厚` },
+    { dotColor:'var(--amber-500)', label:'待提升: ', text:`${m?.missingSkills.slice(0,2).join('、') || '—'} 需补充` },
+    { dotColor:'var(--rose-500)', label:'保鲜预警: ', text:`${store.alerts.length} 项技能保鲜度偏低` },
+    { dotColor:'var(--brand-500)', label:'建议: ', text:`优先学习 ${store.learningPath.find(s=>s.status==='available')?.skill || '—'}` },
   ]
 })
 
-const radarDimensions = computed<RadarDimension[]>(() => {
-  const m = store.bestMatch
-  if (!m) return [
-    { name:'技能覆盖度',userScore:72,targetScore:100,max:100 },{ name:'匹配率',userScore:72,targetScore:90,max:100 },
-    { name:'核心技术',userScore:68,targetScore:85,max:100 },{ name:'辅助技能',userScore:75,targetScore:80,max:100 },
-    { name:'经验年限',userScore:72,targetScore:80,max:100 },{ name:'保鲜度',userScore:78,targetScore:85,max:100 },
-  ]
-  const t = m.matchedSkills.length + m.missingSkills.length
-  return [
-    { name:'技能覆盖度',userScore:Math.round((m.matchedSkills.length/Math.max(t,1))*100),targetScore:100,max:100 },
-    { name:'匹配率',userScore:m.matchRate,targetScore:90,max:100 },
-    { name:'核心技术',userScore:Math.round(m.matchRate*0.85),targetScore:85,max:100 },
-    { name:'辅助技能',userScore:Math.round(m.matchRate*0.7),targetScore:80,max:100 },
-    { name:'经验年限',userScore:72,targetScore:80,max:100 },
-    { name:'保鲜度',userScore:78,targetScore:85,max:100 },
-  ]
-})
+const radarDimensions = computed(() =>
+  store.bestMatch ? buildMatchRadarDimensions(store.bestMatch) : RADAR_DEMO
+)
 
 const completedSteps = computed(() => store.learningPath.filter(s=>s.status==='completed').length)
 const overallProgress = computed(() => store.learningPath.length ? Math.round(store.learningPath.reduce((s,x)=>s+x.progress,0)/store.learningPath.length) : 0)

@@ -17,7 +17,7 @@
       <div class="rivet" style="top:10px;left:10px"></div><div class="rivet" style="top:10px;right:10px"></div>
       <div class="relative z-[1]">
         <div class="flex items-center justify-between mb-4">
-          <div class="flex items-center gap-2"><span class="tag-plate" style="color:#f59e0b;border-color:#f59e0b">EVOLUTION</span><h3 class="text-sm font-bold tracking-wide uppercase" :style="{color:'var(--text-primary)'}">职业进化链</h3></div>
+          <PanelHeader label="EVOLUTION" title="职业进化链" color="amber" margin="none" />
           <div class="text-right"><div class="text-sm font-bold text-brand-500">{{ currentLevel.label }}</div><div class="text-xs font-mono" :style="{color:'var(--text-muted)'}">CURRENT</div></div>
         </div>
         <EvolutionChain :levels="chainLevels" :current-level="currentLevelIdx" @level-click="onLevelClick" />
@@ -36,7 +36,7 @@
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 view-section">
       <div class="panel-industrial p-5 shadow-deep">
         <div class="rivet" style="top:8px;left:8px"></div>
-        <div class="flex items-center gap-2 mb-4"><span class="tag-plate" style="color:var(--cyan-400);border-color:var(--cyan-500)">HISTORY</span><h3 class="text-sm font-bold tracking-wide uppercase" :style="{color:'var(--text-primary)'}">技能增长时间轴</h3></div>
+        <PanelHeader label="HISTORY" title="技能增长时间轴" color="cyan" />
         <div class="relative pl-8">
           <div class="absolute left-4 top-0 bottom-0 w-0.5" style="background:linear-gradient(180deg,var(--brand-500),#a855f7,var(--cyan-500),var(--mint-500))"></div>
           <div v-for="(event,idx) in skillTimeline" :key="idx" class="relative pb-5 last:pb-0">
@@ -52,7 +52,7 @@
       </div>
 
       <div class="panel-bridge p-5 shadow-deep">
-        <div class="flex items-center gap-2 mb-4"><span class="tag-plate" style="color:#a855f7;border-color:#a855f7">NEXT</span><h3 class="text-sm font-bold tracking-wide uppercase" :style="{color:'var(--text-primary)'}">下一等级要求</h3></div>
+        <PanelHeader label="NEXT" title="下一等级要求" color="purple" />
         <div v-if="nextLevel" class="space-y-4">
           <div class="flex items-center gap-3 p-4 panel-asymmetric" :style="{border:'1px solid '+nextLevel.color+'40',background:'linear-gradient(135deg,'+nextLevel.color+'15,'+nextLevel.color+'05)'}">
             <div class="text-3xl">{{ nextLevel.icon }}</div>
@@ -79,6 +79,7 @@ import { ref, computed } from 'vue'
 import { usePersonalStore } from '@/stores/personal'
 import { useScrollReveal } from '@/composables/useScrollReveal'
 import EvolutionChain from '@/components/personal/EvolutionChain.vue'
+import PanelHeader from '@/components/common/PanelHeader.vue'
 import HolographicBackdrop from '@/components/common/HolographicBackdrop.vue'
 useScrollReveal()
 const store = usePersonalStore()

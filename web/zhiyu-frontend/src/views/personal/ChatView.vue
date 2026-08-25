@@ -7,15 +7,9 @@
         <div class="flex-1 p-5 panel-circuit">
           <div class="flex items-center gap-4 relative z-[1]">
             <!-- 六角终端图标 -->
-            <div class="relative shrink-0" style="width:56px;height:56px">
-              <svg viewBox="0 0 56 56" class="w-full h-full" style="filter:drop-shadow(0 0 10px rgba(99,102,241,0.4))">
-                <polygon points="28,2 52,16 52,40 28,54 4,40 4,16" fill="url(#hexGradChat)" stroke="var(--brand-400)" stroke-width="1.5"/>
-                <defs><linearGradient id="hexGradChat" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="var(--brand-600)"/><stop offset="100%" stop-color="var(--brand-400)"/></linearGradient></defs>
-              </svg>
-              <span class="absolute inset-0 flex items-center justify-center">
-                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-              </span>
-            </div>
+            <HexAvatar :size="56" :glow="10">
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+            </HexAvatar>
             <div>
               <div class="flex items-center gap-2 mb-1">
                 <span class="tag-plate">ADVISOR</span>
@@ -197,6 +191,7 @@
 import { ref, computed, watch } from 'vue'
 import { useChatStore } from '@/stores/chat'
 import ChatMessage from '@/components/chat/ChatMessage.vue'
+import HexAvatar from '@/components/common/HexAvatar.vue'
 
 const chatStore = useChatStore()
 const messagesEl = ref<HTMLElement | null>(null)

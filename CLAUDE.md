@@ -26,6 +26,10 @@ Design languages are separate — **two independent design systems, both impleme
 
 ```
 前后/                              ← project root
+├── README.md                     # 项目快速入门（双端设计语言 + 后端架构要点 + 启动命令）
+├── XH-202621_*.md / .pdf         # 项目研究申报书（系统需求来源）
+├── project_20260819_100450/      # ⚠ 无关的 Coze 智能体脚手架（.coze/ + agents/ + uv.lock），不要当成系统代码
+│
 ├── 后/                            ← backend (FastAPI, its own git repo)
 │   ├── app/
 │   │   ├── main.py               # FastAPI factory + lifespan (manages MySQL connection only)
@@ -58,11 +62,11 @@ Design languages are separate — **two independent design systems, both impleme
     │   ├── src/
     │   │   ├── api/client.ts      # Axios instance + interceptor (returns response.data directly)
     │   │   ├── components/
-    │   │   │   ├── common/        # 15 shared components (CosmicBackground, StatusCard, ProgressRing, EnergyBar, GlassCard, HolographicBackdrop, etc.)
+    │   │   │   ├── common/        # 5 shared components (CosmicBackground, ProgressRing, HudCell, NotificationBar, HolographicBackdrop)
     │   │   │   ├── enterprise/    # Enterprise-specific components
-    │   │   │   ├── personal/      # Personal-specific (MatchRadar, MatchOrbit, SkillConstellation, PrismScene, SignalPrism, etc.)
+    │   │   │   ├── personal/      # Personal-specific (MatchRadar, MatchOrbit, SkillConstellation, LighthouseBeacon, EvolutionChain, SpectrumOscilloscope, SignalPrism)
     │   │   │   └── chat/          # ChatMessage.vue (AI chat)
-    │   │   ├── composables/       # useEChartsTheme, useMagneticHover, useNotify, useRippleClick, useScrollReveal
+    │   │   ├── composables/       # useEChartsTheme, useNotify, useScrollReveal
     │   │   ├── router/index.ts    # 10 enterprise + 15 personal routes (lazy-loaded)
     │   │   ├── stores/            # Pinia: app, enterprise, personal, chat, theme
     │   │   ├── styles/            # CSS files — the real design system
@@ -73,7 +77,8 @@ Design languages are separate — **two independent design systems, both impleme
     │   └── DESIGN_SYSTEM_企业侧.md # 蓝皮书·权威纸面完整规范 (v1.0) — 企业侧
     │
     ├── CLAUDE.md                  # Frontend-scoped CLAUDE.md (subset of this file)
-    └── 前端设计_*.md              # Frontend design specs and implementation guides
+    ├── 前端设计_*.md              # Frontend design specs and implementation guides
+    └── 设计_智能体微服务模板_苏格拉底模式.md  # 「人格即服务」AI 微服务可复用模板 — 新 AI 组件参照此模式
 ```
 
 ## Development Commands
@@ -163,31 +168,30 @@ All routes aggregated in `app/api/router.py`, prefixed with `/api`. **All ~50 en
 
 | File | Why it matters |
 |---|---|
-| `src/styles/variables.css` | CSS variable definitions for 4 theme modes (dark, light, warm-light, industrial) |
+| `src/styles/variables.css` | CSS variable definitions for 4 theme modes (dark, light, warm, warm-light) |
 | `src/styles/utilities.css` | 6 panel types, 13 decoration classes — all industrial design utilities (个人侧) |
 | `src/styles/enterprise.css` | Enterprise 蓝皮书 utilities (`.panel-doc`, `.seal-chip`, `.doc-masthead`, …) — only for enterprise views |
 | `DESIGN_SYSTEM_企业侧.md` | 蓝皮书·权威纸面完整规范 (v1.0) — applies to **企业侧 only** |
 | `src/styles/animations.css` | Keyframe animations: glow, heartbeat-pulse, confetti, scan-line |
 | `src/styles/dark-override.css` | `[data-theme="dark"]` overrides for Tailwind utility classes |
 | `src/components/common/CosmicBackground.vue` | 3-layer radial-gradient + 80 CSS star particles + data flow lines |
-| `src/components/common/StatusCard.vue` | Generic 4-state card — `statusConfig` prop drives visual per domain |
+| `src/components/common/ProgressRing.vue` | SVG orbital progress ring — gradient stroke |
 | `src/components/common/HolographicBackdrop.vue` | Three.js canvas holographic layer (one of two Three.js components) |
 | `src/stores/personal.ts` | Silent Fallback pattern: demo data → API override → silent catch |
 | `src/router/index.ts` | All routes (10 enterprise + 15 personal) with `meta.title` and `meta.role` for nav filtering |
 
 ### CSS Architecture
 
-9 style files imported **in order by `src/main.ts`** (not `tailwind.css`, which only holds the `@tailwind` directives):
+8 style files imported **in order by `src/main.ts`** (not `tailwind.css`, which only holds the `@tailwind` directives):
 
-1. **`variables.css`** — CSS custom properties for 4 theme modes: `:root` (deep space dark), `[data-theme="light"]`, `[data-theme="warm-light"]`, `[data-theme="industrial"]` — personal-side palettes; enterprise has its own scoped palette (see below)
+1. **`variables.css`** — CSS custom properties for 4 theme modes: `:root` (deep space dark), `[data-theme="light"]`, `[data-theme="warm"]`, `[data-theme="warm-light"]` — personal-side palettes; enterprise has its own scoped palette (see below). Also the semantic tokens (`--mint-*`, `--amber-*`, `--rose-*`, `--font-mono`, …)
 2. **`base.css`** — Reset + global element styles
 3. **`utilities.css`** — Personal-side industrial design system: `.panel-industrial`, `.panel-bridge`, `.panel-asymmetric`, `.panel-neon`, `.panel-circuit`, `.panel-hazard`, `.rivet`, `.tag-plate`, `.data-segment`, `.holo-overlay`, `.scan-line-fast`, `.beam-divider`, `.nav-chip`, `.sidebar-depth`, `.main-board`, etc.
-4. **`animations.css`** — Keyframes: `glowBrand`, `heartbeat-pulse`, `confetti-burst`, `scaleIn`, `fadeInUp`, `shimmer`, `twinkle`
-5. **`advanced-animations.css`** — `@property`-registered animatable CSS vars + ripple / magnetic / scroll effects
-6. **`dark-override.css`** — Maps Tailwind `.bg-white` etc. under `[data-theme="dark"]`
-7. **`enterprise.css`** — Enterprise 蓝皮书 design system (`.ent-shell`, `.panel-doc`, `.doc-masthead`, `.seal-chip`, `.leader-row`, `.stat-tile`, `.coral-glow`, …). Scoped via `[data-side="enterprise"]` / `.ent-shell`; keeps enterprise on fixed light paper even in dark mode
-8. **`markdown.css`** — Styles for markdown-it rendered content
-9. **`tailwind.css`** — `@tailwind base/components/utilities`
+4. **`animations.css`** — Keyframes: `glowBrand`, `heartbeat-pulse`, `confetti-burst`, `scaleIn`, `fadeInUp`, `shimmer`, `twinkle`, `glow-pulse` (+ 语义色变体 `animate-glow-pulse-mint/amber/rose`), `fadeOut`
+5. **`dark-override.css`** — Maps Tailwind `.bg-white` etc. under `[data-theme="dark"]`
+6. **`enterprise.css`** — Enterprise 蓝皮书 design system (`.ent-shell`, `.panel-doc`, `.doc-masthead`, `.seal-chip`, `.leader-row`, `.stat-tile`, `.coral-glow`, …). Scoped via `[data-side="enterprise"]` / `.ent-shell`; keeps enterprise on fixed light paper even in dark mode
+7. **`markdown.css`** — Styles for markdown-it rendered content
+8. **`tailwind.css`** — `@tailwind base/components/utilities`
 
 Theme switching: set `data-theme` attribute on `<html>`. The `stores/theme.ts` store manages this.
 
@@ -202,7 +206,7 @@ Axios 1.19
 markdown-it 15 + markdown-it-katex
 ```
 
-Note: Three.js WAS added for `HolographicBackdrop.vue` and `PrismScene.vue`. It is NOT used for a full 3D universe (that's still a 数知 carryover to avoid).
+Note: Three.js WAS added for `HolographicBackdrop.vue`. It is NOT used for a full 3D universe (that's still a 数知 carryover to avoid).
 
 ### Routes
 
@@ -266,11 +270,6 @@ Theme switched via `data-theme="dark"|"light"|"warm-light"|"industrial"` on `<ht
 | `amber` | `amber-*` | "Pending verification", warning | "Freshness alert" |
 | `rose` | `rose-*` | "Rejected", declining skills | "Missing required skill" |
 
-### StatusCard — 4-State Pattern
-Generic card whose `statusConfig` prop defines visual mapping per domain:
-- Enterprise: `confirmed` (mint), `emerging` (brand glow), `stable` (gray), `declining` (rose dimmed), `candidate` (amber)
-- Personal: `matched` (mint), `missing_high` (rose), `missing_low` (amber), `alert` (rose), `healthy` (mint)
-
 ### SSE Streaming
 Server-Sent Events consumed via `fetch` + `ReadableStream` reader → parse `data:` JSON lines → async generator. Used for AI streaming responses in `/personal/chat` (backed by `POST /api/personal/ai/chat`).
 
@@ -289,12 +288,12 @@ All of the following applies to the **个人侧 (personal side)** views. Do NOT 
 | Element | Metaphor | Implementation |
 |---|---|---|
 | Background | Deep space nebula | `CosmicBackground.vue` |
-| Position/skill cards | Stars — glowing, stable, or fading | `StatusCard.vue` with `statusConfig` |
+| Position/skill cards | Stars — glowing, stable, or fading | 视图内联状态卡 + 语义色 token (mint/amber/rose) |
 | Match rate | Orbital progress ring | `ProgressRing.vue` (SVG circle, gradient stroke) |
 | Health bar | Lighthouse beam | `EnergyBar.vue` with brand/mint/amber/rose variants |
 | Discovery celebration | Supernova burst | `StageCompleteModal` (confetti + scale-in) |
 | AI processing | Heartbeat pulse | `heartbeat-pulse` keyframe |
-| Holographic layer | 3D hologram | `HolographicBackdrop.vue` / `PrismScene.vue` (Three.js) |
+| Holographic layer | 3D hologram | `HolographicBackdrop.vue` (Three.js) |
 | Sidebar nav items | IC chip modules | `.nav-chip` with metallic border, pin contacts, power-on glow |
 | Sidebar | Raised console | `.sidebar-depth` on `.main-board` |
 

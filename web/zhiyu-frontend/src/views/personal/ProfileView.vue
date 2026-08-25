@@ -39,7 +39,7 @@
         </div>
         <!-- 成长曲线 -->
         <div class="panel-bridge p-4 shadow-deep">
-          <div class="flex items-center gap-2 mb-3"><span class="tag-plate" style="color:var(--brand-400);border-color:var(--brand-500)">CURVE</span><h3 class="text-sm font-bold tracking-wide uppercase" :style="{color:'var(--text-primary)'}">技能增长曲线</h3></div>
+          <PanelHeader label="CURVE" title="技能增长曲线" color="brand" margin="sm" />
           <div style="height:140px">
             <v-chart v-if="growthChartOption" class="w-full h-full" :option="growthChartOption" :autoresize="true" theme="dark" />
           </div>
@@ -55,7 +55,7 @@
         <div class="rivet" style="top:10px;left:10px"></div><div class="rivet" style="top:10px;right:10px"></div>
         <div class="relative z-[1]">
           <div class="flex items-center justify-between mb-4">
-            <div class="flex items-center gap-2"><span class="tag-plate" style="color:#a855f7;border-color:#a855f7">CONSTELLATION</span><h3 class="text-sm font-bold tracking-wide uppercase" :style="{color:'var(--text-primary)'}">技能星座图</h3></div>
+            <PanelHeader label="CONSTELLATION" title="技能星座图" color="purple" margin="none" />
             <span class="text-xs font-mono flex items-center gap-3" :style="{color:'var(--text-muted)'}">
               <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-mint-500"></span>健康</span>
               <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full" style="background:#6366f1"></span>匹配</span>
@@ -73,7 +73,7 @@
       <div class="rivet" style="top:8px;left:8px"></div><div class="rivet" style="top:8px;right:8px"></div>
       <div class="relative z-[1]">
       <div class="flex items-center justify-between mb-5">
-        <div class="flex items-center gap-2"><span class="tag-plate">DETAIL</span><h3 class="text-sm font-bold tracking-wide uppercase" :style="{color:'var(--text-primary)'}">技能详情</h3></div>
+        <PanelHeader label="DETAIL" title="技能详情" margin="none" />
         <div class="flex gap-2">
           <button v-for="f in skillFilters" :key="f.key" class="text-xs px-3 py-1.5 font-mono transition-all rounded-sm" :class="activeFilter===f.key?'bg-brand-500 text-white':''" :style="activeFilter===f.key?{}:{color:'var(--text-muted)',border:'1px solid var(--border-color)'}" @click="activeFilter=f.key">{{ f.label }}</button>
         </div>
@@ -195,6 +195,7 @@ import { usePersonalStore } from '@/stores/personal'
 import type { SkillItem } from '@/stores/personal'
 import { useScrollReveal } from '@/composables/useScrollReveal'
 import SkillConstellation from '@/components/personal/SkillConstellation.vue'
+import PanelHeader from '@/components/common/PanelHeader.vue'
 import VChart from 'vue-echarts'
 import { use } from 'echarts/core'
 import { LineChart, BarChart } from 'echarts/charts'

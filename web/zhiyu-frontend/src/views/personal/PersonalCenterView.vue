@@ -7,13 +7,7 @@
         <div class="flex-1 p-6 panel-circuit">
           <div class="flex items-center gap-5 relative z-[1]">
             <!-- 六角头像 — 霓虹发光 -->
-            <div class="relative shrink-0" style="width:72px;height:72px">
-              <svg viewBox="0 0 56 56" class="w-full h-full" style="filter:drop-shadow(0 0 12px rgba(232,83,108,0.4))">
-                <polygon points="28,2 52,16 52,40 28,54 4,40 4,16" fill="url(#hexGrad3)" stroke="var(--brand-400)" stroke-width="2"/>
-                <defs><linearGradient id="hexGrad3" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="var(--brand-600)"/><stop offset="100%" stop-color="var(--brand-400)"/></linearGradient></defs>
-              </svg>
-              <span class="absolute inset-0 flex items-center justify-center text-white font-bold text-xl">{{ userDisplayName.charAt(0) }}</span>
-            </div>
+            <HexAvatar :letter="userDisplayName.charAt(0)" :size="72" :stroke="2" :glow="12" />
             <div>
               <div class="flex items-center gap-2 mb-1">
                 <span class="tag-plate">COMMANDER</span>
@@ -101,7 +95,7 @@
         <!-- 右侧: 求职意向 + 简历 -->
         <div class="flex flex-col gap-4">
           <div class="panel-bridge shadow-deep p-5">
-            <div class="flex items-center gap-2 mb-4"><span class="tag-plate" style="color:var(--cyan-400);border-color:var(--cyan-500)">TARGET</span><h3 class="text-sm font-bold tracking-wide uppercase" :style="{color:'var(--text-primary)'}">求职意向</h3></div>
+            <PanelHeader label="TARGET" title="求职意向" color="cyan" />
             <div class="grid grid-cols-2 gap-3">
               <div><label class="text-xs font-bold tracking-wide block mb-1" :style="{color:'var(--text-muted)'}">期望职位</label><input v-model="editTargetRole" class="w-full px-3 py-2 text-sm border font-mono" :style="{background:'var(--bg-card)',color:'var(--text-primary)',borderColor:'var(--border-color)'}" /></div>
               <div><label class="text-xs font-bold tracking-wide block mb-1" :style="{color:'var(--text-muted)'}">期望城市</label><input v-model="editTargetCity" class="w-full px-3 py-2 text-sm border font-mono" :style="{background:'var(--bg-card)',color:'var(--text-primary)',borderColor:'var(--border-color)'}" /></div>
@@ -119,7 +113,7 @@
           </div>
           <!-- 简历上传 -->
           <div class="panel-asymmetric frame-mech p-4">
-            <div class="flex items-center gap-2 mb-3"><span class="tag-plate">RESUME</span><h3 class="text-sm font-bold tracking-wide uppercase" :style="{color:'var(--text-primary)'}">简历</h3></div>
+            <PanelHeader label="RESUME" title="简历" margin="sm" />
             <div class="border-2 border-dashed rounded-sm p-4 text-center transition-all cursor-pointer group hover:border-brand-400" :style="{borderColor:'var(--border-color)'}" @click="triggerUpload">
               <svg class="w-8 h-8 mx-auto mb-1.5 opacity-30 group-hover:opacity-60 transition-opacity" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke-linecap="round"/><polyline points="14 2 14 8 20 8" stroke-linecap="round"/><line x1="12" y1="18" x2="12" y2="12" stroke-linecap="round"/><line x1="9" y1="15" x2="15" y2="15" stroke-linecap="round"/></svg>
               <p class="text-xs font-bold" :style="{color:'var(--text-secondary)'}">上传 / 更新简历</p>
@@ -180,7 +174,7 @@
       <div class="panel-neon p-5 shadow-deep">
         <div class="rivet" style="top:10px;left:10px"></div><div class="rivet" style="top:10px;right:10px"></div>
         <div class="flex items-center justify-between mb-4">
-          <div class="flex items-center gap-2"><span class="tag-plate">MATCH</span><h3 class="text-sm font-bold tracking-wide uppercase" :style="{color:'var(--text-primary)'}">岗位匹配快照</h3></div>
+          <PanelHeader label="MATCH" title="岗位匹配快照" margin="none" />
           <router-link to="/personal/match" class="text-xs font-mono tracking-wider" style="color:var(--brand-400)">[ FULL ANALYSIS ]</router-link>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
@@ -211,7 +205,7 @@
         <div class="rivet" style="top:10px;left:10px"></div><div class="rivet" style="top:10px;right:10px"></div>
         <div class="relative z-[1]">
           <div class="flex items-center justify-between mb-4">
-            <div class="flex items-center gap-2"><span class="tag-plate" style="color:#fbbf24;border-color:#f59e0b">MS</span><h3 class="text-sm font-bold tracking-wide uppercase" :style="{color:'var(--text-primary)'}">职业里程碑</h3></div>
+            <PanelHeader label="MS" title="职业里程碑" color="amber" margin="none" />
             <span class="text-xs font-mono" :style="{color:'var(--text-muted)'}">{{ careerMilestones.filter(m=>m.unlocked).length }}/{{ careerMilestones.length }} UNLOCKED</span>
           </div>
           <div class="grid grid-cols-2 md:grid-cols-4 gap-3 spring-list">
@@ -235,7 +229,7 @@
     <div v-if="activeTab==='prefs'" class="pt-4 space-y-4">
       <div class="panel-industrial p-5 shadow-deep">
         <div class="rivet" style="top:10px;left:10px"></div><div class="rivet" style="top:10px;right:10px"></div>
-        <div class="flex items-center gap-2 mb-4"><span class="tag-plate" style="color:var(--cyan-400);border-color:var(--cyan-500)">PREFS</span><h3 class="text-sm font-bold tracking-wide uppercase" :style="{color:'var(--text-primary)'}">职业偏好</h3></div>
+        <PanelHeader label="PREFS" title="职业偏好" color="cyan" />
         <div class="max-w-lg space-y-4">
           <div>
             <label class="text-xs font-bold tracking-wide block mb-1.5" :style="{color:'var(--text-muted)'}">关注岗位方向</label>
@@ -263,6 +257,8 @@ import { ref, computed } from 'vue'
 import { usePersonalStore } from '@/stores/personal'
 import { useNotify } from '@/composables/useNotify'
 import { useScrollReveal } from '@/composables/useScrollReveal'
+import HexAvatar from '@/components/common/HexAvatar.vue'
+import PanelHeader from '@/components/common/PanelHeader.vue'
 import MatchRadar from '@/components/personal/MatchRadar.vue'
 import type { RadarDimension } from '@/components/personal/MatchRadar.vue'
 

@@ -6,14 +6,21 @@
   /* 辅助色 */
   --cyan-400: #22d3ee; --cyan-500: #06b6d4;
   --space-800: #1e293b; --space-900: #0f172a;
-  /* 语义色 */
-  --mint-500: #10b981; --amber-500: #f59e0b; --rose-500: #f43f5e;
+  /* 语义色 (400/500/600 完整档位，视图渐变依赖多档) */
+  --mint-400: #34d399; --mint-500: #10b981; --mint-600: #059669;
+  --amber-400: #fbbf24; --amber-500: #f59e0b; --amber-600: #d97706;
+  --rose-400: #fb7185; --rose-500: #f43f5e; --rose-600: #e11d48;
+  --purple-500: #a855f7;
   /* 兼容 */
   --primary: #818cf8; --primary-light: #a5b4fc; --primary-dark: #6366f1;
-  --success: #10b981; --success-light: #34d399; --warning: #f59e0b; --danger: #ef4444;
+  --success: #10b981; --success-light: #34d399; --warning: #f59e0b; --danger: #f43f5e;
   --gray-50: #f8fafc; --gray-100: #f1f5f9; --gray-200: #e2e8f0; --gray-300: #cbd5e1;
   --gray-400: #94a3b8; --gray-500: #64748b; --gray-600: #475569; --gray-700: #334155;
   --gray-800: #1e293b; --gray-900: #0f172a;
+
+  /* 字体 (替代硬编码 'Courier New' 系) */
+  --font-sans: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --font-mono: 'Courier New', 'Consolas', 'SF Mono', monospace;
 
   /* ≡≡≡ 深空主题 (默认) ≡≡≡ */
   --bg-primary: transparent;

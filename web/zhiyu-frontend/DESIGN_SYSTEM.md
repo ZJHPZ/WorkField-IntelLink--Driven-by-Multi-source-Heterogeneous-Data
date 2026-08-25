@@ -252,18 +252,25 @@ border-image 从上到下渐变(高光→边框色→暗面) + 投影落在主�
 
 ## 七、页面改造清单
 
-### 已完成 (8/8)
+### 已完成 (15/15)
 
 | 页面 | 路由 | 主要面板 | 特色装饰 |
 |------|------|---------|---------|
-| DashboardView | /personal | panel-industrial + bridge + asymmetric | holo-overlay, scan-line-fast, data-segment, panel-circuit |
-| ProfileView | /personal/profile | panel-neon + industrial + bridge | holo-overlay, circuit, 星图SVG发光, 芯片模块卡片 |
-| MatchView | /personal/match | panel-bridge + neon + industrial | holo-overlay, circuit, data-segment |
-| LearningPathView | /personal/learning-path | panel-industrial + asymmetric | data-segment, 步骤节点发光 |
-| FreshnessView | /personal/freshness | panel-neon + industrial + hazard | holo-overlay, 灯塔光束, 告警斜纹 |
+| DashboardView | /personal | panel-industrial + bridge + asymmetric | holo-overlay, scan-line-fast, data-segment, panel-circuit, MatchOrbit 轨道 |
+| ProfileView | /personal/profile | panel-neon + industrial + bridge | holo-overlay, circuit, 星图SVG发光 (SkillConstellation), 芯片模块卡片 |
+| MatchView | /personal/match | panel-bridge + neon + industrial | holo-overlay, circuit, data-segment, MatchRadar |
+| MatchCompareView | /personal/match/compare | panel-hazard 头部 + 镜像 A/B 面板 + 中心 panel-neon | MatchRadar, 得分条 |
+| ExploreView | /personal/explore | 六种面板模块中心 + data-segment 编号 | 模块预览卡 (图谱区待接 SignalPrism) |
+| LearningPathView | /personal/learning-path | panel-industrial + asymmetric | data-segment, 步骤节点发光, spring-list |
+| ResumeView | /personal/resume | panel-circuit 扫描头 + industrial | holo-overlay, 扫描进度 |
+| FreshnessView | /personal/freshness | panel-neon + industrial + hazard | holo-overlay, 灯塔光束 (LighthouseBeacon), 告警斜纹, 半衰期分布 |
 | SwitchView | /personal/switch | panel-neon + industrial + circuit + bridge | holo-overlay, scan-line-fast, SVG韦恩图 |
-| GrowthView | /personal/growth | panel-neon + industrial + bridge | holo-overlay, 等级发光 |
+| GrowthView | /personal/growth | panel-neon + industrial + bridge | holo-overlay, 进化链 (EvolutionChain), 等级发光 |
+| ChatView | /personal/chat | panel-neon + industrial | holo-overlay, scan-line-fast, beam-divider, 全息指挥台 |
 | PersonalCenterView | /personal/center | panel-neon + industrial + bridge + asymmetric + hazard | **全部10种装饰** |
+| SpectrumView | /personal/spectrum | panel-industrial + ProgressRing | stat-box, src-chip, source-bars 条形码, 信号光谱 |
+| SpectrumDetailView | /personal/spectrum/:skill | panel-neon + circuit + dark-zone | SpectrumOscilloscope 示波器, 证据链卡片, CRT 扫描线 |
+| EvolutionTheaterView | /personal/evolution | panel-hazard 头部 + industrial | 齿轮轨时间轴, data-giant 变更摘要, spring-list |
 | App.vue (侧边栏) | — | sidebar-depth + nav-chip + main-board | 电路纹, 扫描线, 芯片模块, 主板纹理 |
 
 ---
@@ -277,7 +284,7 @@ src/styles/
 ├── animations.css     # 20+ 关键帧动画
 ├── dark-override.css  # 深色模式覆盖
 ├── markdown.css       # Markdown 内容样式
-├── utilities.css      # 舰桥风格工具类 (560+ 行)
+├── utilities.css      # 舰桥风格工具类 (860+ 行)
 └── tailwind.css       # Tailwind 指令
 ```
 
@@ -313,13 +320,18 @@ src/components/
 ├── common/
 │   ├── CosmicBackground.vue    # 星空背景 (80星+数据流线)
 │   ├── ProgressRing.vue        # SVG渐变进度环
-│   ├── GlassCard.vue           # (保留兼容)
-│   ├── StatusCard.vue          # 状态驱动卡片
-│   ├── EnergyBar.vue           # 能量条
-│   ├── Icon.vue                # SVG图标组件
+│   ├── HudCell.vue             # 数值 KPI 格
+│   ├── NotificationBar.vue     # 通知条 (个人胶囊 / 企业纸面双变体)
+│   ├── HolographicBackdrop.vue # Three.js 全息背景
 │   └── ...
-└── personal/
-    └── MatchRadar.vue           # ECharts 双系列雷达图
+├── personal/
+│   ├── MatchRadar.vue          # ECharts 双系列雷达图
+│   ├── MatchOrbit.vue          # 岗位环绕轨道
+│   ├── SkillConstellation.vue  # 技能星座图
+│   ├── LighthouseBeacon.vue    # 技能保鲜灯塔
+│   ├── EvolutionChain.vue      # 成长进化链
+│   ├── SpectrumOscilloscope.vue # 信号示波器 (工业风参考实现)
+│   └── SignalPrism.vue         # 粒子棱镜
 ```
 
 ---

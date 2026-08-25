@@ -10,6 +10,7 @@
  */
 import { ref, onMounted, onUnmounted, watch } from 'vue'
 import * as THREE from 'three'
+import { hexToVec3, getBrandColor } from '@/utils/color'
 
 const props = withDefaults(defineProps<{
   color?: string       // 主色调 #rrggbb
@@ -18,7 +19,7 @@ const props = withDefaults(defineProps<{
   scanLines?: boolean  // 扫描线
   noise?: boolean      // 噪声扰动
 }>(), {
-  color: '#6366f1',
+  color: () => getBrandColor('#6366f1'),
   speed: 1,
   intensity: 0.3,
   scanLines: true,
@@ -30,6 +31,7 @@ let renderer: THREE.WebGLRenderer | null = null
 let scene: THREE.Scene | null = null
 let camera: THREE.OrthographicCamera | null = null
 let material: THREE.ShaderMaterial | null = null
+let geometry: THREE.PlaneGeometry | null = null
 let animId = 0
 let startTime = Date.now()
 
@@ -130,14 +132,8 @@ void main() {
 }
 `
 
-function hexToVec3(hex: string): THREE.Vector3 {
-  const m = hex.match(/^#?([\da-f]{2})([\da-f]{2})([\da-f]{2})$/i)
-  if (!m) return new THREE.Vector3(0.39, 0.4, 0.94)
-  return new THREE.Vector3(
-    parseInt(m[1], 16) / 255,
-    parseInt(m[2], 16) / 255,
-    parseInt(m[3], 16) / 255
-  )
+function toVec3(hex: string): THREE.Vector3 {
+  return new THREE.Vector3(...hexToVec3(hex))
 }
 
 function init() {
@@ -166,7 +162,7 @@ function init() {
     uniforms: {
       uTime: { value: 0 },
       uResolution: { value: new THREE.Vector2(w, h) },
-      uColor: { value: hexToVec3(props.color) },
+      uColor: { value: toVec3(props.color) },
       uSpeed: { value: props.speed },
       uIntensity: { value: props.intensity },
       uScanLines: { value: props.scanLines ? 1.0 : 0.0 },
@@ -178,8 +174,8 @@ function init() {
   })
 
   // Fullscreen quad
-  const geo = new THREE.PlaneGeometry(2, 2)
-  const mesh = new THREE.Mesh(geo, material)
+  geometry = new THREE.PlaneGeometry(2, 2)
+  const mesh = new THREE.Mesh(geometry, material)
   scene.add(mesh)
 
   animate()
@@ -202,7 +198,7 @@ function resize() {
   material.uniforms.uResolution.value.set(w, h)
 }
 
-watch(() => props.color, (c) => { if (material) material.uniforms.uColor.value = hexToVec3(c) })
+watch(() => props.color, (c) => { if (material) material.uniforms.uColor.value = toVec3(c) })
 watch(() => props.intensity, (v) => { if (material) material.uniforms.uIntensity.value = v })
 watch(() => props.speed, (v) => { if (material) material.uniforms.uSpeed.value = v })
 
@@ -214,8 +210,9 @@ onMounted(() => {
 onUnmounted(() => {
   cancelAnimationFrame(animId)
   window.removeEventListener('resize', resize)
-  renderer?.dispose()
+  geometry?.dispose()
   material?.dispose()
+  renderer?.dispose()
 })
 </script>
 

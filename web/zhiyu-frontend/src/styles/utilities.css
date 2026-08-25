@@ -29,7 +29,7 @@
 [data-theme="light"] .glass-card:hover,
 [data-theme="warm-light"] .glass-card:hover {
   box-shadow: var(--card-shadow-hover);
-  border-color: rgba(99, 102, 241, 0.18);
+  border-color: color-mix(in srgb, var(--brand-500) 18%, transparent);
   transform: translateY(-1px);
 }
 [data-theme="warm-light"] .glass-card:hover {
@@ -44,7 +44,7 @@
 [data-theme="warm-light"] .glass-card[class*="cursor-pointer"]:hover,
 [data-theme="warm-light"] button.glass-card:hover {
   box-shadow: var(--card-shadow-interactive);
-  border-color: rgba(99, 102, 241, 0.3);
+  border-color: color-mix(in srgb, var(--brand-500) 30%, transparent);
 }
 [data-theme="warm-light"] a:hover .glass-card,
 [data-theme="warm-light"] .glass-card[class*="cursor-pointer"]:hover,
@@ -69,7 +69,7 @@
 }
 
 .bg-brand-gradient-subtle {
-  background: linear-gradient(135deg, rgba(99, 102, 241, 0.08), rgba(6, 182, 212, 0.06));
+  background: linear-gradient(135deg, color-mix(in srgb, var(--brand-500) 8%, transparent), color-mix(in srgb, var(--cyan-500) 6%, transparent));
 }
 
 /* 能量条渐变 */
@@ -142,7 +142,7 @@
   background-image:
     linear-gradient(rgba(0,0,0,0.08) 0.5px, transparent 0.5px),
     linear-gradient(90deg, rgba(0,0,0,0.08) 0.5px, transparent 0.5px);
-  background-size: 20px 20px;
+  background-size: 16px 16px;
   /* 外边框加重 — 模拟图纸裁剪线 */
   border: 1px solid rgba(0,0,0,0.06);
 }
@@ -152,7 +152,7 @@
   position: relative;
   background: var(--bg-card);
   border: 1px solid var(--border-color);
-  clip-path: polygon(0 12px, 12px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%);
+  clip-path: polygon(0 12px, 12px 0, 100% 0, 100% 100%, 0 100%);
   box-shadow:
     0 2px 0 rgba(0,0,0,0.06),
     0 6px 20px rgba(0,0,0,0.06);
@@ -192,7 +192,7 @@
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  font-family: 'Courier New', monospace;
+  font-family: var(--font-mono);
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.08em;
@@ -230,7 +230,7 @@
 
 /* 巨型数据读数 */
 .data-giant {
-  font-family: 'Courier New', 'Consolas', monospace;
+  font-family: var(--font-mono);
   font-weight: 700;
   line-height: 0.9;
   letter-spacing: -0.03em;
@@ -340,9 +340,9 @@
   background: var(--bg-card);
   border: 1px solid var(--brand-500);
   box-shadow:
-    0 0 8px rgba(99,102,241,0.15),
-    0 0 24px rgba(99,102,241,0.06),
-    inset 0 0 30px rgba(99,102,241,0.02);
+    0 0 8px color-mix(in srgb, var(--brand-500) 15%, transparent),
+    0 0 24px color-mix(in srgb, var(--brand-500) 6%, transparent),
+    inset 0 0 30px color-mix(in srgb, var(--brand-500) 2%, transparent);
   animation: neon-flicker 4s ease-in-out infinite;
 }
 [data-theme="warm"] .panel-neon,
@@ -377,11 +377,12 @@
     radial-gradient(circle at 60px 80px, var(--cyan-500) 1.5px, transparent 2px),
     radial-gradient(circle at 120px 20px, var(--brand-500) 1.5px, transparent 2px),
     radial-gradient(circle at 180px 70px, var(--brand-500) 1.2px, transparent 1.5px),
-    radial-gradient(circle at 40px 120px, var(--cyan-500) 1.2px, transparent 1.5px);
+    radial-gradient(circle at 40px 120px, var(--cyan-500) 1.2px, transparent 1.5px),
+    radial-gradient(circle at 150px 40px, var(--brand-500) 1.5px, transparent 2px);
   background-size:
     90px 60px, 60px 90px,
-    200px 140px, 200px 140px, 200px 140px, 200px 140px, 200px 140px;
-  background-position: 15px 15px, 15px 15px, 0 0, 0 0, 0 0, 0 0, 0 0;
+    200px 140px, 200px 140px, 200px 140px, 200px 140px, 200px 140px, 200px 140px;
+  background-position: 15px 15px, 15px 15px, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0;
 }
 [data-theme="light"] .panel-circuit::before,
 [data-theme="warm-light"] .panel-circuit::before {
@@ -399,8 +400,8 @@
   height: 8px;
   background: repeating-linear-gradient(
     -45deg,
-    #f59e0b, #f59e0b 6px,
-    #1a1a2e 6px, #1a1a2e 12px
+    var(--amber-500), var(--amber-500) 6px,
+    var(--space-900) 6px, var(--space-900) 12px
   );
   opacity: 0.7;
   z-index: 5;
@@ -409,7 +410,7 @@
 [data-theme="warm-light"] .panel-hazard::before {
   background: repeating-linear-gradient(
     -45deg,
-    #f59e0b, #f59e0b 6px,
+    var(--amber-500), var(--amber-500) 6px,
     #fff 6px, #fff 12px
   );
 }
@@ -460,17 +461,17 @@
   z-index: 2;
   background:
     linear-gradient(180deg,
-      rgba(99,102,241,0.04) 0%,
+      color-mix(in srgb, var(--brand-500) 4%, transparent) 0%,
       transparent 30%,
       transparent 70%,
-      rgba(99,102,241,0.03) 100%
+      color-mix(in srgb, var(--brand-500) 3%, transparent) 100%
     ),
     repeating-linear-gradient(
       0deg,
       transparent,
       transparent 2px,
-      rgba(99,102,241,0.01) 2px,
-      rgba(99,102,241,0.01) 4px
+      color-mix(in srgb, var(--brand-500) 1%, transparent) 2px,
+      color-mix(in srgb, var(--brand-500) 1%, transparent) 4px
     );
   animation: holo-scan 6s linear infinite;
 }
@@ -481,7 +482,7 @@
 
 /* ── 7段数码管风格数字 ── */
 .data-segment {
-  font-family: 'Courier New', 'Consolas', monospace;
+  font-family: var(--font-mono);
   font-weight: 700;
   letter-spacing: 0.05em;
   text-shadow:
@@ -674,9 +675,9 @@
     rgba(0,0,0,0.20) 100%
   ) 1;
   box-shadow:
-    0 3px 8px rgba(232,83,108,0.10),
+    0 3px 8px color-mix(in srgb, var(--brand-500) 10%, transparent),
     0 1px 0 rgba(255,255,255,0.04),
-    0 0 16px rgba(232,83,108,0.06);
+    0 0 16px color-mix(in srgb, var(--brand-500) 6%, transparent);
 }
 
 /* 芯片激活态 — 通电工作 */
@@ -689,14 +690,14 @@
   ) 1 !important;
   box-shadow:
     0 2px 6px rgba(0,0,0,0.12),
-    0 0 20px rgba(232,83,108,0.15),
-    inset 0 0 12px rgba(232,83,108,0.04) !important;
+    0 0 20px color-mix(in srgb, var(--brand-500) 15%, transparent),
+    inset 0 0 12px color-mix(in srgb, var(--brand-500) 4%, transparent) !important;
 }
 .nav-chip-active::after {
   background: repeating-linear-gradient(
     0deg,
-    rgba(232,83,108,0.7) 0px,
-    rgba(232,83,108,0.7) 2px,
+    color-mix(in srgb, var(--brand-500) 70%, transparent) 0px,
+    color-mix(in srgb, var(--brand-500) 70%, transparent) 2px,
     transparent 2px,
     transparent 6px
   ) !important;
@@ -808,7 +809,7 @@
 
 /* ── 七段数码管大字 ── */
 .data-readout {
-  font-family: 'Courier New', 'Consolas', monospace;
+  font-family: var(--font-mono);
   font-weight: 700;
   letter-spacing: 0.08em;
   line-height: 1;
@@ -852,5 +853,5 @@
   ) 1 !important;
   box-shadow:
     0 2px 6px rgba(0,0,0,0.08),
-    0 0 16px rgba(232,83,108,0.10) !important;
+    0 0 16px color-mix(in srgb, var(--brand-500) 10%, transparent) !important;
 }

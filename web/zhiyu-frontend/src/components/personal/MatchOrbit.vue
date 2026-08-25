@@ -1,5 +1,5 @@
 <template>
-  <div class="orbit-wrap relative" :style="{ height: height + 'px' }">
+  <div class="orbit-wrap relative" :style="{ height: height + 'px' }" ref="containerRef">
     <!-- 中心用户头像 -->
     <div class="absolute z-20 flex items-center justify-center"
       :style="{ left: cx + 'px', top: cy + 'px', transform: 'translate(-50%, -50%)' }">
@@ -7,9 +7,9 @@
         <!-- 六角形头像 -->
         <svg width="64" height="64" viewBox="0 0 64 64">
           <polygon points="32,2 58,17 58,47 32,62 6,47 6,17"
-            fill="url(#centerGrad)" stroke="var(--brand-400)" stroke-width="1.5" />
+            :fill="'url(#' + centerGradId + ')'" stroke="var(--brand-400)" stroke-width="1.5" />
           <defs>
-            <linearGradient id="centerGrad" x1="0" y1="0" x2="1" y2="1">
+            <linearGradient :id="centerGradId" x1="0" y1="0" x2="1" y2="1">
               <stop offset="0%" stop-color="var(--brand-600)" />
               <stop offset="100%" stop-color="var(--brand-400)" />
             </linearGradient>
@@ -19,7 +19,7 @@
           style="font-family:system-ui">{{ avatarLetter }}</span>
         <!-- 外环发光 -->
         <div class="absolute inset-[-8px] rounded-full animate-star-glow"
-          style="--glow-color:rgba(99,102,241,0.3);border-radius:50%"></div>
+          style="--glow-color:color-mix(in srgb, var(--brand-500) 30%, transparent);border-radius:50%"></div>
       </div>
       <div class="absolute mt-2 text-center" style="top:100%;left:50%;transform:translateX(-50%);white-space:nowrap">
         <div class="text-xs font-bold" style="color:var(--text-primary)">{{ userName }}</div>
@@ -29,12 +29,6 @@
 
     <!-- 轨道环 SVG -->
     <svg class="absolute inset-0 w-full h-full pointer-events-none" :viewBox="`0 0 ${svgW} ${svgH}`">
-      <defs>
-        <linearGradient id="trackGrad1" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stop-color="var(--brand-500)" stop-opacity="0.2" />
-          <stop offset="100%" stop-color="var(--cyan-500)" stop-opacity="0.1" />
-        </linearGradient>
-      </defs>
       <!-- 轨道环 -->
       <ellipse v-for="(track, i) in tracks" :key="i"
         :cx="cx" :cy="cy" :rx="track.rx" :ry="track.ry"
@@ -99,8 +93,9 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { ref, computed, useId, onMounted, onUnmounted } from 'vue'
 import ProgressRing from '@/components/common/ProgressRing.vue'
+import { PALETTE, getBrandColor } from '@/utils/color'
 
 interface Match {
   id: string
@@ -125,17 +120,31 @@ const props = withDefaults(defineProps<{
 
 defineEmits<{ 'match-click': [match: Match] }>()
 
-const svgW = 500
-const svgH = 400
-const cx = svgW / 2
-const cy = svgH / 2
+const containerRef = ref<HTMLDivElement | null>(null)
+const centerGradId = useId()
+const svgW = ref(500)
+const svgH = computed(() => props.height)
+const cx = computed(() => svgW.value / 2)
+const cy = computed(() => svgH.value / 2)
+
+// 轨道配色（主轨道跟随时装主题，次轨道 cyan/purple）
+const trackColors = [getBrandColor(), PALETTE.cyan, PALETTE.purple]
+
+function measure() {
+  if (containerRef.value) svgW.value = containerRef.value.offsetWidth || 500
+}
+onMounted(() => {
+  measure()
+  window.addEventListener('resize', measure)
+})
+onUnmounted(() => window.removeEventListener('resize', measure))
 
 // 轨道配置（最多3条）
 const tracks = computed(() => {
   const configs = [
-    { rx: 100, ry: 70, color: '#818cf8' },
-    { rx: 160, ry: 110, color: '#06b6d4' },
-    { rx: 210, ry: 145, color: '#a855f7' },
+    { rx: 100, ry: 70, color: trackColors[0] },
+    { rx: 160, ry: 110, color: trackColors[1] },
+    { rx: 210, ry: 145, color: trackColors[2] },
   ]
   return configs.map((c, i) => ({
     ...c,
@@ -145,8 +154,8 @@ const tracks = computed(() => {
       const angle = (j / 12) * Math.PI * 2
       return {
         id: `${i}-${j}`,
-        x: cx + c.rx * Math.cos(angle),
-        y: cy + c.ry * Math.sin(angle),
+        x: cx.value + c.rx * Math.cos(angle),
+        y: cy.value + c.ry * Math.sin(angle),
       }
     }),
   }))
@@ -154,7 +163,6 @@ const tracks = computed(() => {
 
 // 轨道上的岗位
 const orbits = computed(() => {
-  const colors = ['#818cf8', '#06b6d4', '#a855f7']
   return props.matches.slice(0, 3).map((match, i) => {
     const track = tracks.value[i]
     return {
@@ -162,7 +170,7 @@ const orbits = computed(() => {
       duration: 18 + i * 6,
       offsetX: track.rx,
       offsetY: 0,
-      color: colors[i],
+      color: trackColors[i],
     }
   })
 })

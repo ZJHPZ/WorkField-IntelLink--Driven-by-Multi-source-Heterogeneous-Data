@@ -140,6 +140,7 @@
 
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted, ref } from 'vue'
+import { PALETTE } from '@/utils/color'
 import type { SignalDetail, SignalSource } from '@/stores/personal'
 
 const props = defineProps<{ signal: SignalDetail }>()
@@ -155,13 +156,13 @@ const AMP = H * 0.34            // 最大半振幅
 
 // ── 四源谐波特征：频率决定波形形状，来源频率占比决定谐波权重 ──
 const SRC_PROFILE: Record<string, { freq: number; color: string; amp: number }> = {
-  jd:       { freq: 1.6, color: '#818cf8', amp: 1.0 },
-  github:   { freq: 2.4, color: '#06b6d4', amp: 0.9 },
-  arxiv:    { freq: 1.1, color: '#a855f7', amp: 0.8 },
-  standard: { freq: 0.7, color: '#10b981', amp: 0.7 },
+  jd:       { freq: 1.6, color: PALETTE.brand, amp: 1.0 },
+  github:   { freq: 2.4, color: PALETTE.cyan, amp: 0.9 },
+  arxiv:    { freq: 1.1, color: PALETTE.purple, amp: 0.8 },
+  standard: { freq: 0.7, color: PALETTE.mint, amp: 0.7 },
 }
 const sourceLabels: Record<string, string> = { jd: 'JD', github: 'GitHub', arxiv: 'arXiv', standard: 'Standard' }
-const statusColors: Record<string, string> = { confirmed: '#10b981', candidate: '#f59e0b', unverified: '#64748b' }
+const statusColors: Record<string, string> = { confirmed: PALETTE.mint, candidate: PALETTE.amber, unverified: '#64748b' }
 
 const phase = ref(0)
 const hoverSrc = ref<string | null>(null)

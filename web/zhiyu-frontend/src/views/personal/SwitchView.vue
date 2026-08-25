@@ -15,7 +15,7 @@
       <!-- 选择器 -->
       <div class="lg:col-span-2 space-y-4">
         <div class="panel-bridge p-5 shadow-deep">
-          <div class="flex items-center gap-2 mb-4"><span class="tag-plate">FROM/TO</span><h3 class="text-sm font-bold tracking-wide uppercase" :style="{color:'var(--text-primary)'}">转行方向</h3></div>
+          <PanelHeader label="FROM/TO" title="转行方向" />
           <div><label class="text-xs font-bold tracking-wide block mb-1.5" :style="{color:'var(--text-muted)'}">CURRENT</label><select v-model="fromRole" class="w-full px-3 py-2.5 text-sm border font-mono" :style="{background:'var(--bg-card)',color:'var(--text-primary)',borderColor:'var(--border-color)'}"><option v-for="r in allRoles" :key="r" :value="r">{{ r }}</option></select></div>
           <div class="flex justify-center my-3"><span class="w-8 h-8 flex items-center justify-center text-lg font-bold rounded-sm" style="background:linear-gradient(135deg,rgba(232,83,108,0.1),rgba(168,85,247,0.1))">↓</span></div>
           <div><label class="text-xs font-bold tracking-wide block mb-1.5" :style="{color:'var(--text-muted)'}">TARGET</label><select v-model="toRole" class="w-full px-3 py-2.5 text-sm border font-mono" :style="{background:'var(--bg-card)',color:'var(--text-primary)',borderColor:'var(--border-color)'}"><option v-for="r in allRoles.filter(x=>x!==fromRole)" :key="r" :value="r">{{ r }}</option></select></div>
@@ -33,7 +33,7 @@
       <div class="lg:col-span-3 panel-neon holo-overlay scan-line-fast p-5 shadow-deep relative overflow-hidden">
         <div class="rivet" style="top:10px;left:10px"></div><div class="rivet" style="top:10px;right:10px"></div>
         <div class="relative z-[3]">
-          <div class="flex items-center gap-2 mb-4"><span class="tag-plate" style="color:var(--cyan-400);border-color:var(--cyan-500)">GAUGE</span><h3 class="text-sm font-bold tracking-wide uppercase" :style="{color:'var(--text-primary)'}">可行性仪表盘</h3></div>
+          <PanelHeader label="GAUGE" title="可行性仪表盘" color="cyan" />
           <div class="flex items-center gap-6">
             <div class="relative shrink-0" style="width:160px;height:160px">
               <svg viewBox="0 0 160 160" class="w-full h-full -rotate-90"><circle cx="80" cy="80" r="65" fill="none" stroke="var(--bg-secondary)" stroke-width="14"/><circle cx="80" cy="80" r="65" fill="none" :stroke="feasibilityColor" stroke-width="14" stroke-linecap="round" :stroke-dasharray="(2*Math.PI*65)" :stroke-dashoffset="(2*Math.PI*65*(1-feasibilityScore/100))" class="transition-all duration-1000" style="filter:drop-shadow(0 0 10px currentColor)"/></svg>
@@ -54,7 +54,7 @@
     <div class="panel-industrial panel-circuit p-5 shadow-deep view-section">
       <div class="rivet" style="top:10px;left:10px"></div><div class="rivet" style="top:10px;right:10px"></div>
       <div class="relative z-[1]">
-        <div class="flex items-center gap-2 mb-4"><span class="tag-plate" style="color:var(--mint-400);border-color:var(--mint-500)">OVERLAP</span><h3 class="text-sm font-bold tracking-wide uppercase" :style="{color:'var(--text-primary)'}">技能重叠分析 · Jaccard {{ jaccardSimilarity }}%</h3></div>
+        <PanelHeader label="OVERLAP" title="技能重叠分析 · Jaccard {{ jaccardSimilarity }}%" color="mint" />
         <div class="flex flex-col lg:flex-row items-center gap-6">
           <div class="shrink-0 relative" style="width:300px;height:240px">
             <svg viewBox="0 0 300 240" class="w-full h-full">
@@ -85,7 +85,7 @@
 
     <!-- 分阶段路径 -->
     <div class="panel-bridge p-5 shadow-deep view-section">
-      <div class="flex items-center gap-2 mb-4"><span class="tag-plate" style="color:#a855f7;border-color:#a855f7">PLAN</span><h3 class="text-sm font-bold tracking-wide uppercase" :style="{color:'var(--text-primary)'}">建议转行路径</h3></div>
+      <PanelHeader label="PLAN" title="建议转行路径" color="purple" />
       <div class="relative pl-8">
         <div class="absolute left-4 top-0 bottom-0 w-0.5" style="background:linear-gradient(180deg,var(--brand-500),#a855f7,var(--cyan-500))"></div>
         <div v-for="(phase,idx) in transitionPhases" :key="idx" class="relative pb-6 last:pb-0">
@@ -106,6 +106,7 @@ import { ref, computed } from 'vue'
 import { usePersonalStore } from '@/stores/personal'
 import { useNotify } from '@/composables/useNotify'
 import { useScrollReveal } from '@/composables/useScrollReveal'
+import PanelHeader from '@/components/common/PanelHeader.vue'
 const store = usePersonalStore()
 const { show: notify } = useNotify()
 useScrollReveal()

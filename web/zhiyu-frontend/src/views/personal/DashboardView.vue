@@ -26,9 +26,9 @@
             <span v-for="(tag, i) in userTags" :key="tag"
               class="tag-tilted"
               :style="{
-                background: i===0?'rgba(232,83,108,0.08)':'var(--bg-secondary)',
+                background: i===0?'color-mix(in srgb, var(--brand-500) 08%, transparent)':'var(--bg-secondary)',
                 color: i===0?'var(--brand-500)':'var(--text-secondary)',
-                borderColor: i===0?'rgba(232,83,108,0.3)':'var(--border-color)'
+                borderColor: i===0?'color-mix(in srgb, var(--brand-500) 30%, transparent)':'var(--border-color)'
               }">
               {{ tag }}
             </span>
@@ -37,9 +37,9 @@
 
         <!-- 右侧: 巨型数据读数区（HudCell count-up 动画） -->
         <div class="lg:w-80 p-4 grid grid-cols-3 gap-2 panel-dark-zone" style="border-left:1px solid var(--border-color)">
-          <HudCell :value="store.bestMatch?.matchRate || 0" label="Match" icon="🎯" suffix="%" value-class="text-brand-500" />
-          <HudCell :value="competitionScore" label="Compete" icon="⚡" suffix="%" value-class="text-mint-500" />
-          <HudCell :value="store.skillCount" label="Skills" icon="💎" value-class="text-cyan-500" />
+          <HudCell :value="store.bestMatch?.matchRate || 0" label="Match" icon="⌖" suffix="%" value-class="text-brand-500" />
+          <HudCell :value="competitionScore" label="Compete" icon="▲" suffix="%" value-class="text-mint-500" />
+          <HudCell :value="store.skillCount" label="Skills" icon="◆" value-class="text-cyan-500" />
         </div>
       </div>
     </div>
@@ -67,7 +67,7 @@
 
       <!-- 右侧: AI 顾问 — 霓虹面板 + 扫描线 -->
       <div class="lg:col-span-2 panel-neon p-5 relative overflow-hidden lift-on-hover"
-        style="border-radius: 2px 24px 2px 24px; background:linear-gradient(160deg, rgba(232,83,108,0.08), rgba(168,85,247,0.04))">
+        style="border-radius: 2px 24px 2px 24px; background:linear-gradient(160deg, color-mix(in srgb, var(--brand-500) 08%, transparent), color-mix(in srgb, var(--purple-500) 04%, transparent))">
         <!-- 扫描线 -->
         <div class="absolute left-0 right-0 h-px pointer-events-none animate-scan-line z-10" style="background:linear-gradient(90deg,transparent,var(--brand-400),transparent)"></div>
 
@@ -129,10 +129,10 @@
       <div class="lg:col-span-3 flex flex-col gap-4">
         <!-- 保鲜卡片 — 不对称面板 + 浮动效果 -->
         <div class="panel-asymmetric p-4 relative overflow-hidden"
-          style="border-color:rgba(244,63,94,0.2)">
+          style="border-color:color-mix(in srgb, var(--rose-500) 20%, transparent)">
           <div class="flex items-center justify-between mb-3">
             <PanelHeader label="ALERT" title="技能保鲜" color="rose" margin="none" />
-            <span class="text-xs font-mono font-bold px-2 py-0.5" style="background:rgba(244,63,94,0.1); color:#f87171"
+            <span class="text-xs font-mono font-bold px-2 py-0.5" style="background:color-mix(in srgb, var(--rose-500) 10%, transparent); color:#f87171"
               :style="store.alertSkillCount>0?{animation:'heartbeat-pulse 2s ease-in-out infinite'}:{}">
               {{ store.alertSkillCount }} ITEM{{ store.alertSkillCount!==1?'S':'' }}
             </span>
@@ -140,7 +140,7 @@
           <div v-for="alert in store.alerts" :key="alert.skillName" class="mb-2 last:mb-0">
             <div class="flex items-center justify-between text-xs mb-1">
               <span class="font-bold flex items-center gap-1.5" :style="{color:'var(--text-primary)'}">
-                <span class="w-1.5 h-1.5 rounded-full" :style="{background:alert.urgency==='high'?'#f43f5e':'#f59e0b', boxShadow:alert.urgency==='high'?'0 0 6px rgba(244,63,94,0.6)':'none'}"></span>
+                <span class="w-1.5 h-1.5 rounded-full" :style="{background:alert.urgency==='high'?'#f43f5e':'#f59e0b', boxShadow:alert.urgency==='high'?'0 0 6px color-mix(in srgb, var(--rose-500) 60%, transparent)':'none'}"></span>
                 {{ alert.skillName }}
               </span>
               <span class="font-mono font-bold" :style="{color:alert.urgency==='high'?'#f87171':'#fbbf24'}">{{ alert.currentFreshness }}%</span>
@@ -156,7 +156,7 @@
         </div>
 
         <!-- 学习路径迷你卡 — 更小巧 -->
-        <div class="panel-bridge p-4" style="border-color:rgba(99,102,241,0.2)">
+        <div class="panel-bridge p-4" style="border-color:color-mix(in srgb, var(--brand-500) 20%, transparent)">
           <div class="flex items-center justify-between mb-3">
             <PanelHeader label="PATH" title="学习路径" color="brand" margin="none" />
             <span class="text-xs font-mono" :style="{color:'var(--text-muted)'}">{{ completedSteps }}/{{ store.learningPath.length }}</span>

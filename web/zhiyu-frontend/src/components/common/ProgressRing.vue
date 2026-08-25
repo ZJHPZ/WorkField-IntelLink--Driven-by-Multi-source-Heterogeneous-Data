@@ -45,15 +45,15 @@ const props = withDefaults(defineProps<{
 }>(), {
   size: 120,
   strokeWidth: 8,
-  color: '#6366f1',
+  color: getBrandColor(),
   animate: true,
 })
 
 const gid = useId()
 const isGradient = computed(() => props.color.startsWith('url('))
-const textColor = computed(() => isGradient.value ? getBrandColor('#6366f1') : props.color)
+const textColor = computed(() => isGradient.value ? getBrandColor() : props.color)
 // 渐变首段跟随主题 brand（warm 主题为玫红）
-const brandColor = computed(() => getBrandColor('#6366f1'))
+const brandColor = computed(() => getBrandColor())
 
 const radius = computed(() => (props.size - props.strokeWidth) / 2)
 const circumference = computed(() => 2 * Math.PI * radius.value)

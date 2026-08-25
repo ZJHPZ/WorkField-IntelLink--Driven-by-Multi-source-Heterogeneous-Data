@@ -28,7 +28,7 @@
                 :title="tick.alertSkills.length ? tick.value + '%: ' + tick.alertSkills.map(a=>a.skillName).join(', ') : tick.value + '% — 无预警'">
                 <div class="absolute right-0 w-6 h-px" :style="{background:tick.color}"></div>
                 <span class="absolute right-8 text-xs font-mono font-bold" :style="{color:tick.color}">{{ tick.value }}%</span>
-                <div v-if="tick.alertSkills.length" class="absolute right-7 w-2.5 h-2.5 rounded-full border-2 border-white" :style="{background:tick.alertSkills[0].urgency==='high'?'#f43f5e':'#f59e0b',boxShadow:'0 0 6px '+(tick.alertSkills[0].urgency==='high'?'rgba(244,63,94,0.5)':'rgba(245,158,11,0.5)')}"></div>
+                <div v-if="tick.alertSkills.length" class="absolute right-7 w-2.5 h-2.5 rounded-full border-2 border-white" :style="{background:tick.alertSkills[0].urgency==='high'?'#f43f5e':'#f59e0b',boxShadow:'0 0 6px '+(tick.alertSkills[0].urgency==='high'?'color-mix(in srgb, var(--rose-500) 50%, transparent)':'color-mix(in srgb, var(--amber-500) 50%, transparent)')}"></div>
               </div>
             </div>
             <div class="flex items-end gap-1 h-full pb-2">
@@ -64,7 +64,7 @@
             </div>
           </div>
         </div>
-        <div class="panel-asymmetric p-4" :style="{borderColor:healthPercent>=80?'rgba(16,185,129,0.2)':'rgba(245,158,11,0.2)'}">
+        <div class="panel-asymmetric p-4" :style="{borderColor:healthPercent>=80?'color-mix(in srgb, var(--mint-500) 20%, transparent)':'color-mix(in srgb, var(--amber-500) 20%, transparent)'}">
           <div class="text-xs font-bold tracking-wide mb-2" :style="{color:'var(--text-primary)'}">RECOMMENDATION</div>
           <p class="text-xs leading-relaxed font-mono" :style="{color:'var(--text-secondary)'}">{{ topSuggestion }}</p>
         </div>
@@ -78,13 +78,13 @@
         <PanelHeader label="ALERTS" title="预警技能" color="rose" margin="none" />
         <span class="text-xs font-mono px-2.5 py-1 font-bold rounded-sm" :class="highUrgencyCount>0?'bg-rose-500':'bg-amber-500'" style="color:white">{{ alertSkills.length }} ALERTS · {{ highUrgencyCount }} HIGH</span>
       </div>
-      <div v-if="alertSkills.length===0" class="text-center py-8"><div class="text-4xl mb-2">✨</div><p class="text-sm font-mono" :style="{color:'var(--text-secondary)'}">ALL SKILLS HEALTHY</p></div>
+      <div v-if="alertSkills.length===0" class="text-center py-8"><div class="text-4xl mb-2 animate-glow-pulse" style="color:var(--mint-500)">✦</div><p class="text-sm font-mono" :style="{color:'var(--text-secondary)'}">ALL SKILLS HEALTHY</p></div>
       <div v-else class="grid grid-cols-1 md:grid-cols-2 gap-3 spring-list">
         <div v-for="alert in alertSkills" :key="alert.skillName" class="p-4 rounded-sm transition-all lift-on-hover shadow-deep relative overflow-hidden"
-          :style="{background:'var(--bg-card)',border:'1px solid '+(alert.urgency==='high'?'rgba(244,63,94,0.3)':'rgba(245,158,11,0.3)'),borderLeft:'3px solid '+(alert.urgency==='high'?'#f43f5e':'#f59e0b')}">
+          :style="{background:'var(--bg-card)',border:'1px solid '+(alert.urgency==='high'?'color-mix(in srgb, var(--rose-500) 30%, transparent)':'color-mix(in srgb, var(--amber-500) 30%, transparent)'),borderLeft:'3px solid '+(alert.urgency==='high'?'#f43f5e':'#f59e0b')}">
           <div class="flex items-start justify-between mb-3">
             <div class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full shrink-0 mt-1" :class="alert.urgency==='high'?'bg-rose-500':'bg-amber-400'" :style="{boxShadow:'0 0 8px '+(alert.urgency==='high'?'rgba(244,63,94,0.5)':'rgba(245,158,11,0.4)')}"></span>
+              <span class="w-2.5 h-2.5 rounded-full shrink-0 mt-1" :class="alert.urgency==='high'?'bg-rose-500':'bg-amber-400'" :style="{boxShadow:'0 0 8px '+(alert.urgency==='high'?'color-mix(in srgb, var(--rose-500) 50%, transparent)':'color-mix(in srgb, var(--amber-500) 40%, transparent)')}"></span>
               <div><h4 class="text-sm font-bold" :style="{color:'var(--text-primary)'}">{{ alert.skillName }}</h4><span class="text-xs font-mono px-1.5 py-0.5 rounded-sm font-bold" :class="alert.urgency==='high'?'bg-rose-500':'bg-amber-500'" style="color:white">{{ alert.urgency==='high'?'HIGH':'MEDIUM' }}</span></div>
             </div>
             <div class="text-right"><div class="data-giant text-lg" :class="alert.urgency==='high'?'text-rose-500':'text-amber-500'">{{ alert.currentFreshness }}%</div><div class="text-xs font-mono" :style="{color:'var(--text-muted)'}">FRESHNESS</div></div>
@@ -103,9 +103,9 @@
     <!-- 健康技能 + 时间线 -->
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 view-section">
       <div class="lg:col-span-2 panel-bridge p-5 shadow-deep">
-        <div class="flex items-center justify-between mb-4"><div class="flex items-center gap-2"><span class="tag-plate" style="color:var(--mint-400);border-color:var(--mint-500)">HEALTHY</span><h3 class="text-sm font-bold tracking-wide uppercase" :style="{color:'var(--text-primary)'}">健康技能</h3></div><span class="text-xs font-mono px-2 py-1 rounded-sm" style="background:rgba(16,185,129,0.08);color:var(--mint-500);border:1px solid rgba(16,185,129,0.2)">{{ healthySkills.length }} HEALTHY</span></div>
+        <div class="flex items-center justify-between mb-4"><div class="flex items-center gap-2"><span class="tag-plate" style="color:var(--mint-400);border-color:var(--mint-500)">HEALTHY</span><h3 class="text-sm font-bold tracking-wide uppercase" :style="{color:'var(--text-primary)'}">健康技能</h3></div><span class="text-xs font-mono px-2 py-1 rounded-sm" style="background:color-mix(in srgb, var(--mint-500) 08%, transparent);color:var(--mint-500);border:1px solid color-mix(in srgb, var(--mint-500) 20%, transparent)">{{ healthySkills.length }} HEALTHY</span></div>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-2 spring-list">
-          <div v-for="skill in healthySkills" :key="skill.name" class="p-3 text-center transition-all lift-on-hover rounded-sm relative overflow-hidden group" style="background:rgba(16,185,129,0.02);border:1px solid rgba(16,185,129,0.15)">
+          <div v-for="skill in healthySkills" :key="skill.name" class="p-3 text-center transition-all lift-on-hover rounded-sm relative overflow-hidden group" style="background:color-mix(in srgb, var(--mint-500) 02%, transparent);border:1px solid color-mix(in srgb, var(--mint-500) 15%, transparent)">
             <div class="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-mint-400 to-mint-500 opacity-0 group-hover:opacity-100 transition-opacity"></div>
             <div class="text-sm font-bold mb-0.5" :style="{color:'var(--text-primary)'}">{{ skill.name }}</div>
             <div class="text-xs font-mono mb-1.5" :style="{color:'var(--text-muted)'}">{{ skill.category }}</div>
@@ -158,10 +158,10 @@ const halfLifeDist = computed(()=>[{label:'<6M',count:store.alerts.filter(a=>a.h
 const timelineEvents = computed(()=>{
   const e:{month:string;color:string;badge:string;badgeBg:string;badgeColor:string;description:string}[]=[]
   const h=alertSkills.value.filter(a=>a.urgency==='high');const m=alertSkills.value.filter(a=>a.urgency==='medium')
-  if(h.length)e.push({month:'1 MONTH',color:'#f43f5e',badge:'URGENT',badgeBg:'rgba(244,63,94,0.1)',badgeColor:'#f43f5e',description:`${h.map(a=>a.skillName).join('、')} 保鲜度低于30%，需立即制定学习计划`})
-  if(m.length)e.push({month:'3 MONTHS',color:'#f59e0b',badge:'WATCH',badgeBg:'rgba(245,158,11,0.1)',badgeColor:'#f59e0b',description:`${m.map(a=>a.skillName).join('、')} 半衰期临近，建议安排技能更新`})
-  e.push({month:'ONGOING',color:'#10b981',badge:'HEALTHY',badgeBg:'rgba(16,185,129,0.1)',badgeColor:'#10b981',description:`${healthySkills.value.slice(0,3).map(s=>s.name).join('、')} 等 ${healthyCount.value} 项技能保鲜度良好`})
-  e.push({month:'PLAN',color:'#6366f1',badge:'TODO',badgeBg:'rgba(99,102,241,0.1)',badgeColor:'#6366f1',description:'每季度进行一次技能保鲜度全面审查，建立持续学习机制'})
+  if(h.length)e.push({month:'1 MONTH',color:'#f43f5e',badge:'URGENT',badgeBg:'color-mix(in srgb, var(--rose-500) 10%, transparent)',badgeColor:'#f43f5e',description:`${h.map(a=>a.skillName).join('、')} 保鲜度低于30%，需立即制定学习计划`})
+  if(m.length)e.push({month:'3 MONTHS',color:'#f59e0b',badge:'WATCH',badgeBg:'color-mix(in srgb, var(--amber-500) 10%, transparent)',badgeColor:'#f59e0b',description:`${m.map(a=>a.skillName).join('、')} 半衰期临近，建议安排技能更新`})
+  e.push({month:'ONGOING',color:'#10b981',badge:'HEALTHY',badgeBg:'color-mix(in srgb, var(--mint-500) 10%, transparent)',badgeColor:'#10b981',description:`${healthySkills.value.slice(0,3).map(s=>s.name).join('、')} 等 ${healthyCount.value} 项技能保鲜度良好`})
+  e.push({month:'PLAN',color:'var(--brand-500)',badge:'TODO',badgeBg:'color-mix(in srgb, var(--brand-500) 10%, transparent)',badgeColor:'var(--brand-500)',description:'每季度进行一次技能保鲜度全面审查，建立持续学习机制'})
   return e
 })
 

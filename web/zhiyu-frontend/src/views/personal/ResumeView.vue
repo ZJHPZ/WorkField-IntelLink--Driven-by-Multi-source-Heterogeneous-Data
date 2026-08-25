@@ -115,7 +115,7 @@
             <!-- 技能标签 -->
             <div v-if="parsedSkills.length" class="flex flex-wrap gap-1">
               <span v-for="s in parsedSkills" :key="s" class="text-[9px] px-1.5 py-0.5 font-mono"
-                :style="{background: isMatched(s) ? 'rgba(16,185,129,0.1)' : 'rgba(6,182,212,0.06)', color: isMatched(s) ? 'var(--mint-500)' : 'var(--cyan-400)', border:'1px solid '+(isMatched(s) ? 'rgba(16,185,129,0.25)' : 'rgba(6,182,212,0.15)')}">{{ s }}</span>
+                :style="{background: isMatched(s) ? 'color-mix(in srgb, var(--mint-500) 10%, transparent)' : 'color-mix(in srgb, var(--cyan-500) 06%, transparent)', color: isMatched(s) ? 'var(--mint-500)' : 'var(--cyan-400)', border:'1px solid '+(isMatched(s) ? 'color-mix(in srgb, var(--mint-500) 25%, transparent)' : 'color-mix(in srgb, var(--cyan-500) 15%, transparent)')}">{{ s }}</span>
             </div>
             <div v-else class="text-center py-4">
               <div class="text-[9px] font-mono tracking-widest" style="color:var(--text-muted)">AWAITING INPUT</div>
@@ -124,8 +124,19 @@
         </div>
       </div>
 
-      <!-- ── 右栏（3/5）：匹配分析（默认展示 demo 数据） ── -->
+      <!-- ── 右栏（3/5）：匹配分析（仅在有真实解析结果后展示） ── -->
       <div class="lg:col-span-3 space-y-4">
+        <!-- 空态：未上传/未解析/未选目标 -->
+        <div v-if="!(hasResult && selectedTarget)" class="panel-industrial panel-circuit p-10 shadow-deep flex items-center justify-center">
+          <div class="text-center">
+            <div class="text-3xl opacity-30 animate-glow-pulse mb-3" :style="{color:'var(--brand-500)'}">⌖</div>
+            <p class="text-xs font-mono tracking-widest" style="color:var(--text-secondary)">
+              {{ !parsedSkills.length ? 'AWAITING DOCUMENT · 上传简历并点击 SCAN' : 'TARGET REQUIRED · 已解析 ' + parsedSkills.length + ' 项技能，请选择目标岗位' }}
+            </p>
+          </div>
+        </div>
+
+        <template v-else>
         <!-- 匹配率 + 进度 -->
         <div class="panel-industrial panel-circuit shadow-deep p-5 relative">
           <div class="rivet" style="top:6px;left:6px"></div>
@@ -137,11 +148,11 @@
                 <span class="text-xs font-bold" style="color:var(--text-primary)">{{ selectedTarget?.name || 'AI 算法工程师' }}</span>
               </div>
               <div class="flex items-center gap-3">
-                <span class="data-segment text-3xl" :style="{color: matchRate >= 70 ? 'var(--mint-500)' : matchRate >= 50 ? '#f59e0b' : '#f43f5e', textShadow: '0 0 15px '+(matchRate >= 70 ? 'rgba(16,185,129,0.3)' : 'rgba(245,158,11,0.3)')}">{{ matchRate || 72 }}%</span>
+                <span class="data-segment text-3xl" :style="{color: matchRate >= 70 ? 'var(--mint-500)' : matchRate >= 50 ? '#f59e0b' : '#f43f5e', textShadow: '0 0 15px '+(matchRate >= 70 ? 'color-mix(in srgb, var(--mint-500) 30%, transparent)' : 'color-mix(in srgb, var(--amber-500) 30%, transparent)')}">{{ matchRate }}%</span>
               </div>
             </div>
             <div class="h-2 mb-1" style="background:var(--bg-secondary)">
-              <div class="h-full transition-all duration-700" :style="{width: (matchRate || 72)+'%', background: matchRate >= 70 ? 'var(--mint-500)' : matchRate >= 50 ? '#f59e0b' : '#f43f5e'}"></div>
+              <div class="h-full transition-all duration-700" :style="{width: matchRate+'%', background: matchRate >= 70 ? 'var(--mint-500)' : matchRate >= 50 ? '#f59e0b' : '#f43f5e'}"></div>
             </div>
             <div class="flex justify-between text-[8px] font-mono" style="color:var(--text-muted)">
               <span>0%</span><span>50%</span><span>100%</span>
@@ -158,12 +169,12 @@
                 <span class="w-1.5 h-1.5 rounded-full bg-mint-500" style="box-shadow:0 0 4px var(--mint-500)"></span>
                 <span class="text-[9px] tracking-widest" style="color:var(--mint-400)">MATCHED</span>
               </div>
-              <span class="data-segment text-sm text-mint-500">{{ matchedSkills.length || 3 }}</span>
+              <span class="data-segment text-sm text-mint-500">{{ matchedSkills.length }}</span>
             </div>
             <div class="space-y-1">
-              <div v-for="s in (matchedSkills.length ? matchedSkills : ['Python', 'PyTorch', 'NLP'])" :key="s"
+              <div v-for="s in matchedSkills" :key="s"
                 class="flex items-center gap-2 px-2 py-1.5 text-[10px] font-mono"
-                style="background:rgba(16,185,129,0.06);border-left:2px solid var(--mint-500)">
+                style="background:color-mix(in srgb, var(--mint-500) 06%, transparent);border-left:2px solid var(--mint-500)">
                 <span style="color:var(--mint-500)">{{ s }}</span>
               </div>
             </div>
@@ -176,12 +187,12 @@
                 <span class="w-1.5 h-1.5 rounded-full bg-rose-500" style="box-shadow:0 0 4px var(--rose-500)"></span>
                 <span class="text-[9px] tracking-widest" style="color:var(--rose-400)">MISSING</span>
               </div>
-              <span class="data-segment text-sm text-rose-500">{{ missingSkills.length || 4 }}</span>
+              <span class="data-segment text-sm text-rose-500">{{ missingSkills.length }}</span>
             </div>
             <div class="space-y-1">
-              <div v-for="(s, i) in (missingSkills.length ? missingSkills : ['MLOps', 'DeepSpeed', 'Transformer', 'RAG'])" :key="s"
+              <div v-for="(s, i) in missingSkills" :key="s"
                 class="flex items-center gap-2 px-2 py-1.5 text-[10px] font-mono"
-                style="background:rgba(244,63,94,0.04);border-left:2px solid var(--rose-500)">
+                style="background:color-mix(in srgb, var(--rose-500) 04%, transparent);border-left:2px solid var(--rose-500)">
                 <span style="color:#f87171">{{ s }}</span>
                 <span class="ml-auto text-[8px]" style="color:var(--text-muted)">{{ (4-Number(i)) * 15 }}h</span>
               </div>
@@ -211,6 +222,7 @@
             </div>
           </div>
         </div>
+        </template>
 
         <!-- 扫描进度（解析中显示） -->
         <div v-if="isParsing" class="panel-circuit p-3 shadow-deep">
@@ -269,9 +281,10 @@ const matchRate = computed(() => {
   const t = selectedTarget.value.skills.length
   return t ? Math.round((matchedSkills.value.length / t) * 100) : 0
 })
+const hasResult = computed(() => parsedSkills.value.length > 0)
 
 const learningSteps = [
-  { name: 'MLOps', hours: 30, progress: 0, color: '#818cf8', resource: 'MLflow+Kubeflow' },
+  { name: 'MLOps', hours: 30, progress: 0, color: 'var(--brand-400)', resource: 'MLflow+Kubeflow' },
   { name: 'DeepSpeed', hours: 25, progress: 0, color: '#06b6d4', resource: '官方文档' },
   { name: 'Transformer', hours: 20, progress: 0, color: '#10b981', resource: '论文+代码' },
   { name: 'RAG', hours: 15, progress: 0, color: '#f59e0b', resource: 'LangChain实战' },

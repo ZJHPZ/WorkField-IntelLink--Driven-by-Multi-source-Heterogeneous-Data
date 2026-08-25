@@ -20,6 +20,7 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
 import { SimplexNoise, fbm } from '@/utils/noise'
+import { getBrandColor, PALETTE } from '@/utils/color'
 
 interface BeamData {
   source: string; label: string; count: number; color: string; targetY: number
@@ -69,6 +70,14 @@ const FORCES = {
 }
 
 const prism = { cx: 300, cy: 140, topX: 250, topY: 40, botX: 250, botY: 240, tipX: 330, tipY: 140 }
+
+// 主题感知色（warm 主题下 brand 为玫红，不写死 indigo）
+const brandRgb = hexToRgb(getBrandColor())
+const purpleRgb = hexToRgb(PALETTE.purple)
+const cyanRgb = hexToRgb(PALETTE.cyan)
+const brandA = (a: number) => `rgba(${brandRgb.r},${brandRgb.g},${brandRgb.b},${a})`
+const purpleA = (a: number) => `rgba(${purpleRgb.r},${purpleRgb.g},${purpleRgb.b},${a})`
+const cyanA = (a: number) => `rgba(${cyanRgb.r},${cyanRgb.g},${cyanRgb.b},${a})`
 
 function spawnInputParticle(): Particle {
   const y = 140 + (Math.random() - 0.5) * 40
@@ -217,8 +226,8 @@ function drawPrism(ctx: CanvasRenderingContext2D, s: number, t: number) {
   // 外部光晕（脉冲）
   const pulse = 0.5 + Math.sin(t * 0.02) * 0.5
   const outerGlow = ctx.createRadialGradient(cx, cy, 0, cx, cy, (80 + pulse * 20) * s)
-  outerGlow.addColorStop(0, 'rgba(99,102,241,0.06)')
-  outerGlow.addColorStop(0.5, 'rgba(168,85,247,0.03)')
+  outerGlow.addColorStop(0, brandA(0.06))
+  outerGlow.addColorStop(0.5, purpleA(0.03))
   outerGlow.addColorStop(1, 'transparent')
   ctx.fillStyle = outerGlow
   ctx.beginPath()
@@ -234,18 +243,18 @@ function drawPrism(ctx: CanvasRenderingContext2D, s: number, t: number) {
 
   // 玻璃渐变
   const glassGrad = ctx.createLinearGradient(tx, ty, px, py)
-  glassGrad.addColorStop(0, 'rgba(99,102,241,0.1)')
-  glassGrad.addColorStop(0.3, 'rgba(168,85,247,0.06)')
-  glassGrad.addColorStop(0.6, 'rgba(6,182,212,0.08)')
-  glassGrad.addColorStop(1, 'rgba(99,102,241,0.05)')
+  glassGrad.addColorStop(0, brandA(0.1))
+  glassGrad.addColorStop(0.3, purpleA(0.06))
+  glassGrad.addColorStop(0.6, cyanA(0.08))
+  glassGrad.addColorStop(1, brandA(0.05))
   ctx.fillStyle = glassGrad
   ctx.fill()
 
   // 边框（双层）
-  ctx.strokeStyle = 'rgba(99,102,241,0.5)'
+  ctx.strokeStyle = brandA(0.5)
   ctx.lineWidth = 1.5 * s
   ctx.stroke()
-  ctx.strokeStyle = 'rgba(99,102,241,0.15)'
+  ctx.strokeStyle = brandA(0.15)
   ctx.lineWidth = 4 * s
   ctx.stroke()
 
@@ -259,7 +268,7 @@ function drawPrism(ctx: CanvasRenderingContext2D, s: number, t: number) {
     ctx.beginPath()
     ctx.moveTo(startX, startY)
     ctx.lineTo(endX, endY)
-    ctx.strokeStyle = `rgba(99,102,241,${0.05 + Math.sin(t * 0.03 + i) * 0.03})`
+    ctx.strokeStyle = brandA(0.05 + Math.sin(t * 0.03 + i) * 0.03)
     ctx.lineWidth = 0.5 * s
     ctx.stroke()
   }

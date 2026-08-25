@@ -42,7 +42,7 @@
                 background:step.status==='completed'?'var(--mint-500)':step.status==='in_progress'?'var(--brand-500)':step.status==='available'?'var(--bg-card)':'var(--bg-secondary)',
                 borderColor:step.status==='completed'?'var(--mint-400)':step.status==='in_progress'?'var(--brand-400)':step.status==='available'?'var(--brand-400)':'var(--border-color)',
                 color:step.status==='locked'?'var(--text-muted)':'white',
-                boxShadow:step.status==='in_progress'?'0 0 12px rgba(232,83,108,0.5)':step.status==='completed'?'0 0 10px rgba(16,185,129,0.4)':'none'
+                boxShadow:step.status==='in_progress'?'0 0 12px color-mix(in srgb, var(--brand-500) 50%, transparent)':step.status==='completed'?'0 0 10px color-mix(in srgb, var(--mint-500) 40%, transparent)':'none'
               }">
               <span v-if="step.status==='completed'">✓</span><span v-else-if="step.status==='in_progress'">●</span><span v-else class="font-mono">{{ idx+1 }}</span>
             </div>
@@ -51,7 +51,7 @@
                 <div>
                   <div class="flex items-center gap-1.5">
                     <span class="text-xs px-1.5 py-0 rounded-sm font-mono font-bold"
-                      :style="{background:step.status==='completed'?'rgba(16,185,129,0.1)':step.status==='in_progress'?'rgba(232,83,108,0.1)':step.status==='available'?'rgba(6,182,212,0.1)':'rgba(107,114,128,0.1)',color:step.status==='completed'?'var(--mint-500)':step.status==='in_progress'?'var(--brand-500)':step.status==='available'?'var(--cyan-500)':'var(--text-muted)'}">
+                      :style="{background:step.status==='completed'?'color-mix(in srgb, var(--mint-500) 10%, transparent)':step.status==='in_progress'?'color-mix(in srgb, var(--brand-500) 10%, transparent)':step.status==='available'?'color-mix(in srgb, var(--cyan-500) 10%, transparent)':'rgba(107,114,128,0.1)',color:step.status==='completed'?'var(--mint-500)':step.status==='in_progress'?'var(--brand-500)':step.status==='available'?'var(--cyan-500)':'var(--text-muted)'}">
                       {{ statusLabel(step.status) }}
                     </span>
                     <span class="text-xs" :style="{color:'var(--text-muted)'}">{{ step.skill }}</span>
@@ -91,6 +91,6 @@ const estWeeks = computed(()=>Math.ceil(store.learningPath.filter(s=>s.status!==
 const skillGain = computed(()=>store.learningPath.filter(s=>s.status==='completed').length*8)
 function statusLabel(s:string):string{const m:Record<string,string>={locked:'LOCKED',available:'AVAILABLE',in_progress:'IN PROGRESS',completed:'DONE'};return m[s]||s}
 function continueStep(step:any){step.progress=Math.min(100,step.progress+20);if(step.progress>=100){step.status='completed';notify('🎉 学习完成！',`${step.title} 已标记为完成`,'success')}else{notify('📚 继续学习',`${step.title} 进度 ${step.progress}%`,'info')}}
-function startStep(step:any){step.status='in_progress';step.progress=5;notify('🚀 开始学习',`${step.title} 已开始`,'success')}
+function startStep(step:any){step.status='in_progress';step.progress=5;notify('▶ 开始学习',`${step.title} 已开始`,'success')}
 onMounted(()=>store.fetchLearningPath())
 </script>

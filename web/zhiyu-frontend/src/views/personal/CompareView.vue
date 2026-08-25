@@ -19,7 +19,7 @@
           </div>
         </div>
         <div class="flex items-center gap-4">
-          <span class="tag-plate" style="color:var(--amber-400);border-color:var(--amber-500)">{{ selectedPositions.length }} PICKED</span>
+          <span class="tag-plate" style="color:var(--amber-400);border-color:var(--amber-500)">{{ selectedPositions.length }}/2 PICKED</span>
           <button v-if="selectedPositions.length" @click="clearSelection" class="text-[9px] font-mono tracking-wider hover:text-rose-400" style="color:var(--text-muted)">[ RESET ]</button>
         </div>
       </div>
@@ -54,10 +54,10 @@
               <span class="tag-plate" style="color:var(--brand-400);border-color:var(--brand-500)">A</span>
               <span class="text-xs font-bold" style="color:var(--text-primary)">{{ posA.name }}</span>
             </div>
-            <div class="data-segment text-3xl mb-1" style="color:var(--brand-500);text-shadow:0 0 15px rgba(99,102,241,0.3)">{{ posA.matchRate }}%</div>
+            <div class="data-segment text-3xl mb-1" style="color:var(--brand-500);text-shadow:0 0 15px color-mix(in srgb, var(--brand-500) 30%, transparent)">{{ posA.matchRate }}%</div>
             <div class="text-[9px] font-mono" style="color:var(--text-muted)">{{ posA.salary }} · {{ posA.skills.length }} skills</div>
             <div class="flex flex-wrap gap-1 mt-2">
-              <span v-for="s in posA.matchedSkills.slice(0,4)" :key="s" class="text-[8px] px-1.5 py-0.5 font-mono" style="background:rgba(16,185,129,0.08);color:var(--mint-500);border:1px solid rgba(16,185,129,0.2)">{{ s }}</span>
+              <span v-for="s in posA.matchedSkills.slice(0,4)" :key="s" class="text-[8px] px-1.5 py-0.5 font-mono" style="background:color-mix(in srgb, var(--mint-500) 08%, transparent);color:var(--mint-500);border:1px solid color-mix(in srgb, var(--mint-500) 20%, transparent)">{{ s }}</span>
             </div>
           </div>
         </div>
@@ -89,10 +89,10 @@
               <span class="tag-plate" style="color:var(--cyan-400);border-color:var(--cyan-500)">B</span>
               <span class="text-xs font-bold" style="color:var(--text-primary)">{{ posB.name }}</span>
             </div>
-            <div class="data-segment text-3xl mb-1" style="color:var(--cyan-500);text-shadow:0 0 15px rgba(6,182,212,0.3)">{{ posB.matchRate }}%</div>
+            <div class="data-segment text-3xl mb-1" style="color:var(--cyan-500);text-shadow:0 0 15px color-mix(in srgb, var(--cyan-500) 30%, transparent)">{{ posB.matchRate }}%</div>
             <div class="text-[9px] font-mono" style="color:var(--text-muted)">{{ posB.salary }} · {{ posB.skills.length }} skills</div>
             <div class="flex flex-wrap gap-1 mt-2">
-              <span v-for="s in posB.matchedSkills.slice(0,4)" :key="s" class="text-[8px] px-1.5 py-0.5 font-mono" style="background:rgba(16,185,129,0.08);color:var(--mint-500);border:1px solid rgba(16,185,129,0.2)">{{ s }}</span>
+              <span v-for="s in posB.matchedSkills.slice(0,4)" :key="s" class="text-[8px] px-1.5 py-0.5 font-mono" style="background:color-mix(in srgb, var(--mint-500) 08%, transparent);color:var(--mint-500);border:1px solid color-mix(in srgb, var(--mint-500) 20%, transparent)">{{ s }}</span>
             </div>
           </div>
         </div>
@@ -171,7 +171,7 @@
                 <div v-for="(dim, i) in radarDimensions" :key="dim.name"
                   class="flex items-center gap-2 px-2 py-1.5 text-[10px] font-mono transition-all hover:brightness-110 cursor-default"
                   :title="dim.name + ': ' + posA.name + ' ' + dim.userScore + ' vs ' + posB.name + ' ' + dim.targetScore"
-                  :style="{background: dim.userScore > dim.targetScore ? 'rgba(99,102,241,0.06)' : dim.userScore < dim.targetScore ? 'rgba(6,182,212,0.06)' : 'var(--bg-secondary)'}">
+                  :style="{background: dim.userScore > dim.targetScore ? 'color-mix(in srgb, var(--brand-500) 06%, transparent)' : dim.userScore < dim.targetScore ? 'color-mix(in srgb, var(--cyan-500) 06%, transparent)' : 'var(--bg-secondary)'}">
                   <!-- 序号 -->
                   <span class="w-4 text-[8px] text-center flex-shrink-0" style="color:var(--text-muted)">{{ String(i+1).padStart(2,'0') }}</span>
                   <!-- 技能名 -->
@@ -180,7 +180,7 @@
                   <span class="w-7 text-right flex-shrink-0" :style="{color: dim.userScore >= 60 ? 'var(--brand-500)' : 'var(--text-muted)'}">{{ dim.userScore }}</span>
                   <!-- 对比条（加宽） -->
                   <div class="w-20 h-2 flex-shrink-0 relative rounded-sm overflow-hidden" style="background:rgba(255,255,255,0.04)">
-                    <div class="absolute top-0 left-0 h-full transition-all duration-500" :style="{width: dim.userScore+'%', background:'linear-gradient(90deg,#6366f1,#818cf8)', opacity:0.7}"></div>
+                    <div class="absolute top-0 left-0 h-full transition-all duration-500" :style="{width: dim.userScore+'%', background:'linear-gradient(90deg,var(--brand-500),var(--brand-400))', opacity:0.7}"></div>
                     <div class="absolute top-0 left-0 h-full transition-all duration-500" :style="{width: dim.targetScore+'%', background:'linear-gradient(90deg,#0891b2,#06b6d4)', opacity:0.4}"></div>
                   </div>
                   <!-- B 值 -->
@@ -189,7 +189,7 @@
                   <span class="w-5 text-center text-[8px] flex-shrink-0 rounded-sm px-0.5 font-bold"
                     :style="{
                       color: dim.userScore > dim.targetScore ? '#10b981' : dim.userScore < dim.targetScore ? '#f43f5e' : 'var(--text-muted)',
-                      background: dim.userScore > dim.targetScore ? 'rgba(16,185,129,0.1)' : dim.userScore < dim.targetScore ? 'rgba(244,63,94,0.1)' : 'transparent'
+                      background: dim.userScore > dim.targetScore ? 'color-mix(in srgb, var(--mint-500) 10%, transparent)' : dim.userScore < dim.targetScore ? 'color-mix(in srgb, var(--rose-500) 10%, transparent)' : 'transparent'
                     }">
                     {{ dim.userScore > dim.targetScore ? '▲' : dim.userScore < dim.targetScore ? '▼' : '=' }}
                   </span>
@@ -242,7 +242,7 @@
                 <span class="text-[9px] tracking-widest" style="color:var(--mint-400)">共同技能 ({{ commonSkills.length }})</span>
               </div>
               <div class="space-y-1">
-                <div v-for="s in commonSkills" :key="s" class="flex items-center gap-2 px-2 py-1 text-[10px] font-mono" style="background:rgba(16,185,129,0.06);border-left:2px solid var(--mint-500)">
+                <div v-for="s in commonSkills" :key="s" class="flex items-center gap-2 px-2 py-1 text-[10px] font-mono" style="background:color-mix(in srgb, var(--mint-500) 06%, transparent);border-left:2px solid var(--mint-500)">
                   <span style="color:var(--mint-500)">{{ s }}</span>
                 </div>
                 <div v-if="!commonSkills.length" class="text-[9px] text-center py-2" style="color:var(--text-muted)">—</div>
@@ -255,7 +255,7 @@
                 <span class="text-[9px] tracking-widest" style="color:var(--brand-400)">A 独有 ({{ uniqueSkillsA.length }})</span>
               </div>
               <div class="space-y-1">
-                <div v-for="s in uniqueSkillsA" :key="s" class="flex items-center gap-2 px-2 py-1 text-[10px] font-mono" style="background:rgba(99,102,241,0.06);border-left:2px solid var(--brand-500)">
+                <div v-for="s in uniqueSkillsA" :key="s" class="flex items-center gap-2 px-2 py-1 text-[10px] font-mono" style="background:color-mix(in srgb, var(--brand-500) 06%, transparent);border-left:2px solid var(--brand-500)">
                   <span style="color:var(--brand-400)">{{ s }}</span>
                 </div>
                 <div v-if="!uniqueSkillsA.length" class="text-[9px] text-center py-2" style="color:var(--text-muted)">—</div>
@@ -268,7 +268,7 @@
                 <span class="text-[9px] tracking-widest" style="color:var(--cyan-400)">B 独有 ({{ uniqueSkillsB.length }})</span>
               </div>
               <div class="space-y-1">
-                <div v-for="s in uniqueSkillsB" :key="s" class="flex items-center gap-2 px-2 py-1 text-[10px] font-mono" style="background:rgba(6,182,212,0.06);border-left:2px solid var(--cyan-500)">
+                <div v-for="s in uniqueSkillsB" :key="s" class="flex items-center gap-2 px-2 py-1 text-[10px] font-mono" style="background:color-mix(in srgb, var(--cyan-500) 06%, transparent);border-left:2px solid var(--cyan-500)">
                   <span style="color:var(--cyan-400)">{{ s }}</span>
                 </div>
                 <div v-if="!uniqueSkillsB.length" class="text-[9px] text-center py-2" style="color:var(--text-muted)">—</div>
@@ -315,7 +315,7 @@ function getIndex(p:Pos){ return selectedPositions.value.findIndex(s=>s.id===p.i
 function togglePosition(p:Pos){
   const i=selectedPositions.value.findIndex(s=>s.id===p.id)
   if(i>=0) selectedPositions.value.splice(i,1)
-  else if(selectedPositions.value.length<3) selectedPositions.value.push(p)
+  else if(selectedPositions.value.length<2) selectedPositions.value.push(p)
 }
 function clearSelection(){ selectedPositions.value=[] }
 

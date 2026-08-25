@@ -170,19 +170,19 @@
       <div class="panel-asymmetric p-4 shadow-deep">
         <div class="text-xs font-bold tracking-wide mb-3" style="color:var(--text-muted)">CHANGE SUMMARY</div>
         <div class="grid grid-cols-2 gap-2">
-          <div class="text-center p-2 rounded-sm" style="background:rgba(16,185,129,0.06);border:1px solid rgba(16,185,129,0.15)">
+          <div class="text-center p-2 rounded-sm" style="background:color-mix(in srgb, var(--mint-500) 06%, transparent);border:1px solid color-mix(in srgb, var(--mint-500) 15%, transparent)">
             <div class="data-giant text-xl text-mint-500 data-segment">{{ changeCount('added') }}</div>
             <div class="text-xs font-mono" style="color:var(--text-muted)">ADDED</div>
           </div>
-          <div class="text-center p-2 rounded-sm" style="background:rgba(244,63,94,0.06);border:1px solid rgba(244,63,94,0.15)">
+          <div class="text-center p-2 rounded-sm" style="background:color-mix(in srgb, var(--rose-500) 06%, transparent);border:1px solid color-mix(in srgb, var(--rose-500) 15%, transparent)">
             <div class="data-giant text-xl text-rose-500 data-segment">{{ changeCount('removed') }}</div>
             <div class="text-xs font-mono" style="color:var(--text-muted)">REMOVED</div>
           </div>
-          <div class="text-center p-2 rounded-sm" style="background:rgba(6,182,212,0.06);border:1px solid rgba(6,182,212,0.15)">
+          <div class="text-center p-2 rounded-sm" style="background:color-mix(in srgb, var(--cyan-500) 06%, transparent);border:1px solid color-mix(in srgb, var(--cyan-500) 15%, transparent)">
             <div class="data-giant text-xl text-cyan-500 data-segment">{{ changeCount('upgraded') }}</div>
             <div class="text-xs font-mono" style="color:var(--text-muted)">UPGRADED</div>
           </div>
-          <div class="text-center p-2 rounded-sm" style="background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.15)">
+          <div class="text-center p-2 rounded-sm" style="background:color-mix(in srgb, var(--amber-500) 06%, transparent);border:1px solid color-mix(in srgb, var(--amber-500) 15%, transparent)">
             <div class="data-giant text-xl text-amber-500 data-segment">{{ changeCount('downgraded') }}</div>
             <div class="text-xs font-mono" style="color:var(--text-muted)">DOWNGRADED</div>
           </div>

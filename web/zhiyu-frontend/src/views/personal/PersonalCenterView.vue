@@ -114,15 +114,14 @@
           <!-- 简历上传 -->
           <div class="panel-asymmetric frame-mech p-4">
             <PanelHeader label="RESUME" title="简历" margin="sm" />
-            <div class="border-2 border-dashed rounded-sm p-4 text-center transition-all cursor-pointer group hover:border-brand-400" :style="{borderColor:'var(--border-color)'}" @click="triggerUpload">
+            <div class="border-2 border-dashed rounded-sm p-4 text-center transition-all cursor-pointer group hover:border-brand-400" :style="{borderColor:'var(--border-color)'}" @click="goResume">
               <svg class="w-8 h-8 mx-auto mb-1.5 opacity-30 group-hover:opacity-60 transition-opacity" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke-linecap="round"/><polyline points="14 2 14 8 20 8" stroke-linecap="round"/><line x1="12" y1="18" x2="12" y2="12" stroke-linecap="round"/><line x1="9" y1="15" x2="15" y2="15" stroke-linecap="round"/></svg>
               <p class="text-xs font-bold" :style="{color:'var(--text-secondary)'}">上传 / 更新简历</p>
-              <p class="text-xs mt-0.5" :style="{color:'var(--text-muted)'}">PDF · Word · 自动解析技能标签</p>
+              <p class="text-xs mt-0.5" :style="{color:'var(--text-muted)'}">前往简历解析 · PDF · Word</p>
             </div>
-            <div v-if="resumeName" class="mt-2 text-xs font-mono flex items-center gap-2" style="color:var(--mint-500)"><span class="w-1.5 h-1.5 rounded-full" style="background:var(--mint-500);box-shadow:0 0 6px var(--mint-500)"></span>{{ resumeName }}</div>
           </div>
           <!-- 技能标签 -->
-          <div class="panel-asymmetric p-4" style="border-color:rgba(232,83,108,0.15)">
+          <div class="panel-asymmetric p-4" style="border-color:color-mix(in srgb, var(--brand-500) 15%, transparent)">
             <div class="flex items-center justify-between mb-2">
               <span class="text-xs font-bold tracking-wide" :style="{color:'var(--text-muted)'}">SKILL TAGS</span>
               <div class="flex items-center gap-1.5">
@@ -132,19 +131,19 @@
               </div>
             </div>
             <div class="flex flex-wrap gap-1.5">
-              <span v-for="(tag,i) in skillTags" :key="tag" class="tag-tilted" :style="{background:i<3?'rgba(232,83,108,0.08)':'var(--bg-secondary)',color:i<3?'var(--brand-500)':'var(--text-secondary)',borderColor:i<3?'rgba(232,83,108,0.25)':'var(--border-color)'}">{{ tag }}</span>
+              <span v-for="(tag,i) in skillTags" :key="tag" class="tag-tilted" :style="{background:i<3?'color-mix(in srgb, var(--brand-500) 08%, transparent)':'var(--bg-secondary)',color:i<3?'var(--brand-500)':'var(--text-secondary)',borderColor:i<3?'color-mix(in srgb, var(--brand-500) 25%, transparent)':'var(--border-color)'}">{{ tag }}</span>
             </div>
           </div>
           <!-- 保鲜预警 -->
           <div class="panel-asymmetric p-3 panel-hazard" v-if="store.alertSkillCount>0">
-            <div class="text-xs font-bold tracking-wide mb-2 flex items-center gap-1.5" :style="{color:'var(--text-primary)'}"><span class="w-1.5 h-1.5 rounded-full bg-rose-500" style="box-shadow:0 0 6px rgba(244,63,94,0.5)"></span>保鲜预警</div>
-            <div class="flex flex-wrap gap-1.5"><span v-for="a in store.alerts" :key="a.skillName" class="text-xs px-2 py-0.5 font-mono rounded-sm" style="background:rgba(244,63,94,0.08);color:#f87171;border:1px solid rgba(244,63,94,0.2)">{{ a.skillName }} {{ a.currentFreshness }}%</span></div>
+            <div class="text-xs font-bold tracking-wide mb-2 flex items-center gap-1.5" :style="{color:'var(--text-primary)'}"><span class="w-1.5 h-1.5 rounded-full bg-rose-500" style="box-shadow:0 0 6px color-mix(in srgb, var(--rose-500) 50%, transparent)"></span>保鲜预警</div>
+            <div class="flex flex-wrap gap-1.5"><span v-for="a in store.alerts" :key="a.skillName" class="text-xs px-2 py-0.5 font-mono rounded-sm" style="background:color-mix(in srgb, var(--rose-500) 08%, transparent);color:#f87171;border:1px solid color-mix(in srgb, var(--rose-500) 20%, transparent)">{{ a.skillName }} {{ a.currentFreshness }}%</span></div>
             <router-link to="/personal/freshness" class="text-xs font-mono tracking-wider mt-2 inline-block" style="color:var(--brand-400)">[ HANDLE ]</router-link>
           </div>
         </div>
       </div>
       <!-- 保存按钮 -->
-      <div class="flex justify-end"><button @click="saveProfile" class="px-8 py-2.5 text-xs font-mono font-bold text-white transition-all hover:scale-105 shadow-deep" style="background:linear-gradient(135deg,var(--brand-600),var(--brand-500));clip-path:polygon(0 0,calc(100% - 10px) 0,100% 100%,0 100%);box-shadow:0 4px 20px rgba(232,83,108,0.3)">SAVE PROFILE</button></div>
+      <div class="flex justify-end"><button @click="saveProfile" class="px-8 py-2.5 text-xs font-mono font-bold text-white transition-all hover:scale-105 shadow-deep" style="background:linear-gradient(135deg,var(--brand-600),var(--brand-500));clip-path:polygon(0 0,calc(100% - 10px) 0,100% 100%,0 100%);box-shadow:0 4px 20px color-mix(in srgb, var(--brand-500) 30%, transparent)">SAVE PROFILE</button></div>
     </div>
 
     <!-- ═══════════════════════ Tab 2: 技能总览 ═══════════════════════ -->
@@ -169,7 +168,7 @@
             <div class="h-1.5 progress-track-dark" style="background:var(--bg-secondary)"><div class="h-full transition-all duration-700" :style="{width:(cat.healthy/Math.max(cat.total,1)*100)+'%',background:cat.color}"></div></div>
             <div class="flex flex-wrap gap-1 mt-2">
               <span v-for="s in cat.skills" :key="s.name" class="text-xs px-1.5 py-0.5 rounded-sm font-mono transition-all hover:scale-105"
-                :style="{background:s.status==='healthy'||s.status==='matched'?'rgba(16,185,129,0.08)':s.status==='alert'?'rgba(245,158,11,0.08)':'rgba(244,63,94,0.06)',color:s.status==='healthy'||s.status==='matched'?'var(--mint-500)':s.status==='alert'?'#f59e0b':'#f43f5e',border:'1px solid '+(s.status==='healthy'||s.status==='matched'?'rgba(16,185,129,0.2)':s.status==='alert'?'rgba(245,158,11,0.2)':'rgba(244,63,94,0.15)')}">{{ s.name }}</span>
+                :style="{background:s.status==='healthy'||s.status==='matched'?'color-mix(in srgb, var(--mint-500) 08%, transparent)':s.status==='alert'?'color-mix(in srgb, var(--amber-500) 08%, transparent)':'color-mix(in srgb, var(--rose-500) 06%, transparent)',color:s.status==='healthy'||s.status==='matched'?'var(--mint-500)':s.status==='alert'?'#f59e0b':'#f43f5e',border:'1px solid '+(s.status==='healthy'||s.status==='matched'?'color-mix(in srgb, var(--mint-500) 20%, transparent)':s.status==='alert'?'color-mix(in srgb, var(--amber-500) 20%, transparent)':'color-mix(in srgb, var(--rose-500) 15%, transparent)')}">{{ s.name }}</span>
             </div>
           </div>
         </div>
@@ -196,8 +195,8 @@
               <h4 class="text-sm font-bold mb-1" :style="{color:'var(--text-primary)'}">{{ m.positionName }}</h4>
               <p class="text-xs mb-3" :style="{color:'var(--text-muted)'}">{{ m.company }} · {{ m.salaryRange }}</p>
               <div class="flex flex-wrap gap-1 mb-3">
-                <span v-for="s in m.matchedSkills.slice(0,3)" :key="s" class="text-xs px-1.5 py-0.5 font-mono rounded-sm" style="background:rgba(16,185,129,0.08);color:var(--mint-500);border:1px solid rgba(16,185,129,0.2)">{{ s }}</span>
-                <span v-for="s in m.missingSkills.slice(0,2)" :key="s" class="text-xs px-1.5 py-0.5 font-mono rounded-sm" style="background:rgba(244,63,94,0.06);color:#f87171;border:1px solid rgba(244,63,94,0.15)">+{{ s }}</span>
+                <span v-for="s in m.matchedSkills.slice(0,3)" :key="s" class="text-xs px-1.5 py-0.5 font-mono rounded-sm" style="background:color-mix(in srgb, var(--mint-500) 08%, transparent);color:var(--mint-500);border:1px solid color-mix(in srgb, var(--mint-500) 20%, transparent)">{{ s }}</span>
+                <span v-for="s in m.missingSkills.slice(0,2)" :key="s" class="text-xs px-1.5 py-0.5 font-mono rounded-sm" style="background:color-mix(in srgb, var(--rose-500) 06%, transparent);color:#f87171;border:1px solid color-mix(in srgb, var(--rose-500) 15%, transparent)">+{{ s }}</span>
               </div>
               <router-link :to="'/personal/match'" class="text-xs font-mono tracking-wider" style="color:var(--brand-400)">[ DETAIL ]</router-link>
             </div>
@@ -241,7 +240,7 @@
           <div>
             <label class="text-xs font-bold tracking-wide block mb-1.5" :style="{color:'var(--text-muted)'}">关注岗位方向</label>
             <div class="flex flex-wrap gap-2">
-              <button v-for="role in targetRoles" :key="role" class="text-xs px-3 py-1.5 font-mono transition-all" :style="selectedRoles.includes(role)?{background:'var(--brand-500)',color:'white',boxShadow:'0 0 12px rgba(232,83,108,0.3)'}:{background:'var(--bg-secondary)',color:'var(--text-muted)',border:'1px solid var(--border-color)'}" @click="toggleRole(role)">{{ role }}</button>
+              <button v-for="role in targetRoles" :key="role" class="text-xs px-3 py-1.5 font-mono transition-all" :style="selectedRoles.includes(role)?{background:'var(--brand-500)',color:'white',boxShadow:'0 0 12px color-mix(in srgb, var(--brand-500) 30%, transparent)'}:{background:'var(--bg-secondary)',color:'var(--text-muted)',border:'1px solid var(--border-color)'}" @click="toggleRole(role)">{{ role }}</button>
             </div>
           </div>
           <div>
@@ -252,7 +251,7 @@
             <div><label class="text-xs font-bold tracking-wide block mb-1.5" :style="{color:'var(--text-muted)'}">意向城市</label><select v-model="prefCity" class="w-full px-3 py-2 text-sm border font-mono" :style="{background:'var(--bg-card)',color:'var(--text-primary)',borderColor:'var(--border-color)'}"><option>北京</option><option>上海</option><option>深圳</option><option>杭州</option><option>成都</option><option>广州</option></select></div>
             <div><label class="text-xs font-bold tracking-wide block mb-1.5" :style="{color:'var(--text-muted)'}">保鲜通知频率</label><select v-model="notifyFreq" class="w-full px-3 py-2 text-sm border font-mono" :style="{background:'var(--bg-card)',color:'var(--text-primary)',borderColor:'var(--border-color)'}"><option>每周</option><option>每月</option><option>每季度</option><option>关闭</option></select></div>
           </div>
-          <button @click="savePreferences" class="px-6 py-2 text-xs font-mono font-bold text-white transition-all hover:scale-105" style="background:linear-gradient(135deg,var(--brand-600),var(--brand-500));clip-path:polygon(0 0,calc(100% - 10px) 0,100% 100%,0 100%);box-shadow:0 4px 16px rgba(232,83,108,0.3)">SAVE PREFERENCES</button>
+          <button @click="savePreferences" class="px-6 py-2 text-xs font-mono font-bold text-white transition-all hover:scale-105" style="background:linear-gradient(135deg,var(--brand-600),var(--brand-500));clip-path:polygon(0 0,calc(100% - 10px) 0,100% 100%,0 100%);box-shadow:0 4px 16px color-mix(in srgb, var(--brand-500) 30%, transparent)">SAVE PREFERENCES</button>
         </div>
       </div>
     </div>
@@ -261,6 +260,7 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 import { usePersonalStore } from '@/stores/personal'
 import { useNotify } from '@/composables/useNotify'
 import { useScrollReveal } from '@/composables/useScrollReveal'
@@ -295,7 +295,8 @@ const editPriorities = ['薪资优先','技术成长','工作生活平衡','平�
 const editTravel = ref(false)
 const editRelocate = ref(true)
 const editWorkMode = ref('混合办公')
-const resumeName = ref('张明_高级前端开发工程师.pdf')
+const router = useRouter()
+function goResume(){ router.push('/personal/resume') }
 
 const birthYears = Array.from({length:30},(_,i)=>2026-18-i) // 18岁到48岁
 
@@ -304,7 +305,7 @@ const userTitle = computed(() => editTitle.value)
 const userLevel = ref(24)
 
 const tabs = [
-  { key:'profile', label:'职业档案', color:'#818cf8' },
+  { key:'profile', label:'职业档案', color:'var(--brand-400)' },
   { key:'skills', label:'技能总览', color:'#10b981' },
   { key:'match', label:'匹配快照', color:'#06b6d4' },
   { key:'milestones', label:'职业里程碑', color:'#f59e0b' },
@@ -320,7 +321,7 @@ const radarDims = computed<RadarDimension[]>(() => {
 
 const skillCategories = computed(() => {
   const catMap = new Map<string,{name:string;total:number;healthy:number;skills:{name:string;status:string;freshness:number}[],color:string}>()
-  const colors = ['#6366f1','#06b6d4','#10b981','#f59e0b','#a855f7','#f43f5e']; let ci=0
+  const colors = ['var(--brand-500)','#06b6d4','#10b981','#f59e0b','#a855f7','#f43f5e']; let ci=0
   store.skills.forEach(s=>{const c=catMap.get(s.category)||{name:s.category,total:0,healthy:0,skills:[],color:colors[ci++%colors.length]};c.total++;if(s.freshness>=60)c.healthy++;c.skills.push({name:s.name,status:s.status,freshness:s.freshness});catMap.set(s.category,c)})
   return [...catMap.values()]
 })
@@ -328,24 +329,24 @@ const skillCategories = computed(() => {
 interface Milestone { id:number;name:string;desc:string;icon:string;rarity:string;rarityBg:string;rarityColor:string;color:string;unlocked:boolean;progress:number;target:number }
 const demoMilestones: Milestone[] = [
   { id:1,name:'首次匹配',desc:'完成第一次人岗匹配',icon:'◆',rarity:'COMMON',rarityBg:'rgba(107,114,128,0.1)',rarityColor:'#6b7280',color:'#6b7280',unlocked:true,progress:1,target:1},
-  { id:2,name:'技能图谱',desc:'掌握8项以上可识别技能',icon:'◈',rarity:'RARE',rarityBg:'rgba(99,102,241,0.1)',rarityColor:'#6366f1',color:'#6366f1',unlocked:true,progress:12,target:8},
-  { id:3,name:'保鲜达人',desc:'连续3个月保鲜度>80%',icon:'▲',rarity:'RARE',rarityBg:'rgba(99,102,241,0.1)',rarityColor:'#6366f1',color:'#6366f1',unlocked:true,progress:3,target:3},
-  { id:4,name:'跨界突破',desc:'完成一次转行分析',icon:'⬢',rarity:'EPIC',rarityBg:'rgba(168,85,247,0.1)',rarityColor:'#a855f7',color:'#a855f7',unlocked:false,progress:0,target:1},
-  { id:5,name:'顶尖匹配',desc:'匹配度达到85%',icon:'★',rarity:'EPIC',rarityBg:'rgba(168,85,247,0.1)',rarityColor:'#a855f7',color:'#a855f7',unlocked:false,progress:72,target:85},
-  { id:6,name:'学习路径',desc:'完成一条学习路径',icon:'⌖',rarity:'RARE',rarityBg:'rgba(99,102,241,0.1)',rarityColor:'#6366f1',color:'#6366f1',unlocked:false,progress:2,target:5},
-  { id:7,name:'薪资跃升',desc:'匹配薪资达期望',icon:'◉',rarity:'EPIC',rarityBg:'rgba(168,85,247,0.1)',rarityColor:'#a855f7',color:'#a855f7',unlocked:false,progress:0,target:1},
-  { id:8,name:'全栈专家',desc:'掌握5个领域技能',icon:'❖',rarity:'LEGENDARY',rarityBg:'rgba(245,158,11,0.1)',rarityColor:'#d4a574',color:'#f59e0b',unlocked:false,progress:4,target:5},
+  { id:2,name:'技能图谱',desc:'掌握8项以上可识别技能',icon:'◈',rarity:'RARE',rarityBg:'color-mix(in srgb, var(--brand-500) 10%, transparent)',rarityColor:'var(--brand-500)',color:'var(--brand-500)',unlocked:true,progress:12,target:8},
+  { id:3,name:'保鲜达人',desc:'连续3个月保鲜度>80%',icon:'▲',rarity:'RARE',rarityBg:'color-mix(in srgb, var(--brand-500) 10%, transparent)',rarityColor:'var(--brand-500)',color:'var(--brand-500)',unlocked:true,progress:3,target:3},
+  { id:4,name:'跨界突破',desc:'完成一次转行分析',icon:'⬢',rarity:'EPIC',rarityBg:'color-mix(in srgb, var(--purple-500) 10%, transparent)',rarityColor:'#a855f7',color:'#a855f7',unlocked:false,progress:0,target:1},
+  { id:5,name:'顶尖匹配',desc:'匹配度达到85%',icon:'★',rarity:'EPIC',rarityBg:'color-mix(in srgb, var(--purple-500) 10%, transparent)',rarityColor:'#a855f7',color:'#a855f7',unlocked:false,progress:72,target:85},
+  { id:6,name:'学习路径',desc:'完成一条学习路径',icon:'⌖',rarity:'RARE',rarityBg:'color-mix(in srgb, var(--brand-500) 10%, transparent)',rarityColor:'var(--brand-500)',color:'var(--brand-500)',unlocked:false,progress:2,target:5},
+  { id:7,name:'薪资跃升',desc:'匹配薪资达期望',icon:'◉',rarity:'EPIC',rarityBg:'color-mix(in srgb, var(--purple-500) 10%, transparent)',rarityColor:'#a855f7',color:'#a855f7',unlocked:false,progress:0,target:1},
+  { id:8,name:'全栈专家',desc:'掌握5个领域技能',icon:'❖',rarity:'LEGENDARY',rarityBg:'color-mix(in srgb, var(--amber-500) 10%, transparent)',rarityColor:'#d4a574',color:'#f59e0b',unlocked:false,progress:4,target:5},
 ]
 // 真实 /api/personal/milestones 覆盖 demo（Silent Fallback）
 const careerMilestones = computed<Milestone[]>(() => {
   if (!store.milestones.length) return demoMilestones
   const rarityMeta: Record<string, { bg: string; color: string }> = {
     common: { bg: 'rgba(107,114,128,0.1)', color: '#6b7280' },
-    rare: { bg: 'rgba(99,102,241,0.1)', color: '#6366f1' },
-    epic: { bg: 'rgba(168,85,247,0.1)', color: '#a855f7' },
-    legendary: { bg: 'rgba(245,158,11,0.1)', color: '#d4a574' },
+    rare: { bg: 'color-mix(in srgb, var(--brand-500) 10%, transparent)', color: 'var(--brand-500)' },
+    epic: { bg: 'color-mix(in srgb, var(--purple-500) 10%, transparent)', color: '#a855f7' },
+    legendary: { bg: 'color-mix(in srgb, var(--amber-500) 10%, transparent)', color: '#d4a574' },
   }
-  const colors = ['#6b7280', '#6366f1', '#06b6d4', '#10b981', '#f59e0b', '#a855f7', '#f43f5e', '#d4a574']
+  const colors = ['#6b7280', 'var(--brand-500)', '#06b6d4', '#10b981', '#f59e0b', '#a855f7', '#f43f5e', '#d4a574']
   return store.milestones.map((m, i) => {
     const meta = rarityMeta[(m.rarity || 'common').toLowerCase()] || rarityMeta.common
     return {
@@ -362,9 +363,8 @@ const selectedRoles = ref(['AI工程师','全栈开发'])
 const salaryMin = ref(30); const salaryMax = ref(60)
 const prefCity = ref('北京'); const notifyFreq = ref('每月')
 function toggleRole(role:string){const i=selectedRoles.value.indexOf(role);if(i>=0)selectedRoles.value.splice(i,1);else selectedRoles.value.push(role)}
-function triggerUpload(){ resumeName.value = resumeName.value || '简历.pdf' }
-function saveProfile(){notify('✅ 档案已保存',`${editName.value} 的职业档案已更新`,'success')}
-function savePreferences(){notify('✅ 偏好已保存','求职偏好设置已更新','success')}
+function saveProfile(){notify('✓ 档案已保存',`${editName.value} 的职业档案已更新`,'success')}
+function savePreferences(){notify('✓ 偏好已保存','求职偏好设置已更新','success')}
 const skillTags = ref(['Python','TypeScript','React','深度学习','NLP','SQL','Docker','系统设计'])
 const tagInputVisible = ref(false)
 const newTag = ref('')

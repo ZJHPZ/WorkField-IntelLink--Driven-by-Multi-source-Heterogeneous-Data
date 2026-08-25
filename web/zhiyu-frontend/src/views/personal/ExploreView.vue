@@ -238,7 +238,7 @@
                       <div class="panel-asymmetric p-2 text-center"><div class="text-[7px] tracking-widest" style="color:var(--text-muted)">CITY</div><div class="data-segment text-sm" style="color:var(--text-primary)">{{ selectedPosition.city }}</div></div>
                       <div class="panel-asymmetric p-2 text-center"><div class="text-[7px] tracking-widest" style="color:var(--text-muted)">EXP</div><div class="data-segment text-sm" style="color:var(--text-primary)">{{ selectedPosition.exp }}</div></div>
                     </div>
-                    <div class="mb-3"><div class="text-[8px] tracking-widest mb-1.5" style="color:var(--brand-400)">必备技能</div><div class="flex flex-wrap gap-1"><span v-for="s in selectedPosition.requiredSkills" :key="s" class="text-[9px] px-1.5 py-0.5 font-mono" :style="{background:isUserSkill(s)?'rgba(16,185,129,0.1)':'rgba(99,102,241,0.06)',color:isUserSkill(s)?'var(--mint-500)':'var(--brand-400)',border:'1px solid '+(isUserSkill(s)?'rgba(16,185,129,0.25)':'rgba(99,102,241,0.15)')}">{{ s }}</span></div></div>
+                    <div class="mb-3"><div class="text-[8px] tracking-widest mb-1.5" style="color:var(--brand-400)">必备技能</div><div class="flex flex-wrap gap-1"><span v-for="s in selectedPosition.requiredSkills" :key="s" class="text-[9px] px-1.5 py-0.5 font-mono" :style="{background:isUserSkill(s)?'color-mix(in srgb, var(--mint-500) 10%, transparent)':'color-mix(in srgb, var(--brand-500) 06%, transparent)',color:isUserSkill(s)?'var(--mint-500)':'var(--brand-400)',border:'1px solid '+(isUserSkill(s)?'color-mix(in srgb, var(--mint-500) 25%, transparent)':'color-mix(in srgb, var(--brand-500) 15%, transparent)')}">{{ s }}</span></div></div>
                     <div class="mb-4"><div class="text-[8px] tracking-widest mb-1.5" style="color:var(--text-muted)">加分技能</div><div class="flex flex-wrap gap-1"><span v-for="s in selectedPosition.bonusSkills" :key="s" class="text-[9px] px-1.5 py-0.5 font-mono" style="background:var(--bg-secondary);color:var(--text-muted);border:1px solid var(--border-color)">{{ s }}</span></div></div>
                     <div class="flex gap-2 pt-3" style="border-top:1px dashed var(--border-color)">
                       <router-link to="/personal/match" class="px-3 py-1.5 text-[9px] font-bold tracking-wider uppercase text-white bg-brand-500 hover:bg-brand-600 transition-colors" style="clip-path:polygon(0 0,calc(100% - 4px) 0,100% 100%,0 100%)">匹配分析</router-link>
@@ -274,7 +274,7 @@
                 <div class="flex items-center justify-between mb-3"><span class="tag-plate" :style="{color:role.verdictColor,borderColor:role.verdictColor}">{{ role.verdict }}</span><span class="data-segment text-sm" :style="{color:role.verdictColor}">{{ role.confidence }}</span></div>
                 <h3 class="text-sm font-bold mb-2" style="color:var(--text-primary)">{{ role.name }}</h3>
                 <p class="text-[10px] mb-3" style="color:var(--text-secondary)">{{ role.description }}</p>
-                <div class="flex flex-wrap gap-1 mb-3"><span v-for="s in role.skills" :key="s" class="text-[8px] px-1.5 py-0.5 font-mono" style="background:rgba(6,182,212,0.06);color:var(--cyan-400);border:1px solid rgba(6,182,212,0.15)">{{ s }}</span></div>
+                <div class="flex flex-wrap gap-1 mb-3"><span v-for="s in role.skills" :key="s" class="text-[8px] px-1.5 py-0.5 font-mono" style="background:color-mix(in srgb, var(--cyan-500) 06%, transparent);color:var(--cyan-400);border:1px solid color-mix(in srgb, var(--cyan-500) 15%, transparent)">{{ s }}</span></div>
                 <div class="text-[9px] font-mono" style="color:var(--text-muted)">{{ role.evidenceCount }} JDs · {{ role.industry }}</div>
               </div>
             </div>
@@ -284,8 +284,12 @@
           <div v-if="activeModule === 'graph'" class="panel-industrial panel-circuit p-5 shadow-deep relative">
             <div class="rivet" style="top:8px;left:8px"></div><div class="rivet" style="top:8px;right:8px"></div>
             <div class="relative z-[1]">
-              <div class="flex items-center gap-2 mb-4"><span class="tag-plate" style="color:var(--mint-400);border-color:var(--mint-500)">GRAPH</span><h3 class="text-xs font-bold tracking-wide uppercase" style="color:var(--text-primary)">岗位技能全景图谱</h3></div>
-              <div class="text-center py-10"><p class="text-[10px] tracking-wider mb-3" style="color:var(--text-muted)">图谱可视化组件 · AntV G6</p><router-link to="/enterprise/graph" class="inline-block px-4 py-2 text-[9px] font-bold tracking-wider uppercase text-white bg-brand-500 hover:bg-brand-600 transition-colors" style="clip-path:polygon(0 0,calc(100% - 4px) 0,100% 100%,0 100%)">进入全屏图谱</router-link></div>
+              <div class="flex items-center gap-2 mb-4"><span class="tag-plate" style="color:var(--mint-400);border-color:var(--mint-500)">GRAPH</span><h3 class="text-xs font-bold tracking-wide uppercase" style="color:var(--text-primary)">技能信号棱镜</h3></div>
+              <SignalPrism :beams="graphBeams" :height="280" />
+              <div class="mt-3 flex items-center justify-between">
+                <span class="text-[9px] font-mono tracking-widest" style="color:var(--text-muted)">{{ graphBeams.length }} SOURCES · {{ store.skills.length }} SKILLS</span>
+                <router-link to="/enterprise/graph" class="px-4 py-2 text-[9px] font-bold tracking-wider uppercase text-white bg-brand-500 hover:bg-brand-600 transition-colors" style="clip-path:polygon(0 0,calc(100% - 4px) 0,100% 100%,0 100%)">进入全屏图谱</router-link>
+              </div>
             </div>
           </div>
 
@@ -313,6 +317,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
 import { usePersonalStore } from '@/stores/personal'
+import SignalPrism from '@/components/personal/SignalPrism.vue'
 
 const store = usePersonalStore()
 const activeModule = ref<string|null>(null)
@@ -397,6 +402,24 @@ const discoveredRoles = [
 // ── 人才需求数据 ──
 const emergingSkills = [{ name:'RAG', emergence:'2.96' },{ name:'DeepSpeed', emergence:'2.41' },{ name:'LoRA', emergence:'2.15' },{ name:'Transformer', emergence:'1.89' },{ name:'LangChain', emergence:'1.72' },{ name:'FSDP', emergence:'1.55' }]
 const decliningSkills = [{ name:'jQuery', decline:'0.82' },{ name:'Theano', decline:'0.95' },{ name:'Hadoop MR', decline:'0.68' },{ name:'SVN', decline:'0.71' },{ name:'Flash', decline:'0.98' },{ name:'Perl', decline:'0.65' }]
+
+// ── 图谱信号棱镜（按技能类别聚合，Silent Fallback）──
+const graphBeams = computed(() => {
+  const catCount = new Map<string, number>()
+  store.skills.forEach(s => { catCount.set(s.category, (catCount.get(s.category) || 0) + 1) })
+  const cats = [...catCount.entries()].sort((a, b) => b[1] - a[1]).slice(0, 5)
+  if (!cats.length) return [
+    { source: 'AI/ML', label: 'AI/ML', count: 24, color: '#22d3ee', targetY: 70 },
+    { source: '前端', label: '前端', count: 18, color: '#34d399', targetY: 140 },
+    { source: '数据', label: '数据', count: 12, color: '#a855f7', targetY: 210 },
+  ]
+  const colors = ['#22d3ee', '#34d399', '#a855f7', '#fbbf24', '#fb7185']
+  return cats.map(([label, count], i) => ({
+    source: label, label, count,
+    color: colors[i % colors.length],
+    targetY: 50 + (i / Math.max(cats.length - 1, 1)) * 180,
+  }))
+})
 
 onMounted(() => { store.fetchSkills(); store.fetchMatches() })
 </script>

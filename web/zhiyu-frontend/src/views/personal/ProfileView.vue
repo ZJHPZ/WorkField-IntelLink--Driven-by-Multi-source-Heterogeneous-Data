@@ -16,7 +16,7 @@
       <div class="lg:col-span-2 space-y-4">
         <div class="panel-bridge p-5 shadow-deep">
           <div class="flex items-center gap-4 mb-4">
-            <div class="w-14 h-14 rounded-sm bg-brand-gradient flex items-center justify-center text-white font-bold text-xl shadow-lg" style="box-shadow:0 6px 20px rgba(232,83,108,0.3)">{{ userName.charAt(0) }}</div>
+            <div class="w-14 h-14 rounded-sm bg-brand-gradient flex items-center justify-center text-white font-bold text-xl shadow-lg" style="box-shadow:0 6px 20px color-mix(in srgb, var(--brand-500) 30%, transparent)">{{ userName.charAt(0) }}</div>
             <div>
               <div class="flex items-center gap-2"><span class="tag-plate">ID</span><h2 class="text-base font-bold" :style="{color:'var(--text-primary)'}">{{ userName }}</h2></div>
               <p class="text-sm" :style="{color:'var(--text-secondary)'}">{{ userTitle }}</p>
@@ -24,18 +24,17 @@
             </div>
           </div>
           <div class="grid grid-cols-2 gap-2 mb-4">
-            <div class="p-3 text-center rounded-sm" style="background:rgba(232,83,108,0.04);border:1px solid rgba(232,83,108,0.1)"><div class="data-giant text-xl text-brand-500 data-segment">{{ store.skillCount }}</div><div class="text-xs font-mono tracking-widest mt-0.5" :style="{color:'var(--text-muted)'}">SKILLS</div></div>
-            <div class="p-3 text-center rounded-sm" style="background:rgba(16,185,129,0.04);border:1px solid rgba(16,185,129,0.1)"><div class="data-giant text-xl text-mint-500 data-segment">{{ store.healthySkillCount }}</div><div class="text-xs font-mono tracking-widest mt-0.5" :style="{color:'var(--text-muted)'}">HEALTHY</div></div>
-            <div class="p-3 text-center rounded-sm" style="background:rgba(99,102,241,0.04);border:1px solid rgba(99,102,241,0.1)"><div class="data-giant text-xl text-brand-500">{{ topCategory }}</div><div class="text-xs font-mono tracking-widest mt-0.5" :style="{color:'var(--text-muted)'}">TOP CAT</div></div>
-            <div class="p-3 text-center rounded-sm" style="background:rgba(6,182,212,0.04);border:1px solid rgba(6,182,212,0.1)"><div class="data-giant text-xl text-cyan-500 data-segment">+{{ growthNetGain }}</div><div class="text-xs font-mono tracking-widest mt-0.5" :style="{color:'var(--text-muted)'}">GROWTH</div></div>
+            <div class="p-3 text-center rounded-sm" style="background:color-mix(in srgb, var(--brand-500) 04%, transparent);border:1px solid color-mix(in srgb, var(--brand-500) 10%, transparent)"><div class="data-giant text-xl text-brand-500 data-segment">{{ store.skillCount }}</div><div class="text-xs font-mono tracking-widest mt-0.5" :style="{color:'var(--text-muted)'}">SKILLS</div></div>
+            <div class="p-3 text-center rounded-sm" style="background:color-mix(in srgb, var(--mint-500) 04%, transparent);border:1px solid color-mix(in srgb, var(--mint-500) 10%, transparent)"><div class="data-giant text-xl text-mint-500 data-segment">{{ store.healthySkillCount }}</div><div class="text-xs font-mono tracking-widest mt-0.5" :style="{color:'var(--text-muted)'}">HEALTHY</div></div>
+            <div class="p-3 text-center rounded-sm" style="background:color-mix(in srgb, var(--brand-500) 04%, transparent);border:1px solid color-mix(in srgb, var(--brand-500) 10%, transparent)"><div class="data-giant text-xl text-brand-500">{{ topCategory }}</div><div class="text-xs font-mono tracking-widest mt-0.5" :style="{color:'var(--text-muted)'}">TOP CAT</div></div>
+            <div class="p-3 text-center rounded-sm" style="background:color-mix(in srgb, var(--cyan-500) 04%, transparent);border:1px solid color-mix(in srgb, var(--cyan-500) 10%, transparent)"><div class="data-giant text-xl text-cyan-500 data-segment">+{{ growthNetGain }}</div><div class="text-xs font-mono tracking-widest mt-0.5" :style="{color:'var(--text-muted)'}">GROWTH</div></div>
           </div>
-          <!-- 简历上传 -->
-          <div class="border-2 border-dashed rounded-sm p-4 text-center transition-all cursor-pointer group hover:border-brand-400" :style="{borderColor:'var(--border-color)'}" @click="triggerUpload">
+          <!-- 简历上传 → 跳转简历解析页 -->
+          <div class="border-2 border-dashed rounded-sm p-4 text-center transition-all cursor-pointer group hover:border-brand-400" :style="{borderColor:'var(--border-color)'}" @click="goResume">
             <svg class="w-8 h-8 mx-auto mb-1.5 opacity-30 group-hover:opacity-60 transition-opacity" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke-linecap="round"/><polyline points="14 2 14 8 20 8" stroke-linecap="round"/><line x1="12" y1="18" x2="12" y2="12" stroke-linecap="round"/><line x1="9" y1="15" x2="15" y2="15" stroke-linecap="round"/></svg>
-            <p class="text-xs font-bold font-mono" :style="{color:'var(--text-secondary)'}">UPLOAD RESUME</p>
-            <p class="text-xs mt-0.5 font-mono" :style="{color:'var(--text-muted)'}">PDF · WORD · AUTO PARSE</p>
+            <p class="text-xs font-bold font-mono" :style="{color:'var(--text-secondary)'}">上传简历</p>
+            <p class="text-xs mt-0.5 font-mono" :style="{color:'var(--text-muted)'}">前往简历解析 · PDF · WORD</p>
           </div>
-          <div v-if="uploadStatus" class="mt-2 text-xs font-mono text-center" :style="{color:uploadStatus==='success'?'var(--mint-500)':'#f87171'}">{{ uploadStatus==='success'?'RESUME PARSED · SKILLS UPDATED':'PARSE FAILED · RETRY' }}</div>
         </div>
         <!-- 成长曲线 -->
         <div class="panel-bridge p-4 shadow-deep">
@@ -58,7 +57,7 @@
             <PanelHeader label="CONSTELLATION" title="技能星座图" color="purple" margin="none" />
             <span class="text-xs font-mono flex items-center gap-3" :style="{color:'var(--text-muted)'}">
               <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-mint-500"></span>健康</span>
-              <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full" style="background:#6366f1"></span>匹配</span>
+              <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full" style="background:var(--brand-500)"></span>匹配</span>
               <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-amber-400"></span>预警</span>
               <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-rose-500"></span>缺失</span>
             </span>
@@ -127,7 +126,7 @@
                 <span class="font-bold" :style="{color:'var(--text-primary)'}">{{ skill.level==='expert'?'EXPERT':skill.level==='advanced'?'ADVANCED':skill.level==='intermediate'?'INTERMEDIATE':'BASIC' }}</span>
               </div>
               <div class="h-2 progress-track-dark rounded-sm" style="background:var(--bg-secondary)">
-                <div class="h-full rounded-sm transition-all duration-700" :style="{width:getLevelPct(skill.level)+'%',background:'linear-gradient(90deg,var(--brand-400),var(--brand-600))',boxShadow:'0 0 8px rgba(99,102,241,0.2)'}"></div>
+                <div class="h-full rounded-sm transition-all duration-700" :style="{width:getLevelPct(skill.level)+'%',background:'linear-gradient(90deg,var(--brand-400),var(--brand-600))',boxShadow:'0 0 8px color-mix(in srgb, var(--brand-500) 20%, transparent)'}"></div>
               </div>
             </div>
             <!-- 市场需求 — 中等条 -->
@@ -178,7 +177,7 @@
                 <span class="font-mono" :style="{color:'var(--text-secondary)'}">{{ skill.firstSeen }}</span>
               </div>
               <div class="flex flex-wrap gap-1 mt-1">
-                <span v-for="tag in getRelatedPositions(skill)" :key="tag" class="text-xs px-2 py-0.5 font-mono rounded-sm" style="background:rgba(99,102,241,0.06);color:var(--brand-400);border:1px solid rgba(99,102,241,0.15)">{{ tag }}</span>
+                <span v-for="tag in getRelatedPositions(skill)" :key="tag" class="text-xs px-2 py-0.5 font-mono rounded-sm" style="background:color-mix(in srgb, var(--brand-500) 06%, transparent);color:var(--brand-400);border:1px solid color-mix(in srgb, var(--brand-500) 15%, transparent)">{{ tag }}</span>
               </div>
             </div>
           </Transition>
@@ -191,6 +190,7 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 import { usePersonalStore } from '@/stores/personal'
 import type { SkillItem } from '@/stores/personal'
 import { useScrollReveal } from '@/composables/useScrollReveal'
@@ -210,8 +210,8 @@ useScrollReveal()
 const userName = ref('张明'); const userTitle = ref('高级前端开发工程师')
 const userWorkYears = ref('6Y'); const userEducation = ref('本科'); const userLocation = ref('北京')
 
-const uploadStatus = ref<'success'|'error'|null>(null)
-function triggerUpload(){uploadStatus.value=null;setTimeout(()=>{uploadStatus.value='success'},1500)}
+const router = useRouter()
+function goResume(){ router.push('/personal/resume') }
 
 const activeFilter = ref('all')
 const skillFilters = [{key:'all',label:'ALL'},{key:'healthy',label:'HEALTHY'},{key:'alert',label:'ALERT'},{key:'expert',label:'EXPERT'}]
@@ -294,8 +294,8 @@ const growthChartOption = computed(() => ({
 }))
 const topCategory = computed(()=>store.topSkillCategory)
 
-function getStatusColor(s:string){const m:Record<string,string>={healthy:'#10b981',matched:'#6366f1',alert:'#f59e0b',missing_high:'#f43f5e',missing_low:'#f97316'};return m[s]||'#6b7280'}
-function getStatusBg(s:string){const m:Record<string,string>={healthy:'rgba(16,185,129,0.06)',matched:'rgba(99,102,241,0.06)',alert:'rgba(245,158,11,0.06)',missing_high:'rgba(244,63,94,0.06)',missing_low:'rgba(249,115,22,0.06)'};return m[s]||'rgba(107,114,128,0.06)'}
+function getStatusColor(s:string){const m:Record<string,string>={healthy:'#10b981',matched:'var(--brand-500)',alert:'#f59e0b',missing_high:'#f43f5e',missing_low:'#f97316'};return m[s]||'#6b7280'}
+function getStatusBg(s:string){const m:Record<string,string>={healthy:'color-mix(in srgb, var(--mint-500) 06%, transparent)',matched:'color-mix(in srgb, var(--brand-500) 06%, transparent)',alert:'color-mix(in srgb, var(--amber-500) 06%, transparent)',missing_high:'color-mix(in srgb, var(--rose-500) 06%, transparent)',missing_low:'rgba(249,115,22,0.06)'};return m[s]||'rgba(107,114,128,0.06)'}
 function getStatusLabel(s:string){const m:Record<string,string>={healthy:'HEALTHY',matched:'MATCHED',alert:'ALERT',missing_high:'HIGH GAP',missing_low:'LOW GAP'};return m[s]||s}
 function getLevelPct(l:string){const m:Record<string,number>={expert:95,advanced:78,intermediate:50,basic:25};return m[l]||30}
 function getLevelDot(l:string){const m:Record<string,number>={expert:10,advanced:8,intermediate:6,basic:4};return m[l]||5}

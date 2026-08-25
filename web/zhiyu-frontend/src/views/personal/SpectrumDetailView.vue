@@ -121,7 +121,7 @@ const skill = computed(() => store.signalByName(route.params.skill as string))
 useScrollReveal()
 
 const sourceLabels: Record<string, string> = { jd: '招聘JD', github: 'GitHub Trending', arxiv: 'arXiv 论文', standard: '行业标准' }
-const sourceColors: Record<string, string> = { jd: '#818cf8', github: '#06b6d4', arxiv: '#a855f7', standard: '#10b981' }
+const sourceColors: Record<string, string> = { jd: 'var(--brand-400)', github: '#06b6d4', arxiv: '#a855f7', standard: '#10b981' }
 const statusColors: Record<string, string> = { confirmed: '#10b981', candidate: '#f59e0b', unverified: '#64748b' }
 
 const statusColor = computed(() =>

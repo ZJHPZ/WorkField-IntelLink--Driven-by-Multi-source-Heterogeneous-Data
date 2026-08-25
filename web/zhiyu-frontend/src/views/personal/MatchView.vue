@@ -26,8 +26,8 @@
             <div class="text-xs" :style="{color:'var(--text-muted)'}">{{ m.company }}</div>
             <div class="text-xs font-mono text-brand-500 mt-0.5">{{ m.salaryRange }}</div>
             <div class="flex gap-1 mt-1.5 flex-wrap">
-              <span v-for="s in m.matchedSkills.slice(0,2)" :key="s" class="text-xs px-1 rounded-sm font-mono" style="background:rgba(16,185,129,0.08);color:var(--mint-500);border:1px solid rgba(16,185,129,0.2)">{{ s }}</span>
-              <span v-if="m.missingSkills.length" class="text-xs px-1 rounded-sm font-mono" style="background:rgba(244,63,94,0.06);color:#f87171;border:1px solid rgba(244,63,94,0.15)">-{{ m.missingSkills.length }}</span>
+              <span v-for="s in m.matchedSkills.slice(0,2)" :key="s" class="text-xs px-1 rounded-sm font-mono" style="background:color-mix(in srgb, var(--mint-500) 08%, transparent);color:var(--mint-500);border:1px solid color-mix(in srgb, var(--mint-500) 20%, transparent)">{{ s }}</span>
+              <span v-if="m.missingSkills.length" class="text-xs px-1 rounded-sm font-mono" style="background:color-mix(in srgb, var(--rose-500) 06%, transparent);color:#f87171;border:1px solid color-mix(in srgb, var(--rose-500) 15%, transparent)">-{{ m.missingSkills.length }}</span>
             </div>
           </div>
         </div>
@@ -45,8 +45,8 @@
       </div>
       <div class="panel-industrial p-4 flex flex-col shadow-deep">
         <h3 class="text-sm font-bold tracking-wide uppercase mb-3" :style="{color:'var(--text-primary)'}">差距分析</h3>
-        <div class="mb-3"><div class="text-xs font-bold tracking-wide mb-1 flex items-center gap-1" style="color:var(--mint-500)"><span class="w-1.5 h-1.5 rounded-full bg-mint-500"></span> MATCHED ({{ selectedMatch.matchedSkills.length }})</div><div class="flex flex-wrap gap-1"><span v-for="s in selectedMatch.matchedSkills" :key="s" class="text-xs px-1.5 py-0.5 rounded-sm font-mono" style="background:rgba(16,185,129,0.06);color:var(--mint-500);border:1px solid rgba(16,185,129,0.2)">{{ s }}</span></div></div>
-        <div class="mb-3"><div class="text-xs font-bold tracking-wide mb-1 flex items-center gap-1" style="color:#f87171"><span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span> MISSING ({{ selectedMatch.missingSkills.length }})</div><div class="space-y-1.5"><div v-for="s in selectedMatch.missingSkills" :key="s" class="flex justify-between text-xs p-1.5 rounded-sm font-mono" style="border:1px solid rgba(244,63,94,0.15);background:rgba(244,63,94,0.03)"><span style="color:#f87171">{{ s }}</span><span style="color:#f87171">~{{ estH(s) }}h</span></div></div></div>
+        <div class="mb-3"><div class="text-xs font-bold tracking-wide mb-1 flex items-center gap-1" style="color:var(--mint-500)"><span class="w-1.5 h-1.5 rounded-full bg-mint-500"></span> MATCHED ({{ selectedMatch.matchedSkills.length }})</div><div class="flex flex-wrap gap-1"><span v-for="s in selectedMatch.matchedSkills" :key="s" class="text-xs px-1.5 py-0.5 rounded-sm font-mono" style="background:color-mix(in srgb, var(--mint-500) 06%, transparent);color:var(--mint-500);border:1px solid color-mix(in srgb, var(--mint-500) 20%, transparent)">{{ s }}</span></div></div>
+        <div class="mb-3"><div class="text-xs font-bold tracking-wide mb-1 flex items-center gap-1" style="color:#f87171"><span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span> MISSING ({{ selectedMatch.missingSkills.length }})</div><div class="space-y-1.5"><div v-for="s in selectedMatch.missingSkills" :key="s" class="flex justify-between text-xs p-1.5 rounded-sm font-mono" style="border:1px solid color-mix(in srgb, var(--rose-500) 15%, transparent);background:color-mix(in srgb, var(--rose-500) 03%, transparent)"><span style="color:#f87171">{{ s }}</span><span style="color:#f87171">~{{ estH(s) }}h</span></div></div></div>
         <div class="mt-auto p-3 flex items-center gap-3 panel-dark-zone" style="border:1px solid var(--border-color)">
           <ProgressRing :percentage="selectedMatch.matchRate" :size="40" :stroke-width="4" :color="selectedMatch.matchRate>=80?'#10b981':selectedMatch.matchRate>=65?'#f59e0b':getBrandColor()" :show-sign="false" />
           <div class="text-xs">

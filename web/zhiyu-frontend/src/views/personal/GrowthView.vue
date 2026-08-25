@@ -61,7 +61,7 @@
           </div>
           <div v-if="unmetRequirements.length" class="space-y-1.5">
             <div class="text-xs font-bold tracking-wide flex items-center gap-1" :style="{color:'var(--text-muted)'}"><span class="w-1.5 h-1.5 rounded-full" style="background:#f59e0b"></span>待提升 ({{ unmetRequirements.length }})</div>
-            <div v-for="req in unmetRequirements" :key="req.skill" class="flex items-center gap-2 p-2.5 text-xs panel-asymmetric" style="background:rgba(244,63,94,0.02)">
+            <div v-for="req in unmetRequirements" :key="req.skill" class="flex items-center gap-2 p-2.5 text-xs panel-asymmetric" style="background:color-mix(in srgb, var(--rose-500) 02%, transparent)">
               <span class="font-mono font-bold" :style="{color:'var(--text-primary)'}">{{ req.skill }}</span>
               <span class="font-mono ml-auto" :style="{color:'var(--text-muted)'}">{{ req.currentLevel }} → {{ req.requiredLevel }}</span>
               <div class="w-12 h-1.5 progress-track-dark" style="background:var(--bg-secondary)"><div class="h-full rounded-sm bg-brand-gradient" :style="{width:req.progress+'%'}"></div></div>
@@ -91,7 +91,7 @@ const levels = computed<LevelDef[]>(()=>{
   const total=store.skillCount; const expert=store.skills.filter(s=>s.level==='expert'||s.level==='advanced').length
   const defs:LevelDef[]=[
     {key:'junior',label:'初级',icon:'◆',color:'#6b7280',glowColor:'#9ca3af',skillRequirement:'5 SKILLS',progress:100,status:'achieved'},
-    {key:'mid',label:'中级',icon:'◈',color:'#6366f1',glowColor:'#818cf8',skillRequirement:'8 SKILLS',progress:Math.min(100,Math.round((total/8)*100)),status:'current'},
+    {key:'mid',label:'中级',icon:'◈',color:'var(--brand-500)',glowColor:'var(--brand-400)',skillRequirement:'8 SKILLS',progress:Math.min(100,Math.round((total/8)*100)),status:'current'},
     {key:'senior',label:'高级',icon:'▲',color:'#06b6d4',glowColor:'#22d3ee',skillRequirement:'10 SKILLS + 3 EXPERT',progress:Math.min(100,Math.round((expert/3)*100)),status:'upcoming'},
     {key:'expert',label:'专家',icon:'★',color:'#10b981',glowColor:'#34d399',skillRequirement:'12 SKILLS + 5 EXPERT',progress:Math.min(100,Math.round((expert/5)*100)),status:'locked'},
   ]
@@ -137,10 +137,10 @@ const estMonthsToNext = computed(()=>{const u=unmetRequirements.value.length;ret
 
 const demoSkillTimeline = [
   {date:'2022.03',color:'#6b7280',badgeBg:'rgba(107,114,128,0.1)',badgeColor:'#6b7280',skillsGained:3,skills:['Python','SQL','Git'],cumulativeCount:3,description:'毕业后入职，Java后端开发起步'},
-  {date:'2023.06',color:'#6366f1',badgeBg:'rgba(99,102,241,0.1)',badgeColor:'#6366f1',skillsGained:2,skills:['Docker/K8s','React'],cumulativeCount:5,description:'转向全栈开发，接触前端和容器化'},
-  {date:'2024.03',color:'#06b6d4',badgeBg:'rgba(6,182,212,0.1)',badgeColor:'#06b6d4',skillsGained:2,skills:['深度学习','NLP'],cumulativeCount:7,description:'AI浪潮下转投机器学习方向'},
-  {date:'2024.09',color:'#a855f7',badgeBg:'rgba(168,85,247,0.1)',badgeColor:'#a855f7',skillsGained:3,skills:['TypeScript','系统设计','数据分析'],cumulativeCount:10,description:'系统性提升架构能力和工程化思维'},
-  {date:'2025.06',color:'#10b981',badgeBg:'rgba(16,185,129,0.1)',badgeColor:'#10b981',skillsGained:2,skills:['MLOps','Go'],cumulativeCount:12,description:'ML工程化实践，Go语言入门'},
+  {date:'2023.06',color:'var(--brand-500)',badgeBg:'color-mix(in srgb, var(--brand-500) 10%, transparent)',badgeColor:'var(--brand-500)',skillsGained:2,skills:['Docker/K8s','React'],cumulativeCount:5,description:'转向全栈开发，接触前端和容器化'},
+  {date:'2024.03',color:'#06b6d4',badgeBg:'color-mix(in srgb, var(--cyan-500) 10%, transparent)',badgeColor:'#06b6d4',skillsGained:2,skills:['深度学习','NLP'],cumulativeCount:7,description:'AI浪潮下转投机器学习方向'},
+  {date:'2024.09',color:'#a855f7',badgeBg:'color-mix(in srgb, var(--purple-500) 10%, transparent)',badgeColor:'#a855f7',skillsGained:3,skills:['TypeScript','系统设计','数据分析'],cumulativeCount:10,description:'系统性提升架构能力和工程化思维'},
+  {date:'2025.06',color:'#10b981',badgeBg:'color-mix(in srgb, var(--mint-500) 10%, transparent)',badgeColor:'#10b981',skillsGained:2,skills:['MLOps','Go'],cumulativeCount:12,description:'ML工程化实践，Go语言入门'},
 ]
 const timelineColors = [PALETTE.mint, PALETTE.cyan, PALETTE.purple, PALETTE.amber, PALETTE.rose]
 // 真实 /api/personal/growth.timeline 覆盖 demo（Silent Fallback）

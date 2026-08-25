@@ -19,7 +19,7 @@ import { ref, watch, onMounted } from 'vue'
 const props = withDefaults(defineProps<{
   value: number; prevValue?: number; label: string; icon?: string
   valueClass?: string; suffix?: string; valueText?: string; pulse?: boolean
-}>(), { icon:'📊' })
+}>(), { icon:'▦' })
 
 const animatedValue = ref(props.prevValue??0)
 const trend = ref(0)

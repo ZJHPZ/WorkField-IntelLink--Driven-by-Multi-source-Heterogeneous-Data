@@ -145,7 +145,7 @@ const statusFilter = ref<'all' | 'confirmed' | 'candidate' | 'unverified'>('all'
 useScrollReveal()
 
 const sourceLabels: Record<string, string> = { jd: 'JD', github: 'GitHub', arxiv: 'arXiv', standard: 'Standard' }
-const sourceColors: Record<string, string> = { jd: '#818cf8', github: '#06b6d4', arxiv: '#a855f7', standard: '#10b981' }
+const sourceColors: Record<string, string> = { jd: 'var(--brand-400)', github: '#06b6d4', arxiv: '#a855f7', standard: '#10b981' }
 const statusColors: Record<string, string> = { confirmed: '#10b981', candidate: '#f59e0b', unverified: '#64748b' }
 const statusFilters = [
   { key: 'confirmed' as const, label: '已验证', color: '#10b981' },
@@ -239,7 +239,7 @@ function goDetail(s: SignalDetail) {
 .filter-input::placeholder { color: var(--text-muted); opacity: 0.6; }
 .filter-input:focus {
   border-color: var(--brand-500);
-  box-shadow: 0 0 10px rgba(99,102,241,0.2);
+  box-shadow: 0 0 10px color-mix(in srgb, var(--brand-500) 20%, transparent);
 }
 
 /* ── 状态筛选芯片 ── */

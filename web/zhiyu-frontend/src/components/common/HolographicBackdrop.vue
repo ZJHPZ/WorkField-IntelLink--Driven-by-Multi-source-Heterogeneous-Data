@@ -19,7 +19,7 @@ const props = withDefaults(defineProps<{
   scanLines?: boolean  // 扫描线
   noise?: boolean      // 噪声扰动
 }>(), {
-  color: () => getBrandColor('#6366f1'),
+  color: () => getBrandColor(),
   speed: 1,
   intensity: 0.3,
   scanLines: true,

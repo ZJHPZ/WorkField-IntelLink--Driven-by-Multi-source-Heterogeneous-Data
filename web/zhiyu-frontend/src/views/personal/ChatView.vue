@@ -56,7 +56,7 @@
         <button
           @click="chatStore.createSession()"
           class="w-full px-4 py-2.5 text-[10px] font-bold tracking-[0.2em] uppercase text-white transition-all hover:scale-[1.02] shadow-deep"
-          style="background:linear-gradient(135deg,var(--brand-600),var(--brand-500));clip-path:polygon(0 0,calc(100% - 8px) 0,100% 100%,0 100%);box-shadow:0 4px 16px rgba(99,102,241,0.3)"
+          style="background:linear-gradient(135deg,var(--brand-600),var(--brand-500));clip-path:polygon(0 0,calc(100% - 8px) 0,100% 100%,0 100%);box-shadow:0 4px 16px color-mix(in srgb, var(--brand-500) 30%, transparent)"
         >
           + NEW SESSION
         </button>
@@ -169,7 +169,7 @@
               @click="onSend"
               :disabled="!chatStore.inputText.trim() || chatStore.isStreaming"
               class="self-end px-6 py-3 text-[10px] font-bold tracking-[0.2em] uppercase text-white disabled:opacity-30 disabled:cursor-not-allowed transition-all hover:scale-[1.02] shadow-deep"
-              style="background:linear-gradient(135deg,var(--brand-600),var(--brand-500));clip-path:polygon(0 0,calc(100% - 8px) 0,100% 100%,0 100%);box-shadow:0 4px 16px rgba(99,102,241,0.3)"
+              style="background:linear-gradient(135deg,var(--brand-600),var(--brand-500));clip-path:polygon(0 0,calc(100% - 8px) 0,100% 100%,0 100%);box-shadow:0 4px 16px color-mix(in srgb, var(--brand-500) 30%, transparent)"
             >
               <span v-if="!chatStore.isStreaming" class="flex items-center gap-2">
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>

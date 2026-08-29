@@ -194,7 +194,8 @@ function goDetail(s: SignalDetail) {
   router.push('/personal/spectrum/' + encodeURIComponent(s.skillName))
 }
 
-// 信号数据无独立端点，诚实保留 demo 数据（Silent Fallback）
+// 信号数据：挂载时拉取 /api/jd/signals（T5·jd 源），合并进 demo（Silent Fallback）
+onMounted(() => { store.fetchSignalDetails() })
 </script>
 
 <style scoped>

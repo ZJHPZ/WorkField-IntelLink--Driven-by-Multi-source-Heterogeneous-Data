@@ -238,6 +238,12 @@
                       <div class="panel-asymmetric p-2 text-center"><div class="text-[7px] tracking-widest" style="color:var(--text-muted)">CITY</div><div class="data-segment text-sm" style="color:var(--text-primary)">{{ selectedPosition.city }}</div></div>
                       <div class="panel-asymmetric p-2 text-center"><div class="text-[7px] tracking-widest" style="color:var(--text-muted)">EXP</div><div class="data-segment text-sm" style="color:var(--text-primary)">{{ selectedPosition.exp }}</div></div>
                     </div>
+                    <div v-if="selectedPosition.topCompanies?.length" class="mb-3">
+                      <div class="text-[8px] tracking-widest mb-1.5" style="color:var(--text-muted)">TOP COMPANIES · {{ selectedPosition.jdCount }} JD</div>
+                      <div class="flex flex-wrap gap-1">
+                        <span v-for="c in selectedPosition.topCompanies.slice(0, 4)" :key="c.company_name" class="text-[9px] px-1.5 py-0.5 font-mono" :style="{background:'var(--bg-secondary)',color:'var(--text-secondary)',border:'1px solid var(--border-color)'}">{{ c.company_name }} ×{{ c.count }}</span>
+                      </div>
+                    </div>
                     <div class="mb-3"><div class="text-[8px] tracking-widest mb-1.5" style="color:var(--brand-400)">必备技能</div><div class="flex flex-wrap gap-1"><span v-for="s in selectedPosition.requiredSkills" :key="s" class="text-[9px] px-1.5 py-0.5 font-mono" :style="{background:isUserSkill(s)?'color-mix(in srgb, var(--mint-500) 10%, transparent)':'color-mix(in srgb, var(--brand-500) 06%, transparent)',color:isUserSkill(s)?'var(--mint-500)':'var(--brand-400)',border:'1px solid '+(isUserSkill(s)?'color-mix(in srgb, var(--mint-500) 25%, transparent)':'color-mix(in srgb, var(--brand-500) 15%, transparent)')}">{{ s }}</span></div></div>
                     <div class="mb-4"><div class="text-[8px] tracking-widest mb-1.5" style="color:var(--text-muted)">加分技能</div><div class="flex flex-wrap gap-1"><span v-for="s in selectedPosition.bonusSkills" :key="s" class="text-[9px] px-1.5 py-0.5 font-mono" style="background:var(--bg-secondary);color:var(--text-muted);border:1px solid var(--border-color)">{{ s }}</span></div></div>
                     <div class="flex gap-2 pt-3" style="border-top:1px dashed var(--border-color)">
@@ -258,7 +264,7 @@
             <div class="relative z-[1]">
               <div class="flex items-center gap-2 mb-4"><span class="tag-plate" style="color:var(--cyan-400);border-color:var(--cyan-500)">TIMELINE</span><h3 class="text-xs font-bold tracking-wide uppercase" style="color:var(--text-primary)">岗位能力演化时间线</h3></div>
               <div class="space-y-0">
-                <div v-for="(ev, i) in evolutionEvents" :key="ev.date" class="flex gap-4">
+                <div v-for="(ev, i) in evolutionEvents" :key="ev.date + '-' + i" class="flex gap-4">
                   <div class="flex flex-col items-center w-3"><span class="w-3 h-3 rounded-full flex-shrink-0" :style="{background:ev.color,boxShadow:'0 0 6px '+ev.color}"></span><div v-if="i < evolutionEvents.length-1" class="w-px flex-1 my-1" style="background:var(--border-color)"></div></div>
                   <div class="pb-5 flex-1"><div class="flex items-center gap-2 mb-1"><span class="data-segment text-[10px]" :style="{color:ev.color}">{{ ev.date }}</span><span class="tag-plate text-[7px]" :style="{color:ev.color,borderColor:ev.color}">{{ ev.type }}</span></div><p class="text-[11px] font-bold" style="color:var(--text-primary)">{{ ev.skill }}</p><p class="text-[9px] mt-0.5" style="color:var(--text-muted)">{{ ev.detail }}</p></div>
                 </div>
@@ -275,7 +281,7 @@
                 <h3 class="text-sm font-bold mb-2" style="color:var(--text-primary)">{{ role.name }}</h3>
                 <p class="text-[10px] mb-3" style="color:var(--text-secondary)">{{ role.description }}</p>
                 <div class="flex flex-wrap gap-1 mb-3"><span v-for="s in role.skills" :key="s" class="text-[8px] px-1.5 py-0.5 font-mono" style="background:color-mix(in srgb, var(--cyan-500) 06%, transparent);color:var(--cyan-400);border:1px solid color-mix(in srgb, var(--cyan-500) 15%, transparent)">{{ s }}</span></div>
-                <div class="text-[9px] font-mono" style="color:var(--text-muted)">{{ role.evidenceCount }} JDs · {{ role.industry }}</div>
+                <div class="text-[9px] font-mono" style="color:var(--text-muted)">{{ role.evidenceCount ? role.evidenceCount + ' JDs · ' : '' }}{{ role.industry }}</div>
               </div>
             </div>
           </div>
@@ -318,6 +324,7 @@
 import { ref, computed, onMounted } from 'vue'
 import { usePersonalStore } from '@/stores/personal'
 import SignalPrism from '@/components/personal/SignalPrism.vue'
+import client from '@/api/client'
 
 const store = usePersonalStore()
 const activeModule = ref<string|null>(null)
@@ -327,37 +334,34 @@ const activeFilters = ref<string[]>([])
 function expandModule(key: string) { activeModule.value = key }
 function collapseModule() { activeModule.value = null; selectedPosition.value = null }
 
-// ── 岗位库预览 ──
-const previewPositions = [
-  { name:'AI 算法工程师', match:72, salary:'40-70K' },
-  { name:'全栈开发工程师', match:85, salary:'30-50K' },
-  { name:'大数据工程师', match:52, salary:'35-60K' },
-]
-
-// ── 演化预览 ──
-const previewEvolution = [
-  { date:'Q3', label:'RAG 新增为必备', color:'var(--mint-500)' },
-  { date:'Q2', label:'DeepSpeed 升级', color:'var(--mint-500)' },
-  { date:'Q1', label:'Theano 删除', color:'var(--rose-500)' },
-]
-
-// ── 新岗发现预览 ──
-const previewDiscovery = [
-  { name:'RAG 工程师', verdict:'Pending', color:'#f59e0b' },
-  { name:'MLOps 工程师', verdict:'Confirmed', color:'var(--mint-500)' },
-]
-
-// ── 人才需求预览 ticker ──
-const previewTicker = [
-  { name:'RAG', direction:'up', value:'2.96' },
-  { name:'DeepSpeed', direction:'up', value:'2.41' },
-  { name:'jQuery', direction:'down', value:'0.82' },
-  { name:'Theano', direction:'down', value:'0.95' },
-]
+// ── 模组网格预览（previewPositions/Evolution/Discovery/Ticker 为 computed，
+//    由下方真实数据 ref 派生，接口落库后模块卡预览同步刷新 —— 见「数据接线区」）──
 
 // ── 岗位库数据 ──
 const techStacks = ['人工智能', '大数据', '智能系统', '物联网']
 const allPositions = computed(() => {
+  // 真实岗位库优先：store.positions 来自 /api/positions（T1 画像 + T4 技能），
+  // 含真实城市/薪资/公司/技能；空时回退 matches（用户匹配）与硬编码 demo。
+  if (store.positions.length) {
+    const maxJd = Math.max(...store.positions.map(p => p.jdCount || 0))
+    return store.positions.map(p => ({
+      id: p.position_id,
+      name: p.name,
+      type: p.position_type,
+      techStack: p.tech_stack,
+      skillCount: p.skill_count,
+      salary: p.salaryRange || '—',
+      city: p.city || '—',
+      exp: '—',
+      jdCount: p.jdCount || 0,
+      topCompanies: p.topCompanies || [],
+      topCities: p.topCities || [],
+      // 市场需求热度：按 jd_count 归一化，替代个人匹配率（无个人匹配语境）
+      matchRate: maxJd ? Math.max(5, Math.min(99, Math.round(((p.jdCount || 0) / maxJd) * 99))) : 60,
+      requiredSkills: (p.requiredSkills || []).slice(0, 8),
+      bonusSkills: (p.bonusSkills || []).slice(0, 8),
+    }))
+  }
   if (store.matches.length) {
     return store.matches.map(m => ({
       id:m.id, name:m.positionName, type:'既有', techStack:'人工智能',
@@ -384,24 +388,113 @@ function toggleFilter(s:string){const i=activeFilters.value.indexOf(s);if(i>=0)a
 function selectPosition(p:any){selectedPosition.value=p}
 function isUserSkill(n:string){return store.skills.some(s=>s.name.toLowerCase()===n.toLowerCase())}
 
-// ── 演化数据 ──
-const evolutionEvents = [
+// ── 演化数据（Silent Fallback demo）──
+const evolutionEvents = ref([
   { date:'2026-Q3', type:'新增', skill:'RAG 检索增强生成', detail:'多条 JD 新增为必备技能，emergence 2.96', color:'var(--mint-500)' },
   { date:'2026-Q2', type:'新增', skill:'DeepSpeed 分布式训练', detail:'大模型岗位要求从加分升级为必备', color:'var(--mint-500)' },
   { date:'2026-Q1', type:'修改', skill:'Transformer 置信度提升', detail:'从 0.68 → 0.82，跨 JD 验证通过', color:'var(--brand-500)' },
   { date:'2025-Q4', type:'删除', skill:'Theano', detail:'市场需求归零，decline 0.95', color:'var(--rose-500)' },
   { date:'2025-Q3', type:'新增', skill:'LoRA/QLoRA 微调', detail:'大模型微调岗位新增必备技能', color:'var(--mint-500)' },
-]
+])
 
-// ── 新岗发现数据 ──
-const discoveredRoles = [
+// ── 新岗发现数据（Silent Fallback demo）──
+const discoveredRoles = ref([
   { name:'RAG 工程师', verdict:'Pending', verdictColor:'#f59e0b', confidence:'0.7', description:'负责检索增强生成系统的设计与落地，连接大模型与企业知识库', skills:['RAG','向量数据库','LangChain','Embedding'], evidenceCount:6, industry:'AI/知识管理' },
   { name:'MLOps 工程师', verdict:'Confirmed', verdictColor:'var(--mint-500)', confidence:'0.85', description:'负责模型全生命周期管理，从训练到部署到监控的工程化', skills:['Docker','Kubernetes','MLflow','Airflow','CI/CD'], evidenceCount:12, industry:'AI/工程化' },
-]
+])
 
-// ── 人才需求数据 ──
-const emergingSkills = [{ name:'RAG', emergence:'2.96' },{ name:'DeepSpeed', emergence:'2.41' },{ name:'LoRA', emergence:'2.15' },{ name:'Transformer', emergence:'1.89' },{ name:'LangChain', emergence:'1.72' },{ name:'FSDP', emergence:'1.55' }]
-const decliningSkills = [{ name:'jQuery', decline:'0.82' },{ name:'Theano', decline:'0.95' },{ name:'Hadoop MR', decline:'0.68' },{ name:'SVN', decline:'0.71' },{ name:'Flash', decline:'0.98' },{ name:'Perl', decline:'0.65' }]
+// ── 人才需求数据（Silent Fallback demo）──
+const emergingSkills = ref([{ name:'RAG', emergence:'2.96' },{ name:'DeepSpeed', emergence:'2.41' },{ name:'LoRA', emergence:'2.15' },{ name:'Transformer', emergence:'1.89' },{ name:'LangChain', emergence:'1.72' },{ name:'FSDP', emergence:'1.55' }])
+const decliningSkills = ref([{ name:'jQuery', decline:'0.82' },{ name:'Theano', decline:'0.95' },{ name:'Hadoop MR', decline:'0.68' },{ name:'SVN', decline:'0.71' },{ name:'Flash', decline:'0.98' },{ name:'Perl', decline:'0.65' }])
+
+// ── 模组网格预览（由真实数据 ref 派生，接口落库后模块卡预览自动刷新）──
+const previewPositions = computed(() => allPositions.value.slice(0, 3).map(p => ({ name: p.name, match: p.matchRate, salary: p.salary })))
+const previewEvolution = computed(() => evolutionEvents.value.slice(0, 3).map(e => ({ date: e.date, label: `${e.skill} ${e.type}`, color: e.color })))
+const previewDiscovery = computed(() => discoveredRoles.value.slice(0, 2).map(r => ({ name: r.name, verdict: r.verdict, color: r.verdictColor })))
+const previewTicker = computed(() => [
+  ...emergingSkills.value.slice(0, 2).map(s => ({ name: s.name, direction: 'up' as const, value: s.emergence })),
+  ...decliningSkills.value.slice(0, 2).map(s => ({ name: s.name, direction: 'down' as const, value: s.decline })),
+])
+
+// ══ 真实数据接线（Silent Fallback：接口失败 / 返回空时保留上方 demo）══
+
+// 人才需求：新兴/衰退技能排行 → /api/metrics/emerging + /api/metrics/declining
+async function fetchRankings() {
+  try {
+    const em = await client.get('/api/metrics/emerging') as any
+    const dec = await client.get('/api/metrics/declining') as any
+    if (em?.emerging_skills?.length) {
+      emergingSkills.value = em.emerging_skills.slice(0, 6).map((s: any) => ({ name: s.name, emergence: Number(s.emergence || 0).toFixed(2) }))
+    }
+    if (dec?.declining_skills?.length) {
+      decliningSkills.value = dec.declining_skills.slice(0, 6).map((s: any) => ({ name: s.name, decline: Number(s.decline || 0).toFixed(2) }))
+    }
+  } catch { /* silent — demo 保留 */ }
+}
+
+// 新岗发现：流水线/AI 发现候选 → /api/enterprise/discovery（与 T4 新岗发现同源，按岗位名去重）
+async function fetchDiscoveries() {
+  try {
+    const res = await client.get('/api/enterprise/discovery') as any
+    const cands: any[] = res?.candidates || []
+    if (!cands.length) return
+    const seen = new Set<string>()
+    discoveredRoles.value = cands.filter((c: any) => {
+      if (seen.has(c.title)) return false
+      seen.add(c.title)
+      return true
+    }).map((c: any) => {
+      const pending = !String(c.status || '').toLowerCase().includes('confirm')
+      const pro: string[] = c.debatePoints?.pro || []
+      const con: string[] = c.debatePoints?.con || []
+      const source = c.source === 'agent' ? 'AI 辩论' : c.source === 'manual' ? '人工申报' : '流水线发现'
+      return {
+        name: c.title,
+        verdict: pending ? 'Pending' : 'Confirmed',
+        verdictColor: pending ? '#f59e0b' : 'var(--mint-500)',
+        confidence: Number(c.confidence ?? 0.5).toFixed(2),
+        description: pro[0] || con[0] || (pending ? '待评审候选岗位 · 等待 AI 辩论验证' : '候选岗位已通过验证'),
+        skills: [...pro, ...con].slice(0, 8),
+        evidenceCount: c.skillOverlap || 0,
+        industry: source,
+      }
+    })
+  } catch { /* silent — demo 保留 */ }
+}
+
+// 岗位演化：最热岗位（jd_count 最大）的真实月桶时间线。
+// 用 /api/enterprise/positions/{id}/evolution —— 同源 MySQL 数据，节点含 label/marketDemand/summary，
+// 比个人侧月桶接口（仅 from/to/summary）更适合渲染需求热度趋势。
+function topPosition() {
+  if (!store.positions.length) return null
+  return [...store.positions].sort((a, b) => (b.jdCount || 0) - (a.jdCount || 0))[0]
+}
+async function fetchPositionEvolution() {
+  const top = topPosition()
+  if (!top) return
+  try {
+    const res = await client.get(`/api/enterprise/positions/${top.position_id}/evolution`) as any
+    const tl: any[] = res?.timeline || []
+    if (!tl.length) return
+    evolutionEvents.value = tl.map((t: any, i: number) => {
+      const prev = i > 0 ? tl[i - 1].marketDemand : null
+      let type = '需求'
+      if (prev !== null) {
+        if (t.marketDemand > prev) type = '上升'
+        else if (t.marketDemand < prev) type = '回落'
+        else type = '持平'
+      }
+      const color = type === '上升' ? 'var(--mint-500)' : type === '回落' ? 'var(--rose-500)' : 'var(--cyan-500)'
+      return {
+        date: t.label || String(t.date ?? '').replace(/^\d{4}-/, ''),
+        type,
+        skill: top.name,
+        detail: t.summary || t.marketContext || '',
+        color,
+      }
+    })
+  } catch { /* silent — demo 保留 */ }
+}
 
 // ── 图谱信号棱镜（按技能类别聚合，Silent Fallback）──
 const graphBeams = computed(() => {
@@ -421,7 +514,14 @@ const graphBeams = computed(() => {
   }))
 })
 
-onMounted(() => { store.fetchSkills(); store.fetchMatches() })
+onMounted(async () => {
+  store.fetchSkills()
+  store.fetchMatches()
+  await store.fetchPositions()   // 岗位演化需岗位库先就绪（据此选最热岗位）
+  fetchRankings()
+  fetchDiscoveries()
+  fetchPositionEvolution()
+})
 </script>
 
 <style scoped>

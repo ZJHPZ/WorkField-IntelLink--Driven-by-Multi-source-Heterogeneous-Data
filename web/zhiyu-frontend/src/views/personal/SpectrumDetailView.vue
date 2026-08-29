@@ -139,7 +139,8 @@ watchEffect(() => {
   if (skill.value) document.title = `${skill.value.skillName} · 技能信号示波 - 职域智联`
 })
 
-// 信号数据无独立端点，诚实保留 demo 数据（Silent Fallback）
+// 信号数据：挂载时拉取 /api/jd/signals（T5·jd 源），合并进 demo（Silent Fallback）
+onMounted(() => { store.fetchSignalDetails() })
 </script>
 
 <style scoped>

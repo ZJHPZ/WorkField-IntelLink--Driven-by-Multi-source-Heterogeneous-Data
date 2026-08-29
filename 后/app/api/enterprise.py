@@ -15,6 +15,16 @@ from app.persistence.database import get_session
 from app.persistence.zhiyv_models import (
     VerifiedSkill, SkillStat, NewRole, EvolutionRecord,
 )
+from app.services.jd_service import (
+    classify_position_types,
+    get_all_position_profiles,
+    get_all_position_skills,
+    get_position_evolution as get_t3_evolution,
+    get_position_skills,
+    get_quality_diagnoses,
+    infer_tech_stack,
+    salary_range,
+)
 
 router = APIRouter(tags=["企业工作台"])
 
@@ -53,7 +63,26 @@ async def diagnose_jd_endpoint(req: JDDiagnoseRequest):
 
 @router.get("/positions/{position_id}/standard")
 async def get_position_standard(position_id: str):
-    """获取岗位标准定义。从 MySQL verified_skills + skill_stats 读取。"""
+    """获取岗位标准定义。命中 T4 → T4 技能作为标准；否则回退 verified_skills + skill_stats。"""
+    try:
+        skills = await get_position_skills(position_id, limit=100)
+    except Exception:
+        skills = []
+    if skills:
+        return {
+            "status": "ok",
+            "position": {"name": position_id},
+            "skills": [
+                {
+                    "name": s["skill_name"],
+                    "confidence": s["confidence"],
+                    "required_type": s["required_type"],
+                    "status": "confirmed",
+                }
+                for s in skills
+            ],
+        }
+
     try:
         from app.graph.repository import get_position_detail
         detail = await get_position_detail(position_id)
@@ -173,7 +202,47 @@ async def talent_forecast_endpoint(tech_stack: str | None = None):
 
 @router.get("/positions")
 async def list_enterprise_positions():
-    """获取岗位标准列表。前端 GET /api/enterprise/positions。"""
+    """获取岗位标准列表。优先 T1 画像 + T4 技能；空则回退 verified_skills。前端 GET /api/enterprise/positions。"""
+    try:
+        profiles = await get_all_position_profiles()
+    except Exception:
+        profiles = []
+    if profiles:
+        max_jd = max(p["jd_count"] for p in profiles) or 1
+        # T4 全量技能一次读出，按 title 分组
+        skills_by_title: dict[str, list[dict]] = {}
+        try:
+            for s in await get_all_position_skills():
+                skills_by_title.setdefault(s["title"], []).append(s)
+        except Exception:
+            pass
+
+        type_map = classify_position_types(profiles)
+        result = []
+        for p in profiles:
+            skills = skills_by_title.get(p["title"], [])[:20]
+            result.append({
+                "id": p["title"],
+                "name": p["title"],
+                "department": infer_tech_stack(p["title"]),
+                "level": "P5",
+                "skills": [
+                    {
+                        "name": s["skill_name"],
+                        "level": s["level"],
+                        "weight": s["weight"],
+                        "trend": "stable",  # D3：无时间序列，不伪造趋势
+                        "freshness": round(100 * s["confidence"]),
+                    }
+                    for s in skills
+                ],
+                "status": "confirmed" if type_map[p["title"]] == "既有" else "emerging",
+                "lastUpdated": p["latest_posted"] or "",
+                "marketDemand": min(100, round(p["jd_count"] / max_jd * 100)),
+                "matchRate": 0,
+            })
+        return {"positions": result}
+
     from app.graph.repository import get_positions, get_position_detail
 
     positions = await get_positions()
@@ -238,9 +307,31 @@ async def list_discovery():
 
 @router.get("/diagnose")
 async def list_diagnoses():
-    """获取 JD 诊断历史。前端 GET /api/enterprise/diagnose。"""
-    # JD 诊断是实时计算的，这里返回空列表（前端 Silent Fallback 会用 demo 数据）
-    return {"diagnoses": []}
+    """获取 JD 诊断历史。优先 T6（前 50 条）；空则返回空列表（前端 Silent Fallback 用 demo）。"""
+    try:
+        rows = await get_quality_diagnoses(limit=50)
+    except Exception:
+        rows = []
+    if not rows:
+        return {"diagnoses": []}
+
+    # T6 → 前端 JDDiagnosis[] 形状（inflated_items→redundantKeywords 近似，missingKeywords 暂空）
+    return {
+        "diagnoses": [
+            {
+                "id": r["jd_id"],
+                "positionName": r["title"],
+                "jdTitle": r["title"],
+                "submittedAt": r.get("created_at") or "",
+                "inflationIndex": r["inflation_index"],
+                "missingKeywords": [],
+                "redundantKeywords": r.get("inflated_items") or [],
+                "overallScore": r["overall_score"],
+                "status": r["status"],
+            }
+            for r in rows
+        ]
+    }
 
 
 @router.get("/team/gaps")
@@ -267,9 +358,64 @@ async def list_team_gaps():
         }
 
 
-@router.get("/positions/{position_id}/evolution")
+@router.get("/positions/{position_id:path}/evolution")
 async def get_position_evolution(position_id: str):
-    """获取岗位演化时间轴。前端 GET /api/enterprise/positions/:id/evolution。"""
+    """获取岗位演化时间轴。`:path` 放行含 `/` 的岗位名（如 C/C++、法务专员/助理）。
+    命中 T3 → 月桶时间线（薪资/需求/技能）；否则回退 EvolutionRecord。
+    前端 GET /api/enterprise/positions/:id/evolution。"""
+    try:
+        buckets = await get_t3_evolution(position_id)
+    except Exception:
+        buckets = []
+    if buckets:
+        max_count = max(b["jd_count"] for b in buckets) or 1
+        total = sum(b["jd_count"] for b in buckets) or 1
+        # T4 技能快照（title 级，月桶间一致）
+        skills_snapshot = []
+        try:
+            for s in await get_position_skills(position_id, limit=12):
+                skills_snapshot.append({
+                    "name": s["skill_name"],
+                    "level": s["level"],
+                    "weight": s["weight"],
+                    "freshness": round(100 * s["confidence"]),
+                    "change": "unchanged",
+                })
+        except Exception:
+            pass
+        tools = [s["name"] for s in skills_snapshot[:5]]
+
+        timeline = []
+        for b in buckets:
+            month = b["month_key"]
+            label = f"{int(month)}月" if month != "00" else "未标注日期"
+            sal = salary_range(b)
+            demand = min(100, round(b["jd_count"] / max_count * 100))
+            timeline.append({
+                "date": month if month != "00" else "00",
+                "label": label,
+                "marketDemand": demand,
+                "matchRate": 0,
+                "salaryRange": sal,
+                "adoptionRate": demand,
+                "tools": tools,
+                "marketContext": (
+                    f"采样窗口内 {label} 该岗位 JD 需求 {b['jd_count']} 条"
+                    f"（占采样 {round(b['jd_count'] / total * 100)}%），月薪中位 {sal}。"
+                ),
+                "industryEvents": [],
+                "typicalProjects": [],
+                "skills": skills_snapshot,
+                "dataSources": [f"JD采样×{b['jd_count']}"],
+                "summary": f"采样窗口 {label}：JD 需求 {b['jd_count']} 条 · 月薪中位 {sal}",
+            })
+
+        return {
+            "positionId": position_id,
+            "positionName": position_id,
+            "timeline": timeline,
+        }
+
     async for session in get_session():
         stmt = select(EvolutionRecord).where(
             EvolutionRecord.position_id == position_id

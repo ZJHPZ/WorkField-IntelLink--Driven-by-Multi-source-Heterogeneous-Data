@@ -5,9 +5,9 @@
 
 from __future__ import annotations
 
-from datetime import datetime
+from datetime import date, datetime
 
-from sqlalchemy import Float, Integer, String, Text, DateTime, JSON, BigInteger, Enum, Boolean
+from sqlalchemy import Float, Integer, String, Text, DateTime, Date, JSON, BigInteger, Enum, Boolean
 from sqlalchemy.orm import Mapped, mapped_column
 
 from app.persistence.database import Base
@@ -276,3 +276,126 @@ class UserPreference(Base):
     notify_freq: Mapped[str] = mapped_column(String(16), default="weekly")
     created_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True, default=datetime.now)
     updated_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True, default=datetime.now)
+
+
+class JDRecord(Base):
+    """智联招聘 JD 原始记录表 —— 12 列完整采样数据（按岗位编码去重）。对应 zhiyv.jd_records。"""
+    __tablename__ = "jd_records"
+
+    id: Mapped[int] = mapped_column(BigInteger, primary_key=True, autoincrement=True)
+    jd_id: Mapped[str] = mapped_column(String(64), unique=True, index=True)
+    title: Mapped[str] = mapped_column(String(256), index=True)
+    location: Mapped[str] = mapped_column(String(128), default="")
+    city: Mapped[str | None] = mapped_column(String(64), index=True, nullable=True)
+    district: Mapped[str | None] = mapped_column(String(64), nullable=True)
+    salary_raw: Mapped[str] = mapped_column(String(64), default="")
+    salary_min: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    salary_max: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    salary_unit: Mapped[str] = mapped_column(String(8), default="")
+    company_name: Mapped[str] = mapped_column(String(256), default="")
+    industry: Mapped[str] = mapped_column(String(512), default="")
+    company_size: Mapped[str] = mapped_column(String(64), default="")
+    company_type: Mapped[str] = mapped_column(String(64), default="")
+    jd_text: Mapped[str | None] = mapped_column(Text, nullable=True)
+    posted_date_raw: Mapped[str] = mapped_column(String(32), default="")
+    posted_date: Mapped[date | None] = mapped_column(Date, nullable=True)
+    company_desc: Mapped[str | None] = mapped_column(Text, nullable=True)
+    source_url: Mapped[str] = mapped_column(String(512), default="")
+    source: Mapped[str] = mapped_column(String(16), default="zhaopin")
+    created_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True, default=datetime.now)
+
+
+# ══════════════════════════════════════════════
+# JD 数据二次加工派生表（T1–T6，按《JD数据二次加工与展示对接实施计划》P0 建表）
+# 数据源：zhiyv.jd_records；岗位身份 = jd_records.title（D1）
+# ══════════════════════════════════════════════
+
+
+class JDPositionProfile(Base):
+    """T1 岗位画像表 —— 按岗位名(title)聚合的薪资/城市/公司/行业分布。对应 zhiyv.jd_position_profile。"""
+    __tablename__ = "jd_position_profile"
+
+    title: Mapped[str] = mapped_column(String(256), primary_key=True)
+    jd_count: Mapped[int] = mapped_column(Integer, default=0)
+    salary_unit: Mapped[str] = mapped_column(String(8), default="")
+    salary_min_p25: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    salary_min_p50: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    salary_min_p75: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    salary_max_p25: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    salary_max_p50: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    salary_max_p75: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    salary_cover_rate: Mapped[float] = mapped_column(Float, default=0)
+    top_cities: Mapped[dict | None] = mapped_column(JSON, nullable=True)
+    top_companies: Mapped[dict | None] = mapped_column(JSON, nullable=True)
+    industry_dist: Mapped[dict | None] = mapped_column(JSON, nullable=True)
+    size_dist: Mapped[dict | None] = mapped_column(JSON, nullable=True)
+    type_dist: Mapped[dict | None] = mapped_column(JSON, nullable=True)
+    latest_posted: Mapped[date | None] = mapped_column(Date, nullable=True)
+    updated_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True, default=datetime.now)
+
+
+class JDPositionCitySalary(Base):
+    """T2 岗位×城市薪资表。对应 zhiyv.jd_position_city_salary。"""
+    __tablename__ = "jd_position_city_salary"
+
+    title: Mapped[str] = mapped_column(String(256), primary_key=True)
+    city: Mapped[str] = mapped_column(String(64), primary_key=True)
+    jd_count: Mapped[int] = mapped_column(Integer, default=0)
+    salary_min_median: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    salary_max_median: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    salary_unit: Mapped[str] = mapped_column(String(8), default="")
+
+
+class JDPositionEvolution(Base):
+    """T3 岗位演化月桶表 —— 按岗位名×月份桶聚合 JD 需求与薪资中位数。对应 zhiyv.jd_position_evolution。"""
+    __tablename__ = "jd_position_evolution"
+
+    title: Mapped[str] = mapped_column(String(256), primary_key=True)
+    month_key: Mapped[str] = mapped_column(String(16), primary_key=True)
+    jd_count: Mapped[int] = mapped_column(Integer, default=0)
+    salary_min_median: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    salary_max_median: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    salary_unit: Mapped[str] = mapped_column(String(8), default="")
+
+
+class JDPositionSkill(Base):
+    """T4 岗位×技能权重表 —— 从 jd_text 管线抽取聚合。对应 zhiyv.jd_position_skills。"""
+    __tablename__ = "jd_position_skills"
+
+    title: Mapped[str] = mapped_column(String(256), primary_key=True)
+    skill_name: Mapped[str] = mapped_column(String(128), primary_key=True)
+    jd_count: Mapped[int] = mapped_column(Integer, default=0)
+    weight: Mapped[float] = mapped_column(Float, default=0)
+    required_type: Mapped[str] = mapped_column(String(16), default="")
+    level: Mapped[str] = mapped_column(String(16), default="")
+    confidence: Mapped[float] = mapped_column(Float, default=0)
+
+
+class JDSkillSignal(Base):
+    """T5 技能信号统计表（jd 源）。对应 zhiyv.jd_skill_signal。"""
+    __tablename__ = "jd_skill_signal"
+
+    skill_name: Mapped[str] = mapped_column(String(128), primary_key=True)
+    category: Mapped[str] = mapped_column(String(32), default="")
+    jd_frequency: Mapped[int] = mapped_column(Integer, default=0)
+    jd_confidence: Mapped[float] = mapped_column(Float, default=0)
+    jd_examples: Mapped[dict | None] = mapped_column(JSON, nullable=True)
+    verification_status: Mapped[str] = mapped_column(String(16), default="unverified")
+    updated_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True, default=datetime.now)
+
+
+class JDQualityDiagnosis(Base):
+    """T6 JD 质量诊断表 —— 复用 diagnose_jd 批量落库。对应 zhiyv.jd_quality_diagnosis。"""
+    __tablename__ = "jd_quality_diagnosis"
+
+    jd_id: Mapped[str] = mapped_column(String(64), primary_key=True)
+    title: Mapped[str] = mapped_column(String(256), default="")
+    skill_count: Mapped[int] = mapped_column(Integer, default=0)
+    inflation_index: Mapped[float] = mapped_column(Float, default=0)
+    inflated_items: Mapped[dict | None] = mapped_column(JSON, nullable=True)
+    soft_skill_ratio: Mapped[float] = mapped_column(Float, default=0)
+    required_ratio: Mapped[float] = mapped_column(Float, default=0)
+    suggestions: Mapped[dict | None] = mapped_column(JSON, nullable=True)
+    overall_score: Mapped[int] = mapped_column(Integer, default=0)
+    status: Mapped[str] = mapped_column(String(16), default="")
+    created_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True, default=datetime.now)

@@ -372,7 +372,7 @@ function exportReport() {
   notify('演化报告已生成', `${position.value?.name || evo.value?.positionName} · 覆盖 ${evo.value?.timeline[0]?.date} → ${lastDate.value}`)
 }
 
-// ── 同步 ──
+// ── 同步 + 加载演化档案（T3，/api/enterprise/positions/{id}/evolution）──
 function sync() {
   store.setCurrentPosition(id.value)
   stopPlay()
@@ -381,9 +381,15 @@ function sync() {
   diffBase.value = null
   selectedIndex.value = (evo.value?.timeline.length || 1) - 1
 }
-watch(id, sync)
-onMounted(() => {
+async function load() {
   sync()
+  await store.fetchEvolution(id.value)
+  // 真实 T3 时间轴到位后，快照到最新节点
+  selectedIndex.value = (evo.value?.timeline.length || 1) - 1
+}
+watch(id, load)
+onMounted(() => {
+  load()
   store.fetchPositions()
 })
 onUnmounted(() => stopPlay())

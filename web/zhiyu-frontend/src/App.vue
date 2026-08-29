@@ -8,20 +8,30 @@
       class="fixed inset-y-0 left-0 z-50 w-64 flex flex-col lg:relative overflow-hidden sidebar-depth"
       :style="{ backgroundColor: 'var(--sidebar-bg)' }"
     >
-      <!-- 网格 + 电路纹双层覆盖 -->
-      <div class="absolute inset-0 pointer-events-none z-0" style="opacity:0.04;background-image:linear-gradient(rgba(128,128,128,0.5) 1px,transparent 1px),linear-gradient(90deg,rgba(128,128,128,0.5) 1px,transparent 1px);background-size:16px 16px"></div>
-      <div class="absolute inset-0 pointer-events-none z-0 opacity-[0.03]">
+      <!-- 网格 + 电路纹双层覆盖（仅个人侧工业风） -->
+      <div v-if="!appStore.isEnterprise" class="absolute inset-0 pointer-events-none z-0" style="opacity:0.04;background-image:linear-gradient(rgba(128,128,128,0.5) 1px,transparent 1px),linear-gradient(90deg,rgba(128,128,128,0.5) 1px,transparent 1px);background-size:16px 16px"></div>
+      <div v-if="!appStore.isEnterprise" class="absolute inset-0 pointer-events-none z-0 opacity-[0.03]">
         <div class="absolute bottom-20 left-4 w-12 h-px" style="background:var(--brand-500)"></div>
         <div class="absolute bottom-20 left-4 w-px h-12" style="background:var(--brand-500)"></div>
         <div class="absolute top-24 right-6 w-8 h-px" style="background:var(--brand-500)"></div>
         <div class="absolute top-24 right-6 w-px h-8" style="background:var(--brand-500)"></div>
       </div>
-      <!-- 扫描线 -->
-      <div class="absolute left-0 right-0 h-px pointer-events-none z-0" style="background:linear-gradient(90deg,transparent,var(--brand-400),transparent);animation:scanLine 6s linear infinite"></div>
+      <!-- 扫描线（仅个人侧） -->
+      <div v-if="!appStore.isEnterprise" class="absolute left-0 right-0 h-px pointer-events-none z-0" style="background:linear-gradient(90deg,transparent,var(--brand-400),transparent);animation:scanLine 6s linear infinite"></div>
 
       <div class="relative z-[1] flex flex-col h-full">
-      <!-- Logo — 六角形 + 铭牌 -->
-      <div class="px-5 py-4" style="border-bottom:1px solid var(--sidebar-border)">
+      <!-- Logo — 企业侧：蓝皮书文件抬头（制度目录） -->
+      <div v-if="appStore.isEnterprise" class="ent-side-logo">
+        <div class="relative z-[1] flex items-center gap-2.5 px-5 py-4">
+          <span class="seal-chip seal-chip--on-navy ent-side-seal">职</span>
+          <div class="min-w-0">
+            <h2 class="ent-side-logo-title">岗位标准智能管理台</h2>
+            <p class="ent-side-logo-sub">ENTERPRISE BLUEBOOK · 蓝皮书 v1.0</p>
+          </div>
+        </div>
+      </div>
+      <!-- Logo — 个人侧：六角形 + 铭牌 -->
+      <div v-else class="px-5 py-4" style="border-bottom:1px solid var(--sidebar-border)">
         <div class="flex items-center gap-3">
           <div class="relative shrink-0" style="width:38px;height:38px">
             <svg viewBox="0 0 56 56" class="w-full h-full" style="filter:drop-shadow(0 0 8px rgba(232,83,108,0.3))">
@@ -33,18 +43,17 @@
           <div>
             <div class="flex items-center gap-1.5">
               <h1 class="text-sm font-bold tracking-wide uppercase" :style="{color:'var(--text-primary)'}">职域智联</h1>
-              <span class="tag-plate" style="font-size:7px;padding:1px 4px">{{ appStore.isEnterprise?'ENT':'PER' }}</span>
+              <span class="tag-plate" style="font-size:7px;padding:1px 4px">PER</span>
             </div>
-            <p class="text-xs font-mono tracking-wider mt-0.5" :style="{color:'var(--text-muted)'}">
-              {{ appStore.isEnterprise ? 'ENTERPRISE COMMAND' : 'CAREER COMMAND' }}
-            </p>
+            <p class="text-xs font-mono tracking-wider mt-0.5" :style="{color:'var(--text-muted)'}">CAREER COMMAND</p>
           </div>
         </div>
       </div>
 
-      <!-- 分类标签 -->
+      <!-- 分类标签（企业侧：目 录） -->
       <div class="px-5 pt-3 pb-1">
-        <span class="text-xs font-mono tracking-[0.15em] uppercase" style="color:var(--text-muted)">— Navigation —</span>
+        <span v-if="appStore.isEnterprise" class="text-xs font-mono tracking-[0.15em] uppercase ent-toc-title">— 目 录 —</span>
+        <span v-else class="text-xs font-mono tracking-[0.15em] uppercase" style="color:var(--text-muted)">— Navigation —</span>
       </div>
 
       <!-- Nav links — 带属性徽章 -->
@@ -57,20 +66,30 @@
           :class="isActive(item.path) ? 'nav-chip-active' : ''"
           :style="{ color: isActive(item.path) ? 'var(--text-primary)' : 'var(--text-secondary)' }"
         >
-          <!-- 图标 -->
-          <img v-if="item.iconType==='svg'" :src="item.icon" class="w-5 h-5 shrink-0 transition-all" :style="{opacity:isActive(item.path)?'1':'0.55',filter:isActive(item.path)?'drop-shadow(0 0 4px var(--brand-400))':'none'}" alt="" />
-          <span v-else class="text-base shrink-0">{{ item.icon }}</span>
+          <!-- 企业侧：章节编号 -->
+          <span v-if="appStore.isEnterprise" class="ent-toc-num">{{ item.num }}</span>
+          <!-- 个人侧：图标 -->
+          <template v-else>
+            <img v-if="item.iconType==='svg'" :src="item.icon" class="w-5 h-5 shrink-0 transition-all" :style="{opacity:isActive(item.path)?'1':'0.55',filter:isActive(item.path)?'drop-shadow(0 0 4px var(--brand-400))':'none'}" alt="" />
+            <span v-else class="text-base shrink-0">{{ item.icon }}</span>
+          </template>
 
           <!-- 标签 -->
           <span class="text-sm font-bold tracking-wide">{{ item.label }}</span>
         </router-link>
       </nav>
 
-      <!-- 结构梁 -->
-      <div class="beam-divider"></div>
+      <!-- 结构梁（企业侧：细分割线） -->
+      <div v-if="appStore.isEnterprise" class="ent-side-rule mx-5"></div>
+      <div v-else class="beam-divider"></div>
 
-      <!-- 底部 — 用户状态卡，点击进入个人中心 -->
-      <router-link to="/personal/center" class="px-4 py-3 block transition-all hover:bg-brand-50/5 group" style="border-top:1px solid var(--sidebar-border)">
+      <!-- 底部 — 企业侧：制度页脚 -->
+      <div v-if="appStore.isEnterprise" class="ent-side-foot">
+        <div>内部资料 · 数据截止 2026-08</div>
+        <div>编制 · 职域智联 · 蓝皮书 v1.0</div>
+      </div>
+      <!-- 底部 — 个人侧：用户状态卡，点击进入个人中心 -->
+      <router-link v-else to="/personal/center" class="px-4 py-3 block transition-all hover:bg-brand-50/5 group" style="border-top:1px solid var(--sidebar-border)">
         <div class="flex items-center gap-2.5">
           <div class="w-9 h-9 rounded-full bg-brand-gradient flex items-center justify-center text-white font-bold text-xs shrink-0 group-hover:scale-105 transition-transform">张</div>
           <div class="flex-1 min-w-0">
@@ -96,17 +115,13 @@
         </div>
 
         <div class="flex items-center gap-3">
-          <!-- Role switcher -->
-          <div class="flex items-center bg-gray-100 rounded-lg p-0.5">
-            <button
-              :class="['px-2.5 py-1.5 rounded-md text-xs font-medium transition-all', appStore.isEnterprise ? 'bg-white text-space-700 shadow-sm' : 'text-gray-500 hover:text-gray-700']"
-              @click="switchToEnterprise"
-            >🏢 企业</button>
-            <button
-              :class="['px-2.5 py-1.5 rounded-md text-xs font-medium transition-all', appStore.isPersonal ? 'bg-white text-brand-700 shadow-sm' : 'text-gray-500 hover:text-gray-700']"
-              @click="switchToPersonal"
-            >👤 个人</button>
-          </div>
+          <!-- 切换工作台：回选边页（个人/企业 双端从此各走各的前门） -->
+          <button
+            class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold tracking-wider transition-all hover:bg-gray-100 dark:hover:bg-gray-800"
+            style="color:var(--text-secondary)"
+            @click="router.push('/choose')"
+            title="切换 个人侧 / 企业侧"
+          >⟲ 切换工作台</button>
 
           <!-- Theme toggle -->
           <button
@@ -169,7 +184,12 @@ const personalStore = usePersonalStore()
 const { state: notifyState, close: notifyClose } = useNotify()
 
 // 企业侧 / 个人侧 → html 上的 data-side 属性，enterprise.css 据此接管外壳
+// /choose 选边页为中性页：清空 data-side，让双卡各自独立渲染，互不污染
 watchEffect(() => {
+  if (route.path === '/choose') {
+    delete document.documentElement.dataset.side
+    return
+  }
   document.documentElement.dataset.side = appStore.isEnterprise ? 'enterprise' : 'personal'
 })
 
@@ -178,13 +198,13 @@ const currentTitle = computed(() => route.meta.title || '职域智联')
 
 // ── Navigation items ──
 const enterpriseNavItems = [
-  { path: '/enterprise', label: '企业工作台', icon: '🏠' },
-  { path: '/enterprise/positions', label: '岗位标准', icon: '📋' },
-  { path: '/enterprise/discovery', label: '新岗位发现', icon: '🔍' },
-  { path: '/enterprise/diagnose', label: 'JD 诊断', icon: '🩺' },
-  { path: '/enterprise/team', label: '团队盘点', icon: '👥' },
-  { path: '/enterprise/forecast', label: '需求预测', icon: '📊' },
-  { path: '/enterprise/graph', label: '全图谱', icon: '🗺️' },
+  { path: '/enterprise', label: '企业工作台', num: '01' },
+  { path: '/enterprise/positions', label: '岗位标准', num: '02' },
+  { path: '/enterprise/discovery', label: '新岗位发现', num: '03' },
+  { path: '/enterprise/diagnose', label: 'JD 诊断', num: '04' },
+  { path: '/enterprise/team', label: '团队盘点', num: '05' },
+  { path: '/enterprise/forecast', label: '需求预测', num: '06' },
+  { path: '/enterprise/graph', label: '全图谱', num: '07' },
 ]
 
 const personalNavItems = [
@@ -209,7 +229,8 @@ const currentNavItems = computed(() =>
 
 // 丰富导航项 — 注入实时数据元数据
 interface EnrichedNavItem {
-  path: string; label: string; icon: any; iconType?: string
+  path: string; label: string; icon?: any; iconType?: string
+  num?: string
   subtitle?: string; statusDot?: string; badge?: string | number; badgeColor?: string
   progress?: number; progressColor?: string
 }
@@ -262,18 +283,6 @@ const enrichedNavItems = computed<EnrichedNavItem[]>(() => {
 function isActive(path: string): boolean {
   // 精确匹配，避免 /personal/match/compare 激活 /personal/match
   return route.path === path
-}
-
-function switchToEnterprise() {
-  appStore.switchRole('enterprise')
-  themeStore.setPalette('indigo')
-  router.push('/enterprise')
-}
-
-function switchToPersonal() {
-  appStore.switchRole('personal')
-  themeStore.setPalette('warm')
-  router.push('/personal')
 }
 
 onMounted(() => {

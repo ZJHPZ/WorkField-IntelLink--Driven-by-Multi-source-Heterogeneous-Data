@@ -135,6 +135,14 @@ export interface PositionItem {
   tech_stack: string
   position_type: string
   skill_count: number
+  // ── T1/T4 派生可选字段（/api/positions 增强后返回）──
+  city?: string
+  salaryRange?: string
+  jdCount?: number
+  topCompanies?: { company_name: string; count: number }[]
+  topCities?: { city: string; count: number }[]
+  requiredSkills?: string[]
+  bonusSkills?: string[]
 }
 
 // ── 岗位演化 ──
@@ -266,6 +274,10 @@ const demoEvolutionSnapshots: EvolutionSnapshot[] = [
     ] },
 ]
 
+// 信号光谱合并上限 —— /api/jd/signals 返回全量 T5（6,927 条），
+// 光谱网格逐条渲染卡片，全量合并会渲染 6,927 张 DOM 卡片，故按频率取 top-N + 更新既有 demo。
+const SIGNAL_MERGE_CAP = 40
+
 // ── Store ──
 
 export const usePersonalStore = defineStore('personal', () => {
@@ -358,7 +370,56 @@ export const usePersonalStore = defineStore('personal', () => {
   async function fetchPositions() {
     try {
       const res = await client.get('/api/positions') as any
-      if (res?.positions?.length) positions.value = res.positions
+      if (res?.positions?.length) {
+        // /api/positions 返回 snake_case（salary_range / jd_count / top_companies / required_skills…），
+        // 归一化到 PositionItem 接口声明的 camelCase，保证视图读取类型与运行时一致。
+        positions.value = res.positions.map((p: any) => ({
+          position_id: p.position_id,
+          name: p.name,
+          tech_stack: p.tech_stack,
+          position_type: p.position_type,
+          skill_count: p.skill_count,
+          city: p.city,
+          salaryRange: p.salary_range,
+          jdCount: p.jd_count,
+          topCompanies: p.top_companies,
+          topCities: p.top_cities,
+          requiredSkills: p.required_skills,
+          bonusSkills: p.bonus_skills,
+        }))
+      }
+    } catch {}
+  }
+
+  /**
+   * 信号光谱 —— 拉取 /api/jd/signals（T5·jd 源），
+   * 把真实 jd 信号合并进现有 signalDetails（已有技能只替换 jd 源，其余源保留 demo；新技能按频率取 top-N）。
+   */
+  async function fetchSignalDetails() {
+    try {
+      const res = await client.get('/api/jd/signals') as any
+      const ranked: any[] = res?.signals?.length ? [...res.signals] : []
+      if (!ranked.length) return
+      ranked.sort((a, b) => (b.sources?.[0]?.frequency || 0) - (a.sources?.[0]?.frequency || 0))
+      const byName = new Map(signalDetails.value.map(s => [s.skillName, s]))
+      for (const sig of ranked) {
+        const existing = byName.get(sig.skillName)
+        if (existing) {
+          existing.totalConfidence = sig.totalConfidence
+          existing.verificationStatus = sig.verificationStatus
+          existing.sources = [...sig.sources, ...existing.sources.filter(s => s.source !== 'jd')]
+        } else if (signalDetails.value.length < SIGNAL_MERGE_CAP) {
+          signalDetails.value.push({
+            skillName: sig.skillName,
+            category: sig.category,
+            totalConfidence: sig.totalConfidence,
+            verificationStatus: sig.verificationStatus,
+            sources: sig.sources,
+          })
+        } else {
+          break
+        }
+      }
     } catch {}
   }
 
@@ -398,6 +459,7 @@ export const usePersonalStore = defineStore('personal', () => {
     skills, matches, learningPath, alerts, switchOptions, signalDetails, evolutionSnapshots, positions, profile, growth, milestones, loading,
     skillCount, healthySkillCount, alertSkillCount, bestMatch, topSkillCategory, signalByName,
     fetchSkills, fetchMatches, fetchLearningPath, fetchFreshness, fetchSwitchOptions, fetchPositions, fetchEvolution,
+    fetchSignalDetails,
     fetchProfile, fetchGrowth, fetchMilestones,
   }
 })

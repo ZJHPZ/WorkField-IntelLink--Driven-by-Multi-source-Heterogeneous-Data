@@ -1,12 +1,26 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { useAppStore } from '@/stores/app'
 
 const router = createRouter({
   history: createWebHistory(),
   routes: [
-    // ── Root redirect ──
+    // ── Root redirect：记忆上次选择 → 直接进对应侧；新用户 → 选边页 ──
     {
       path: '/',
-      redirect: '/enterprise',
+      redirect: () => {
+        const r = localStorage.getItem('app_role')
+        return r === 'personal' ? '/personal' : r === 'enterprise' ? '/enterprise' : '/choose'
+      },
+    },
+
+    // ═══════════════════════════════════════════
+    // 选边页 (Role Choose) — 双端前门，无 meta.role（守卫放行）
+    // ═══════════════════════════════════════════
+    {
+      path: '/choose',
+      name: 'RoleChoose',
+      component: () => import('@/views/RoleChooseView.vue'),
+      meta: { title: '选择工作台', fullscreen: true },
     },
 
     // ═══════════════════════════════════════════
@@ -25,13 +39,14 @@ const router = createRouter({
       meta: { title: '岗位标准管理', role: 'enterprise' },
     },
     {
-      path: '/enterprise/positions/:id',
+      // 岗位 title 可能含 `/`（如 法务专员/助理），`:id(.*)` 允许斜杠
+      path: '/enterprise/positions/:id(.*)',
       name: 'PositionDetail',
       component: () => import('@/views/enterprise/PositionDetailView.vue'),
       meta: { title: '岗位详情', role: 'enterprise' },
     },
     {
-      path: '/enterprise/positions/:id/diff',
+      path: '/enterprise/positions/:id(.*)/diff',
       name: 'PositionDiff',
       component: () => import('@/views/enterprise/PositionDiffView.vue'),
       meta: { title: '差异报告', role: 'enterprise' },
@@ -155,7 +170,8 @@ const router = createRouter({
       meta: { title: '技能信号光谱', role: 'personal' },
     },
     {
-      path: '/personal/spectrum/:skill',
+      // 技能名可能含 `/`，同样用 `(.*)` 放行斜杠
+      path: '/personal/spectrum/:skill(.*)',
       name: 'SpectrumDetail',
       component: () => import('@/views/personal/SpectrumDetailView.vue'),
       meta: { title: '技能信号示波', role: 'personal' },
@@ -171,6 +187,9 @@ const router = createRouter({
 
 router.beforeEach((to) => {
   document.title = `${to.meta.title || '职域智联'} - 岗位标准智能管理平台`
+  // 跨侧守卫：目标路由声明了 role 且与当前身份不符 → 弹回选边页
+  const role = to.meta.role
+  if (role && role !== useAppStore().role) return '/choose'
 })
 
 export default router

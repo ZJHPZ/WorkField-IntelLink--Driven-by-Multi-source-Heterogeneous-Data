@@ -62,11 +62,12 @@ Design languages are separate — **two independent design systems, both impleme
     │   ├── src/
     │   │   ├── api/client.ts      # Axios instance + interceptor (returns response.data directly)
     │   │   ├── components/
-    │   │   │   ├── common/        # 5 shared components (CosmicBackground, ProgressRing, HudCell, NotificationBar, HolographicBackdrop)
+    │   │   │   ├── common/        # 7 shared components (CosmicBackground, ProgressRing, HudCell, NotificationBar, HolographicBackdrop, HexAvatar, PanelHeader)
     │   │   │   ├── enterprise/    # Enterprise-specific components
     │   │   │   ├── personal/      # Personal-specific (MatchRadar, MatchOrbit, SkillConstellation, LighthouseBeacon, EvolutionChain, SpectrumOscilloscope, SignalPrism)
     │   │   │   └── chat/          # ChatMessage.vue (AI chat)
     │   │   ├── composables/       # useEChartsTheme, useNotify, useScrollReveal
+    │   │   ├── utils/             # color.ts, graph.ts, matches.ts (e.g. buildMatchRadarDimensions), noise.ts
     │   │   ├── router/index.ts    # 10 enterprise + 15 personal routes (lazy-loaded)
     │   │   ├── stores/            # Pinia: app, enterprise, personal, chat, theme
     │   │   ├── styles/            # CSS files — the real design system
@@ -290,8 +291,8 @@ All of the following applies to the **个人侧 (personal side)** views. Do NOT 
 | Background | Deep space nebula | `CosmicBackground.vue` |
 | Position/skill cards | Stars — glowing, stable, or fading | 视图内联状态卡 + 语义色 token (mint/amber/rose) |
 | Match rate | Orbital progress ring | `ProgressRing.vue` (SVG circle, gradient stroke) |
-| Health bar | Lighthouse beam | `EnergyBar.vue` with brand/mint/amber/rose variants |
-| Discovery celebration | Supernova burst | `StageCompleteModal` (confetti + scale-in) |
+| Health bar | Lighthouse beam | `LighthouseBeacon.vue` — sweeping beam + health arc gauge, flicker-warn below 50 |
+| Discovery celebration | Supernova burst | `confetti-burst` keyframe in `animations.css` — no modal component wired yet |
 | AI processing | Heartbeat pulse | `heartbeat-pulse` keyframe |
 | Holographic layer | 3D hologram | `HolographicBackdrop.vue` (Three.js) |
 | Sidebar nav items | IC chip modules | `.nav-chip` with metallic border, pin contacts, power-on glow |

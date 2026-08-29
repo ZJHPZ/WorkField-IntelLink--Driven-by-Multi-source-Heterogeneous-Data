@@ -731,11 +731,19 @@ export const useEnterpriseStore = defineStore('enterprise', () => {
     } catch {}
   }
 
+  /** 市场技能（T4）—— PositionDiffView 市场侧；title 为岗位名（编码由 axios params 处理） */
+  async function fetchMarket(title: string) {
+    try {
+      const res = await client.get('/api/jd/market', { params: { title } }) as any
+      if (res?.skills?.length) market.value[title] = res.skills
+    } catch {}
+  }
+
   return {
     positions, candidates, diagnoses, market, teamGaps, forecast, evolutions, currentEvolution, currentPositionId, graphData, loading,
     graph, graphSource, graphNodes, graphLinks, snapshot, snapshotDiff,
     positionCount, confirmedCount, candidateCount, avgMatchRate, warningCount, highPriorityGaps,
-    fetchPositions, fetchCandidates, fetchDiagnoses, fetchTeamGaps, fetchForecast, fetchEvolution, fetchGraph, fetchSnapshotDiff,
+    fetchPositions, fetchCandidates, fetchDiagnoses, fetchTeamGaps, fetchForecast, fetchEvolution, fetchMarket, fetchGraph, fetchSnapshotDiff,
     setCurrentPosition, setCandidateStatus,
   }
 })

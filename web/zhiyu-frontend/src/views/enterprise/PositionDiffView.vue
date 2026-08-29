@@ -300,5 +300,5 @@ function exportReport() {
   notify('对比报告已导出', `${position.value?.name} · 含差异清单 ${rows.value.length} 项 · PDF 已生成`)
 }
 
-onMounted(() => { store.fetchPositions() })
+onMounted(() => { store.fetchPositions(); store.fetchMarket(id.value) })
 </script>

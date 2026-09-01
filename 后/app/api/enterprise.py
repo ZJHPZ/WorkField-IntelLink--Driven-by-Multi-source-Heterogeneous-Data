@@ -6,7 +6,7 @@
 from __future__ import annotations
 
 from fastapi import APIRouter, HTTPException
-from pydantic import BaseModel
+from pydantic import BaseModel, Field, ConfigDict
 from sqlalchemy import select
 
 from app.api.deps import get_api_system
@@ -15,6 +15,16 @@ from app.persistence.database import get_session
 from app.persistence.zhiyv_models import (
     VerifiedSkill, SkillStat, NewRole, EvolutionRecord,
 )
+from app.services.talent_pool_service import (
+    list_candidates as list_talent_candidates,
+    get_candidate_detail,
+    upsert_annotation,
+)
+from app.services.enterprise_profile_service import (
+    get_profile as get_enterprise_profile,
+    upsert_profile as upsert_enterprise_profile,
+)
+from app.services.avatar_service import avatar_config as get_avatar_config
 from app.services.jd_service import (
     classify_position_types,
     get_all_position_profiles,
@@ -51,6 +61,44 @@ class ValidatePositionRequest(BaseModel):
 class StandardUpdateRequest(BaseModel):
     skills: list[dict] = []
     description: str = ""
+
+
+class TalentAnnotationRequest(BaseModel):
+    """人才库 HR 标注 —— 全字段可选（partial 更新）。
+    前端传 camelCase（hrStatus），模型字段为 snake_case（hr_status），别名双兼容。"""
+
+    model_config = ConfigDict(populate_by_name=True)
+
+    favorite: bool | None = None
+    hr_status: str | None = Field(None, alias="hrStatus")
+    note: str | None = None
+
+
+class EnterpriseProfileRequest(BaseModel):
+    """企业资料 —— 全字段可选（partial 更新）。多词字段 camelCase 别名双兼容。"""
+
+    model_config = ConfigDict(populate_by_name=True)
+
+    name: str | None = None
+    short_name: str | None = Field(None, alias="shortName")
+    logo_emoji: str | None = Field(None, alias="logoEmoji")
+    uscc: str | None = None
+    nature: str | None = None
+    industry: str | None = None
+    founded_year: int | None = Field(None, alias="foundedYear")
+    headcount: str | None = None
+    financing: str | None = None
+    city: str | None = None
+    address: str | None = None
+    website: str | None = None
+    description: str | None = None
+    tags: list[str] | None = None
+    tech_stack: list[str] | None = Field(None, alias="techStack")
+    hiring_channels: list[str] | None = Field(None, alias="hiringChannels")
+    hr_name: str | None = Field(None, alias="hrName")
+    hr_title: str | None = Field(None, alias="hrTitle")
+    hr_phone: str | None = Field(None, alias="hrPhone")
+    hr_email: str | None = Field(None, alias="hrEmail")
 
 
 @router.post("/jd/diagnose")
@@ -453,6 +501,74 @@ async def get_position_evolution(position_id: str):
             "positionName": position_id,
             "timeline": timeline,
         }
+
+
+# ══════════════════════════════════════════════
+# 人才库（候选人维度 = user_* 表 + talent_pool_entries 标注）
+# ══════════════════════════════════════════════
+
+@router.get("/talent-pool")
+async def list_talent_pool(
+    position: str | None = None,
+    skill: str | None = None,
+    city: str | None = None,
+    favorite: bool | None = None,
+    hr_status: str | None = None,
+):
+    """候选人列表（含筛选）。前端 GET /api/enterprise/talent-pool。"""
+    candidates = await list_talent_candidates(
+        position=position, skill=skill, city=city,
+        favorite=favorite, hr_status=hr_status,
+    )
+    return {"candidates": candidates}
+
+
+@router.get("/talent-pool/{user_id}")
+async def talent_pool_detail(user_id: str):
+    """候选人详情：档案 + 技能 + 匹配 + HR 标注。"""
+    detail = await get_candidate_detail(user_id)
+    if detail is None:
+        raise HTTPException(status_code=404, detail="候选人不存在")
+    return detail
+
+
+@router.put("/talent-pool/{user_id}/annotation")
+async def update_talent_annotation(user_id: str, body: TalentAnnotationRequest):
+    """HR 标注 upsert（收藏 / 状态 / 备注）。"""
+    annotation = await upsert_annotation(
+        user_id,
+        favorite=body.favorite,
+        hr_status=body.hr_status,
+        note=body.note,
+    )
+    if annotation is None:
+        raise HTTPException(status_code=404, detail="候选人不存在")
+    return {"status": "ok", "annotation": annotation}
+
+
+@router.get("/profile")
+async def enterprise_profile_get():
+    """当前登录企业档案。无行 → {"profile": null}（前端 demo 兜底）。"""
+    profile = await get_enterprise_profile()
+    return {"profile": profile}
+
+
+@router.put("/profile")
+async def enterprise_profile_put(body: EnterpriseProfileRequest):
+    """当前登录企业档案编辑（partial upsert）。"""
+    data = body.model_dump(exclude_unset=True, by_alias=True)
+    profile = await upsert_enterprise_profile(data)
+    return {"status": "ok", "profile": profile}
+
+
+@router.get("/avatar/signed-url")
+async def avatar_signed_url():
+    """数字人连接配置（讯飞虚拟人）。服务端签发限时 signedUrl；apiKey/apiSecret 不外发。
+
+    凭证齐全 → {"configured": true, "signedUrl": "...", "appId": "...", ...}
+    凭证缺失 → {"configured": false}（前端自动降级演示数字人）。
+    """
+    return get_avatar_config()
 
 
 # ══════════════════════════════════════════════

@@ -199,6 +199,51 @@ class UserMatch(Base):
     created_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True, default=datetime.now)
 
 
+class TalentPoolEntry(Base):
+    """企业侧人才库标注表 —— HR 操作落库，独立于个人侧档案。
+    对应 zhiyv.talent_pool_entries；user_id 与候选人 1:1（唯一，天然支持 upsert）。"""
+    __tablename__ = "talent_pool_entries"
+
+    id: Mapped[int] = mapped_column(BigInteger, primary_key=True, autoincrement=True)
+    user_id: Mapped[str] = mapped_column(String(64), unique=True, index=True)  # FK 语义 → UserProfile.user_id
+    favorite: Mapped[bool] = mapped_column(Boolean, default=False)
+    hr_status: Mapped[str] = mapped_column(String(32), default="")  # "" | shortlisted | interviewing | offered | archived
+    note: Mapped[str] = mapped_column(Text, default="")
+    created_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True, default=datetime.now)
+    updated_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True, default=datetime.now, onupdate=datetime.now)
+
+
+class EnterpriseProfile(Base):
+    """企业侧当前登录企业档案表 —— 单行（enterprise_id 唯一），HR 可编辑维护。
+    对应 zhiyv.enterprise_profiles；enterprise_id 固定为 "demo_ent"。"""
+    __tablename__ = "enterprise_profiles"
+
+    id: Mapped[int] = mapped_column(BigInteger, primary_key=True, autoincrement=True)
+    enterprise_id: Mapped[str] = mapped_column(String(64), unique=True, index=True)  # 固定 "demo_ent"
+    name: Mapped[str] = mapped_column(String(128), default="")             # 企业名称
+    short_name: Mapped[str] = mapped_column(String(64), default="")        # 简称
+    logo_emoji: Mapped[str] = mapped_column(String(16), default="🚀")
+    uscc: Mapped[str] = mapped_column(String(32), default="")              # 统一社会信用代码
+    nature: Mapped[str] = mapped_column(String(32), default="")            # 企业性质
+    industry: Mapped[str] = mapped_column(String(64), default="")          # 所属行业
+    founded_year: Mapped[int | None] = mapped_column(Integer, nullable=True)
+    headcount: Mapped[str] = mapped_column(String(32), default="")         # 员工规模
+    financing: Mapped[str] = mapped_column(String(32), default="")         # 融资阶段
+    city: Mapped[str] = mapped_column(String(64), default="")
+    address: Mapped[str] = mapped_column(String(256), default="")
+    website: Mapped[str] = mapped_column(String(256), default="")
+    description: Mapped[str] = mapped_column(Text, default="")             # 企业简介
+    tags: Mapped[dict | None] = mapped_column(JSON, nullable=True)         # 企业标签 array
+    tech_stack: Mapped[dict | None] = mapped_column(JSON, nullable=True)   # 技术栈 array
+    hiring_channels: Mapped[dict | None] = mapped_column(JSON, nullable=True)  # 招聘渠道 array
+    hr_name: Mapped[str] = mapped_column(String(64), default="")
+    hr_title: Mapped[str] = mapped_column(String(64), default="")
+    hr_phone: Mapped[str] = mapped_column(String(32), default="")
+    hr_email: Mapped[str] = mapped_column(String(128), default="")
+    created_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True, default=datetime.now)
+    updated_at: Mapped[datetime | None] = mapped_column(DateTime, nullable=True, default=datetime.now, onupdate=datetime.now)
+
+
 class LearningStepModel(Base):
     """学习路径步骤。对应 zhiyv.learning_steps。"""
     __tablename__ = "learning_steps"

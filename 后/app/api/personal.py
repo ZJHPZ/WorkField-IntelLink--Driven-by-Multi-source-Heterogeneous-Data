@@ -6,10 +6,13 @@ POST 端点走 MultiAgentSystem 或纯算法。
 
 from __future__ import annotations
 
+import logging
 from datetime import datetime
 
 from fastapi import APIRouter, HTTPException, UploadFile, File, Form
 from pydantic import BaseModel
+
+logger = logging.getLogger(__name__)
 from sqlalchemy import select, func
 
 from app.api.deps import get_api_system
@@ -817,10 +820,10 @@ def _demo_profile() -> dict:
     """返回 demo 档案数据（Silent Fallback）。"""
     return {
         "userId": DEFAULT_USER,
-        "name": "张三",
+        "name": "张明",
         "title": "高级前端开发工程师",
         "phone": "13800138000",
-        "email": "zhangsan@example.com",
+        "email": "zhangming@example.com",
         "birthYear": 1995,
         "status": "employed_looking",
         "industry": "互联网/IT",
@@ -860,13 +863,16 @@ class ChatRequest(BaseModel):
 async def ai_chat(req: ChatRequest):
     """AI 职业顾问对话 —— SSE 流式返回。
 
-    基于用户技能画像和岗位图谱数据，通过星火 LLM 生成个性化职业建议。
+    优先走 Coze 智能体「帕克」；未配置 COZE_API_TOKEN 时回退本地星火/规则（保持原行为）。
     """
     from fastapi.responses import StreamingResponse
     import json as _json
 
-    # 获取用户上下文
-    user_context = _build_user_context()
+    from app.config import get_settings
+    coze_enabled = bool(get_settings().COZE_API_TOKEN)
+
+    # 获取用户上下文（真实技能/匹配/学习路径；DB 不可用时回退 demo 画像）
+    user_context = await _build_user_context()
 
     system_prompt = (
         "你是「职域智联」AI 职业顾问，专注于新一代信息技术领域（人工智能、大数据、智能系统、物联网）的职业规划。\n"
@@ -881,6 +887,45 @@ async def ai_chat(req: ChatRequest):
     )
 
     async def generate():
+        if coze_enabled:
+            # ── Coze 智能体「帕克」分支（服务端代理，SSE 契约与前端一致）──
+            import httpx
+            from app.services.coze_service import stream_chat
+
+            session_id = req.session_id or f"chat-{int(datetime.now().timestamp() * 1000)}"
+            # Coze 无 system 字段 → 把用户画像拼进用户消息
+            message = f"[用户画像]\n{user_context}\n\n{req.message}" if user_context else req.message
+
+            yield f"data: {_json.dumps({'type': 'agent_start', 'agent': 'parker'})}\n\n"
+            coze_produced = False
+            coze_failed = False
+            try:
+                async for event in stream_chat(
+                    message, session_id,
+                    timeout=httpx.Timeout(connect=10, read=120, write=30, pool=10),
+                ):
+                    ev = event["type"]
+                    if ev == "content":
+                        coze_produced = True
+                        yield f"data: {_json.dumps({'type': 'content', 'content': event['content']}, ensure_ascii=False)}\n\n"
+                    elif ev == "error":
+                        coze_failed = True
+                        logger.warning("Coze 对话失败，回退星火: %s", event["content"])
+                        break
+                    # "start"/"done" 不映射为 SSE：agent_start 已提前发出，agent_end 由下方兜底
+            except Exception as e:
+                coze_failed = True
+                logger.warning("Coze 对话异常，回退星火: %s", e)
+
+            # Coze 已产出内容且无错误 → 正常收尾
+            if coze_produced and not coze_failed:
+                yield f"data: {_json.dumps({'type': 'agent_end'})}\n\n"
+                yield "data: [DONE]\n\n"
+                return
+
+            # Coze 失败或未产出内容 → 回退星火/规则分支（下方代码继续执行）
+
+        # ── 原星火 / fallback 分支（未配置 COZE_API_TOKEN 时保持原行为）──
         # 发送 agent_start
         yield f"data: {_json.dumps({'type': 'agent_start', 'agent': 'thinking'})}\n\n"
 
@@ -922,11 +967,76 @@ async def ai_chat(req: ChatRequest):
     )
 
 
-def _build_user_context() -> str:
-    """构建用户上下文信息，供 LLM 参考。"""
-    # 从 demo profile 获取基本信息
+async def _build_user_context() -> str:
+    """异步构建用户真实上下文：档案 + 技能 + 匹配 + 学习路径（供 LLM / Coze 参考）。
+
+    DB 不可用时回退 _demo_profile()，保证对话始终可用。
+    """
+    try:
+        async for session in get_session():
+            lines: list[str] = []
+
+            # 1. 职业档案
+            profile = (await session.execute(
+                select(UserProfile).where(UserProfile.user_id == DEFAULT_USER)
+            )).scalar_one_or_none()
+            if profile:
+                lines.append("【用户档案】")
+                lines.append(f"- 姓名：{profile.name or '未知'}")
+                lines.append(f"- 当前职位：{profile.title or '未知'}")
+                lines.append(f"- 工作年限：{profile.experience_years or '未知'}")
+                lines.append(f"- 学历/专业：{profile.education or '未知'} / {profile.major or '未知'}")
+                lines.append(f"- 所在城市：{profile.city or '未知'}")
+                lines.append(f"- 目标岗位：{profile.target_role or '未设定'}（{profile.target_city or '不限'}，{profile.target_industry or '不限'}）")
+                if profile.salary_min or profile.salary_max:
+                    lines.append(f"- 期望薪资：{profile.salary_min}-{profile.salary_max}K")
+
+            # 2. 技能画像（按保鲜度降序）
+            skills = (await session.execute(
+                select(UserSkill).where(UserSkill.user_id == DEFAULT_USER)
+            )).scalars().all()
+            if skills:
+                lines.append("【技能画像】（技能 / 分类 / 熟练度 / 保鲜度 / 年限）")
+                for s in sorted(skills, key=lambda x: (x.freshness or 0), reverse=True):
+                    lines.append(
+                        f"- {s.skill_name}（{s.category or '未分类'}，{s.level or 'unknown'}，"
+                        f"保鲜度 {s.freshness or 0}%，{s.years_of_experience or 0} 年）"
+                    )
+
+            # 3. 人岗匹配（按匹配度降序，最多 5 条）
+            matches = (await session.execute(
+                select(UserMatch).where(UserMatch.user_id == DEFAULT_USER)
+                .order_by(UserMatch.match_rate.desc())
+            )).scalars().all()
+            if matches:
+                lines.append("【人岗匹配】（岗位 / 匹配度 / 已匹配 / 缺口）")
+                for m in matches[:5]:
+                    matched = "、".join(_dict_keys(m.matched_skills)[:6]) or "—"
+                    missing = "、".join(_dict_keys(m.missing_skills)[:6]) or "—"
+                    lines.append(
+                        f"- {m.position_name or m.position_id}（{m.company or ''}，匹配度 {m.match_rate or 0}%，"
+                        f"已匹配：{matched}，缺口：{missing}）"
+                    )
+
+            # 4. 学习路径
+            steps = (await session.execute(
+                select(LearningStepModel).where(LearningStepModel.user_id == DEFAULT_USER)
+                .order_by(LearningStepModel.sort_order)
+            )).scalars().all()
+            if steps:
+                lines.append("【学习路径】")
+                for st in steps:
+                    lines.append(f"- {st.title}（技能 {st.skill}，{st.status}，进度 {st.progress}%，约 {st.estimated_hours} 学时）")
+
+            if lines:
+                return "\n".join(lines)
+    except Exception:
+        # DB 不可用 → 回退 demo 画像（保持对话可用）
+        pass
+
+    # 兜底：demo 画像（原行为）
     profile = _demo_profile()
-    lines = [
+    return "\n".join([
         f"- 姓名：{profile['name']}",
         f"- 当前职位：{profile['title']}",
         f"- 工作年限：{profile['experienceYears']}",
@@ -934,19 +1044,14 @@ def _build_user_context() -> str:
         f"- 所在城市：{profile['city']}",
         f"- 期望职位：{profile['targetRole']}",
         f"- 期望薪资：{profile['salaryMin']}-{profile['salaryMax']}K",
-    ]
+    ])
 
-    # 从 skill_stats 获取技能数据
-    try:
-        import asyncio
-        loop = asyncio.get_event_loop()
-        if loop.is_running():
-            # 在异步上下文中，直接返回基本信息
-            pass
-    except Exception:
-        pass
 
-    return "\n".join(lines)
+def _dict_keys(v):
+    """JSON 列可能是 dict 或 list，统一取可展示的键/元素列表。"""
+    if isinstance(v, dict):
+        return list(v.keys())
+    return list(v) if v else []
 
 
 def _generate_fallback_response(message: str) -> str:

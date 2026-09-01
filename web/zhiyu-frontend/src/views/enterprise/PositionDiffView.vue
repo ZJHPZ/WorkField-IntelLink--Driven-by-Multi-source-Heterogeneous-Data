@@ -174,6 +174,7 @@ import { useRoute } from 'vue-router'
 import { useEnterpriseStore } from '@/stores/enterprise'
 import NotificationBar from '@/components/common/NotificationBar.vue'
 import CountUp from '@/components/enterprise/CountUp.vue'
+import { downloadCsv, today } from '@/utils/export'
 
 const route = useRoute()
 const store = useEnterpriseStore()
@@ -297,7 +298,12 @@ function notify(msg: string, detail: string) {
   notifyTimer = window.setTimeout(() => { showNotification.value = false }, 6000)
 }
 function exportReport() {
-  notify('对比报告已导出', `${position.value?.name} · 含差异清单 ${rows.value.length} 项 · PDF 已生成`)
+  const headers = ['技能', '标准', '市场', '差异(pp)', '判定', '修订建议']
+  const csvRows: unknown[][] = rows.value.map((r) => [
+    r.name, cellText(r.std), cellText(r.mkt), gapText(r), kindLabel(r.kind), r.suggestion || '—',
+  ])
+  downloadCsv(`市场对比报告_${position.value?.name || '岗位'}_${today()}.csv`, headers, csvRows)
+  notify('对比报告已导出', `${position.value?.name} · 差异清单 ${rows.value.length} 项 · CSV 已下载`)
 }
 
 onMounted(() => { store.fetchPositions(); store.fetchMarket(id.value) })

@@ -78,6 +78,107 @@ export interface TalentForecast {
   recommendation: string
 }
 
+// ── 人才库类型（对齐 /api/enterprise/talent-pool 契约）──
+
+export type HrStatus = '' | 'shortlisted' | 'interviewing' | 'offered' | 'archived'
+
+export interface TalentCandidate {
+  id: string
+  name: string
+  title: string
+  targetRole: string
+  city: string
+  experienceYears: string
+  education: string
+  salaryMin: number
+  salaryMax: number
+  skillCount: number
+  topSkills: string[]
+  bestMatchRate: number
+  favorite: boolean
+  hrStatus: HrStatus
+  note: string
+  updatedAt: string | null
+}
+
+export interface TalentSkill {
+  name: string
+  category: string
+  level: 'basic' | 'intermediate' | 'advanced' | 'expert'
+  freshness: number
+  yearsOfExperience: number
+  marketDemand: number
+  status: string
+}
+
+export interface TalentMatch {
+  positionId: string
+  positionName: string
+  company: string
+  matchRate: number
+  matchedSkills: string[]
+  missingSkills: string[]
+  salaryRange: string
+}
+
+export interface TalentAnnotation {
+  favorite: boolean
+  hrStatus: HrStatus
+  note: string
+  updatedAt: string | null
+}
+
+export interface TalentDetail {
+  id: string
+  profile: {
+    name: string
+    title: string
+    targetRole: string
+    targetCity: string
+    city: string
+    industry: string
+    experienceYears: string
+    education: string
+    major: string
+    englishLevel: string
+    salaryMin: number
+    salaryMax: number
+    workMode: string
+    relocateOk: boolean
+    travelOk: boolean
+    avatarEmoji: string
+  }
+  skills: TalentSkill[]
+  matches: TalentMatch[]
+  annotation: TalentAnnotation
+}
+
+export interface EnterpriseProfile {
+  enterpriseId: string
+  name: string
+  shortName: string
+  logoEmoji: string
+  uscc: string
+  nature: string
+  industry: string
+  foundedYear: number | null
+  headcount: string
+  financing: string
+  city: string
+  address: string
+  website: string
+  description: string
+  tags: string[]
+  techStack: string[]
+  hiringChannels: string[]
+  hrName: string
+  hrTitle: string
+  hrPhone: string
+  hrEmail: string
+  createdAt: string | null
+  updatedAt: string | null
+}
+
 // ── 演化时间轴类型 ──
 
 export interface SkillSnapshot {
@@ -372,6 +473,187 @@ const demoForecast: TalentForecast = {
   recommendation: '建议优先招聘/培训：大模型微调、RAG 应用、Agent 编排、端侧 AI、模型量化压缩；数据标注 / 手工测试执行 建议转岗转型培训。',
 }
 
+// ── 人才库 Demo 数据（8 名候选人 · 与后端 CANDIDATES 对齐）──
+
+const demoTalentDetails: Record<string, TalentDetail> = {
+  cand_li_wei: {
+    id: 'cand_li_wei',
+    profile: { name: '李伟', title: '高级后端开发工程师', targetRole: '资深后端工程师', targetCity: '上海', city: '上海', industry: '互联网/IT', experienceYears: '8-10年', education: '本科', major: '计算机科学与技术', englishLevel: 'CET-6', salaryMin: 35, salaryMax: 55, workMode: 'hybrid', relocateOk: true, travelOk: false, avatarEmoji: '🧑‍💻' },
+    skills: [
+      { name: 'Go', category: '编程语言', level: 'expert', freshness: 92, yearsOfExperience: 8, marketDemand: 90, status: 'healthy' },
+      { name: '系统设计', category: '架构', level: 'expert', freshness: 82, yearsOfExperience: 8, marketDemand: 82, status: 'healthy' },
+      { name: 'MySQL', category: '数据', level: 'expert', freshness: 85, yearsOfExperience: 8, marketDemand: 80, status: 'healthy' },
+      { name: 'Kubernetes', category: 'DevOps', level: 'advanced', freshness: 78, yearsOfExperience: 4, marketDemand: 85, status: 'healthy' },
+      { name: 'Kafka', category: '中间件', level: 'intermediate', freshness: 60, yearsOfExperience: 3, marketDemand: 70, status: 'healthy' },
+    ],
+    matches: [
+      { positionId: 'pos-go-senior', positionName: '资深后端工程师', company: '某云原生平台', matchRate: 88, matchedSkills: ['Go', '系统设计', 'Kubernetes'], missingSkills: ['Rust', 'eBPF'], salaryRange: '45-82K' },
+      { positionId: 'pos-platform', positionName: '平台工程师', company: '某互联网大厂', matchRate: 82, matchedSkills: ['Go', 'Kubernetes', 'Redis'], missingSkills: ['云原生安全'], salaryRange: '40-70K' },
+    ],
+    annotation: { favorite: true, hrStatus: 'shortlisted', note: '重点跟进：系统设计+Go 双栈资深', updatedAt: '2026-08-28T10:00:00' },
+  },
+  cand_wang_fang: {
+    id: 'cand_wang_fang',
+    profile: { name: '王芳', title: 'AI 算法工程师', targetRole: '大模型算法工程师', targetCity: '北京', city: '北京', industry: '互联网/IT', experienceYears: '5-8年', education: '硕士', major: '模式识别与智能系统', englishLevel: 'IELTS 7.0', salaryMin: 40, salaryMax: 65, workMode: 'remote', relocateOk: false, travelOk: false, avatarEmoji: '👩‍💻' },
+    skills: [
+      { name: 'Python', category: '编程语言', level: 'expert', freshness: 90, yearsOfExperience: 7, marketDemand: 92, status: 'healthy' },
+      { name: 'NLP', category: 'AI/ML', level: 'expert', freshness: 88, yearsOfExperience: 6, marketDemand: 88, status: 'healthy' },
+      { name: 'LLM 微调', category: 'AI/ML', level: 'advanced', freshness: 95, yearsOfExperience: 3, marketDemand: 95, status: 'healthy' },
+      { name: 'PyTorch', category: 'AI/ML', level: 'advanced', freshness: 85, yearsOfExperience: 5, marketDemand: 90, status: 'healthy' },
+      { name: 'RAG', category: 'AI/ML', level: 'intermediate', freshness: 80, yearsOfExperience: 2, marketDemand: 88, status: 'healthy' },
+    ],
+    matches: [
+      { positionId: 'pos-llm', positionName: '大模型算法工程师', company: '某头部大模型公司', matchRate: 90, matchedSkills: ['Python', 'NLP', 'RAG'], missingSkills: ['分布式训练'], salaryRange: '60-90K' },
+      { positionId: 'pos-ml-eng', positionName: 'ML Engineer', company: '某 AI 独角兽', matchRate: 85, matchedSkills: ['Python', 'PyTorch', 'NLP'], missingSkills: ['MLOps'], salaryRange: '45-80K' },
+    ],
+    annotation: { favorite: false, hrStatus: 'interviewing', note: '', updatedAt: '2026-08-27T14:30:00' },
+  },
+  cand_chen_jie: {
+    id: 'cand_chen_jie',
+    profile: { name: '陈杰', title: '资深前端开发工程师', targetRole: '前端架构工程师', targetCity: '杭州', city: '杭州', industry: '互联网/IT', experienceYears: '5-8年', education: '本科', major: '软件工程', englishLevel: 'CET-6', salaryMin: 28, salaryMax: 45, workMode: 'hybrid', relocateOk: true, travelOk: true, avatarEmoji: '🧑‍💻' },
+    skills: [
+      { name: 'TypeScript', category: '前端', level: 'expert', freshness: 88, yearsOfExperience: 6, marketDemand: 80, status: 'healthy' },
+      { name: 'React', category: '前端', level: 'expert', freshness: 85, yearsOfExperience: 6, marketDemand: 78, status: 'healthy' },
+      { name: '微前端', category: '架构', level: 'advanced', freshness: 82, yearsOfExperience: 3, marketDemand: 70, status: 'healthy' },
+      { name: 'Vue', category: '前端', level: 'advanced', freshness: 78, yearsOfExperience: 4, marketDemand: 72, status: 'healthy' },
+      { name: 'Node.js', category: '后端', level: 'intermediate', freshness: 70, yearsOfExperience: 3, marketDemand: 75, status: 'healthy' },
+    ],
+    matches: [
+      { positionId: 'pos-fe-arch', positionName: '前端架构工程师', company: '某大型金融科技集团', matchRate: 89, matchedSkills: ['TypeScript', 'React', '微前端'], missingSkills: ['Webpack 性能调优'], salaryRange: '35-60K' },
+      { positionId: 'pos-fullstack', positionName: '全栈开发工程师', company: '某一线互联网大厂', matchRate: 83, matchedSkills: ['TypeScript', 'React', 'Node.js'], missingSkills: ['AWS'], salaryRange: '30-50K' },
+    ],
+    annotation: { favorite: false, hrStatus: '', note: '', updatedAt: null },
+  },
+  cand_liu_yang: {
+    id: 'cand_liu_yang',
+    profile: { name: '刘洋', title: '数据分析师', targetRole: '数据产品经理 / AI BI', targetCity: '深圳', city: '深圳', industry: '互联网/IT', experienceYears: '3-5年', education: '本科', major: '统计学', englishLevel: 'CET-6', salaryMin: 18, salaryMax: 30, workMode: 'hybrid', relocateOk: true, travelOk: false, avatarEmoji: '🧑‍💻' },
+    skills: [
+      { name: 'SQL', category: '数据', level: 'advanced', freshness: 80, yearsOfExperience: 4, marketDemand: 75, status: 'healthy' },
+      { name: 'Pandas', category: '数据', level: 'advanced', freshness: 75, yearsOfExperience: 3, marketDemand: 70, status: 'healthy' },
+      { name: 'Python', category: '编程语言', level: 'intermediate', freshness: 72, yearsOfExperience: 3, marketDemand: 92, status: 'healthy' },
+      { name: 'A/B 实验', category: '数据', level: 'intermediate', freshness: 70, yearsOfExperience: 2, marketDemand: 72, status: 'healthy' },
+      { name: 'Tableau', category: '数据', level: 'intermediate', freshness: 65, yearsOfExperience: 2, marketDemand: 65, status: 'healthy' },
+    ],
+    matches: [
+      { positionId: 'pos-data-analyst', positionName: '数据分析师', company: '某电商平台', matchRate: 86, matchedSkills: ['SQL', 'Python', 'Pandas'], missingSkills: ['A/B 实验'], salaryRange: '20-35K' },
+    ],
+    annotation: { favorite: false, hrStatus: '', note: '', updatedAt: null },
+  },
+  cand_zhao_min: {
+    id: 'cand_zhao_min',
+    profile: { name: '赵敏', title: 'DevOps 工程师', targetRole: '平台工程架构师', targetCity: '北京', city: '北京', industry: '互联网/IT', experienceYears: '6-8年', education: '本科', major: '自动化', englishLevel: 'CET-6', salaryMin: 32, salaryMax: 55, workMode: 'onsite', relocateOk: false, travelOk: true, avatarEmoji: '🧑‍💻' },
+    skills: [
+      { name: 'Linux', category: '操作系统', level: 'expert', freshness: 92, yearsOfExperience: 7, marketDemand: 80, status: 'healthy' },
+      { name: 'CI/CD', category: 'DevOps', level: 'expert', freshness: 90, yearsOfExperience: 6, marketDemand: 78, status: 'healthy' },
+      { name: 'Kubernetes', category: 'DevOps', level: 'expert', freshness: 88, yearsOfExperience: 5, marketDemand: 85, status: 'healthy' },
+      { name: 'Docker', category: 'DevOps', level: 'expert', freshness: 85, yearsOfExperience: 6, marketDemand: 82, status: 'healthy' },
+      { name: 'Terraform', category: 'DevOps', level: 'advanced', freshness: 80, yearsOfExperience: 3, marketDemand: 80, status: 'healthy' },
+      { name: '可观测性', category: 'DevOps', level: 'advanced', freshness: 78, yearsOfExperience: 4, marketDemand: 75, status: 'healthy' },
+    ],
+    matches: [
+      { positionId: 'pos-devops', positionName: 'DevOps 工程师', company: '某大型云服务商', matchRate: 90, matchedSkills: ['Kubernetes', 'Terraform', 'CI/CD'], missingSkills: ['服务网格'], salaryRange: '45-75K' },
+      { positionId: 'pos-sre', positionName: 'SRE 工程师', company: '某金融科技集团', matchRate: 84, matchedSkills: ['Kubernetes', 'Linux', '可观测性'], missingSkills: ['SRE 方法论'], salaryRange: '40-68K' },
+    ],
+    annotation: { favorite: true, hrStatus: 'offered', note: 'Offer 已发，等待反馈', updatedAt: '2026-08-26T09:15:00' },
+  },
+  cand_sun_yue: {
+    id: 'cand_sun_yue',
+    profile: { name: '孙悦', title: '测试开发工程师', targetRole: '质量架构工程师 / AI 测试', targetCity: '成都', city: '成都', industry: '互联网/IT', experienceYears: '3-5年', education: '本科', major: '软件工程', englishLevel: 'CET-4', salaryMin: 15, salaryMax: 25, workMode: 'hybrid', relocateOk: true, travelOk: false, avatarEmoji: '👩‍💻' },
+    skills: [
+      { name: '自动化测试', category: '测试', level: 'expert', freshness: 86, yearsOfExperience: 4, marketDemand: 72, status: 'healthy' },
+      { name: 'API 测试', category: '测试', level: 'advanced', freshness: 80, yearsOfExperience: 4, marketDemand: 68, status: 'healthy' },
+      { name: 'Playwright', category: '测试', level: 'advanced', freshness: 78, yearsOfExperience: 3, marketDemand: 70, status: 'healthy' },
+      { name: 'SQL', category: '数据', level: 'intermediate', freshness: 70, yearsOfExperience: 3, marketDemand: 75, status: 'healthy' },
+      { name: '性能测试', category: '测试', level: 'intermediate', freshness: 65, yearsOfExperience: 2, marketDemand: 65, status: 'healthy' },
+    ],
+    matches: [
+      { positionId: 'pos-qa', positionName: 'QA 工程师', company: '某大型电商', matchRate: 88, matchedSkills: ['自动化测试', 'Playwright', 'API 测试'], missingSkills: ['性能分析'], salaryRange: '18-30K' },
+    ],
+    annotation: { favorite: false, hrStatus: '', note: '', updatedAt: null },
+  },
+  cand_zhou_qi: {
+    id: 'cand_zhou_qi',
+    profile: { name: '周琪', title: '初级全栈开发工程师', targetRole: '全栈工程师', targetCity: '广州', city: '广州', industry: '互联网/IT', experienceYears: '1-3年', education: '本科', major: '计算机科学', englishLevel: 'CET-6', salaryMin: 12, salaryMax: 20, workMode: 'hybrid', relocateOk: true, travelOk: false, avatarEmoji: '🧑‍💻' },
+    skills: [
+      { name: 'JavaScript', category: '前端', level: 'advanced', freshness: 80, yearsOfExperience: 2, marketDemand: 85, status: 'healthy' },
+      { name: 'Vue', category: '前端', level: 'intermediate', freshness: 75, yearsOfExperience: 2, marketDemand: 72, status: 'healthy' },
+      { name: 'Node.js', category: '后端', level: 'intermediate', freshness: 70, yearsOfExperience: 1.5, marketDemand: 75, status: 'healthy' },
+      { name: 'MongoDB', category: '数据', level: 'intermediate', freshness: 65, yearsOfExperience: 1, marketDemand: 65, status: 'healthy' },
+    ],
+    matches: [
+      { positionId: 'pos-fullstack-jr', positionName: '全栈开发工程师', company: '某创业公司', matchRate: 79, matchedSkills: ['JavaScript', 'Vue', 'Node.js'], missingSkills: ['React', '微服务'], salaryRange: '15-25K' },
+    ],
+    annotation: { favorite: false, hrStatus: '', note: '', updatedAt: null },
+  },
+  cand_wu_jun: {
+    id: 'cand_wu_jun',
+    profile: { name: '吴军', title: '数据工程师', targetRole: '大数据平台架构师', targetCity: '南京', city: '南京', industry: '互联网/IT', experienceYears: '5-8年', education: '本科', major: '计算机科学', englishLevel: 'CET-6', salaryMin: 25, salaryMax: 40, workMode: 'hybrid', relocateOk: true, travelOk: true, avatarEmoji: '🧑‍💻' },
+    skills: [
+      { name: 'SQL', category: '数据', level: 'expert', freshness: 85, yearsOfExperience: 7, marketDemand: 75, status: 'healthy' },
+      { name: 'Spark', category: '数据', level: 'expert', freshness: 88, yearsOfExperience: 5, marketDemand: 85, status: 'healthy' },
+      { name: 'Hive', category: '数据', level: 'expert', freshness: 84, yearsOfExperience: 6, marketDemand: 65, status: 'healthy' },
+      { name: 'Python', category: '编程语言', level: 'advanced', freshness: 80, yearsOfExperience: 5, marketDemand: 92, status: 'healthy' },
+      { name: 'Flink', category: '数据', level: 'advanced', freshness: 82, yearsOfExperience: 3, marketDemand: 82, status: 'healthy' },
+      { name: 'Kafka', category: '中间件', level: 'advanced', freshness: 78, yearsOfExperience: 4, marketDemand: 70, status: 'healthy' },
+    ],
+    matches: [
+      { positionId: 'pos-data-eng', positionName: '数据工程师', company: '某大型电商', matchRate: 87, matchedSkills: ['SQL', 'Python', 'Spark'], missingSkills: ['实时数仓'], salaryRange: '28-45K' },
+    ],
+    annotation: { favorite: false, hrStatus: 'archived', note: '薪资预期偏高，暂存档', updatedAt: '2026-08-25T16:40:00' },
+  },
+}
+
+function toTalentCandidate(d: TalentDetail): TalentCandidate {
+  return {
+    id: d.id,
+    name: d.profile.name,
+    title: d.profile.title,
+    targetRole: d.profile.targetRole,
+    city: d.profile.city,
+    experienceYears: d.profile.experienceYears,
+    education: d.profile.education,
+    salaryMin: d.profile.salaryMin,
+    salaryMax: d.profile.salaryMax,
+    skillCount: d.skills.length,
+    topSkills: d.skills.slice(0, 3).map(s => s.name),
+    bestMatchRate: Math.max(...d.matches.map(m => m.matchRate), 0),
+    favorite: d.annotation.favorite,
+    hrStatus: d.annotation.hrStatus,
+    note: d.annotation.note,
+    updatedAt: d.annotation.updatedAt,
+  }
+}
+
+const demoTalentCandidates: TalentCandidate[] = Object.values(demoTalentDetails).map(toTalentCandidate)
+
+// ── 企业侧「当前登录企业」档案 Demo（云启科技 —— 与后端种子一致，仅作为离线兜底）──
+
+const demoEnterpriseProfile: EnterpriseProfile = {
+  enterpriseId: 'demo_ent',
+  name: '云启智能科技有限公司',
+  shortName: '云启智能',
+  logoEmoji: '🚀',
+  uscc: '91110108MA01KJ7X2P',
+  nature: '民营',
+  industry: '人工智能 · 企业服务',
+  foundedYear: 2015,
+  headcount: '500-999人',
+  financing: 'C 轮',
+  city: '北京',
+  address: '北京市海淀区中关村软件园 9 号楼',
+  website: 'https://www.yunqi.tech',
+  description: '云启智能是一家专注企业级 AI 平台与智能招聘系统的科技公司。以 LLM/RAG 技术为底座，为大型企业提供岗位能力图谱、人岗匹配与人才洞察服务。在招岗位覆盖后端 / AI 算法 / 前端架构 / 数据分析 / 平台工程 / 质量架构 / 全栈 / 大数据等方向。',
+  tags: ['弹性工作', '六险一金', '扁平管理', '股票期权', '免费三餐', '年度体检'],
+  techStack: ['Go', 'Python', 'Kubernetes', 'RAG / LLM', '大数据'],
+  hiringChannels: ['BOSS 直聘', '猎聘', '校招官网', '内推渠道'],
+  hrName: '沈静',
+  hrTitle: '招聘总监',
+  hrPhone: '010-89012345',
+  hrEmail: 'hr@yunqi.tech',
+  createdAt: null,
+  updatedAt: '2026-08-30T09:00:00',
+}
+
 // ── 全岗位演化时间轴 Demo 数据 ──
 
 const demoEvolutions: Record<string, PositionEvolution> = {
@@ -559,6 +841,9 @@ export const useEnterpriseStore = defineStore('enterprise', () => {
   const market = ref<Record<string, MarketSkill[]>>({ ...demoMarket })
   const teamGaps = ref<TeamGap[]>([...demoTeamGaps])
   const forecast = ref<TalentForecast>({ ...demoForecast })
+  const talentCandidates = ref<TalentCandidate[]>([...demoTalentCandidates])
+  const talentDetails = ref<Record<string, TalentDetail>>({ ...demoTalentDetails })
+  const enterpriseProfile = ref<EnterpriseProfile>({ ...demoEnterpriseProfile })
   const loading = ref(false)
 
   const currentEvolution = computed(() =>
@@ -575,6 +860,11 @@ export const useEnterpriseStore = defineStore('enterprise', () => {
   const avgMatchRate = computed(() => Math.round(positions.value.reduce((s, p) => s + p.matchRate, 0) / positions.value.length))
   const warningCount = computed(() => diagnoses.value.filter(d => d.status !== 'healthy').length)
   const highPriorityGaps = computed(() => teamGaps.value.filter(g => g.priority === 'high').length)
+  const favoriteCount = computed(() => talentCandidates.value.filter(c => c.favorite).length)
+  const highMatchCount = computed(() => talentCandidates.value.filter(c => c.bestMatchRate >= 85).length)
+  const activeHrCount = computed(() =>
+    talentCandidates.value.filter(c => ['shortlisted', 'interviewing', 'offered'].includes(c.hrStatus)).length
+  )
 
   // ── 全景图谱数据（由 positions 动态生成）──
   const graphData = computed(() => {
@@ -739,11 +1029,87 @@ export const useEnterpriseStore = defineStore('enterprise', () => {
     } catch {}
   }
 
+  // ── 人才库 ──
+
+  async function fetchTalentPool(params?: Record<string, string | number | boolean>) {
+    try {
+      const res = await client.get('/api/enterprise/talent-pool', { params }) as any
+      if (res?.candidates?.length) talentCandidates.value = res.candidates
+    } catch { /* 静默保留 demo 数据 */ }
+  }
+
+  async function fetchTalentDetail(id: string) {
+    try {
+      const res = await client.get(`/api/enterprise/talent-pool/${id}`) as any
+      if (res?.profile) {
+        talentDetails.value[id] = res
+        // 列表同步最新标注
+        const row = talentCandidates.value.find((c) => c.id === id)
+        if (row) {
+          row.favorite = res.annotation.favorite
+          row.hrStatus = res.annotation.hrStatus
+          row.note = res.annotation.note
+          row.updatedAt = res.annotation.updatedAt
+        }
+      }
+    } catch { /* 静默保留 demo 数据 */ }
+  }
+
+  /** HR 标注 upsert：乐观更新本地（Silent Fallback——后端不可用交互仍成立），PUT 成功后以响应为准。 */
+  async function updateTalentAnnotation(id: string, patch: { favorite?: boolean; hrStatus?: HrStatus; note?: string }): Promise<boolean> {
+    const row = talentCandidates.value.find((c) => c.id === id)
+    if (row) {
+      if (patch.favorite !== undefined) row.favorite = patch.favorite
+      if (patch.hrStatus !== undefined) row.hrStatus = patch.hrStatus
+      if (patch.note !== undefined) row.note = patch.note
+    }
+    const detail = talentDetails.value[id]
+    if (detail) {
+      detail.annotation = { ...detail.annotation, ...patch, updatedAt: new Date().toISOString() }
+    }
+    try {
+      const res = await client.put(`/api/enterprise/talent-pool/${id}/annotation`, patch) as any
+      if (res?.annotation) {
+        if (detail) detail.annotation = res.annotation
+        const r2 = talentCandidates.value.find((c) => c.id === id)
+        if (r2) {
+          r2.favorite = res.annotation.favorite
+          r2.hrStatus = res.annotation.hrStatus
+          r2.note = res.annotation.note
+          r2.updatedAt = res.annotation.updatedAt
+        }
+      }
+    } catch { /* 静默——本地乐观更新已生效 */ }
+    return true
+  }
+
+  /** 当前登录企业档案：API 成功则覆盖 demo（Silent Fallback）。 */
+  async function fetchEnterpriseProfile() {
+    try {
+      const res = await client.get('/api/enterprise/profile') as any
+      if (res?.profile) enterpriseProfile.value = res.profile
+    } catch { /* 静默保留 demo 数据 */ }
+  }
+
+  /** 企业档案编辑：乐观合并本地 → PUT → 成功后以响应为准（Silent Fallback——后端不可用编辑仍成立）。 */
+  async function updateEnterpriseProfile(patch: Partial<EnterpriseProfile>): Promise<boolean> {
+    enterpriseProfile.value = { ...enterpriseProfile.value, ...patch, updatedAt: new Date().toISOString() }
+    try {
+      const res = await client.put('/api/enterprise/profile', patch) as any
+      if (res?.profile) enterpriseProfile.value = res.profile
+    } catch { /* 静默——本地乐观更新已生效 */ }
+    return true
+  }
+
   return {
     positions, candidates, diagnoses, market, teamGaps, forecast, evolutions, currentEvolution, currentPositionId, graphData, loading,
     graph, graphSource, graphNodes, graphLinks, snapshot, snapshotDiff,
+    talentCandidates, talentDetails, favoriteCount, highMatchCount, activeHrCount,
+    enterpriseProfile,
     positionCount, confirmedCount, candidateCount, avgMatchRate, warningCount, highPriorityGaps,
     fetchPositions, fetchCandidates, fetchDiagnoses, fetchTeamGaps, fetchForecast, fetchEvolution, fetchMarket, fetchGraph, fetchSnapshotDiff,
+    fetchTalentPool, fetchTalentDetail, updateTalentAnnotation,
+    fetchEnterpriseProfile, updateEnterpriseProfile,
     setCurrentPosition, setCandidateStatus,
   }
 })

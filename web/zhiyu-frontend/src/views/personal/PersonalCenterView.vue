@@ -205,6 +205,59 @@
       </div>
     </div>
 
+    <!-- ═══════════════════════ Tab 3.5: 岗位收藏 ═══════════════════════ -->
+    <div v-if="activeTab==='favorites'" class="pt-4 space-y-4">
+      <div class="panel-neon panel-circuit p-5 shadow-deep relative">
+        <div class="rivet" style="top:10px;left:10px"></div><div class="rivet" style="top:10px;right:10px"></div>
+        <div class="relative z-[1]">
+          <div class="flex items-center justify-between mb-4 flex-wrap gap-2">
+            <PanelHeader label="FAVORITES" title="岗位收藏" color="amber" margin="none" />
+            <span class="text-xs font-mono" :style="{color:'var(--text-muted)'}">{{ store.favorites.length }} POSITIONS</span>
+          </div>
+
+          <!-- 收藏岗位卡片网格 -->
+          <div v-if="store.favorites.length" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
+            <div v-for="f in store.favorites" :key="f.id"
+              class="panel-asymmetric p-4 relative overflow-hidden transition-all lift-on-hover"
+              :style="{borderTop:'3px solid #eab308'}">
+              <div class="flex items-center gap-2 mb-2">
+                <span class="text-[10px] font-bold shrink-0" style="color:#facc15;text-shadow:0 0 6px rgba(250,204,21,0.6)">★</span>
+                <h4 class="text-sm font-bold min-w-0 truncate" :style="{color:'var(--text-primary)'}">{{ f.name }}</h4>
+                <span class="ml-auto data-segment text-lg shrink-0" :style="{color:'var(--brand-500)'}">{{ f.matchRate }}%</span>
+              </div>
+              <p class="text-xs font-mono mb-2" :style="{color:'var(--text-muted)'}">{{ f.salary }} · {{ f.city }} · {{ f.techStack }}<template v-if="f.jdCount"> · JD ×{{ f.jdCount }}</template></p>
+              <!-- 个人覆盖读数 -->
+              <div class="flex items-center gap-2 text-[9px] font-mono mb-2" :style="{color:'var(--text-muted)'}">
+                <span>个人覆盖</span>
+                <span class="font-bold" :style="{color:'var(--mint-500)'}">{{ f.matchedSkills.length }}</span><span>/ {{ f.requiredSkills.length }}</span>
+                <span v-if="f.partialSkills.length" class="opacity-70">≈ 近似 {{ f.partialSkills.length }}</span>
+                <span v-if="f.missingSkills.length" style="color:#f87171">· 缺 {{ f.missingSkills.length }}</span>
+              </div>
+              <div class="flex flex-wrap gap-1 mb-3">
+                <span v-for="s in f.matchedSkills.slice(0,3)" :key="s" class="text-[9px] px-1.5 py-0.5 font-mono" style="background:color-mix(in srgb, var(--mint-500) 08%, transparent);color:var(--mint-500);border:1px solid color-mix(in srgb, var(--mint-500) 20%, transparent)">{{ s }}</span>
+                <span v-for="s in f.missingSkills.slice(0,3)" :key="s" class="text-[9px] px-1.5 py-0.5 font-mono" style="background:color-mix(in srgb, var(--rose-500) 06%, transparent);color:#f87171;border:1px solid color-mix(in srgb, var(--rose-500) 15%, transparent)">+{{ s }}</span>
+              </div>
+              <div v-if="f.topCompanies?.length" class="flex flex-wrap gap-1 mb-3">
+                <span v-for="c in f.topCompanies.slice(0,2)" :key="c.company_name" class="text-[9px] px-1.5 py-0.5 font-mono" style="background:var(--bg-secondary);color:var(--text-secondary);border:1px solid var(--border-color)">{{ c.company_name }}</span>
+              </div>
+              <div class="flex gap-2 pt-2" style="border-top:1px dashed var(--border-color)">
+                <router-link to="/personal/match/compare" class="px-2.5 py-1 text-[9px] font-bold tracking-wider uppercase text-white transition-colors" style="background:var(--brand-500);clip-path:polygon(0 0,calc(100% - 4px) 0,100% 100%,0 100%)">去对比</router-link>
+                <button @click="store.removeFavorite(f.id)" class="px-2.5 py-1 text-[9px] font-bold tracking-wider uppercase transition-all hover:brightness-110" style="background:var(--bg-secondary);color:#f87171;border:1px solid color-mix(in srgb, var(--rose-500) 30%, transparent)">取消收藏</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 空态：引导去岗位探索 -->
+          <div v-else class="panel-asymmetric p-10 text-center">
+            <div class="text-3xl mb-3" style="color:var(--text-muted)">☆</div>
+            <p class="text-sm font-bold mb-1" style="color:var(--text-primary)">尚未收藏任何岗位</p>
+            <p class="text-xs mb-4" style="color:var(--text-muted)">前往「岗位探索 · 岗位库」点亮星标，收藏的目标岗位会出现在这里，并可一键进入岗位对比</p>
+            <router-link to="/personal/explore" class="inline-block px-5 py-2 text-xs font-bold tracking-wider uppercase text-white transition-all hover:scale-105" style="background:linear-gradient(135deg,var(--brand-600),var(--brand-500));clip-path:polygon(0 0,calc(100% - 10px) 0,100% 100%,0 100%)">前往岗位探索</router-link>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- ═══════════════════════ Tab 4: 职业里程碑 ═══════════════════════ -->
     <div v-if="activeTab==='milestones'" class="pt-4 space-y-4">
       <div class="panel-industrial panel-circuit p-5 shadow-deep">
@@ -308,6 +361,7 @@ const tabs = [
   { key:'profile', label:'职业档案', color:'var(--brand-400)' },
   { key:'skills', label:'技能总览', color:'#10b981' },
   { key:'match', label:'匹配快照', color:'#06b6d4' },
+  { key:'favorites', label:'岗位收藏', color:'#f472b6' },
   { key:'milestones', label:'职业里程碑', color:'#f59e0b' },
   { key:'prefs', label:'偏好设置', color:'#a855f7' },
 ]

@@ -248,6 +248,7 @@ import { useRouter } from 'vue-router'
 import { useEnterpriseStore } from '@/stores/enterprise'
 import type { ChartNode } from '@/utils/graph'
 import GraphCanvas from '@/components/enterprise/GraphCanvas.vue'
+import { downloadCsv, today } from '@/utils/export'
 
 const router = useRouter()
 const store = useEnterpriseStore()
@@ -348,7 +349,23 @@ function levelLabel(l: string): string {
   return m[l] || l
 }
 function adoptSkill() { notify('已加入标准库', `${selected.value?.name} · 进入岗位标准修订草稿（待审批）`) }
-function exportGraph() { notify('蓝图已导出', `图谱蓝图 · ${store.graphNodes.length} 节点 · PDF/PNG 已生成`) }
+function exportGraph() {
+  const headers = ['节点类型', '名称', '技术栈', '验证状态', '文档频率', '置信度', '新兴度', '衰退度', '半衰期(月)', '波动率']
+  const rows: unknown[][] = store.graphNodes.map((n) => [
+    kindLabel(n.kind),
+    n.name,
+    n._stack || '—',
+    n.kind === 'skill' ? verLabel(n) : '—',
+    pct(n._metrics?.df),
+    pct(n._metrics?.confidence),
+    pct(n._metrics?.emergence),
+    pct(n._metrics?.decline),
+    n._metrics?.halfLife ?? '—',
+    pct(n._metrics?.volatility),
+  ])
+  downloadCsv(`图谱蓝图_${today()}.csv`, headers, rows)
+  notify('蓝图已导出', `图谱蓝图 · ${store.graphNodes.length} 节点 · ${store.graphLinks.length} 边 · CSV 已下载`)
+}
 
 // ── 反馈 ──
 const showNotification = ref(false)

@@ -259,6 +259,7 @@ import NotificationBar from '@/components/common/NotificationBar.vue'
 import SealChip from '@/components/enterprise/SealChip.vue'
 import CountUp from '@/components/enterprise/CountUp.vue'
 import EnterpriseLifeCurve from '@/components/enterprise/EnterpriseLifeCurve.vue'
+import { downloadCsv, today } from '@/utils/export'
 
 const route = useRoute()
 const store = useEnterpriseStore()
@@ -323,6 +324,8 @@ function levelLabel(l: string): string {
   const m: Record<string, string> = { basic: '入门', intermediate: '中级', advanced: '高级', expert: '专家' }
   return m[l] || l
 }
+const trendMap: Record<string, string> = { rising: '上升', stable: '平稳', declining: '下降' }
+function trendLabel(t: string): string { return trendMap[t] || t }
 function freshColor(f: number): string {
   return f >= 80 ? 'var(--ent-navy)' : f >= 60 ? 'var(--ent-coral)' : 'var(--ent-dim)'
 }
@@ -366,10 +369,24 @@ function notify(msg: string, detail: string) {
   notifyTimer = window.setTimeout(() => { showNotification.value = false }, 6000)
 }
 function exportDossier() {
-  notify('岗位档案已导出', `${position.value?.name || evo.value?.positionName} · PDF 含演化曲线与技能定级表`)
+  const p = position.value
+  const posName = p?.name || evo.value?.positionName || '岗位'
+  const headers = ['岗位', '技能', '等级', '权重', '趋势', '保鲜度']
+  const csvRows: unknown[][] = (p?.skills || []).map((s) => [
+    posName, s.name, levelLabel(s.level), `${Math.round(s.weight * 100)}%`, trendLabel(s.trend), s.freshness,
+  ])
+  downloadCsv(`岗位档案_${posName}_${today()}.csv`, headers, csvRows)
+  notify('岗位档案已导出', `${posName} · 技能定级 ${csvRows.length} 项 · CSV 已下载`)
 }
 function exportReport() {
-  notify('演化报告已生成', `${position.value?.name || evo.value?.positionName} · 覆盖 ${evo.value?.timeline[0]?.date} → ${lastDate.value}`)
+  const tl = evo.value?.timeline || []
+  const headers = ['日期', '市场需求', '企业采用', '团队匹配', '薪资范围', '市场背景', '行业催化事件', '数据源']
+  const csvRows: unknown[][] = tl.map((t) => [
+    t.date, `${t.marketDemand}%`, `${t.adoptionRate}%`, `${t.matchRate}%`, t.salaryRange,
+    t.marketContext, t.industryEvents.join('、'), t.dataSources.join(' · '),
+  ])
+  downloadCsv(`岗位演化报告_${evo.value?.positionName || '岗位'}_${today()}.csv`, headers, csvRows)
+  notify('演化报告已生成', `${evo.value?.positionName} · ${tl[0]?.date} → ${lastDate.value} · ${tl.length} 节点 · CSV 已下载`)
 }
 
 // ── 同步 + 加载演化档案（T3，/api/enterprise/positions/{id}/evolution）──

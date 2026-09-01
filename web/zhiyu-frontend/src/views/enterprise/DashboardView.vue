@@ -174,6 +174,7 @@ import { useEnterpriseStore } from '@/stores/enterprise'
 import NotificationBar from '@/components/common/NotificationBar.vue'
 import SealChip from '@/components/enterprise/SealChip.vue'
 import CountUp from '@/components/enterprise/CountUp.vue'
+import { downloadCsv, today } from '@/utils/export'
 
 const store = useEnterpriseStore()
 const showNotification = ref(false)
@@ -192,7 +193,14 @@ function notify(msg: string, detail: string) {
 }
 
 function exportReport() {
-  notify('岗位标准周报已生成', 'v2026.08 · 含岗位/新岗/诊断/预警 · 已写入下载目录')
+  const headers = ['模块', '名称', '指标', '状态']
+  const rows: unknown[][] = [
+    ...store.positions.map((p) => ['岗位状态', p.name, `${p.matchRate}%`, p.status]),
+    ...store.candidates.map((c) => ['新岗位发现', c.title, `${c.confidence}%`, c.status]),
+    ...store.diagnoses.map((d) => ['JD 诊断', d.positionName, d.overallScore, d.status]),
+  ]
+  downloadCsv(`岗位标准周报_${today()}.csv`, headers, rows)
+  notify('岗位标准周报已生成', `已下载 CSV · 岗位 ${store.positions.length} · 新岗 ${store.candidates.length} · 诊断 ${store.diagnoses.length}`)
 }
 
 async function reVerify() {

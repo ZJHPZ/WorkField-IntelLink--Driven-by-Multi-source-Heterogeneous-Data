@@ -35,8 +35,19 @@
         <span class="text-[9px] font-mono tracking-wider" :class="msg.role === 'user' ? 'text-white/40' : ''" :style="msg.role === 'assistant' ? { color: 'var(--text-muted)' } : {}">
           {{ formatTime(msg.timestamp) }}
         </span>
-        <span v-if="msg.role === 'assistant'" class="text-[8px] font-mono tracking-widest" style="color:var(--brand-500)">
-          AI ADVISOR
+        <span class="flex items-center gap-3">
+          <!-- 重试按钮（生成出错时） -->
+          <button
+            v-if="msg.role === 'assistant' && msg.hasError"
+            @click="chatStore.retryLast()"
+            class="px-2.5 py-1 text-[8px] font-mono tracking-widest uppercase text-white transition-all hover:scale-[1.05] shadow-deep"
+            style="background:linear-gradient(135deg,var(--rose-600),var(--rose-500));clip-path:polygon(0 0,calc(100% - 4px) 0,100% 100%,0 100%)"
+          >
+            ↻ RETRY
+          </button>
+          <span v-if="msg.role === 'assistant'" class="text-[8px] font-mono tracking-widest" style="color:var(--brand-500)">
+            AI ADVISOR
+          </span>
         </span>
       </div>
     </div>
@@ -56,15 +67,23 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import MarkdownIt from 'markdown-it'
+import { useChatStore } from '@/stores/chat'
 import type { ChatMessage } from '@/stores/chat'
 
 const props = defineProps<{ msg: ChatMessage }>()
+
+const chatStore = useChatStore()
 
 const md = new MarkdownIt({ breaks: true, linkify: true })
 
 const renderedContent = computed(() => {
   if (props.msg.role === 'user') return escapeHtml(props.msg.content)
-  return md.render(props.msg.content || '')
+  let html = md.render(props.msg.content || '')
+  // 流式生成中：末尾追加闪烁光标
+  if (props.msg.isStreaming && props.msg.content) {
+    html += '<span class="stream-cursor">▊</span>'
+  }
+  return html
 })
 
 const bubbleClass = computed(() => {
@@ -164,5 +183,18 @@ function formatTime(ts: number): string {
   margin: 0.5em 0;
   color: var(--text-secondary);
   font-style: italic;
+}
+
+/* 流式生成光标 — 闪烁块 */
+.stream-cursor {
+  display: inline-block;
+  margin-left: 2px;
+  color: var(--brand-400);
+  font-weight: 700;
+  animation: cursorBlink 1s step-end infinite;
+}
+@keyframes cursorBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
 }
 </style>

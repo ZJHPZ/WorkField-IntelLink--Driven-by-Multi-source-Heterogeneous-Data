@@ -1648,6 +1648,228 @@ a.leader-row--link {
 }
 
 /* ═══════════════════════════════════════════
+   人才库 · 人才台账
+   ═══════════════════════════════════════════ */
+.tbl-head--talent,
+.tbl-row--talent {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr 0.8fr 1.6fr 0.7fr 0.9fr 120px;
+  gap: 10px;
+  align-items: center;
+}
+.tbl-head--talent {
+  padding: 2px 4px 6px;
+  border-bottom: 2px solid var(--ent-navy);
+  position: relative;
+}
+.tbl-head--talent::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 1px;
+  background: var(--ent-coral);
+  opacity: 0.5;
+}
+.tbl-head--talent span {
+  font-family: 'Courier New', monospace;
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ent-ink-muted);
+  white-space: nowrap;
+}
+.tbl-row--talent {
+  padding: 10px 4px;
+  border-bottom: 1px dashed var(--ent-rule);
+  transition: background 0.2s ease;
+  cursor: pointer;
+}
+.tbl-row--talent:last-child { border-bottom: none; }
+.tbl-row--talent:hover { background: rgba(0, 9, 76, 0.02); }
+
+/* 姓名岗位 */
+.tbl-row--talent .t-name {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ent-ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.t-sub {
+  font-family: 'Courier New', monospace;
+  font-size: 9px;
+  line-height: 1.6;
+  color: var(--ent-dim);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.tbl-row--talent .t-dir {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--ent-ink-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.tbl-row--talent .t-sal {
+  font-family: 'Courier New', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--ent-navy);
+  text-align: right;
+  white-space: nowrap;
+}
+.tbl-row--talent .t-match {
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ent-navy);
+  text-align: right;
+  white-space: nowrap;
+}
+.tbl-row--talent .t-match.coral { color: var(--ent-coral); }
+.tbl-row--talent .t-seal { min-width: 0; }
+
+/* 技能标签（已匹配 / 缺口珊瑚） */
+.t-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  min-width: 0;
+}
+.skill-tag {
+  font-family: 'Courier New', monospace;
+  font-size: 9px;
+  letter-spacing: 0.03em;
+  color: var(--ent-ink-muted);
+  background: rgba(0, 9, 76, 0.045);
+  border: 1px solid var(--ent-rule);
+  padding: 0 5px;
+  line-height: 1.6;
+  white-space: nowrap;
+}
+.skill-tag--miss {
+  color: var(--ent-coral);
+  border-color: rgba(200, 92, 86, 0.35);
+  background: rgba(200, 92, 86, 0.05);
+}
+
+/* 操作列：收藏 + 前移 */
+.tbl-row--talent .t-ops {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+}
+.fav-btn {
+  font-size: 14px;
+  line-height: 1;
+  color: var(--ent-dim);
+  border: 1px solid var(--ent-rule);
+  background: var(--ent-card);
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+.fav-btn:hover { border-color: var(--ent-coral); color: var(--ent-coral); }
+.fav-btn.faved { color: var(--ent-coral); border-color: var(--ent-coral); }
+.open-btn {
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ent-navy);
+  border: 1px solid var(--ent-rule);
+  background: var(--ent-card);
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+.open-btn:hover { color: var(--ent-coral); border-color: var(--ent-coral); }
+
+/* 匹配记录台账（详情页 · 6 列） */
+.tbl-head--mt,
+.tbl-row--mt {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 0.6fr 1.6fr 1fr 0.8fr;
+  gap: 10px;
+  align-items: center;
+}
+.tbl-head--mt {
+  padding: 2px 4px 6px;
+  border-bottom: 2px solid var(--ent-navy);
+  position: relative;
+  margin-top: 8px;
+}
+.tbl-head--mt::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 1px;
+  background: var(--ent-coral);
+  opacity: 0.5;
+}
+.tbl-head--mt span {
+  font-family: 'Courier New', monospace;
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ent-ink-muted);
+  white-space: nowrap;
+}
+.tbl-row--mt {
+  padding: 10px 4px;
+  border-bottom: 1px dashed var(--ent-rule);
+  transition: background 0.2s ease;
+}
+.tbl-row--mt:last-child { border-bottom: none; }
+.tbl-row--mt:hover { background: rgba(0, 9, 76, 0.02); }
+.tbl-row--mt .mt-pos {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ent-ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.tbl-row--mt .mt-co {
+  font-family: 'Courier New', monospace;
+  font-size: 10px;
+  color: var(--ent-ink-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.tbl-row--mt .t-match {
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ent-navy);
+  text-align: right;
+  white-space: nowrap;
+}
+.tbl-row--mt .t-match.coral { color: var(--ent-coral); }
+.tbl-row--mt .mt-sal {
+  font-family: 'Courier New', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--ent-navy);
+  text-align: right;
+  white-space: nowrap;
+}
+
+/* ═══════════════════════════════════════════
    人才需求预测 · 趋势研判报告
    ═══════════════════════════════════════════ */
 .trend-row,

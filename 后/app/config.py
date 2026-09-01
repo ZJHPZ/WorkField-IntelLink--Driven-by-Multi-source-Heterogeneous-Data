@@ -23,6 +23,22 @@ class Settings(BaseSettings):
     SPARK_BASE_URL: str = "https://spark-api-open.xf-yun.com/agent/v1/"
     SPARK_MODEL: str = "spark-x"
 
+    # ── Coze 智能体「帕克」（AI 职业顾问外部智能体）──
+    COZE_API_TOKEN: str = ""
+    COZE_API_URL: str = "https://886xv55s2h.coze.site/stream_run"
+
+    # ── 讯飞虚拟人（数字人）──
+    # apiKey/apiSecret 只用于服务端签名 signedUrl，绝不外发到前端/仓库。
+    # 凭证齐全时 GET /api/enterprise/avatar/signed-url 返回 configured:true；否则前端走演示模式。
+    AVATAR_APP_ID: str = ""
+    AVATAR_API_KEY: str = ""
+    AVATAR_API_SECRET: str = ""
+    AVATAR_SCENE_ID: str = ""
+    AVATAR_AVATAR_ID: str = ""
+    AVATAR_VOICE_ID: str = ""
+    AVATAR_HOST: str = "vms.cn-huadong-1.xf-yun.com"
+    AVATAR_START_PATH: str = "/v1/private/vms2d_start"
+
     # ── Neo4j ──
     NEO4J_URI: str = "bolt://localhost:7687"
     NEO4J_USER: str = "neo4j"

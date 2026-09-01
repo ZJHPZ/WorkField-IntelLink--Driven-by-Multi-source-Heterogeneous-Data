@@ -180,6 +180,7 @@ import { useEnterpriseStore } from '@/stores/enterprise'
 import type { TeamGap } from '@/stores/enterprise'
 import NotificationBar from '@/components/common/NotificationBar.vue'
 import CountUp from '@/components/enterprise/CountUp.vue'
+import { downloadCsv, today } from '@/utils/export'
 
 const store = useEnterpriseStore()
 
@@ -277,7 +278,13 @@ function generatePlans() {
   notify('培训计划已生成', `汇总 ${planItems.value.length} 项 · 覆盖 ${affectedCount.value} 岗位 · 估算 ${planItems.value.length * 8} 人·课时`)
 }
 function exportReport() {
-  notify('盘点表已导出', `团队技能盘点 · 台账 ${gaps.value.length} 项 · PDF 已生成`)
+  const headers = ['技能', '要求等级', '当前覆盖', '差距', '覆盖岗位', '优先级', '处置']
+  const rows: unknown[][] = gaps.value.map((g) => [
+    g.skillName, levelLabel(g.requiredLevel), `${g.currentAvg}%`, `${g.gap}%`,
+    coveredNames(g).join('、') || '—', prioLabel(g.priority), disposeFor(g.priority),
+  ])
+  downloadCsv(`团队技能盘点_${today()}.csv`, headers, rows)
+  notify('盘点表已导出', `团队技能盘点 · 台账 ${gaps.value.length} 项 · CSV 已下载`)
 }
 
 onMounted(() => { store.fetchTeamGaps() })

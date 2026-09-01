@@ -24,6 +24,9 @@ dist/
 dist-ssr/
 *.local
 
+# ══ 第三方 SDK 产物（体积大且不入库；前端运行时用 public/ 内副本）══
+sdk/
+
 # ══ 日志 / 系统 ══
 *.log
 .DS_Store

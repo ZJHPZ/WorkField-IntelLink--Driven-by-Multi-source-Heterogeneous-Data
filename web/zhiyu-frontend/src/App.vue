@@ -143,13 +143,29 @@
       <!-- Page content — 主板基板纹理 -->
       <div :class="isFullscreen ? 'flex-1' : 'flex-1 overflow-y-auto p-3 md:p-4'" class="main-board">
         <router-view v-slot="{ Component }">
-          <transition name="slide-up" mode="out-in">
-            <component :is="Component" />
-          </transition>
+          <!-- Suspense 包裹 transition：懒加载路由是异步组件，resolve 后、首帧渲染前
+               subTree 仍为 null；此刻 Transition 的 update 分支会调用
+               locateNonHydratedAsyncRoot 递归定位异步根，读到 null 即崩溃。
+               Suspense 挂起子树直到异步组件 resolve 完成再交给 Transition，
+               从根上消除「异步 resolve 中间态 + 过渡更新」的竞态。 -->
+          <Suspense>
+            <transition name="slide-up" mode="out-in">
+              <!-- :key=route.path —— out-in 过渡 + 异步路由组件的标准修复：
+                   路由变化时强制全新挂载，避免 RouterView 在 async chunk 解析期间
+                   复用旧 vnode，导致过渡记账拿到已移除的 subTree.el → parentNode(null) 崩溃 -->
+              <component :is="Component" :key="route.path" />
+            </transition>
+            <template #fallback>
+              <!-- 异步 chunk 加载期间的占位：保持内容区高度，避免塌缩 -->
+              <div class="min-h-[40vh]" aria-hidden="true"></div>
+            </template>
+          </Suspense>
         </router-view>
       </div>
     </main>
   </div>
+  <!-- 企业侧全局悬浮数字人（全屏页/个人侧不显示） -->
+  <EnterpriseAvatar v-if="appStore.isEnterprise && !isFullscreen" />
   <NotificationBar
     :visible="notifyState.visible"
     :message="notifyState.message"
@@ -166,6 +182,7 @@ import { useThemeStore } from '@/stores/theme'
 import { useAppStore } from '@/stores/app'
 import CosmicBackground from '@/components/common/CosmicBackground.vue'
 import NotificationBar from '@/components/common/NotificationBar.vue'
+import EnterpriseAvatar from '@/components/enterprise/EnterpriseAvatar.vue'
 import { useNotify } from '@/composables/useNotify'
 import { usePersonalStore } from '@/stores/personal'
 import dashboardIcon from '@/assets/icons/dashboard.svg'
@@ -205,6 +222,8 @@ const enterpriseNavItems = [
   { path: '/enterprise/team', label: '团队盘点', num: '05' },
   { path: '/enterprise/forecast', label: '需求预测', num: '06' },
   { path: '/enterprise/graph', label: '全图谱', num: '07' },
+  { path: '/enterprise/talent-pool', label: '人才库', num: '08' },
+  { path: '/enterprise/profile', label: '企业资料', num: '09' },
 ]
 
 const personalNavItems = [

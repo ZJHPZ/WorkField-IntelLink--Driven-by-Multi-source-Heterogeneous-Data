@@ -17,6 +17,13 @@ export default defineConfig({
         changeOrigin: true,
         ws: true,
       },
+      // 讯飞虚拟人 vms-web-sdk-2.0.0:服务不支持跨域,必须经代理。
+      // SDK 内部以 /vmss 为前缀请求,转发时剥掉前缀直达 vms 服务。
+      '/vmss': {
+        target: 'http://vms.cn-huadong-1.xf-yun.com',
+        changeOrigin: true,
+        rewrite: (p) => p.replace(/^\/vmss/, ''),
+      },
     },
   },
 })

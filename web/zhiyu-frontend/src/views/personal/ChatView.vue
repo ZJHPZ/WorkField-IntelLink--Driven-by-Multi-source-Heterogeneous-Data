@@ -166,18 +166,27 @@
               </div>
             </div>
             <button
+              v-if="!chatStore.isStreaming"
               @click="onSend"
-              :disabled="!chatStore.inputText.trim() || chatStore.isStreaming"
+              :disabled="!chatStore.inputText.trim()"
               class="self-end px-6 py-3 text-[10px] font-bold tracking-[0.2em] uppercase text-white disabled:opacity-30 disabled:cursor-not-allowed transition-all hover:scale-[1.02] shadow-deep"
               style="background:linear-gradient(135deg,var(--brand-600),var(--brand-500));clip-path:polygon(0 0,calc(100% - 8px) 0,100% 100%,0 100%);box-shadow:0 4px 16px color-mix(in srgb, var(--brand-500) 30%, transparent)"
             >
-              <span v-if="!chatStore.isStreaming" class="flex items-center gap-2">
+              <span class="flex items-center gap-2">
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
                 SEND
               </span>
-              <span v-else class="flex items-center gap-2">
-                <span class="w-1.5 h-1.5 bg-white rounded-full animate-pulse-slow"></span>
-                BUSY
+            </button>
+            <!-- 停止生成（rose 应急色：中断当前回复） -->
+            <button
+              v-else
+              @click="chatStore.stopStreaming()"
+              class="self-end px-6 py-3 text-[10px] font-bold tracking-[0.2em] uppercase text-white transition-all hover:scale-[1.02] shadow-deep"
+              style="background:linear-gradient(135deg,var(--rose-600),var(--rose-500));clip-path:polygon(0 0,calc(100% - 8px) 0,100% 100%,0 100%);box-shadow:0 4px 16px color-mix(in srgb, var(--rose-500) 30%, transparent)"
+            >
+              <span class="flex items-center gap-2">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="1" fill="currentColor" stroke="none"/></svg>
+                STOP
               </span>
             </button>
           </div>

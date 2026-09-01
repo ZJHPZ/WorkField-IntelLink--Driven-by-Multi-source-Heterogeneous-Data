@@ -42,7 +42,7 @@
               :x1="tx" :x2="tx" :y1="0" :y2="H"
               stroke="var(--border-color)" stroke-opacity="0.08" />
 
-        <!-- 来源谐波层：每条染色弱波 = 该来源对融合信号的贡献 -->
+        <!-- 来源谐波层：每条染色弱波 = 该来源对融合信号的贡献（d 由 rAF 直写，phase 非响应式） -->
         <path
           v-for="src in signal.sources"
           :key="src.source"
@@ -52,16 +52,19 @@
           :stroke="srcColor(src.source)"
           fill="none"
           stroke-width="1.2"
+          :ref="(el) => registerTrace(src.source, el)"
         />
 
         <!-- 融合波形（4 谐波叠加）：亮主线 + 泛光辉光 -->
         <path class="scope-glow" :d="fusedPath()"
               :stroke="statusColor(signal)"
-              fill="none" stroke-width="6" stroke-opacity="0.14" stroke-linecap="round" />
+              fill="none" stroke-width="6" stroke-opacity="0.14" stroke-linecap="round"
+              :ref="(el) => registerTrace('fused-glow', el)" />
         <path class="scope-trace" :d="fusedPath()"
               :stroke="statusColor(signal)"
               fill="none" stroke-width="2" stroke-linecap="round"
-              :style="{ '--trace-c': statusColor(signal) }" />
+              :style="{ '--trace-c': statusColor(signal) }"
+              :ref="(el) => registerTrace('fused', el)" />
 
         <!-- 悬浮探针：鼠标悬停 → 竖向光标 + 波形取样点 + 读数 -->
         <g v-if="hoverU !== null" class="scope-cursor">
@@ -139,7 +142,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted, ref } from 'vue'
+import { computed, onBeforeUnmount, onMounted, onUnmounted, ref } from 'vue'
 import { PALETTE } from '@/utils/color'
 import type { SignalDetail, SignalSource } from '@/stores/personal'
 
@@ -164,10 +167,23 @@ const SRC_PROFILE: Record<string, { freq: number; color: string; amp: number }> 
 const sourceLabels: Record<string, string> = { jd: 'JD', github: 'GitHub', arxiv: 'arXiv', standard: 'Standard' }
 const statusColors: Record<string, string> = { confirmed: PALETTE.mint, candidate: PALETTE.amber, unverified: '#64748b' }
 
-const phase = ref(0)
+// ── 相位漂移动画 ──
+// phase 故意保持「非响应式」：波形每帧流动是纯视觉，改响应式 ref 会让组件每帧重渲染，
+// 在路由过渡（out-in）期间触发"更新已卸载组件"崩溃（parentNode null）。
+// rAF 里直接用普通变量重算 path 并 setAttribute 直写 SVG，零响应式扰动。
+let phase = 0
+
+// SVG path 元素引用：'fused' / 'fused-glow' + 各来源 source 键
+const traceEls = new Map<string, SVGPathElement>()
+function registerTrace(key: string, el: unknown) {
+  if (el instanceof SVGPathElement) traceEls.set(key, el)
+  else traceEls.delete(key)
+}
+
 const hoverSrc = ref<string | null>(null)
 const hoverU = ref<number | null>(null)
 let rafId = 0
+let disposed = false
 
 /** 来源按置信度降序 → 拆解条主次分明 */
 const orderedSources = computed(() =>
@@ -193,7 +209,7 @@ function weight(src: SignalSource) {
 /** 单来源谐波值（带权重，融合波形用） */
 function harmonic(src: SignalSource, u: number) {
   const p = SRC_PROFILE[src.source]
-  return p ? weight(src) * p.amp * Math.sin(2 * Math.PI * p.freq * u + phase.value) : 0
+  return p ? weight(src) * p.amp * Math.sin(2 * Math.PI * p.freq * u + phase) : 0
 }
 
 /** 最强来源置信度：谐波显示振幅以它为基准归一化 */
@@ -208,7 +224,7 @@ function srcWave(src: SignalSource, u: number) {
   const p = SRC_PROFILE[src.source]
   if (!p) return 0
   const amp = src.confidence / maxSourceConf.value
-  return amp * p.amp * Math.sin(2 * Math.PI * p.freq * u + phase.value + srcPhaseOffset(src.source))
+  return amp * p.amp * Math.sin(2 * Math.PI * p.freq * u + phase + srcPhaseOffset(src.source))
 }
 
 /** 融合波形值 = 4 谐波叠加 */
@@ -258,11 +274,21 @@ function onMove(e: MouseEvent) {
 function onLeave() { hoverU.value = null }
 
 // ── 动画循环：仅相位漂移（波形持续流动，无自动扫描）──
+// 每帧重算 path 直写 SVG，避免响应式变更；悬停探针读数在 hoverU 变化时取当前相位，已足够。
 function tick() {
-  phase.value += 0.008
+  if (disposed) return
+  phase += 0.008
+  const f = fusedPath()
+  traceEls.get('fused')?.setAttribute('d', f)
+  traceEls.get('fused-glow')?.setAttribute('d', f)
+  for (const src of props.signal.sources) {
+    const el = traceEls.get(src.source)
+    if (el) el.setAttribute('d', srcPath(src))
+  }
   rafId = requestAnimationFrame(tick)
 }
 onMounted(() => { rafId = requestAnimationFrame(tick) })
+onBeforeUnmount(() => { disposed = true; cancelAnimationFrame(rafId) })
 onUnmounted(() => { cancelAnimationFrame(rafId) })
 </script>
 

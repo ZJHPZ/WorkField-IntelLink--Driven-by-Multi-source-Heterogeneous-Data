@@ -174,6 +174,7 @@ import { useEnterpriseStore } from '@/stores/enterprise'
 import type { SkillTrend } from '@/stores/enterprise'
 import NotificationBar from '@/components/common/NotificationBar.vue'
 import CountUp from '@/components/enterprise/CountUp.vue'
+import { downloadCsv, today } from '@/utils/export'
 
 const store = useEnterpriseStore()
 
@@ -212,7 +213,13 @@ function generateRec() {
   notify('招聘建议已生成', `优先招聘 ${hotCount.value} 项 · 覆盖 ${emerging.value.slice(0, 5).map((s) => s.name).join('、')}`)
 }
 function exportReport() {
-  notify('预测报告已导出', `人才需求预测 · 升温榜 ${emerging.value.length} · 降温榜 ${cooling.value.length} · PDF 已生成`)
+  const headers = ['榜单', '技能', '指数', '相位']
+  const rows: unknown[][] = [
+    ...emerging.value.map((s) => ['升温榜', s.name, `${pct(s.score)}%`, phaseLabel(s.phase)]),
+    ...cooling.value.map((s) => ['降温榜', s.name, `${pct(s.score)}%`, phaseLabel(s.phase)]),
+  ]
+  downloadCsv(`人才需求预测_${today()}.csv`, headers, rows)
+  notify('预测报告已导出', `升温榜 ${emerging.value.length} · 降温榜 ${cooling.value.length} · CSV 已下载`)
 }
 function adopt() {
   notify('批示已采纳', `已转招聘计划 · 建议招聘 ${hotCount.value} 项 · 待 COE 排期`)

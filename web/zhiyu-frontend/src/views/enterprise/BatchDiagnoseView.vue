@@ -192,6 +192,7 @@ import type { JDDiagnosis } from '@/stores/enterprise'
 import NotificationBar from '@/components/common/NotificationBar.vue'
 import SealChip from '@/components/enterprise/SealChip.vue'
 import CountUp from '@/components/enterprise/CountUp.vue'
+import { downloadCsv, today } from '@/utils/export'
 
 const store = useEnterpriseStore()
 
@@ -313,7 +314,19 @@ function rerun() {
   setTimeout(() => notify('批次审计完成', '8 条目全部通过流水线 · 评分已更新'), 2000)
 }
 function exportReport() {
-  notify('审计报告已导出', 'BATCH 2026-08-01 · 8 条目 · PDF 含流水线节拍与条目明细')
+  const headers = ['JD No.', '岗位/文件名', '通胀', '缺失', '冗余', '评分', '状态', '复核']
+  const rows: unknown[][] = ledger.value.map((r) => [
+    r.fileNo || r.id,
+    r.sub ? `${r.name} · ${r.sub}` : r.name,
+    r.done ? r.inflation + '%' : '—',
+    r.done ? r.missing : '—',
+    r.done ? r.redundant : '—',
+    r.done ? r.score : '—',
+    r.status,
+    !r.done ? '流转中' : r.flagged ? (reviewed.value.has(r.id) ? '已复核' : '待复核') : '—',
+  ])
+  downloadCsv(`批量审计报告_${today()}.csv`, headers, rows)
+  notify('审计报告已导出', `BATCH 2026-08-01 · ${total.value} 条目 · CSV 已下载`)
 }
 
 onMounted(() => { store.fetchDiagnoses() })

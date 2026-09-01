@@ -87,6 +87,25 @@ const router = createRouter({
       component: () => import('@/views/enterprise/GraphView.vue'),
       meta: { title: '全图谱可视化', role: 'enterprise', fullscreen: true },
     },
+    {
+      path: '/enterprise/talent-pool',
+      name: 'TalentPool',
+      component: () => import('@/views/enterprise/TalentPoolView.vue'),
+      meta: { title: '人才库', role: 'enterprise' },
+    },
+    {
+      // 候选人 id（如 cand_li_wei）无斜杠，普通 `:id`
+      path: '/enterprise/talent-pool/:id',
+      name: 'TalentPoolDetail',
+      component: () => import('@/views/enterprise/TalentPoolDetailView.vue'),
+      meta: { title: '人才档案', role: 'enterprise' },
+    },
+    {
+      path: '/enterprise/profile',
+      name: 'EnterpriseProfile',
+      component: () => import('@/views/enterprise/EnterpriseProfileView.vue'),
+      meta: { title: '企业资料', role: 'enterprise' },
+    },
 
     // ═══════════════════════════════════════════
     // 个人侧 (Personal) — 8 routes

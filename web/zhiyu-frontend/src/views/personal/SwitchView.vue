@@ -29,22 +29,54 @@
         </div>
       </div>
 
-      <!-- 仪表盘 -->
+      <!-- 转行发射台 GO/NO-GO -->
       <div class="lg:col-span-3 panel-neon holo-overlay scan-line-fast p-5 shadow-deep relative overflow-hidden">
         <div class="rivet" style="top:10px;left:10px"></div><div class="rivet" style="top:10px;right:10px"></div>
         <div class="relative z-[3]">
-          <PanelHeader label="GAUGE" title="可行性仪表盘" color="cyan" />
-          <div class="flex items-center gap-6">
-            <div class="relative shrink-0" style="width:160px;height:160px">
-              <svg viewBox="0 0 160 160" class="w-full h-full -rotate-90"><circle cx="80" cy="80" r="65" fill="none" stroke="var(--bg-secondary)" stroke-width="14"/><circle cx="80" cy="80" r="65" fill="none" :stroke="feasibilityColor" stroke-width="14" stroke-linecap="round" :stroke-dasharray="(2*Math.PI*65)" :stroke-dashoffset="(2*Math.PI*65*(1-feasibilityScore/100))" class="transition-all duration-1000" style="filter:drop-shadow(0 0 10px currentColor)"/></svg>
-              <div class="absolute inset-0 flex flex-col items-center justify-center"><div class="data-segment text-4xl font-bold" :style="{color:feasibilityColor}">{{ feasibilityScore }}</div><div class="text-xs font-mono tracking-widest mt-1" :style="{color:'var(--text-muted)'}">FEASIBILITY</div><div class="text-xs mt-1 px-2 py-0.5 rounded-sm font-mono font-bold" :style="{background:feasibilityBadgeBg,color:feasibilityColor}">{{ feasibilityLabel }}</div></div>
+          <PanelHeader label="LAUNCH" title="转行发射台" color="mint" />
+
+          <!-- 主引擎推力条 -->
+          <div class="mb-4">
+            <div class="flex items-end justify-between mb-1.5">
+              <span class="text-[9px] tracking-widest font-mono" style="color:var(--text-muted)">MAIN ENGINE · THRUST</span>
+              <span class="data-segment text-3xl font-bold leading-none" :style="{color:feasibilityColor,textShadow:'0 0 12px '+feasibilityColor}">{{ feasibilityScore }}</span>
             </div>
-            <div class="flex-1 grid grid-cols-2 gap-2">
-              <div class="p-3 text-center rounded-sm" style="background:color-mix(in srgb, var(--mint-500) 04%, transparent);border:1px solid color-mix(in srgb, var(--mint-500) 10%, transparent)"><div class="data-giant text-xl text-mint-500">{{ totalOverlap }}</div><div class="text-xs font-mono tracking-widest mt-0.5" :style="{color:'var(--text-muted)'}">TRANSFER</div></div>
-              <div class="p-3 text-center rounded-sm" style="background:color-mix(in srgb, var(--rose-500) 04%, transparent);border:1px solid color-mix(in srgb, var(--rose-500) 10%, transparent)"><div class="data-giant text-xl text-rose-500">{{ totalGap }}</div><div class="text-xs font-mono tracking-widest mt-0.5" :style="{color:'var(--text-muted)'}">NEW SKILLS</div></div>
-              <div class="p-3 text-center rounded-sm" style="background:color-mix(in srgb, var(--brand-500) 04%, transparent);border:1px solid color-mix(in srgb, var(--brand-500) 10%, transparent)"><div class="data-giant text-xl text-brand-500">{{ estimatedMonths }}M</div><div class="text-xs font-mono tracking-widest mt-0.5" :style="{color:'var(--text-muted)'}">EST. TIME</div></div>
-              <div class="p-3 text-center rounded-sm" style="background:color-mix(in srgb, var(--cyan-500) 04%, transparent);border:1px solid color-mix(in srgb, var(--cyan-500) 10%, transparent)"><div class="data-giant text-xl text-cyan-500">{{ marketDemand }}</div><div class="text-xs font-mono tracking-widest mt-0.5" :style="{color:'var(--text-muted)'}">DEMAND</div></div>
+            <div class="flex gap-1">
+              <div v-for="i in 10" :key="i" class="flex-1 h-3 transition-all duration-500"
+                :style="i <= Math.round(feasibilityScore/10)
+                  ? { background: feasibilityColor, boxShadow:'0 0 8px '+feasibilityColor, opacity:1 }
+                  : { background:'var(--bg-secondary)', opacity:0.45 }"></div>
             </div>
+            <div class="flex justify-between mt-1">
+              <span class="text-[8px] font-mono" style="color:var(--text-muted)">0</span>
+              <span class="text-[8px] font-mono" style="color:var(--text-muted)">100</span>
+            </div>
+          </div>
+
+          <!-- 判定徽章 -->
+          <div class="flex items-center gap-2 mb-4">
+            <span class="px-3 py-1 text-[10px] font-mono font-bold tracking-wider"
+              :style="{ background: feasibilityBadgeBg, color: feasibilityColor, border:'1px solid color-mix(in srgb, '+feasibilityColor+' 35%, transparent)' }"
+              style="clip-path:polygon(0 0,calc(100% - 6px) 0,100% 100%,6px 100%)">VERDICT · {{ feasibilityLabel }}</span>
+            <span class="text-[9px] font-mono leading-relaxed" style="color:var(--text-secondary)">{{ verdictReason }}</span>
+          </div>
+
+          <!-- GO/NO-GO 检查清单 -->
+          <div class="space-y-1.5 mb-4">
+            <div v-for="item in checklist" :key="item.key"
+              class="flex items-center gap-3 px-3 py-2 transition-all"
+              :style="{ background: statusBg(item.status), borderLeft:'2px solid '+statusColor[item.status] }">
+              <span class="w-2 h-2 shrink-0" :style="{ background: statusColor[item.status], boxShadow:'0 0 6px '+statusColor[item.status] }"></span>
+              <span class="w-12 text-[8px] font-mono font-bold tracking-widest shrink-0" :style="{color:statusColor[item.status]}">{{ item.status }}</span>
+              <span class="text-[10px] font-bold flex-1" style="color:var(--text-primary)">{{ item.label }}</span>
+              <span class="text-[9px] font-mono" style="color:var(--text-secondary)">{{ item.value }}</span>
+            </div>
+          </div>
+
+          <!-- 判定横幅 + 生成路径 -->
+          <div class="flex items-center justify-between gap-3 pt-3" style="border-top:1px dashed var(--border-color)">
+            <span class="text-[9px] font-mono tracking-widest" style="color:var(--text-muted)">READY CHECK · {{ feasibilityLabel }}</span>
+            <button @click="scrollToPlan" class="px-3 py-1.5 text-[9px] font-bold tracking-wider uppercase text-white transition-all hover:brightness-110" :style="{background:feasibilityColor,clipPath:'polygon(0 0,calc(100% - 6px) 0,100% 100%,0 100%)'}">生成转行路径 ↓</button>
           </div>
         </div>
       </div>
@@ -84,7 +116,7 @@
     </div>
 
     <!-- 分阶段路径 -->
-    <div class="panel-bridge p-5 shadow-deep view-section">
+    <div id="plan-section" class="panel-bridge p-5 shadow-deep view-section">
       <PanelHeader label="PLAN" title="建议转行路径" color="purple" />
       <div class="relative pl-8">
         <div class="absolute left-4 top-0 bottom-0 w-0.5" style="background:linear-gradient(180deg,var(--brand-500),#a855f7,var(--cyan-500))"></div>
@@ -138,6 +170,27 @@ const feasibilityLabel = computed(()=>feasibilityScore.value>=70?'FEASIBLE':feas
 const feasibilityBadgeBg = computed(()=>feasibilityScore.value>=70?'color-mix(in srgb, var(--mint-500) 10%, transparent)':feasibilityScore.value>=40?'color-mix(in srgb, var(--amber-500) 10%, transparent)':'color-mix(in srgb, var(--rose-500) 10%, transparent)')
 const fromOnlySkills = ['Java','Spring Boot','MyBatis','SQL','Linux','Git'].filter(s=>!overlapSkills.value.includes(s)).slice(0,3)
 const estimatedHoursPerSkill = ['3-4个月','2-3个月','1-2个月','2-3个月','1-2个月']
+
+// ── 发射台 GO/NO-GO 检查清单 ──
+type GoStatus = 'GO' | 'STBY' | 'NO-GO'
+const statusColor: Record<GoStatus, string> = { 'GO': '#10b981', 'STBY': '#f59e0b', 'NO-GO': '#f43f5e' }
+function statusBg(s: GoStatus): string { return `color-mix(in srgb, ${statusColor[s]} 06%, transparent)` }
+function statusOf(go: boolean, stby: boolean): GoStatus { return go ? 'GO' : stby ? 'STBY' : 'NO-GO' }
+
+const checklist = computed(() => {
+  const demandQual = marketDemand.value >= 70 ? 'high' : marketDemand.value >= 40 ? 'mid' : 'low'
+  return [
+    { key: 'overlap', label: '技能重叠', value: `${totalOverlap.value} skills`, status: statusOf(totalOverlap.value >= 8, totalOverlap.value >= 4) },
+    { key: 'demand',  label: '市场需求', value: `${marketDemand.value} ${demandQual}`, status: statusOf(marketDemand.value >= 70, marketDemand.value >= 40) },
+    { key: 'gap',     label: '技能缺口', value: `${totalGap.value} 需新学`, status: statusOf(totalGap.value <= 3, totalGap.value <= 6) },
+    { key: 'time',    label: '时间预估', value: `${estimatedMonths.value} months`, status: statusOf(estimatedMonths.value <= 6, estimatedMonths.value <= 12) },
+  ]
+})
+const verdictReason = computed(() =>
+  feasibilityScore.value >= 70 ? '可迁移基础扎实，可立即启动转行准备'
+    : feasibilityScore.value >= 40 ? '存在明显缺口，建议按路径分阶段推进'
+      : '缺口较大，需谨慎评估或延长准备周期')
+function scrollToPlan() { document.getElementById('plan-section')?.scrollIntoView({ behavior: 'smooth', block: 'start' }) }
 
 const transitionPhases = computed(()=>{
   const phases:{color:string;title:string;duration:string;description:string;tags:string[]}[]=[]

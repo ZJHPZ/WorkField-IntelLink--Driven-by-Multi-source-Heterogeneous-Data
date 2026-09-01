@@ -7,7 +7,7 @@
           <span class="tag-plate" style="color:var(--brand-400);border-color:var(--brand-500)">PROFILE</span>
           <h1 class="text-lg font-bold tracking-wide uppercase" :style="{color:'var(--text-primary)'}">技能画像</h1>
         </div>
-        <span class="text-xs font-mono" :style="{color:'var(--text-muted)'}">{{ store.skillCount }} SKILLS · +{{ growthNetGain }} SINCE 2022</span>
+        <span class="text-xs font-mono" :style="{color:'var(--text-muted)'}">{{ store.skillCount }} SKILLS · +{{ growthNetGain }} SINCE {{ startLabel }}</span>
       </div>
     </div>
 
@@ -38,33 +38,40 @@
         </div>
         <!-- 成长曲线 -->
         <div class="panel-bridge p-4 shadow-deep">
-          <PanelHeader label="CURVE" title="技能增长曲线" color="brand" margin="sm" />
-          <div style="height:140px">
+          <div class="flex items-center justify-between mb-2">
+            <PanelHeader label="CURVE" title="技能增长曲线" color="brand" margin="none" />
+            <span class="text-[9px] font-mono tracking-widest flex items-center gap-3" :style="{color:'var(--text-muted)'}">
+              <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-sm" style="background:var(--brand-500)"></span>本期新增</span>
+              <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full" style="background:var(--cyan-500)"></span>累计技能</span>
+            </span>
+          </div>
+          <div style="height:150px">
             <v-chart v-if="growthChartOption" class="w-full h-full" :option="growthChartOption" :autoresize="true" theme="dark" />
           </div>
-          <div class="flex items-center justify-center gap-4 mt-2 text-xs font-mono" :style="{color:'var(--text-muted)'}">
-            <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-sm" style="background:var(--brand-500)"></span> 技能数</span>
-            <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full" style="background:var(--cyan-500)"></span> 趋势</span>
+          <!-- 最新一期新增技能 -->
+          <div class="mt-2.5 pt-2.5 flex items-start gap-2" style="border-top:1px dashed var(--border-color)">
+            <span class="text-[9px] font-mono tracking-widest mt-1.5 shrink-0" :style="{color:'var(--text-muted)'}">NEWEST</span>
+            <div class="flex flex-wrap gap-1">
+              <span v-for="s in latestSkills" :key="s" class="tag-plate" style="font-size:9px;padding:2px 7px;color:var(--mint-500);border-color:color-mix(in srgb, var(--mint-500) 35%, transparent)">{{ s }}</span>
+              <span v-if="!latestSkills.length" class="text-xs font-mono" :style="{color:'var(--text-muted)'}">—</span>
+            </div>
+          </div>
+          <!-- 增长速率 readouts -->
+          <div class="grid grid-cols-2 gap-2 mt-2.5">
+            <div class="p-2 text-center rounded-sm" style="background:color-mix(in srgb, var(--brand-500) 05%, transparent);border:1px solid color-mix(in srgb, var(--brand-500) 12%, transparent)">
+              <div class="data-giant text-base text-brand-500 data-segment">{{ avgGain }}/期</div>
+              <div class="text-[9px] font-mono tracking-widest mt-0.5" :style="{color:'var(--text-muted)'}">AVG GAIN</div>
+            </div>
+            <div class="p-2 text-center rounded-sm" style="background:color-mix(in srgb, var(--cyan-500) 05%, transparent);border:1px solid color-mix(in srgb, var(--cyan-500) 12%, transparent)">
+              <div class="data-giant text-base text-cyan-500 data-segment">{{ peakGain }}</div>
+              <div class="text-[9px] font-mono tracking-widest mt-0.5" :style="{color:'var(--text-muted)'}">PEAK · {{ peakLabel }}</div>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- 技能星座图 -->
-      <div class="lg:col-span-3 panel-neon panel-circuit p-5 shadow-deep holo-overlay">
-        <div class="rivet" style="top:10px;left:10px"></div><div class="rivet" style="top:10px;right:10px"></div>
-        <div class="relative z-[1]">
-          <div class="flex items-center justify-between mb-4">
-            <PanelHeader label="CONSTELLATION" title="技能星座图" color="purple" margin="none" />
-            <span class="text-xs font-mono flex items-center gap-3" :style="{color:'var(--text-muted)'}">
-              <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-mint-500"></span>健康</span>
-              <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full" style="background:var(--brand-500)"></span>匹配</span>
-              <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-amber-400"></span>预警</span>
-              <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-rose-500"></span>缺失</span>
-            </span>
-          </div>
-          <SkillConstellation :skills="constellationSkills" :height="320" @skill-click="onConstellationClick" />
-        </div>
-      </div>
+      <!-- 技能遥测矩阵 -->
+      <SkillMatrix :skills="store.skills" class="lg:col-span-3" />
     </div>
 
     <!-- 技能详情卡片 — 清除网格背景，用阴影+色条+交错层次区分 -->
@@ -194,7 +201,7 @@ import { useRouter } from 'vue-router'
 import { usePersonalStore } from '@/stores/personal'
 import type { SkillItem } from '@/stores/personal'
 import { useScrollReveal } from '@/composables/useScrollReveal'
-import SkillConstellation from '@/components/personal/SkillConstellation.vue'
+import SkillMatrix from '@/components/personal/SkillMatrix.vue'
 import PanelHeader from '@/components/common/PanelHeader.vue'
 import VChart from 'vue-echarts'
 import { use } from 'echarts/core'
@@ -218,38 +225,67 @@ const skillFilters = [{key:'all',label:'ALL'},{key:'healthy',label:'HEALTHY'},{k
 const filteredSkills = computed(()=>{const a=store.skills;switch(activeFilter.value){case'healthy':return a.filter(s=>s.status==='healthy'||s.status==='matched');case'alert':return a.filter(s=>s.status==='alert');case'expert':return a.filter(s=>s.level==='expert'||s.level==='advanced');default:return a}})
 const selectedSkillId = ref<string|null>(null)
 
-interface SkillStar {skill:SkillItem;x:number;y:number;size:number;brightness:number;color:string;highlightColor:string;glowColor:string;statusColor:string;statusLabel:string}
-
-// 星座图数据
-const constellationSkills = computed(() => store.skills.map(s => ({
-  id: s.id, name: s.name, category: s.category, freshness: s.freshness,
-  level: s.level, status: s.status, marketDemand: s.marketDemand,
-})))
-function onConstellationClick(skill: any) { selectedSkillId.value = selectedSkillId.value === skill.id ? null : skill.id }
-
-const growthCurve = [{label:'2022',value:3},{label:'2023H1',value:5},{label:'2023H2',value:7},{label:'2024H1',value:9},{label:'2024H2',value:10},{label:'2025H1',value:11},{label:'2025H2',value:12},{label:'2026',value:12}]
-const maxGrowthVal=15;const growthNetGain=computed(()=>growthCurve[growthCurve.length-1].value-growthCurve[0].value)
+// ── 技能增长曲线（Silent Fallback：store.growth 真实时间线优先，demo 兜底）──
+interface GrowthPoint { date: string; skillsGained: number; skills: string[]; cumulativeCount: number; description: string }
+const demoGrowth: GrowthPoint[] = [
+  { date: '2022H1', skillsGained: 3, skills: ['Python', 'SQL', 'HTML/CSS'], cumulativeCount: 3, description: '初识编程 — 建立 Web 基础' },
+  { date: '2022H2', skillsGained: 1, skills: ['JavaScript'], cumulativeCount: 4, description: '补齐前端脚本基础' },
+  { date: '2023H1', skillsGained: 2, skills: ['Vue', 'Node.js'], cumulativeCount: 6, description: '进入工程化前端开发' },
+  { date: '2023H2', skillsGained: 2, skills: ['React', 'TypeScript'], cumulativeCount: 8, description: '类型化与组件化双线推进' },
+  { date: '2024H1', skillsGained: 1, skills: ['SQL 进阶'], cumulativeCount: 9, description: '打通数据链路' },
+  { date: '2024H2', skillsGained: 2, skills: ['深度学习', 'NLP'], cumulativeCount: 11, description: '切入 AI/ML 方向' },
+  { date: '2025H1', skillsGained: 1, skills: ['Docker/K8s'], cumulativeCount: 12, description: '补齐工程化交付能力' },
+  { date: '2025H2', skillsGained: 2, skills: ['系统设计', 'Go'], cumulativeCount: 14, description: '架构视野扩展' },
+  { date: '2026H1', skillsGained: 2, skills: ['MLOps', 'Kubernetes'], cumulativeCount: 16, description: 'ML 工程化深入' },
+]
+const growthTimeline = computed<GrowthPoint[]>(() =>
+  store.growth?.timeline?.length ? (store.growth.timeline as GrowthPoint[]) : demoGrowth,
+)
+const growthNetGain = computed(() => {
+  const t = growthTimeline.value
+  return t.length ? t[t.length - 1].cumulativeCount - t[0].cumulativeCount : 0
+})
+const startLabel = computed(() => growthTimeline.value[0]?.date || '2022')
+const latestSkills = computed(() => growthTimeline.value[growthTimeline.value.length - 1]?.skills || [])
+const avgGain = computed(() => {
+  const t = growthTimeline.value
+  return t.length ? (t.reduce((a, p) => a + p.skillsGained, 0) / t.length).toFixed(1) : '0.0'
+})
+const peakGain = computed(() => growthTimeline.value.reduce((b, p) => Math.max(b, p.skillsGained), 0))
+const peakLabel = computed(() => growthTimeline.value.find(p => p.skillsGained === peakGain.value)?.date || '—')
+const maxCumulative = computed(() => growthTimeline.value.reduce((b, p) => Math.max(b, p.cumulativeCount), 1))
 
 const growthChartOption = computed(() => ({
   tooltip: {
     trigger: 'axis' as const,
     ...tooltipConfig.value,
     formatter: (params: any) => {
-      const p = Array.isArray(params) ? params[0] : params
-      return `<div style="font-weight:bold">${p.name}</div><div style="font-size:11px">技能数: <b>${p.value}</b></div>`
+      const arr = Array.isArray(params) ? params : [params]
+      const first = arr[0]
+      const pt = growthTimeline.value[first?.dataIndex] || null
+      const rows = arr.map((p: any) =>
+        `<div style="display:flex;align-items:center;gap:6px;margin:2px 0"><span style="display:inline-block;width:8px;height:8px;background:${p.color}"></span>${p.seriesName}: <b>${p.value}</b></div>`,
+      ).join('')
+      const chips = pt?.skills?.length
+        ? `<div style="margin-top:4px;color:#94a3b8">↳ ${pt.skills.join(' · ')}</div>`
+        : ''
+      const desc = pt?.description
+        ? `<div style="margin-top:2px;font-size:10px;color:#64748b">${pt.description}</div>`
+        : ''
+      return `<div style="font-weight:bold;margin-bottom:4px">${first?.name || ''}</div>${rows}${chips}${desc}`
     },
   },
-  grid: { left: 30, right: 10, top: 10, bottom: 24 },
+  grid: { left: 30, right: 10, top: 8, bottom: 24 },
   xAxis: {
     type: 'category' as const,
-    data: growthCurve.map(p => p.label),
+    data: growthTimeline.value.map(p => p.date),
     axisLabel: { color: axisLabel.value, fontSize: 9, rotate: 30 },
     axisLine: { lineStyle: { color: axisLine.value } },
     axisTick: { show: false },
   },
   yAxis: {
     type: 'value' as const,
-    max: maxGrowthVal,
+    max: maxCumulative.value + 1,
     axisLabel: { color: axisLabel.value, fontSize: 9 },
     splitLine: { lineStyle: { color: splitLine.value } },
     axisLine: { show: false },
@@ -257,8 +293,9 @@ const growthChartOption = computed(() => ({
   series: [
     {
       type: 'bar',
-      data: growthCurve.map(p => p.value),
-      barWidth: '50%',
+      name: '本期新增',
+      data: growthTimeline.value.map(p => p.skillsGained),
+      barWidth: '42%',
       itemStyle: {
         color: {
           type: 'linear',
@@ -273,19 +310,33 @@ const growthChartOption = computed(() => ({
     },
     {
       type: 'line',
-      data: growthCurve.map(p => p.value),
+      name: '累计技能数',
+      data: growthTimeline.value.map(p => p.cumulativeCount),
       smooth: true,
       symbol: 'circle',
       symbolSize: 6,
-      lineStyle: { color: cyan, width: 2 },
-      itemStyle: { color: cyan, borderColor: '#0e7490', borderWidth: 1 },
+      lineStyle: { color: cyan.value, width: 2, shadowBlur: 6, shadowColor: cyan.value + '66' },
+      itemStyle: { color: cyan.value, borderColor: '#0e7490', borderWidth: 1 },
+      markPoint: {
+        symbol: 'circle',
+        symbolSize: 9,
+        itemStyle: {
+          color: cyan.value,
+          borderColor: '#fff',
+          borderWidth: 1.5,
+          shadowBlur: 10,
+          shadowColor: cyan.value + 'aa',
+        },
+        data: [{ type: 'max', name: '当前' }],
+        label: { show: true, color: cyan.value, fontSize: 9, position: 'top', formatter: '当前 {c}' },
+      },
       areaStyle: {
         color: {
           type: 'linear',
           x: 0, y: 0, x2: 0, y2: 1,
           colorStops: [
-            { offset: 0, color: cyan + '26' },
-            { offset: 1, color: cyan + '00' },
+            { offset: 0, color: cyan.value + '26' },
+            { offset: 1, color: cyan.value + '00' },
           ],
         },
       },
@@ -301,5 +352,5 @@ function getLevelPct(l:string){const m:Record<string,number>={expert:95,advanced
 function getLevelDot(l:string){const m:Record<string,number>={expert:10,advanced:8,intermediate:6,basic:4};return m[l]||5}
 function getRelatedPositions(skill:SkillItem):string[]{const posMap:Record<string,string[]>={'编程语言':['全栈开发','后端工程师','AI工程师'],'AI/ML':['AI工程师','ML Engineer','算法工程师'],'前端':['前端开发','全栈开发'],'数据':['数据分析师','大数据工程师'],'DevOps':['DevOps工程师','SRE'],'架构':['技术总监','架构师']};return posMap[skill.category]||['相关岗位']}
 
-onMounted(() => { store.fetchSkills() })
+onMounted(() => { store.fetchSkills(); store.fetchGrowth() })
 </script>

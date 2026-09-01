@@ -210,6 +210,7 @@ import type { JDDiagnosis } from '@/stores/enterprise'
 import NotificationBar from '@/components/common/NotificationBar.vue'
 import SealChip from '@/components/enterprise/SealChip.vue'
 import CountUp from '@/components/enterprise/CountUp.vue'
+import { downloadCsv, today } from '@/utils/export'
 
 const store = useEnterpriseStore()
 
@@ -272,7 +273,21 @@ function notify(msg: string, detail: string) {
 }
 
 function exportReport(d: JDDiagnosis) {
-  notify('质检单已导出', `${reportNo.value} · ${d.positionName} 已生成 PDF 质检报告`)
+  const headers = ['指标', '数值']
+  const rows: unknown[][] = [
+    ['质检编号', reportNo.value],
+    ['岗位名称', d.positionName],
+    ['JD 标题', d.jdTitle],
+    ['提交时间', d.submittedAt],
+    ['质检总分', `${d.overallScore} / 100`],
+    ['通胀指数', `${Math.round(d.inflationIndex * 100)}%`],
+    ['诊断状态', d.status],
+    ['缺失技能', d.missingKeywords.join('、') || '—'],
+    ['冗余技能', d.redundantKeywords.join('、') || '—'],
+    ['AI 修订建议', suggestions(d).join('；') || '—'],
+  ]
+  downloadCsv(`质检单_${d.positionName}_${today()}.csv`, headers, rows)
+  notify('质检单已导出', `${reportNo.value} · ${d.positionName} · CSV 已下载`)
 }
 function applyFix(d: JDDiagnosis) {
   notify('修订已应用', `${d.positionName} 已生成修订版 JD 建议稿 · 可在诊断记录中追溯`)

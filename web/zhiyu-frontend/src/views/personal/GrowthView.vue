@@ -7,26 +7,35 @@
           <span class="tag-plate" style="color:#f59e0b;border-color:#f59e0b">GROWTH</span>
           <h1 class="text-lg font-bold tracking-wide uppercase" :style="{color:'var(--text-primary)'}">职业成长轨迹</h1>
         </div>
-        <span class="text-xs font-mono" :style="{color:'var(--text-muted)'}">{{ currentLevel.label }} · LV.{{ userLevel }}</span>
+        <span class="text-xs font-mono" :style="{color:'var(--text-muted)'}">{{ currentLevelName }} · {{ store.skillCount }} SKILLS</span>
       </div>
     </div>
 
-    <!-- 等级进阶 — 进化链 -->
-    <div class="panel-neon p-5 shadow-deep relative overflow-hidden holo-overlay">
-      <HolographicBackdrop color="#f59e0b" :intensity="0.15" :speed="0.7" />
-      <div class="rivet" style="top:10px;left:10px"></div><div class="rivet" style="top:10px;right:10px"></div>
-      <div class="relative z-[1]">
-        <div class="flex items-center justify-between mb-4">
-          <PanelHeader label="EVOLUTION" title="职业进化链" color="amber" margin="none" />
-          <div class="text-right"><div class="text-sm font-bold text-brand-500">{{ currentLevel.label }}</div><div class="text-xs font-mono" :style="{color:'var(--text-muted)'}">CURRENT</div></div>
+    <!-- 技能等级 — 推进器阵列（垂直能量柱） -->
+    <div class="panel-bridge p-5 shadow-deep">
+      <div class="flex items-center justify-between mb-5">
+        <PanelHeader label="LEVELS" title="技能等级" color="mint" margin="none" />
+        <div class="text-right">
+          <div class="text-sm font-bold" :style="{color:'var(--mint-400)'}">{{ currentLevelName }}</div>
+          <div class="text-xs font-mono" :style="{color:'var(--text-muted)'}">CURRENT LEVEL</div>
         </div>
-        <EvolutionChain :levels="chainLevels" :current-level="currentLevelIdx" @level-click="onLevelClick" />
-        <!-- 等级详情卡片 -->
-        <div class="grid grid-cols-4 gap-3 mt-4 spring-list">
-          <div v-for="level in levels" :key="level.key" class="relative p-3 text-center transition-all lift-on-hover"
-            :style="{background:level.status==='locked'?'var(--bg-secondary)':'var(--bg-card)',border:'1px solid '+(level.status==='achieved'||level.status==='current'?level.color+'40':'var(--border-color)'),opacity:level.status==='locked'?0.5:1}">
-            <div class="h-1.5 progress-track-dark mb-2" style="background:var(--bg-secondary)"><div class="h-full rounded-sm transition-all duration-700" :style="{width:level.progress+'%',background:'linear-gradient(90deg,'+level.color+','+level.glowColor+')'}"></div></div>
-            <div class="text-xs font-mono font-bold" :style="{color:level.color}">{{ level.progress }}%</div>
+      </div>
+      <div class="flex items-end justify-between gap-2 md:gap-3 spring-list">
+        <div v-for="row in levelRows" :key="row.name" class="flex-1 flex flex-col items-center gap-2">
+          <!-- 状态灯 + 等级名 -->
+          <span class="fuel-led" :style="{ background: row.ledColor, boxShadow: '0 0 6px ' + row.ledColor }"></span>
+          <span class="text-xs font-mono font-bold tracking-wide" :style="{ color: row.current ? 'var(--mint-400)' : 'var(--text-secondary)' }">{{ row.name }}</span>
+          <!-- 能量柱 -->
+          <div class="fuel-rod" :class="row.current ? 'animate-glow-pulse-mint' : ''" :style="{ borderColor: row.current ? 'color-mix(in srgb, var(--mint-500) 55%, transparent)' : 'color-mix(in srgb, ' + row.color + ' 30%, transparent)' }">
+            <div v-if="row.current" class="fuel-scan"></div>
+            <div v-for="cell in ROD_CELLS" :key="cell" class="fuel-cell" :style="cellStyle(row, cell)"></div>
+          </div>
+          <!-- 读数 -->
+          <div class="text-sm font-mono font-bold" :style="{ color: row.color }">{{ row.progress }}%</div>
+          <div class="text-[10px] font-mono" :style="{ color:'var(--text-muted)' }">≥{{ row.minSkills }}项</div>
+          <div class="h-4 flex items-center">
+            <span v-if="row.current" class="tag-plate text-[10px]" style="color:var(--mint-400);border-color:var(--mint-400)">CURRENT</span>
+            <span v-else-if="row.isNext" class="text-[10px] font-mono" :style="{ color:'var(--amber-400)' }">NEXT ▸</span>
           </div>
         </div>
       </div>
@@ -37,7 +46,7 @@
       <div class="panel-industrial p-5 shadow-deep">
         <div class="rivet" style="top:8px;left:8px"></div>
         <PanelHeader label="HISTORY" title="技能增长时间轴" color="cyan" />
-        <div class="relative pl-8">
+        <div v-if="skillTimeline.length" class="relative pl-8">
           <div class="absolute left-4 top-0 bottom-0 w-0.5" style="background:linear-gradient(180deg,var(--brand-500),#a855f7,var(--cyan-500),var(--mint-500))"></div>
           <div v-for="(event,idx) in skillTimeline" :key="idx" class="relative pb-5 last:pb-0">
             <div class="absolute left-[-17px] top-1.5 w-2.5 h-2.5 rounded-full border-2 border-white" :style="{background:event.color,boxShadow:'0 0 8px '+event.color}"></div>
@@ -49,25 +58,71 @@
             </div>
           </div>
         </div>
+        <div v-else class="p-6 text-center panel-dark-zone">
+          <div class="text-2xl mb-2" :style="{color:'var(--text-muted)'}">◌</div>
+          <p class="text-sm" :style="{color:'var(--text-secondary)'}">暂无技能成长记录</p>
+          <p class="text-xs mt-1 font-mono" :style="{color:'var(--text-muted)'}">上传简历后自动生成技能画像时间轴</p>
+        </div>
       </div>
 
       <div class="panel-bridge p-5 shadow-deep">
         <PanelHeader label="NEXT" :title="nextLevelTitle" color="purple" />
-        <div v-if="nextLevel" class="space-y-4">
-          <div class="flex items-center gap-3 p-4 panel-asymmetric" :style="{border:'1px solid '+nextLevel.color+'40',background:'linear-gradient(135deg,'+nextLevel.color+'15,'+nextLevel.color+'05)'}">
-            <div class="text-3xl">{{ nextLevel.icon }}</div>
-            <div><div class="text-base font-bold" :style="{color:nextLevel.color}">{{ nextLevel.label }}</div><div class="text-xs font-mono" :style="{color:'var(--text-muted)'}">{{ nextLevel.skillRequirement }}</div></div>
-            <div class="ml-auto text-right"><div class="data-giant text-2xl" :style="{color:nextLevel.color}">{{ nextLevel.progress }}%</div><div class="text-xs font-mono" :style="{color:'var(--text-muted)'}">PROGRESS</div></div>
+        <template v-if="atMaxLevel">
+          <div class="p-6 text-center panel-asymmetric" style="border:1px solid color-mix(in srgb, var(--mint-500) 40%, transparent)">
+            <div class="text-3xl mb-2" :style="{color:'var(--mint-400)'}">★</div>
+            <div class="text-base font-bold" :style="{color:'var(--mint-400)'}">已达最高等级「专家」</div>
+            <div class="text-xs mt-1 font-mono" :style="{color:'var(--text-muted)'}">当前 {{ store.skillCount }} SKILLS</div>
           </div>
-          <div v-if="unmetRequirements.length" class="space-y-1.5">
-            <div class="text-xs font-bold tracking-wide flex items-center gap-1" :style="{color:'var(--text-muted)'}"><span class="w-1.5 h-1.5 rounded-full" style="background:#f59e0b"></span>待提升 ({{ unmetRequirements.length }})</div>
-            <div v-for="req in unmetRequirements" :key="req.skill" class="flex items-center gap-2 p-2.5 text-xs panel-asymmetric" style="background:color-mix(in srgb, var(--rose-500) 02%, transparent)">
-              <span class="font-mono font-bold" :style="{color:'var(--text-primary)'}">{{ req.skill }}</span>
-              <span class="font-mono ml-auto" :style="{color:'var(--text-muted)'}">{{ req.currentLevel }} → {{ req.requiredLevel }}</span>
-              <div class="w-12 h-1.5 progress-track-dark" style="background:var(--bg-secondary)"><div class="h-full rounded-sm bg-brand-gradient" :style="{width:req.progress+'%'}"></div></div>
+        </template>
+        <template v-else-if="nextRow">
+          <div class="flex items-center gap-3 p-4 panel-asymmetric" style="border:1px solid color-mix(in srgb, var(--amber-400) 40%, transparent);background:linear-gradient(135deg, color-mix(in srgb, var(--amber-400) 12%, transparent), transparent)">
+            <div class="text-3xl font-bold" :style="{color:'var(--amber-400)'}">{{ nextRow.name }}</div>
+            <div>
+              <div class="text-xs font-mono" :style="{color:'var(--text-muted)'}">NEXT LEVEL</div>
+              <div class="text-xs mt-0.5 font-mono" :style="{color:'var(--text-secondary)'}">累计掌握 ≥{{ nextRow.minSkills }} 项技能</div>
+            </div>
+            <div class="ml-auto text-right">
+              <div class="data-giant text-2xl" :style="{color:'var(--amber-400)'}">{{ nextRow.progress }}%</div>
+              <div class="text-xs font-mono" :style="{color:'var(--text-muted)'}">PROGRESS</div>
             </div>
           </div>
-          <div class="p-3 text-center text-xs panel-dark-zone" :style="{color:'var(--text-secondary)'}">按当前学习节奏，预计 <span class="font-bold font-mono text-brand-500">{{ estMonthsToNext }}</span> 后达到 {{ nextLevel.label }}</div>
+          <div class="mt-4 space-y-3">
+            <div>
+              <div class="flex justify-between text-xs font-mono mb-1">
+                <span :style="{color:'var(--text-secondary)'}">{{ store.skillCount }} / {{ nextRow.minSkills }} 技能</span>
+                <span :style="{color:'var(--text-muted)'}">差 {{ skillsToNext }} 项</span>
+              </div>
+              <div class="h-2 progress-track-dark" style="background:var(--bg-secondary)">
+                <div class="h-full transition-all duration-700" :style="{ width: nextRow.progress + '%', background: 'linear-gradient(90deg, var(--amber-400), var(--amber-300))' }"></div>
+              </div>
+            </div>
+            <div class="p-3 text-center text-xs panel-dark-zone" :style="{color:'var(--text-secondary)'}">按当前学习节奏，预计 <span class="font-bold font-mono" :style="{color:'var(--amber-400)'}">{{ estMonthsToNext }} MONTHS</span> 后达到「{{ nextRow.name }}」</div>
+          </div>
+        </template>
+      </div>
+    </div>
+
+    <!-- 职业里程碑 -->
+    <div class="panel-asymmetric p-5 shadow-deep">
+      <div class="flex items-center justify-between mb-4">
+        <PanelHeader label="MILESTONES" title="职业里程碑" color="amber" margin="none" />
+        <div class="text-xs font-mono" :style="{color:'var(--text-muted)'}">已解锁 <span class="font-bold" :style="{color:'var(--amber-400)'}">{{ unlockedCount }}</span> / {{ milestoneRows.length }}</div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div v-for="m in milestoneRows" :key="m.name" class="p-3 panel-bridge transition-all"
+          :style="{ border: '1px solid ' + (m.unlocked ? m.color + '44' : 'var(--border-color)'), opacity: m.unlocked ? 1 : 0.65 }">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-lg" :style="{ color: m.color }">{{ m.icon }}</span>
+            <span class="text-xs font-bold tracking-wide" :style="{ color: m.unlocked ? m.color : 'var(--text-secondary)' }">{{ m.name }}</span>
+            <span class="ml-auto text-[10px] font-mono" :style="{ color: m.unlocked ? 'var(--mint-400)' : 'var(--text-muted)' }">{{ m.unlocked ? 'UNLOCKED' : '未解锁' }}</span>
+          </div>
+          <p class="text-xs mb-2" :style="{color:'var(--text-muted)'}">{{ m.description }}</p>
+          <div class="flex items-center gap-2">
+            <div class="flex-1 h-1.5 progress-track-dark" style="background:var(--bg-secondary)">
+              <div class="h-full transition-all duration-700" :style="{ width: m.progress + '%', background: m.color }"></div>
+            </div>
+            <span class="text-[10px] font-mono" :style="{ color: m.color }">{{ m.progress }}%</span>
+          </div>
         </div>
       </div>
     </div>
@@ -75,76 +130,98 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
+import { computed, onMounted } from 'vue'
 import { usePersonalStore } from '@/stores/personal'
 import { PALETTE } from '@/utils/color'
 import { useScrollReveal } from '@/composables/useScrollReveal'
-import EvolutionChain from '@/components/personal/EvolutionChain.vue'
 import PanelHeader from '@/components/common/PanelHeader.vue'
-import HolographicBackdrop from '@/components/common/HolographicBackdrop.vue'
 useScrollReveal()
 const store = usePersonalStore()
-const userLevel = computed(() => store.growth?.currentLevel ?? 24)
 
-interface LevelDef { key:string;label:string;icon:string;color:string;glowColor:string;skillRequirement:string;progress:number;status:'achieved'|'current'|'upcoming'|'locked' }
-const levels = computed<LevelDef[]>(()=>{
-  const total=store.skillCount; const expert=store.skills.filter(s=>s.level==='expert'||s.level==='advanced').length
-  const defs:LevelDef[]=[
-    {key:'junior',label:'初级',icon:'◆',color:'#6b7280',glowColor:'#9ca3af',skillRequirement:'5 SKILLS',progress:100,status:'achieved'},
-    {key:'mid',label:'中级',icon:'◈',color:'var(--brand-500)',glowColor:'var(--brand-400)',skillRequirement:'8 SKILLS',progress:Math.min(100,Math.round((total/8)*100)),status:'current'},
-    {key:'senior',label:'高级',icon:'▲',color:'#06b6d4',glowColor:'#22d3ee',skillRequirement:'10 SKILLS + 3 EXPERT',progress:Math.min(100,Math.round((expert/3)*100)),status:'upcoming'},
-    {key:'expert',label:'专家',icon:'★',color:'#10b981',glowColor:'#34d399',skillRequirement:'12 SKILLS + 5 EXPERT',progress:Math.min(100,Math.round((expert/5)*100)),status:'locked'},
-  ]
-  if(expert>=5&&total>=12){defs[3].status='current';defs[2].status='achieved';defs[1].status='achieved'}
-  else if(expert>=3&&total>=10){defs[2].status='current';defs[1].status='achieved'}
-  return defs
-})
-const currentLevelIdx = computed(()=>levels.value.findIndex(l=>l.status==='current'))
-const currentLevel = computed(()=>levels.value[currentLevelIdx.value]||levels.value[0])
-// 点选链条节点可聚焦对应等级要求（默认指向下一等级）
-const focusedLevelIdx = ref<number | null>(null)
-const nextLevel = computed(()=>{
-  const i = focusedLevelIdx.value ?? currentLevelIdx.value + 1
-  return levels.value[i] || levels.value[levels.value.length - 1]
-})
-const nextLevelTitle = computed(()=>{
-  const l = focusedLevelIdx.value != null ? levels.value[focusedLevelIdx.value] : null
-  return l && l.status === 'current' ? `${l.label} · 当前等级要求` : '下一等级要求'
-})
+// ── 技能等级 — 5 级进度条（后端 /api/personal/growth.levels 优先，空则回退固定阈值）──
+const GROWTH_LEVELS = [
+  { level: 1, name: '新手', minSkills: 0 },
+  { level: 10, name: '初级', minSkills: 3 },
+  { level: 30, name: '中级', minSkills: 8 },
+  { level: 60, name: '高级', minSkills: 15 },
+  { level: 90, name: '专家', minSkills: 25 },
+]
+const growthLevels = computed(() => store.growth?.levels?.length ? store.growth.levels : GROWTH_LEVELS)
 
-// 进化链数据
-const chainLevels = computed(() => levels.value.map(l => ({
-  level: levels.value.indexOf(l) + 1,
-  name: l.label,
-  icon: l.icon,
-  unlocked: l.status === 'achieved' || l.status === 'current',
-  current: l.status === 'current',
-  skillCount: store.skillCount,
-  requiredCount: parseInt(l.skillRequirement) || 5,
-})))
-function onLevelClick(node: any) {
-  const idx = levels.value.findIndex(l => l.key === node?.key)
-  focusedLevelIdx.value = idx >= 0 ? idx : null
+/** 当前等级 = 最后一个技能数达标的等级 */
+const currentIdx = computed(() => {
+  let idx = 0
+  growthLevels.value.forEach((l, i) => { if (store.skillCount >= l.minSkills) idx = i })
+  return idx
+})
+const currentLevelName = computed(() => growthLevels.value[currentIdx.value]?.name ?? '新手')
+
+interface LevelRow { name: string; minSkills: number; progress: number; achieved: boolean; current: boolean; isNext: boolean; color: string; ledColor: string }
+const ROD_CELLS = 8
+const levelRows = computed<LevelRow[]>(() =>
+  growthLevels.value.map((l, i) => {
+    const progress = l.minSkills <= 0 ? 100 : Math.min(100, Math.round((store.skillCount / l.minSkills) * 100))
+    const achieved = store.skillCount >= l.minSkills
+    const color = achieved ? 'var(--mint-500)' : i === currentIdx.value + 1 ? 'var(--amber-400)' : '#52525b'
+    return {
+      name: l.name,
+      minSkills: l.minSkills,
+      progress,
+      achieved,
+      current: i === currentIdx.value,
+      isNext: i === currentIdx.value + 1,
+      color,
+      ledColor: i === currentIdx.value ? 'var(--mint-400)' : color,
+    }
+  })
+)
+/** 能量柱单格：自下而上充能，已充格带渐变亮面 + 光晕，隔格微暗营造燃料棒质感 */
+function cellStyle(row: LevelRow, cell: number) {
+  const filled = cell <= Math.round((row.progress / 100) * ROD_CELLS)
+  if (!filled) return { background: 'color-mix(in srgb, var(--text-muted) 14%, transparent)' }
+  return {
+    background: `linear-gradient(180deg, color-mix(in srgb, ${row.color} 55%, #fff), ${row.color})`,
+    boxShadow: `0 0 6px color-mix(in srgb, ${row.color} 50%, transparent)`,
+    opacity: cell % 2 === 0 ? 0.85 : 1,
+  }
 }
 
-interface Requirement { skill:string;currentLevel:string;requiredLevel:string;progress:number }
-const unmetRequirements = computed<Requirement[]>(()=>[
-  {skill:'深度学习',currentLevel:'高级',requiredLevel:'专家',progress:72},
-  {skill:'MLOps',currentLevel:'初级',requiredLevel:'高级',progress:38},
-  {skill:'系统设计',currentLevel:'中级',requiredLevel:'高级',progress:65},
-])
-const estMonthsToNext = computed(()=>{const u=unmetRequirements.value.length;return u<=1?'3 MONTHS':u<=2?'6 MONTHS':(u*3)+' MONTHS'})
+// ── 下一等级 — 真实缺口推导（对齐后端 level-requirements 公式：(target - total) * 2）──
+const atMaxLevel = computed(() => currentIdx.value >= growthLevels.value.length - 1)
+const nextRow = computed(() => levelRows.value[currentIdx.value + 1] ?? null)
+const skillsToNext = computed(() => nextRow.value ? Math.max(0, nextRow.value.minSkills - store.skillCount) : 0)
+const estMonthsToNext = computed(() => skillsToNext.value * 2)
+const nextLevelTitle = computed(() => atMaxLevel.value ? '已达最高等级' : '下一等级要求')
 
-const demoSkillTimeline = [
-  {date:'2022.03',color:'#6b7280',badgeBg:'rgba(107,114,128,0.1)',badgeColor:'#6b7280',skillsGained:3,skills:['Python','SQL','Git'],cumulativeCount:3,description:'毕业后入职，Java后端开发起步'},
-  {date:'2023.06',color:'var(--brand-500)',badgeBg:'color-mix(in srgb, var(--brand-500) 10%, transparent)',badgeColor:'var(--brand-500)',skillsGained:2,skills:['Docker/K8s','React'],cumulativeCount:5,description:'转向全栈开发，接触前端和容器化'},
-  {date:'2024.03',color:'#06b6d4',badgeBg:'color-mix(in srgb, var(--cyan-500) 10%, transparent)',badgeColor:'#06b6d4',skillsGained:2,skills:['深度学习','NLP'],cumulativeCount:7,description:'AI浪潮下转投机器学习方向'},
-  {date:'2024.09',color:'#a855f7',badgeBg:'color-mix(in srgb, var(--purple-500) 10%, transparent)',badgeColor:'#a855f7',skillsGained:3,skills:['TypeScript','系统设计','数据分析'],cumulativeCount:10,description:'系统性提升架构能力和工程化思维'},
-  {date:'2025.06',color:'#10b981',badgeBg:'color-mix(in srgb, var(--mint-500) 10%, transparent)',badgeColor:'#10b981',skillsGained:2,skills:['MLOps','Go'],cumulativeCount:12,description:'ML工程化实践，Go语言入门'},
-]
+// ── 技能增长时间轴 — 按技能 firstSeen 首现月份分组推导（后端 growth.timeline 非空时优先）──
+interface TimelineEvent { date: string; color: string; badgeBg: string; badgeColor: string; skillsGained: number; skills: string[]; cumulativeCount: number; description: string }
 const timelineColors = [PALETTE.mint, PALETTE.cyan, PALETTE.purple, PALETTE.amber, PALETTE.rose]
-// 真实 /api/personal/growth.timeline 覆盖 demo（Silent Fallback）
-const skillTimeline = computed(() => {
+const derivedSkillTimeline = computed<TimelineEvent[]>(() => {
+  const byMonth = new Map<string, string[]>()
+  store.skills.forEach(s => {
+    const d = String(s.firstSeen || '').trim()
+    if (!d) return
+    const m = d.slice(0, 7)
+    if (!byMonth.has(m)) byMonth.set(m, [])
+    byMonth.get(m)!.push(s.name)
+  })
+  const months = [...byMonth.keys()].sort()
+  let cum = 0
+  return months.map((m, i) => {
+    const skills = byMonth.get(m)!
+    cum += skills.length
+    const c = timelineColors[i % timelineColors.length]
+    return {
+      date: m,
+      color: c, badgeBg: c + '1a', badgeColor: c,
+      skillsGained: skills.length,
+      skills: skills.slice(0, 8),
+      cumulativeCount: cum,
+      description: `新增 ${skills.length} 项技能：${skills.join('、')}${skills.length > 8 ? ' 等' : ''}`,
+    }
+  })
+})
+const skillTimeline = computed<TimelineEvent[]>(() => {
   const real = store.growth?.timeline
   if (real?.length) {
     return real.map((ev, i) => {
@@ -157,8 +234,84 @@ const skillTimeline = computed(() => {
       }
     })
   }
-  return demoSkillTimeline
+  return derivedSkillTimeline.value
 })
 
-onMounted(() => { store.fetchSkills(); store.fetchGrowth() })
+// ── 职业里程碑 — 后端 /api/personal/milestones 非空直接采用；否则展示定义型里程碑（进度从真实数据推导）──
+interface MilestoneRow { name: string; description: string; icon: string; rarity: string; unlocked: boolean; progress: number; target: number; color: string }
+const RARITY_COLOR: Record<string, string> = {
+  common: '#71717a',
+  uncommon: 'var(--brand-400)',
+  epic: 'var(--purple-500)',
+  legendary: 'var(--amber-400)',
+  gold: 'var(--amber-400)',
+}
+function rarityColor(r: string): string {
+  return RARITY_COLOR[r?.toLowerCase()] ?? 'var(--brand-400)'
+}
+const milestoneRows = computed<MilestoneRow[]>(() => {
+  if (store.milestones?.length) {
+    return store.milestones.map(m => ({
+      name: m.name, description: m.description,
+      icon: m.icon || '◈', rarity: m.rarity || 'common',
+      unlocked: m.unlocked, progress: m.progress, target: m.target,
+      color: rarityColor(m.rarity || 'common'),
+    }))
+  }
+  const total = store.skillCount
+  const completed = store.learningPath.filter(s => s.status === 'completed').length
+  return [
+    { name: '首份技能画像', description: '上传简历生成技能画像', icon: '▣', rarity: 'common', unlocked: total > 0, progress: total > 0 ? 100 : 0, target: 100 },
+    { name: '技能储备 · 10', description: '累计掌握 10 项技能', icon: '◈', rarity: 'uncommon', unlocked: total >= 10, progress: Math.min(100, Math.round(total / 10 * 100)), target: 100 },
+    { name: '首条学习路径', description: '完成 1 条学习路径', icon: '⬢', rarity: 'epic', unlocked: completed > 0, progress: Math.min(100, Math.round(completed / 1 * 100)), target: 100 },
+    { name: '技能储备 · 25', description: '累计掌握 25 项技能', icon: '★', rarity: 'legendary', unlocked: total >= 25, progress: Math.min(100, Math.round(total / 25 * 100)), target: 100 },
+  ].map(d => ({ ...d, color: rarityColor(d.rarity) }))
+})
+const unlockedCount = computed(() => milestoneRows.value.filter(m => m.unlocked).length)
+
+onMounted(() => { store.fetchSkills(); store.fetchGrowth(); store.fetchMilestones() })
 </script>
+
+<style scoped>
+/* ── 推进器能量柱 ── */
+.fuel-rod {
+  position: relative;
+  display: flex;
+  flex-direction: column-reverse;   /* 单元格自下而上充能 */
+  gap: 3px;
+  padding: 5px;
+  width: clamp(3.25rem, 5.5vw, 4.5rem);
+  height: 8.5rem;
+  overflow: hidden;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px); /* 工业斜切角 */
+}
+.fuel-cell {
+  flex: 1 1 0;
+  transition: background 0.5s ease, box-shadow 0.5s ease, opacity 0.5s ease;
+}
+/* 当前级：自下而上扫描线 */
+.fuel-scan {
+  position: absolute;
+  left: 2px;
+  right: 2px;
+  height: 26px;
+  top: calc(100% + 4px);
+  background: linear-gradient(180deg, transparent, color-mix(in srgb, var(--mint-500) 50%, transparent), transparent);
+  animation: fuel-scan-up 2.8s linear infinite;
+  pointer-events: none;
+}
+@keyframes fuel-scan-up {
+  0% { top: calc(100% + 4px); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { top: -30px; opacity: 0; }
+}
+/* 状态灯 */
+.fuel-led {
+  width: 8px;
+  height: 8px;
+  border-radius: 1px;
+}
+</style>

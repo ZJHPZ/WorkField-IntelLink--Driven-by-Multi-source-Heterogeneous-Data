@@ -22,6 +22,12 @@ const MAP: Record<string, { cls: string; label: string }> = {
   healthy:   { cls: 'seal-chip--navy', label: '健康' },
   warning:   { cls: '', label: '需关注' },
   critical:  { cls: 'seal-chip--faded', label: '严重' },
+  // 人才库 HR 状态（盖章推进）
+  '':            { cls: 'seal-chip--dim', label: '未标注' },
+  shortlisted:   { cls: 'seal-chip--navy', label: '已筛选' },
+  interviewing:  { cls: '', label: '面试中' },
+  offered:       { cls: '', label: '已Offer' },
+  archived:      { cls: 'seal-chip--faded', label: '已归档' },
 }
 
 const variantClass = computed(() => MAP[props.status]?.cls ?? 'seal-chip--dim')

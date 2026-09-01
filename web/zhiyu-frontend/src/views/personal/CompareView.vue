@@ -35,6 +35,7 @@
             ? {background: getPositionColor(getIndex(pos)), color:'white', boxShadow:'0 0 10px '+getPositionColor(getIndex(pos))+'60'}
             : {background:'var(--bg-secondary)',color:'var(--text-muted)',border:'1px solid var(--border-color)'}">
           {{ pos.name }}
+          <span v-if="isFavName(pos.name)" class="ml-1 text-[8px]" style="color:#facc15">★</span>
           <span v-if="isSelected(pos)" class="ml-1 text-[8px]">✓</span>
         </button>
       </div>
@@ -294,14 +295,27 @@ interface Pos { id:string; name:string; skills:string[]; matchRate:number; match
 const POSITION_COLORS = ['var(--brand-500)', 'var(--cyan-500)', '#a855f7']
 
 const allPositions = computed<Pos[]>(() => {
-  if (store.matches.length) {
-    return store.matches.map(m => ({ id:m.id, name:m.positionName, skills:m.matchedSkills.concat(m.missingSkills), matchRate:m.matchRate, matchedSkills:m.matchedSkills, missingSkills:m.missingSkills, salary:m.salaryRange }))
-  }
-  return [
-    { id:'d1', name:'AI 算法工程师', skills:['Python','PyTorch','Transformer','RAG','DeepSpeed','MLOps','NLP'], matchRate:72, matchedSkills:['Python','PyTorch','NLP'], missingSkills:['MLOps','DeepSpeed','Transformer','RAG'], salary:'40-70K' },
-    { id:'d2', name:'全栈开发工程师', skills:['TypeScript','React','Node.js','SQL','Docker','AWS'], matchRate:85, matchedSkills:['TypeScript','React','SQL','Docker'], missingSkills:['Node.js','AWS'], salary:'30-50K' },
-    { id:'d3', name:'大数据工程师', skills:['Spark','Flink','Kafka','Hadoop','SQL','Python','ClickHouse'], matchRate:52, matchedSkills:['SQL','Python'], missingSkills:['Spark','Flink','Kafka','Hadoop','ClickHouse'], salary:'35-60K' },
-  ]
+  const base: Pos[] = store.matches.length
+    ? store.matches.map(m => ({ id:m.id, name:m.positionName, skills:m.matchedSkills.concat(m.missingSkills), matchRate:m.matchRate, matchedSkills:m.matchedSkills, missingSkills:m.missingSkills, salary:m.salaryRange }))
+    : [
+        { id:'d1', name:'AI 算法工程师', skills:['Python','PyTorch','Transformer','RAG','DeepSpeed','MLOps','NLP'], matchRate:72, matchedSkills:['Python','PyTorch','NLP'], missingSkills:['MLOps','DeepSpeed','Transformer','RAG'], salary:'40-70K' },
+        { id:'d2', name:'全栈开发工程师', skills:['TypeScript','React','Node.js','SQL','Docker','AWS'], matchRate:85, matchedSkills:['TypeScript','React','SQL','Docker'], missingSkills:['Node.js','AWS'], salary:'30-50K' },
+        { id:'d3', name:'大数据工程师', skills:['Spark','Flink','Kafka','Hadoop','SQL','Python','ClickHouse'], matchRate:52, matchedSkills:['SQL','Python'], missingSkills:['Spark','Flink','Kafka','Hadoop','ClickHouse'], salary:'35-60K' },
+      ]
+  // 收藏岗位优先置顶进对比选择池（收藏快照自带个人覆盖的 matched/missing，可直接参与雷达/打分）
+  const favs: Pos[] = store.favorites.map(f => ({
+    id: f.id, name: f.name,
+    skills: [...f.matchedSkills, ...f.missingSkills],
+    matchRate: f.matchRate, matchedSkills: f.matchedSkills, missingSkills: f.missingSkills, salary: f.salary,
+  }))
+  // 按名称去重（收藏与匹配池可能命中同一岗位）
+  const seen = new Set<string>()
+  return [...favs, ...base].filter(p => {
+    const k = p.name.toLowerCase()
+    if (seen.has(k)) return false
+    seen.add(k)
+    return true
+  })
 })
 
 const selectedPositions = ref<Pos[]>([])
@@ -318,6 +332,8 @@ function togglePosition(p:Pos){
   else if(selectedPositions.value.length<2) selectedPositions.value.push(p)
 }
 function clearSelection(){ selectedPositions.value=[] }
+/** 是否来自收藏（选择条 ★ 标识） */
+function isFavName(name:string){ return store.favorites.some(f=>f.name.toLowerCase()===name.toLowerCase()) }
 
 const radarDimensions = computed<RadarDimension[]>(() => {
   const a=posA.value, b=posB.value

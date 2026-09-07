@@ -18,6 +18,11 @@ class Settings(BaseSettings):
     APP_TITLE: str = "职域智联图谱 API"
     APP_VERSION: str = "2.0.0"
 
+    # ── 简历解析模式 ──
+    # pseudo = 确定性伪解析（默认；无需智能体，关键字嗅探模拟分析效果）
+    # agent  = 走 MultiAgentSystem(EXTRACT_SKILLS) 真智能体（需配置星火并联网）
+    RESUME_PARSE_MODE: Literal["pseudo", "agent"] = "pseudo"
+
     # ── 星火 LLM ──
     SPARK_API_PASSWORD: str = ""
     SPARK_BASE_URL: str = "https://spark-api-open.xf-yun.com/agent/v1/"

@@ -11,7 +11,7 @@ The frontend is effectively **two separate projects** in one repo — they do **
 | Mode | Route prefix | Target User | Design language |
 |---|---|---|---|
 | **个人侧** | `/personal` | Individual professionals | **深空舰桥工业风格** — `DESIGN_SYSTEM.md` v2.0 |
-| **企业侧** | `/enterprise` | HR / managers | **蓝皮书 · 权威纸面** — `DESIGN_SYSTEM_企业侧.md` v1.0, implemented in `enterprise.css` across all 10 views (Aug 2026) |
+| **企业侧** | `/enterprise` | HR / managers | **蓝皮书 · 权威纸面** — `DESIGN_SYSTEM_企业侧.md` v1.0, implemented in `enterprise.css` across all 13 views (Aug–Sep 2026) |
 
 > ⚠ Two fully separate design systems, both implemented. Do NOT apply the industrial utilities (`panel-*`, `rivet`, `nav-chip`, …) to enterprise views — they belong to the personal side only. Enterprise views use `enterprise.css` classes (`.panel-doc`, `.doc-masthead`, `.seal-chip`, `.leader-row`, …) and stay on a fixed light paper regardless of the global dark theme.
 
@@ -52,7 +52,7 @@ No test runner, linter, or formatter is configured. Proxy target is **8001** —
 | `src/components/common/ProgressRing.vue` | SVG orbital progress ring — gradient stroke |
 | `src/components/common/HolographicBackdrop.vue` | Three.js holographic canvas layer |
 | `src/stores/personal.ts` | Silent Fallback pattern: demo data → API override → silent catch |
-| `src/router/index.ts` | All routes (10 enterprise + 15 personal) with `meta.title` and `meta.role` for nav filtering |
+| `src/router/index.ts` | All routes (13 enterprise + 15 personal + `/choose` 选边) with `meta.title` and `meta.role` for nav filtering / cross-side guard |
 | `src/api/client.ts` | Axios instance; response interceptor returns `response.data` directly |
 | `DESIGN_SYSTEM.md` | 深空舰桥工业风格完整规范 (v2.0) — applies to **个人侧 only** |
 | `DESIGN_SYSTEM_企业侧.md` | 蓝皮书·权威纸面完整规范 (v1.0) — applies to **企业侧 only** |
@@ -74,16 +74,17 @@ Theme switching: set `data-theme` attribute on `<html>`. The `stores/theme.ts` s
 
 ### Stores & API
 
-- Pinia stores: `app.ts`, `enterprise.ts`, `personal.ts`, `chat.ts`, `theme.ts`
+- Pinia stores: `app.ts` (role/side), `enterprise.ts`, `personal.ts`, `chat.ts`, `theme.ts`, `avatar.ts` (数字人). `enterprise.ts`/`personal.ts` both grew to back real endpoints; `app.ts` holds the cross-side role (`app_role`).
 - `client.ts` interceptor returns `response.data` and normalizes errors (backend `detail.error_message` → `detail` → `message`). Callers see the payload, not the Axios envelope.
 
 ### Routes
 
-**Enterprise (10)** — 蓝皮书·权威纸面 design language:
+**Enterprise (13)** — 蓝皮书·权威纸面 design language:
 ```
 /enterprise /enterprise/positions /enterprise/positions/:id
 /enterprise/positions/:id/diff /enterprise/discovery /enterprise/diagnose
 /enterprise/diagnose/batch /enterprise/team /enterprise/forecast /enterprise/graph
+/enterprise/talent-pool /enterprise/talent-pool/:id /enterprise/profile
 ```
 
 **Personal (15)** — 深空舰桥工业风格:
@@ -94,7 +95,7 @@ Theme switching: set `data-theme` attribute on `<html>`. The `stores/theme.ts` s
 /personal/spectrum/:skill /personal/evolution
 ```
 
-Note: `/` redirects to `/enterprise` (enterprise is the default landing).
+Entry point: `/` reads `localStorage.app_role` → `/personal` / `/enterprise` / (new users) `/choose` 选边页 (`RoleChooseView.vue`). A `router.beforeEach` cross-side guard bounces mismatched `meta.role` routes back to `/choose`. App.vue has a「切换工作台」switch.
 
 ## Key Patterns
 
@@ -123,11 +124,16 @@ Theme switched via `data-theme="dark"|"light"|"warm"|"warm-light"` on `<html>`. 
 ### SSE Streaming
 Server-Sent Events consumed via `fetch` + `ReadableStream` reader → parse `data:` JSON lines → async generator. Used for AI streaming responses in `/personal/chat` (backed by `POST /api/personal/ai/chat`).
 
+### AI 对话回退 + 数字人 (avatar)
+- **对话**: `/personal/ai/chat` prefers the Coze「帕克」agent (`stores/chat.ts`; server proxies `coze_service.stream_chat`, keeping the SSE contract) and **falls back to 讯飞星火/规则** when Coze fails or is unset. The streaming UI must tolerate both sources — never white-screen on upstream failure.
+- **数字人**: `components/enterprise/EnterpriseAvatar.vue` + `composables/useAvatarSDK.ts` + `stores/avatar.ts`. Loads the 讯飞虚拟人 Web SDK from `public/avatar-sdk-web_3.2.3.1002/` via `public/avatar-loader.js`. Real persona only when `GET /api/enterprise/avatar/signed-url` returns `configured:true` (server-side `AVATAR_API_KEY`/`AVATAR_API_SECRET` present); otherwise demo mode — browser TTS reads `utils/avatarScripts.ts`. Never put `apiKey`/`apiSecret` in frontend code.
+
 ## Backend Dependency (condensed — see `../CLAUDE.md` for full detail)
 
 - FastAPI in `../后/`, **MySQL only** (`zhiyv` db). The graph layer was **migrated from Neo4j to MySQL** — `app/graph/repository.py` issues SQLAlchemy queries, Neo4j is dead code. Do not treat Neo4j as a runtime dependency.
 - Multi-agent system in `../后/app/agents/`: `MultiAgentSystem` entry → registry / router / executor / `agent_state` (16 static `IntentType`s mapped to API endpoints, not NLP).
-- All ~50 `/api/*` endpoints are implemented (no 501s). Dev ports: frontend **3001** → backend **8001**.
+- All ~60 `/api/*` endpoints are implemented (no 501s). Dev ports: frontend **3001** → backend **8001**.
+- Recent backend additions the frontend consumes: `/api/jd/*` + JD-derived MySQL tables (side-channel, see root `CLAUDE.md` "JD 二次加工"); `/api/enterprise/talent-pool*`, `/profile`, `/avatar/signed-url`; Coze「帕克」+ avatar live in `../后/app/services/{coze_service,avatar_service}.py`.
 
 ## Things NOT to Carry Over from 数知 (`../参考/shuzhi-frontend/`)
 - DesktopPet, PetBubble, PetSwitcher (gamification)
